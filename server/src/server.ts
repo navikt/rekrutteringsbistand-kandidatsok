@@ -1,5 +1,5 @@
 import path from 'path';
-import express, { Request, Response } from 'express';
+import express, { Response } from 'express';
 import compression from 'compression';
 
 const port = process.env.PORT || 3000;

@@ -18,14 +18,14 @@ jobs:
                   cache-dependency-path: |
                       package-lock.json
                       server/package-lock.json
-            - name: Installer avhengigheter
-              run: npm ci
-            - name: Bygg applikasjon
-              run: npm run build
             - name: Installer avhengigheter for server
               run: cd server && npm ci
             - name: Bygg server
               run: cd server && npm run build
+            - name: Installer avhengigheter
+              run: npm ci
+            - name: Bygg applikasjon
+              run: npm run build
             - name: Bygg og publiser Docker-image
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
