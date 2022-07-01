@@ -1,0 +1,19 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+    name: rekrutteringsbistand-kandidatsok
+    namespace: toi
+    labels:
+        team: toi
+spec:
+    # prettier-ignore
+    image: {{ image }}
+    port: 3000
+    ingresses:
+        - https://rekrutteringsbistand.dev.intern.nav.no/rekrutteringsbistand-kandidatsok
+    liveness:
+        initialDelay: 5
+        path: /rekrutteringsbistand-kandidatsok/internal/isAlive
+    readiness:
+        initialDelay: 5
+        path: /rekrutteringsbistand-kandidatsok/internal/isReady

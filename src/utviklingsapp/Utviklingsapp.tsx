@@ -25,7 +25,7 @@ const Utviklingsapp = () => {
         <Router history={history}>
             <header className={css.utviklingsapp}>
                 <Heading size="medium" level="1">
-                    Utviklingsapp for rekrutteringsbistand-stillingssok
+                    Utviklingsapp for rekrutteringsbistand-kandidatsok
                 </Heading>
             </header>
             <Switch>

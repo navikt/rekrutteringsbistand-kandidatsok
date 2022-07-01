@@ -15,7 +15,7 @@ const AppMedRouter = (props: AppProps) => (
 );
 
 if (skalEksporteres) {
-    Navspa.eksporter('rekrutteringsbistand-stillingssok', AppMedRouter);
+    Navspa.eksporter('rekrutteringsbistand-kandidatsok', AppMedRouter);
 } else {
     const app = document.getElementById('utviklingsapp');
     const root = createRoot(app!);
