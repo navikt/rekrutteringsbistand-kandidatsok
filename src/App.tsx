@@ -17,7 +17,7 @@ const App = ({ history }: AppProps) => {
             <Heading size="medium" level="1">
                 Kandidatsøk
             </Heading>
-            {respons.kind === 'lasterInn' && <Loader />}
+            {respons.kind === 'laster-inn' && <Loader />}
             {respons.kind === 'suksess' && <Resultat respons={respons.data} />}
         </>
     );

@@ -1,11 +1,11 @@
-export type Nettstatus = 'ikkeLastet' | 'lasterInn' | 'suksess' | 'feil';
+export type Nettstatus = 'ikke-lastet' | 'laster-inn' | 'suksess' | 'feil';
 
 type IkkeLastet = {
-    kind: 'ikkeLastet';
+    kind: 'ikke-lastet';
 };
 
 type LasterInn = {
-    kind: 'lasterInn';
+    kind: 'laster-inn';
 };
 
 type Suksess<T> = {

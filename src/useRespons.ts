@@ -8,13 +8,13 @@ import { Respons } from './elasticSearchTyper';
 const useRespons = () => {
     const { search } = useLocation();
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
-        kind: 'ikkeLastet',
+        kind: 'ikke-lastet',
     });
 
     useEffect(() => {
         const hentKandidater = async () => {
             setRespons({
-                kind: 'lasterInn',
+                kind: 'laster-inn',
             });
 
             try {
