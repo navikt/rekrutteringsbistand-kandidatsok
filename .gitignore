@@ -2,6 +2,7 @@ node_modules
 
 /build
 /server/build
+.env.development.local
 
 .DS_Store
 npm-debug.log*
