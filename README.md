@@ -10,10 +10,21 @@ npm install
 
 ## Utvikling
 
-### Med mock
+### Med ekte data
+
+Slik kan du koble til OpenSearch direkte fra utviklingsmiljøet:
 
 ```
-npm run start:mock
+# 1) Opprett en fil for lokale miljøvariabler
+touch .env.development.local
+
+# 2) Kopier URL, brukernavn og passord til OpenSearch inn i filen
+OPEN_SEARCH_USERNAME=<brukernavn>
+OPEN_SEARCH_PASSWORD=<passord>
+OPEN_SEARCH_URI=<url>
+
+# 3) Start utviklingsmiljøet
+npm run start
 ```
 
 # Henvendelser
