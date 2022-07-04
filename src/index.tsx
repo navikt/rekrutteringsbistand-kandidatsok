@@ -6,7 +6,9 @@ import { Router } from 'react-router-dom';
 import App, { AppProps } from './App';
 import '@navikt/ds-css';
 
-const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
+import 'vite/modulepreload-polyfill';
+
+const skalEksporteres = import.meta.env.VITE_EXPORT || import.meta.env.PROD;
 
 const AppMedRouter = (props: AppProps) => (
     <Router history={props.history}>
