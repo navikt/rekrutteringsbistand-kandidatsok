@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserHistory } from 'history';
-import { Heading, Loader } from '@navikt/ds-react';
+import { Heading, Loader, TextField } from '@navikt/ds-react';
 import Resultat from './Resultat';
 import useRespons from './useRespons';
+import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
@@ -17,8 +18,19 @@ const App = ({ history }: AppProps) => {
             <Heading size="medium" level="1">
                 Kandidatsøk
             </Heading>
-            {respons.kind === 'laster-inn' && <Loader />}
-            {respons.kind === 'suksess' && <Resultat respons={respons.data} />}
+            <div className={css.container}>
+                <aside>
+                    <TextField
+                        type="text"
+                        label="Søk på kandidat"
+                        description="F.eks navn, fødselsnummer eller yrke"
+                    />
+                </aside>
+                <main>
+                    {respons.kind === 'laster-inn' && <Loader />}
+                    {respons.kind === 'suksess' && <Resultat respons={respons.data} />}
+                </main>
+            </div>
         </>
     );
 };
