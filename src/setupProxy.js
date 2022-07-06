@@ -20,6 +20,9 @@ module.exports = (app) => {
     };
 
     if (!REACT_APP_MOCK) {
-        setupProxy('/rekrutteringsbistand-kandidatsok/kandidatsok-proxy', OPEN_SEARCH_URI);
+        setupProxy(
+            '/rekrutteringsbistand-kandidatsok/kandidatsok-proxy',
+            `${OPEN_SEARCH_URI}/veilederkandidat_current/_search`
+        );
     }
 };

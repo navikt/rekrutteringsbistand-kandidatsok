@@ -31,6 +31,10 @@ export type Respons = {
         failed: number;
     };
     hits: {
+        total: {
+            value: number;
+            relation: 'eq';
+        };
         max_score: number | null;
         hits: Array<Hit>;
     };

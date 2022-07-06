@@ -1,0 +1,16 @@
+.kandidater {
+    padding: 0;
+    margin: 1.5rem 0 0;
+    list-style: none;
+}
+
+.kandidat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.kandidat:nth-child(2n-1) {
+    background-color: white;
+}

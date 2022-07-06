@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserHistory } from 'history';
 import { Heading, Loader, TextField } from '@navikt/ds-react';
-import Resultat from './Resultat';
+import Resultat from './resultat/Resultat';
 import useRespons from './useRespons';
 import css from './App.module.css';
 
@@ -26,10 +26,8 @@ const App = ({ history }: AppProps) => {
                         description="F.eks navn, fødselsnummer eller yrke"
                     />
                 </aside>
-                <main>
-                    {respons.kind === 'laster-inn' && <Loader />}
-                    {respons.kind === 'suksess' && <Resultat respons={respons.data} />}
-                </main>
+                {respons.kind === 'laster-inn' && <Loader />}
+                {respons.kind === 'suksess' && <Resultat respons={respons.data} />}
             </div>
         </>
     );
