@@ -1,10 +1,9 @@
 import { Query, Respons } from '../elasticSearchTyper';
 
 const kandidatsøkProxy = `/kandidatsok-proxy`;
-const aktivIndeks = `veilederkandidat_current`;
 
 export const søk = async (query: Query): Promise<Respons> => {
-    const respons = await post(`${kandidatsøkProxy}/${aktivIndeks}/_search`, query);
+    const respons = await post(kandidatsøkProxy, query);
 
     if (respons.ok) {
         return await respons.json();
