@@ -1,6 +1,5 @@
-import { History } from 'history';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { søk } from './api/api';
 import { Nettressurs } from './api/Nettressurs';
 import { lagQuery } from './api/query';
@@ -11,32 +10,34 @@ export type Params = {
 };
 
 const useRespons = () => {
-    const history: History = useHistory();
-    const [harSøkt, setHarSøkt] = useState<boolean>(false);
-
+    const [searchParams] = useSearchParams();
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
     });
 
+    const setOpptatt = () => {
+        setRespons(
+            respons.kind === 'suksess'
+                ? {
+                      kind: 'oppdaterer',
+                      data: respons.data,
+                  }
+                : {
+                      kind: 'laster-inn',
+                  }
+        );
+    };
+
     useEffect(() => {
-        const hentKandidater = async (search: string) => {
-            setRespons(
-                respons.kind === 'suksess'
-                    ? {
-                          kind: 'oppdaterer',
-                          data: respons.data,
-                      }
-                    : {
-                          kind: 'laster-inn',
-                      }
-            );
+        const hentKandidater = async () => {
+            setOpptatt();
 
             try {
-                let respons = await søk(lagQuery(search));
+                let søkeresultat = await søk(lagQuery(searchParams));
 
                 setRespons({
                     kind: 'suksess',
-                    data: respons,
+                    data: søkeresultat,
                 });
             } catch (e) {
                 setRespons({
@@ -46,19 +47,10 @@ const useRespons = () => {
             }
         };
 
-        const unlisten = history.listen(() => {
-            hentKandidater(history.location.search);
-        });
+        hentKandidater();
 
-        if (!harSøkt) {
-            hentKandidater(history.location.search);
-            setHarSøkt(true);
-        }
-
-        return () => {
-            unlisten();
-        };
-    }, [history, harSøkt]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [searchParams]);
 
     return respons;
 };

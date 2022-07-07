@@ -1,8 +1,8 @@
 import { Query } from '../elasticSearchTyper';
 import { Params } from '../useRespons';
 
-export const lagQuery = (search: string): Query => {
-    const { q } = searchToParams(search);
+export const lagQuery = (searchParams: URLSearchParams): Query => {
+    const { q } = searchToParams(searchParams);
 
     const query = q
         ? {
@@ -22,8 +22,5 @@ export const lagQuery = (search: string): Query => {
     };
 };
 
-const searchToParams = (search: string): Params => {
-    const searchParams = new URLSearchParams(search);
-
-    return Object.fromEntries(searchParams.entries());
-};
+const searchToParams = (searchParams: URLSearchParams): Params =>
+    Object.fromEntries(searchParams.entries());

@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Search } from '@navikt/ds-react';
+import { useSearchParams } from 'react-router-dom';
 
 const Fritekstsøk: FunctionComponent = () => {
-    const history = useHistory();
+    const [, setSearchParams] = useSearchParams();
     const [query, setQuery] = useState<string>('');
 
     const onSearchChange = (query: string) => {
@@ -11,8 +11,8 @@ const Fritekstsøk: FunctionComponent = () => {
     };
 
     const onSearchApply = () => {
-        history.replace({
-            search: query ? `?q=${query}` : '',
+        setSearchParams({
+            q: query,
         });
     };
 
