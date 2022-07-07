@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserHistory } from 'history';
-import { Heading, Loader, TextField } from '@navikt/ds-react';
+import { Heading, Loader, Search } from '@navikt/ds-react';
 import Resultat from './resultat/Resultat';
 import useRespons from './useRespons';
 import css from './App.module.css';
@@ -12,6 +12,17 @@ export type AppProps = {
 
 const App = ({ history }: AppProps) => {
     const respons = useRespons();
+    const [query, setQuery] = useState<string>('');
+
+    const onSearchChange = (query: string) => {
+        setQuery(query.trim());
+    };
+
+    const onSearchApply = () => {
+        history.replace({
+            search: query ? `?q=${query}` : '',
+        });
+    };
 
     return (
         <>
@@ -20,11 +31,15 @@ const App = ({ history }: AppProps) => {
             </Heading>
             <div className={css.container}>
                 <aside>
-                    <TextField
+                    <Search
                         type="text"
                         label="Søk på kandidat"
                         description="F.eks navn, fødselsnummer eller yrke"
-                    />
+                        onChange={onSearchChange}
+                        hideLabel={false}
+                    >
+                        <Search.Button onClick={onSearchApply} />
+                    </Search>
                 </aside>
                 {respons.kind === 'laster-inn' && <Loader />}
                 {respons.kind === 'suksess' && <Resultat respons={respons.data} />}

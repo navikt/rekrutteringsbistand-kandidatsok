@@ -1,18 +1,24 @@
+import { History } from 'history';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { søk } from './api/api';
 import { Nettressurs } from './api/Nettressurs';
 import { lagQuery } from './api/query';
 import { Respons } from './elasticSearchTyper';
 
+export type Params = {
+    q?: string;
+};
+
 const useRespons = () => {
-    const { search } = useLocation();
+    const history: History = useHistory();
+
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
     });
 
     useEffect(() => {
-        const hentKandidater = async () => {
+        const hentKandidater = async (search: string) => {
             setRespons({
                 kind: 'laster-inn',
             });
@@ -32,8 +38,10 @@ const useRespons = () => {
             }
         };
 
-        hentKandidater();
-    }, [search]);
+        history.listen(() => {
+            hentKandidater(history.location.search);
+        });
+    }, [history]);
 
     return respons;
 };
