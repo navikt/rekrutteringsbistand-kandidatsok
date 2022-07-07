@@ -1,8 +1,19 @@
 .container {
     margin: 2.5rem auto;
     padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 19rem 1fr;
-    grid-gap: 2rem;
-    max-width: 75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 900px) {
+    .container {
+        display: grid;
+        grid-template-columns: 19rem 1fr;
+        max-width: 75rem;
+    }
+}
+
+.lasterInn {
+    margin: 5rem auto;
 }

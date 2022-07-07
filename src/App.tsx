@@ -19,8 +19,12 @@ const App = ({ history }: AppProps) => {
             <aside>
                 <Fritekstsøk />
             </aside>
-            {respons.kind === 'laster-inn' && <Loader />}
-            {respons.kind === 'suksess' && <Resultat respons={respons.data} />}
+            {respons.kind === 'laster-inn' && (
+                <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
+            )}
+            {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
+                <Resultat respons={respons.data} />
+            )}
         </div>
     );
 };

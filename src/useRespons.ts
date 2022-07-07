@@ -20,9 +20,16 @@ const useRespons = () => {
 
     useEffect(() => {
         const hentKandidater = async (search: string) => {
-            setRespons({
-                kind: 'laster-inn',
-            });
+            setRespons(
+                respons.kind === 'suksess'
+                    ? {
+                          kind: 'oppdaterer',
+                          data: respons.data,
+                      }
+                    : {
+                          kind: 'laster-inn',
+                      }
+            );
 
             try {
                 let respons = await søk(lagQuery(search));
@@ -45,7 +52,7 @@ const useRespons = () => {
 
         if (!harSøkt) {
             hentKandidater(history.location.search);
-            setHarSøkt(false);
+            setHarSøkt(true);
         }
 
         return () => {
