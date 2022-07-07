@@ -1,5 +1,5 @@
 .container {
-    margin: 0 auto;
+    margin: 2.5rem auto;
     padding: 0 2rem;
     display: grid;
     grid-template-columns: 19rem 1fr;

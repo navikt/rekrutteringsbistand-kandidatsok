@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Link, Route, Router, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import App from '../App';
@@ -27,10 +27,13 @@ const Utviklingsapp = () => {
                 <Heading size="medium" level="1">
                     Utviklingsapp for rekrutteringsbistand-kandidatsok
                 </Heading>
+                <Link to="/kandidatsok" className="navds-link">
+                    Kandidatsøk
+                </Link>
             </header>
             <Switch>
-                <Route path="/kandidater/kandidat">Kandidatside</Route>
-                <Route>
+                <Route path="/kandidater/kandidat/:kandidatNr/cv">Kandidatside</Route>
+                <Route path="/kandidatsok">
                     <main>
                         <App navKontor={navKontor} history={history} />
                     </main>

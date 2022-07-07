@@ -12,6 +12,7 @@ export type Params = {
 
 const useRespons = () => {
     const history: History = useHistory();
+    const [harSøkt, setHarSøkt] = useState<boolean>(false);
 
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
@@ -38,10 +39,19 @@ const useRespons = () => {
             }
         };
 
-        history.listen(() => {
+        const unlisten = history.listen(() => {
             hentKandidater(history.location.search);
         });
-    }, [history]);
+
+        if (!harSøkt) {
+            hentKandidater(history.location.search);
+            setHarSøkt(false);
+        }
+
+        return () => {
+            unlisten();
+        };
+    }, [history, harSøkt]);
 
     return respons;
 };
