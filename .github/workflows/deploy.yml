@@ -37,7 +37,7 @@ jobs:
     deploy-til-dev:
         name: Deploy til dev-gcp
         needs: bygg-og-push-docker-image
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/placeholder'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/react-router-6'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1

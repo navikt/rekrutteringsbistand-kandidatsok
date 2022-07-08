@@ -1,17 +1,17 @@
 import React from 'react';
 import { Loader } from '@navikt/ds-react';
-import { BrowserHistory } from 'history';
 import Resultat from './resultat/Resultat';
 import useRespons from './useRespons';
 import Fritekstsøk from './filter/Fritekstsøk';
+import { History } from 'history';
 import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
-    history: BrowserHistory;
+    history: History;
 };
 
-const App = ({ history }: AppProps) => {
+const App = (_: AppProps) => {
     const respons = useRespons();
 
     return (

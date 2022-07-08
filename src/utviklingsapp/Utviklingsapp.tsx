@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
-import { Link, Route, Router, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { Link, Route, Routes } from 'react-router-dom';
 
 import App from '../App';
 import css from './Utviklingsapp.module.css';
+import { createBrowserHistory } from 'history';
+import CustomRouter from './CustomRouter';
 
 const history = createBrowserHistory();
 
@@ -22,7 +23,7 @@ const Utviklingsapp = () => {
     });
 
     return (
-        <Router history={history}>
+        <CustomRouter history={history}>
             <header className={css.utviklingsapp}>
                 <Heading size="medium" level="1">
                     Utviklingsapp for rekrutteringsbistand-kandidatsok
@@ -31,15 +32,18 @@ const Utviklingsapp = () => {
                     Kandidatsøk
                 </Link>
             </header>
-            <Switch>
-                <Route path="/kandidater/kandidat/:kandidatNr/cv">Kandidatside</Route>
-                <Route path="/kandidatsok">
-                    <main>
-                        <App navKontor={navKontor} history={history} />
-                    </main>
-                </Route>
-            </Switch>
-        </Router>
+            <Routes>
+                <Route path="/kandidater/kandidat/:kandidatNr/cv" element={<>Kandidatside</>} />
+                <Route
+                    path="/kandidatsok"
+                    element={
+                        <main>
+                            <App navKontor={navKontor} history={history} />
+                        </main>
+                    }
+                />
+            </Routes>
+        </CustomRouter>
     );
 };
 

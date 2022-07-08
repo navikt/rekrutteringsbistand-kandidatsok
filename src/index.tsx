@@ -9,7 +9,7 @@ import '@navikt/ds-css';
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 
 const AppMedRouter = (props: AppProps) => (
-    <Router history={props.history}>
+    <Router navigator={props.history} location={props.history.location}>
         <App {...props} />
     </Router>
 );
