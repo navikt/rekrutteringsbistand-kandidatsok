@@ -3,10 +3,12 @@ import { Loader } from '@navikt/ds-react';
 import Resultat from './resultat/Resultat';
 import useRespons from './useRespons';
 import Fritekstsøk from './filter/Fritekstsøk';
+import { History } from 'history';
 import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
+    history: History;
 };
 
 const App = (_: AppProps) => {
