@@ -3,7 +3,7 @@ name: Bygg og deploy
 on: [push]
 
 env:
-    IMAGE: docker.pkg.github.com/${{ github.repository }}/rekrutteringsbistand-kandidatsok:${{ github.sha }}
+    IMAGE: ghcr.io/${{ github.repository }}/rekrutteringsbistand-kandidatsok:${{ github.sha }}
 
 jobs:
     bygg-og-push-docker-image:
@@ -26,13 +26,18 @@ jobs:
               run: npm ci
             - name: Bygg applikasjon
               run: npm run build
+            - name: Logg inn til Github
+              uses: docker/login-action@v1
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
             - name: Bygg og publiser Docker-image
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  docker build --tag ${IMAGE} .
-                  echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
-                  docker push ${IMAGE}
+              uses: docker/build-push-action@v2
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ env.IMAGE }}
 
     deploy-til-dev:
         name: Deploy til dev-gcp
