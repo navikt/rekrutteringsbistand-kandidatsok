@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { Search } from '@navikt/ds-react';
 import useParams from './useParams';
 import { Param } from '../useRespons';
+import css from './Fritekstsøk.module.css';
 
 const Fritekstsøk: FunctionComponent = () => {
     const { searchParams, setSearchParam } = useParams();
@@ -23,8 +24,9 @@ const Fritekstsøk: FunctionComponent = () => {
         <Search
             type="text"
             value={query}
+            className={css.beskrivelse}
             label="Søk etter kandidater"
-            description="F.eks navn, fødselsnummer eller yrke"
+            description="F.eks navn, fødselsnummer eller jobbønske"
             onChange={onSearchChange}
             onClear={onClear}
             hideLabel={false}
