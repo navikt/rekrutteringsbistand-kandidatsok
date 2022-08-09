@@ -39,7 +39,6 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
 const scrollTilToppen = () => {
     window.scrollTo({
         top: 0,
-        behavior: 'smooth',
     });
 };
 
