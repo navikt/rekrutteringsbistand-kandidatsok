@@ -7,10 +7,12 @@ import { Respons } from './elasticSearchTyper';
 
 export enum Param {
     Fritekst = 'q',
+    Side = 'side',
 }
 
 export type Params = {
     [Param.Fritekst]?: string;
+    [Param.Side]?: string;
 };
 
 const useRespons = () => {

@@ -1,9 +1,16 @@
 import { useSearchParams } from 'react-router-dom';
+import { Param, Params } from '../useRespons';
 
-const useParams = () => {
+type ParamsHook = {
+    setSearchParam: (parameter: Param, value?: string) => void;
+    searchParams: Params;
+    removeSearchParams: () => void;
+};
+
+const useParams = (): ParamsHook => {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const setSearchParam = (parameter: string, value?: string) => {
+    const setSearchParam = (parameter: Param, value?: string) => {
         let newSearchParam = {};
         if (value && value.length > 0) {
             newSearchParam = {
@@ -21,9 +28,11 @@ const useParams = () => {
         setSearchParams({});
     };
 
+    const allParams = Object.fromEntries(searchParams.entries());
+
     return {
         setSearchParam,
-        searchParams: searchParams,
+        searchParams: allParams,
         removeSearchParams,
     };
 };

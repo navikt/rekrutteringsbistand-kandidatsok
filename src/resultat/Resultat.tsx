@@ -4,6 +4,7 @@ import { Respons } from '../elasticSearchTyper';
 import { Kandidat as Kandidattype } from '../Kandidat';
 import Kandidat from './Kandidat';
 import css from './Resultat.module.css';
+import Paginering from '../filter/Paginering';
 
 type Props = {
     respons: Respons;
@@ -11,6 +12,7 @@ type Props = {
 
 const Resultat = ({ respons }: Props) => {
     const treff = respons.hits.hits;
+    const antallTreff = respons.hits.total.value;
     const kandidater = treff.map((t) => t._source);
     const [markerteKandidater, setMarkerteKandidater] = useState<Set<Kandidattype>>(new Set());
 
@@ -27,9 +29,9 @@ const Resultat = ({ respons }: Props) => {
     };
 
     return (
-        <main>
+        <main className={css.resultat}>
             <Heading size="medium" level="2">
-                {respons.hits.total.value} kandidater
+                {antallTreff} kandidater
             </Heading>
             <ul className={css.kandidater}>
                 {kandidater.map((kandidat) => (
@@ -41,6 +43,7 @@ const Resultat = ({ respons }: Props) => {
                     />
                 ))}
             </ul>
+            <Paginering antallTreff={antallTreff} />
         </main>
     );
 };
