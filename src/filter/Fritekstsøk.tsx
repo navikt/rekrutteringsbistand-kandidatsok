@@ -23,7 +23,7 @@ const Fritekstsøk: FunctionComponent = () => {
         <Search
             type="text"
             value={query}
-            label="Søk på kandidat"
+            label="Søk etter kandidater"
             description="F.eks navn, fødselsnummer eller yrke"
             onChange={onSearchChange}
             onClear={onClear}
