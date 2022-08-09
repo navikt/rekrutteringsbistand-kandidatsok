@@ -20,15 +20,19 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
         setSearchParam(Param.Side, nySide > 1 ? String(nySide) : undefined);
     };
 
-    return (
-        <Pagination
-            size="medium"
-            className={css.wrapper}
-            page={sidetall}
-            onPageChange={setSidetall}
-            count={antallSider}
-        />
-    );
+    if (antallSider === 1) {
+        return null;
+    } else {
+        return (
+            <Pagination
+                size="medium"
+                className={css.wrapper}
+                page={sidetall}
+                onPageChange={setSidetall}
+                count={antallSider}
+            />
+        );
+    }
 };
 
 export default Paginering;

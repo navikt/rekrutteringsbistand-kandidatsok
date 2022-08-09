@@ -6,19 +6,8 @@ export const PAGE_SIZE = 10;
 export const lagQuery = (searchParams: URLSearchParams): Query => {
     const { q, side } = searchToParams(searchParams);
 
-    const query = q
-        ? {
-              match: {
-                  fritekst: {
-                      query: q,
-                  },
-              },
-          }
-        : {
-              match_all: {},
-          };
-
     const sidetall = Number(side) || 1;
+    const query = q ? fritekstsøk(q) : alleKandidater;
 
     return {
         query,
@@ -27,6 +16,24 @@ export const lagQuery = (searchParams: URLSearchParams): Query => {
         track_total_hits: true,
         sort: sorterSisteKandidaterFørst,
     };
+};
+
+const søkbareFelterIFritekstsøk = [
+    'fritekst',
+    'fornavn',
+    'etternavn',
+    'yrkeJobbonskerObj.styrkBeskrivelse',
+];
+
+const fritekstsøk = (q: string) => ({
+    multi_match: {
+        query: q,
+        fields: søkbareFelterIFritekstsøk,
+    },
+});
+
+const alleKandidater = {
+    match_all: {},
 };
 
 const sorterSisteKandidaterFørst = {

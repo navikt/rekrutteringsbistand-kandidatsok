@@ -27,6 +27,51 @@ OPEN_SEARCH_URI=<url>
 npm run start
 ```
 
+## Søk
+
+Fritekstsøk ser bl.a. på "fritekst"-feltet i ElasticSearch. Dette er et kombinert felt som består av følgende felter:
+
+```
+beskrivelse
+
+utdanning.utdannelsessted
+utdanning.nusKodeGrad
+utdanning.alternativGrad
+utdanning.yrkestatus
+utdanning.beskrivelse
+
+fagdokumentasjon.type
+fagdokumentasjon.tittel
+fagdokumentasjon.beskrivelse
+
+yrkeserfaring.arbeidsgiver
+yrkeserfaring.stillingstittel
+yrkeserfaring.alternativStillingstittel
+yrkeserfaring.beskrivelse
+
+kompetanseObj.kompKodeNavn
+kompetanseObj.alternativtNavn
+kompetanseObj.beskrivelse
+
+annenerfaringObj.beskrivelse
+annenerfaringObj.rolle
+
+sertifikatObj.sertifikatKodeNavn
+sertifikatObj.alternativtNavn
+sertifikatObj.utsteder
+
+sprak.sprakKodeTekst
+sprak.alternativTekst
+sprak.beskrivelse
+
+kursObj.tittel
+kursObj.arrangor
+kursObj.beskrivelse
+
+vervObj.organisasjon
+vervObj.tittel
+```
+
 # Henvendelser
 
 ## For Nav-ansatte
