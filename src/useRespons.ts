@@ -5,8 +5,12 @@ import { Nettressurs } from './api/Nettressurs';
 import { lagQuery } from './api/query';
 import { Respons } from './elasticSearchTyper';
 
+export enum Param {
+    Fritekst = 'q',
+}
+
 export type Params = {
-    q?: string;
+    [Param.Fritekst]?: string;
 };
 
 const useRespons = () => {

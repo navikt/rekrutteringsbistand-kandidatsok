@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Search } from '@navikt/ds-react';
-import { useSearchParams } from 'react-router-dom';
+import useParams from './useParams';
+import { Param } from '../useRespons';
 
 const Fritekstsøk: FunctionComponent = () => {
-    const [, setSearchParams] = useSearchParams();
+    const { setSearchParam } = useParams();
     const [query, setQuery] = useState<string>('');
 
     const onSearchChange = (query: string) => {
@@ -11,9 +12,11 @@ const Fritekstsøk: FunctionComponent = () => {
     };
 
     const onSearchApply = () => {
-        setSearchParams({
-            q: query,
-        });
+        setSearchParam(Param.Fritekst, query);
+    };
+
+    const onClear = () => {
+        setSearchParam(Param.Fritekst, undefined);
     };
 
     return (
@@ -22,6 +25,7 @@ const Fritekstsøk: FunctionComponent = () => {
             label="Søk på kandidat"
             description="F.eks navn, fødselsnummer eller yrke"
             onChange={onSearchChange}
+            onClear={onClear}
             hideLabel={false}
         >
             <Search.Button onClick={onSearchApply} />

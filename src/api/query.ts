@@ -7,7 +7,7 @@ export const lagQuery = (searchParams: URLSearchParams): Query => {
     const query = q
         ? {
               match: {
-                  message: {
+                  fritekst: {
                       query: q,
                   },
               },
