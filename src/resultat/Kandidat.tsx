@@ -8,11 +8,17 @@ type Props = {
     kandidat: Kandidattype;
     erMarkert: boolean;
     onMarker: () => void;
+    erFremhevet: boolean;
 };
 
-const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker }) => {
+const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker, erFremhevet }) => {
+    let className = css.kandidat;
+    if (erFremhevet) {
+        className += ' ' + css.fremhevetKandidat;
+    }
+
     return (
-        <div className={css.kandidat} key={kandidat.fodselsnummer} aria-selected={erMarkert}>
+        <div className={className} key={kandidat.fodselsnummer} aria-selected={erMarkert}>
             <Checkbox hideLabel value={kandidat} checked={erMarkert} onChange={onMarker}>
                 Valgt
             </Checkbox>

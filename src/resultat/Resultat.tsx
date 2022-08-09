@@ -3,18 +3,20 @@ import { Heading } from '@navikt/ds-react';
 import { Respons } from '../elasticSearchTyper';
 import { Kandidat as Kandidattype } from '../Kandidat';
 import Kandidat from './Kandidat';
-import css from './Resultat.module.css';
 import Paginering from '../filter/Paginering';
+import css from './Resultat.module.css';
 
 type Props = {
     respons: Respons;
+    sisteBesøkteKandidat?: string;
 };
 
-const Resultat = ({ respons }: Props) => {
+const Resultat = ({ respons, sisteBesøkteKandidat }: Props) => {
+    const [markerteKandidater, setMarkerteKandidater] = useState<Set<Kandidattype>>(new Set());
+
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
     const kandidater = treff.map((t) => t._source);
-    const [markerteKandidater, setMarkerteKandidater] = useState<Set<Kandidattype>>(new Set());
 
     const onKandidatMarker = (kandidat: Kandidattype) => () => {
         const nyeMarkerteKandidater = new Set(markerteKandidater);
@@ -40,6 +42,7 @@ const Resultat = ({ respons }: Props) => {
                         key={kandidat.arenaKandidatnr}
                         erMarkert={markerteKandidater.has(kandidat)}
                         onMarker={onKandidatMarker(kandidat)}
+                        erFremhevet={sisteBesøkteKandidat === kandidat.arenaKandidatnr}
                     />
                 ))}
             </ul>
