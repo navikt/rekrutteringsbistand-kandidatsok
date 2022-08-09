@@ -18,6 +18,7 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
 
     const setSidetall = (nySide: number) => {
         setSearchParam(Param.Side, nySide > 1 ? String(nySide) : undefined);
+        scrollTilToppen();
     };
 
     if (antallSider === 1) {
@@ -33,6 +34,13 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
             />
         );
     }
+};
+
+const scrollTilToppen = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
 };
 
 export default Paginering;
