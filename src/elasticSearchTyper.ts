@@ -15,7 +15,14 @@ export type Query = {
         };
         filter?: any;
     };
+    sort: {
+        [felt: string]: {
+            order: Sorteringsrekkefølge;
+        };
+    };
 };
+
+export type Sorteringsrekkefølge = 'asc' | 'desc';
 
 type MatchQuery = {
     query: string;

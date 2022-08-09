@@ -1,4 +1,4 @@
-import { Query } from '../elasticSearchTyper';
+import { Query, Sorteringsrekkefølge } from '../elasticSearchTyper';
 import { Params } from '../useRespons';
 
 export const lagQuery = (searchParams: URLSearchParams): Query => {
@@ -17,9 +17,18 @@ export const lagQuery = (searchParams: URLSearchParams): Query => {
           };
 
     return {
-        track_total_hits: true,
         query,
+        size: 40,
+        from: 0,
+        track_total_hits: true,
+        sort: sorterSisteKandidaterFørst,
     };
+};
+
+const sorterSisteKandidaterFørst = {
+    tidsstempel: {
+        order: 'desc' as Sorteringsrekkefølge,
+    },
 };
 
 const searchToParams = (searchParams: URLSearchParams): Params =>
