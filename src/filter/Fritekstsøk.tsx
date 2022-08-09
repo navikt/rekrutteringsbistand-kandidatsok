@@ -4,8 +4,8 @@ import useParams from './useParams';
 import { Param } from '../useRespons';
 
 const Fritekstsøk: FunctionComponent = () => {
-    const { setSearchParam } = useParams();
-    const [query, setQuery] = useState<string>('');
+    const { searchParams, setSearchParam } = useParams();
+    const [query, setQuery] = useState<string>(searchParams.q || '');
 
     const onSearchChange = (query: string) => {
         setQuery(query.trim());
@@ -22,6 +22,7 @@ const Fritekstsøk: FunctionComponent = () => {
     return (
         <Search
             type="text"
+            value={query}
             label="Søk på kandidat"
             description="F.eks navn, fødselsnummer eller yrke"
             onChange={onSearchChange}

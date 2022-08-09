@@ -23,14 +23,47 @@ const søkbareFelterIFritekstsøk = [
     'fornavn',
     'etternavn',
     'yrkeJobbonskerObj.styrkBeskrivelse',
+    'yrkeJobbonskerObj.sokeTitler',
 ];
 
-const fritekstsøk = (q: string) => ({
-    multi_match: {
-        query: q,
-        fields: søkbareFelterIFritekstsøk,
-    },
-});
+const bareTallRegex = /^\d+$/;
+const arenaKandidatnrRegex = /^[a-zA-Z]{2}[0-9]+/;
+const pamKandidatnrRegex = /^PAM[0-9a-zA-Z]+/;
+
+const fritekstsøk = (q: string) => {
+    if (bareTallRegex.test(q) && q.length > 10) {
+        return {
+            bool: {
+                should: [
+                    {
+                        term: {
+                            aktorId: q,
+                        },
+                    },
+                    {
+                        term: {
+                            fodselsnummer: q,
+                        },
+                    },
+                ],
+            },
+        };
+    } else if (arenaKandidatnrRegex.test(q) || pamKandidatnrRegex.test(q)) {
+        return {
+            term: {
+                kandidatnr: q,
+            },
+        };
+    } else {
+        return {
+            multi_match: {
+                query: q,
+                fields: søkbareFelterIFritekstsøk,
+                fuzziness: 'AUTO',
+            },
+        };
+    }
+};
 
 const alleKandidater = {
     match_all: {},
