@@ -1,6 +1,6 @@
 import { Pagination } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
-import { PAGE_SIZE } from '../api/query';
+import { PAGE_SIZE } from '../api/query/byggQuery';
 import { Param } from '../hooks/useRespons';
 import useParams from '../hooks/useParams';
 import css from './Paginering.module.css';

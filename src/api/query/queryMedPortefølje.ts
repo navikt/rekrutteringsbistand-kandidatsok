@@ -1,0 +1,24 @@
+import { Portefølje } from '../../filter/PorteføljeTabs';
+import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
+
+export const queryMedPortefølje = (portefølje: Portefølje, innloggetBruker: InnloggetBruker) => {
+    if (portefølje === Portefølje.MineBrukere) {
+        return [
+            {
+                term: {
+                    veileder: innloggetBruker.navIdent || '',
+                },
+            },
+        ];
+    } else if (portefølje === Portefølje.MittKontor) {
+        return [
+            {
+                term: {
+                    navKontorNr: innloggetBruker.navKontor || '',
+                },
+            },
+        ];
+    } else {
+        return [];
+    }
+};

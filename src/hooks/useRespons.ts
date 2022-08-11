@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { lagQuery } from '../api/query';
+import { byggQuery } from '../api/query/byggQuery';
 import { Respons } from '../elasticSearchTyper';
 import { InnloggetBruker } from './useBrukerensIdent';
 
@@ -42,7 +42,7 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
             setOpptatt();
 
             try {
-                let søkeresultat = await søk(lagQuery(searchParams, innloggetBruker));
+                let søkeresultat = await søk(byggQuery(searchParams, innloggetBruker));
 
                 setRespons({
                     kind: 'suksess',
