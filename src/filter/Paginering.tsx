@@ -21,7 +21,7 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
         scrollTilToppen();
     };
 
-    if (antallSider === 1) {
+    if (antallSider < 2) {
         return null;
     } else {
         return (

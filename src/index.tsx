@@ -8,6 +8,13 @@ import '@navikt/ds-css';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 
+const skalMockes = process.env.REACT_APP_MOCK;
+
+if (skalMockes) {
+    const { worker } = require('./mocks/mockSetup.ts');
+    worker.start();
+}
+
 const AppMedRouter = (props: AppProps) => (
     <Router navigator={props.history} location={props.history.location}>
         <App {...props} />
