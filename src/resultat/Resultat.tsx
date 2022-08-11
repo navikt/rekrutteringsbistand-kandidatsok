@@ -5,13 +5,14 @@ import { Kandidat as Kandidattype } from '../Kandidat';
 import Kandidat from './Kandidat';
 import Paginering from '../filter/Paginering';
 import css from './Resultat.module.css';
+import useSistBesøkteKandidat from '../hooks/useSistBesøkteKandidat';
 
 type Props = {
     respons: Respons;
-    sisteBesøkteKandidat?: string;
 };
 
-const Resultat = ({ respons, sisteBesøkteKandidat }: Props) => {
+const Resultat = ({ respons }: Props) => {
+    const sistBesøkteKandidat = useSistBesøkteKandidat();
     const [markerteKandidater, setMarkerteKandidater] = useState<Set<Kandidattype>>(new Set());
 
     const treff = respons.hits.hits;
@@ -42,7 +43,7 @@ const Resultat = ({ respons, sisteBesøkteKandidat }: Props) => {
                         key={kandidat.arenaKandidatnr}
                         erMarkert={markerteKandidater.has(kandidat)}
                         onMarker={onKandidatMarker(kandidat)}
-                        erFremhevet={sisteBesøkteKandidat === kandidat.arenaKandidatnr}
+                        erFremhevet={sistBesøkteKandidat === kandidat.arenaKandidatnr}
                     />
                 ))}
             </ul>

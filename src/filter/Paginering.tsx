@@ -1,8 +1,8 @@
 import { Pagination } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { PAGE_SIZE } from '../api/query';
-import { Param } from '../useRespons';
-import useParams from './useParams';
+import { Param } from '../hooks/useRespons';
+import useParams from '../hooks/useParams';
 import css from './Paginering.module.css';
 
 type Props = {

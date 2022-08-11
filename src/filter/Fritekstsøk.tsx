@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Search } from '@navikt/ds-react';
-import useParams from './useParams';
-import { Param } from '../useRespons';
+import useParams from '../hooks/useParams';
+import { Param } from '../hooks/useRespons';
 import css from './Fritekstsøk.module.css';
 
 const Fritekstsøk: FunctionComponent = () => {

@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Tabs } from '@navikt/ds-react';
 import css from './PorteføljeTabs.module.css';
-import useParams from './useParams';
-import { Param } from '../useRespons';
+import useParams from '../hooks/useParams';
+import { Param } from '../hooks/useRespons';
 
 export enum Portefølje {
     Alle = 'alle',
@@ -29,7 +29,7 @@ const PorteføljeTabs = ({
             <Tabs.List>
                 <Tabs.Tab value={Portefølje.Alle} label="Alle" />
                 <Tabs.Tab value={Portefølje.MineBrukere} label="Mine brukere" />
-                {medNavKontor && <Tabs.Tab value={Portefølje.MittKontor} label="Mitt kontor" />}
+                <Tabs.Tab value={Portefølje.MittKontor} label="Mitt kontor" />
             </Tabs.List>
             <Tabs.Panel className={css.tabpanel} value={valgtPortefølje}>
                 {children}

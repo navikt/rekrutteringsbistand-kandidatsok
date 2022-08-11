@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { søk } from './api/api';
-import { Nettressurs } from './api/Nettressurs';
-import { lagQuery } from './api/query';
-import { Respons } from './elasticSearchTyper';
+import { søk } from '../api/api';
+import { Nettressurs } from '../api/Nettressurs';
+import { lagQuery } from '../api/query';
+import { Respons } from '../elasticSearchTyper';
+import { InnloggetBruker } from './useBrukerensIdent';
 
 export enum Param {
     Fritekst = 'q',
@@ -17,7 +18,7 @@ export type Params = {
     [Param.Portefølje]?: string;
 };
 
-const useRespons = (navIdent: string | null, valgtNavKontor: string | null) => {
+const useRespons = (innloggetBruker: InnloggetBruker) => {
     const [searchParams] = useSearchParams();
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
@@ -41,7 +42,7 @@ const useRespons = (navIdent: string | null, valgtNavKontor: string | null) => {
             setOpptatt();
 
             try {
-                let søkeresultat = await søk(lagQuery(searchParams, navIdent, valgtNavKontor));
+                let søkeresultat = await søk(lagQuery(searchParams, innloggetBruker));
 
                 setRespons({
                     kind: 'suksess',
@@ -58,7 +59,7 @@ const useRespons = (navIdent: string | null, valgtNavKontor: string | null) => {
         hentKandidater();
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [searchParams, valgtNavKontor]);
+    }, [searchParams, innloggetBruker.navIdent, innloggetBruker.navKontor]);
 
     return respons;
 };

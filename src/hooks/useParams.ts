@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { Param, Params } from '../useRespons';
+import { Param, Params } from './useRespons';
 
 type ParamsHook = {
     setSearchParam: (parameter: Param, value?: string) => void;

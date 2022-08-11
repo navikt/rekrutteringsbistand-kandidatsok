@@ -1,40 +1,25 @@
 import { Query, Sorteringsrekkefølge } from '../elasticSearchTyper';
 import { Portefølje } from '../filter/PorteføljeTabs';
-import { Params } from '../useRespons';
+import { InnloggetBruker } from '../hooks/useBrukerensIdent';
+import { Params } from '../hooks/useRespons';
 
 export const PAGE_SIZE = 10;
 
 export const lagQuery = (
     searchParams: URLSearchParams,
-    navIdent: string | null,
-    valgtNavKontor: string | null
+    innloggetBruker: InnloggetBruker
 ): Query => {
     const { q, side, portefolje } = searchToParams(searchParams);
-
     const sidetall = Number(side) || 1;
-    const query = q ? queryMedFritekstsøk(q) : queryUtenFritekstsøk;
-
-    let krav = [];
-    krav.push(query);
-
-    if (portefolje === Portefølje.MineBrukere) {
-        krav.push({
-            term: {
-                veileder: navIdent,
-            },
-        });
-    } else if (portefolje === Portefølje.MittKontor) {
-        krav.push({
-            term: {
-                navKontorNr: valgtNavKontor,
-            },
-        });
-    }
+    const portefølje = (portefolje as Portefølje) || Portefølje.Alle;
 
     return {
         query: {
             bool: {
-                must: krav,
+                must: [
+                    q ? queryMedFritekstsøk(q) : queryUtenFritekstsøk,
+                    ...queryMedPortefølje(portefølje, innloggetBruker),
+                ],
             },
         },
         size: PAGE_SIZE,
@@ -93,6 +78,28 @@ const queryMedFritekstsøk = (q: string) => {
 
 const queryUtenFritekstsøk = {
     match_all: {},
+};
+
+const queryMedPortefølje = (portefølje: Portefølje, innloggetBruker: InnloggetBruker) => {
+    if (portefølje === Portefølje.MineBrukere) {
+        return [
+            {
+                term: {
+                    veileder: innloggetBruker.navIdent || '',
+                },
+            },
+        ];
+    } else if (portefølje === Portefølje.MittKontor) {
+        return [
+            {
+                term: {
+                    navKontorNr: innloggetBruker.navKontor || '',
+                },
+            },
+        ];
+    } else {
+        return [];
+    }
 };
 
 const sorterSisteKandidaterFørst = {

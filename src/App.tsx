@@ -1,30 +1,22 @@
 import React from 'react';
 import { Loader } from '@navikt/ds-react';
-import { useLocation } from 'react-router-dom';
 import { History } from 'history';
 
 import Resultat from './resultat/Resultat';
-import useRespons from './useRespons';
+import useRespons from './hooks/useRespons';
 import Fritekstsøk from './filter/Fritekstsøk';
 import PorteføljeTabs from './filter/PorteføljeTabs';
+import useInnloggetBruker from './hooks/useBrukerensIdent';
 import css from './App.module.css';
-import useNavIdent from './api/useNavIdent';
 
 export type AppProps = {
     navKontor: string | null;
     history: History;
 };
 
-type Navigeringsstate = {
-    kandidat?: string;
-};
-
 const App = ({ navKontor }: AppProps) => {
-    const navIdent = useNavIdent();
-    const respons = useRespons(navIdent, navKontor);
-    const { state } = useLocation();
-
-    const sisteBesøkteKandidat = (state as Navigeringsstate)?.kandidat;
+    const innloggetBruker = useInnloggetBruker(navKontor);
+    const respons = useRespons(innloggetBruker);
 
     return (
         <div className={css.container}>
@@ -37,10 +29,7 @@ const App = ({ navKontor }: AppProps) => {
                         <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
                     )}
                     {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
-                        <Resultat
-                            respons={respons.data}
-                            sisteBesøkteKandidat={sisteBesøkteKandidat}
-                        />
+                        <Resultat respons={respons.data} />
                     )}
                 </PorteføljeTabs>
             </main>

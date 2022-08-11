@@ -4,7 +4,7 @@ export const handlers = [
     rest.get('/meg', (req, res, ctx) =>
         res(
             ctx.json({
-                navIdent: 'zz',
+                navIdent: 'z994161',
             })
         )
     ),

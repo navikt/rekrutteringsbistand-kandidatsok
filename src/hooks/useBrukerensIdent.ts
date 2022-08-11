@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
-import { get } from './api';
+import { get } from '../api/api';
 
-const useNavIdent = () => {
+export type InnloggetBruker = {
+    navIdent: string | null;
+    navKontor: string | null;
+};
+
+const useInnloggetBruker = (navKontor: string | null): InnloggetBruker => {
     const [navIdent, setNavIdent] = useState<string | null>(null);
 
     useEffect(() => {
@@ -15,7 +20,10 @@ const useNavIdent = () => {
         hentNavIdent();
     }, []);
 
-    return navIdent;
+    return {
+        navIdent,
+        navKontor,
+    };
 };
 
-export default useNavIdent;
+export default useInnloggetBruker;
