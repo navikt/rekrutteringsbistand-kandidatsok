@@ -10,8 +10,8 @@ const søkbareFelterIFritekstsøk = [
     'yrkeJobbonskerObj.sokeTitler',
 ];
 
-export const queryMedFritekst = (fritekst?: string): Array<any> => {
-    if (fritekst === undefined) {
+export const queryMedFritekst = (fritekst: string | null): Array<any> => {
+    if (fritekst === null) {
         return [];
     }
 

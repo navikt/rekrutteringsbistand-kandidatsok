@@ -2,7 +2,7 @@ import { Pagination } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { PAGE_SIZE } from '../api/query/byggQuery';
 import { Param } from '../hooks/useRespons';
-import useParams from '../hooks/useParams';
+import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './Paginering.module.css';
 
 type Props = {
@@ -10,11 +10,8 @@ type Props = {
 };
 
 const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
-    const { searchParams, setSearchParam } = useParams();
-
+    const { søkekriterier, setSearchParam } = useSøkekriterier();
     const antallSider = Math.ceil(antallTreff / PAGE_SIZE);
-    const sidetallSomNumber = Number(searchParams.side);
-    const sidetall = sidetallSomNumber || 1;
 
     const setSidetall = (nySide: number) => {
         setSearchParam(Param.Side, nySide > 1 ? String(nySide) : undefined);
@@ -28,7 +25,7 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
             <Pagination
                 size="medium"
                 className={css.wrapper}
-                page={sidetall}
+                page={søkekriterier.side}
                 onPageChange={setSidetall}
                 count={antallSider}
             />

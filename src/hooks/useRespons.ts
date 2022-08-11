@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { byggQuery } from '../api/query/byggQuery';
 import { Respons } from '../elasticSearchTyper';
+import { Portefølje } from '../filter/PorteføljeTabs';
 import { InnloggetBruker } from './useBrukerensIdent';
+import useSøkekriterier from './useSøkekriterier';
 
 export enum Param {
     Fritekst = 'q',
@@ -12,14 +13,14 @@ export enum Param {
     Portefølje = 'portefolje',
 }
 
-export type Params = {
-    [Param.Fritekst]?: string;
-    [Param.Side]?: string;
-    [Param.Portefølje]?: string;
+export type Søkekriterier = {
+    fritekst: string | null;
+    portefølje: Portefølje;
+    side: number;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
-    const [searchParams] = useSearchParams();
+    const { søkekriterier } = useSøkekriterier();
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
     });
@@ -42,7 +43,7 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
             setOpptatt();
 
             try {
-                let søkeresultat = await søk(byggQuery(searchParams, innloggetBruker));
+                let søkeresultat = await søk(byggQuery(søkekriterier, innloggetBruker));
 
                 setRespons({
                     kind: 'suksess',
@@ -59,7 +60,7 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
         hentKandidater();
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [searchParams, innloggetBruker.navIdent, innloggetBruker.navKontor]);
+    }, [søkekriterier, innloggetBruker.navIdent, innloggetBruker.navKontor]);
 
     return respons;
 };

@@ -24,7 +24,7 @@ const App = ({ navKontor }: AppProps) => {
                 <Fritekstsøk />
             </aside>
             <main>
-                <PorteføljeTabs medNavKontor={navKontor !== null}>
+                <PorteføljeTabs>
                     {respons.kind === 'laster-inn' && (
                         <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
                     )}
