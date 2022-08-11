@@ -6,7 +6,7 @@ import css from './Fritekstsøk.module.css';
 
 const Fritekstsøk: FunctionComponent = () => {
     const { searchParams, setSearchParam } = useParams();
-    const [query, setQuery] = useState<string>(searchParams.q || '');
+    const [query, setQuery] = useState<string>(searchParams[Param.Fritekst] || '');
 
     const onSearchChange = (query: string) => {
         setQuery(query.trim());

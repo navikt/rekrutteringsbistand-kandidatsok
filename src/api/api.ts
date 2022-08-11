@@ -25,6 +25,12 @@ const post = (url: string, body: object) =>
         },
     });
 
+export const get = (url: string) =>
+    fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
 const videresendTilInnlogging = () => {
     window.location.href = `/oauth2/login?redirect=${window.location.pathname}`;
 };

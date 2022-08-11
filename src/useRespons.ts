@@ -8,14 +8,16 @@ import { Respons } from './elasticSearchTyper';
 export enum Param {
     Fritekst = 'q',
     Side = 'side',
+    Portefølje = 'portefolje',
 }
 
 export type Params = {
     [Param.Fritekst]?: string;
     [Param.Side]?: string;
+    [Param.Portefølje]?: string;
 };
 
-const useRespons = () => {
+const useRespons = (navIdent: string | null, valgtNavKontor: string | null) => {
     const [searchParams] = useSearchParams();
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
@@ -39,7 +41,7 @@ const useRespons = () => {
             setOpptatt();
 
             try {
-                let søkeresultat = await søk(lagQuery(searchParams));
+                let søkeresultat = await søk(lagQuery(searchParams, navIdent, valgtNavKontor));
 
                 setRespons({
                     kind: 'suksess',
@@ -56,7 +58,7 @@ const useRespons = () => {
         hentKandidater();
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [searchParams]);
+    }, [searchParams, valgtNavKontor]);
 
     return respons;
 };

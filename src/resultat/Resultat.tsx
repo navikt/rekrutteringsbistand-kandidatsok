@@ -31,7 +31,7 @@ const Resultat = ({ respons, sisteBesøkteKandidat }: Props) => {
     };
 
     return (
-        <main className={css.resultat}>
+        <div className={css.resultat}>
             <Heading size="medium" level="2">
                 {antallTreff} kandidater
             </Heading>
@@ -47,7 +47,7 @@ const Resultat = ({ respons, sisteBesøkteKandidat }: Props) => {
                 ))}
             </ul>
             <Paginering antallTreff={antallTreff} />
-        </main>
+        </div>
     );
 };
 

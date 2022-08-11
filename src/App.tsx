@@ -6,7 +6,9 @@ import { History } from 'history';
 import Resultat from './resultat/Resultat';
 import useRespons from './useRespons';
 import Fritekstsøk from './filter/Fritekstsøk';
+import PorteføljeTabs from './filter/PorteføljeTabs';
 import css from './App.module.css';
+import useNavIdent from './api/useNavIdent';
 
 export type AppProps = {
     navKontor: string | null;
@@ -17,8 +19,9 @@ type Navigeringsstate = {
     kandidat?: string;
 };
 
-const App = (_: AppProps) => {
-    const respons = useRespons();
+const App = ({ navKontor }: AppProps) => {
+    const navIdent = useNavIdent();
+    const respons = useRespons(navIdent, navKontor);
     const { state } = useLocation();
 
     const sisteBesøkteKandidat = (state as Navigeringsstate)?.kandidat;
@@ -28,12 +31,19 @@ const App = (_: AppProps) => {
             <aside>
                 <Fritekstsøk />
             </aside>
-            {respons.kind === 'laster-inn' && (
-                <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
-            )}
-            {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
-                <Resultat respons={respons.data} sisteBesøkteKandidat={sisteBesøkteKandidat} />
-            )}
+            <main>
+                <PorteføljeTabs medNavKontor={navKontor !== null}>
+                    {respons.kind === 'laster-inn' && (
+                        <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
+                    )}
+                    {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
+                        <Resultat
+                            respons={respons.data}
+                            sisteBesøkteKandidat={sisteBesøkteKandidat}
+                        />
+                    )}
+                </PorteføljeTabs>
+            </main>
         </div>
     );
 };
