@@ -4,15 +4,13 @@ import Navspa from '@navikt/navspa';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 import { Router } from 'react-router-dom';
 import App, { AppProps } from './App';
+import { setupMock } from './mocks/mockSetup';
 import '@navikt/ds-css';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 
-const skalMockes = process.env.REACT_APP_MOCK;
-
-if (skalMockes) {
-    const { worker } = require('./mocks/mockSetup.ts');
-    worker.start();
+if (process.env.REACT_APP_MOCK) {
+    setupMock();
 }
 
 const AppMedRouter = (props: AppProps) => (
