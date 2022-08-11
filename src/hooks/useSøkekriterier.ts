@@ -20,17 +20,13 @@ const useSøkekriterier = (): Returverdi => {
     }, [searchParams]);
 
     const setSearchParam = (parameter: Param, value?: string) => {
-        let newSearchParam = {};
         if (value && value.length > 0) {
-            newSearchParam = {
-                [parameter]: value,
-            };
+            searchParams.set(parameter, value);
+        } else {
+            searchParams.delete(parameter);
         }
 
-        setSearchParams({
-            ...searchParams,
-            ...newSearchParam,
-        });
+        setSearchParams(searchParams);
     };
 
     const fjernSøkekriterier = () => {
