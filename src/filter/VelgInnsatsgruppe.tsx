@@ -51,9 +51,9 @@ const innsatsgrupper: Config[] = [
     },
     {
         kode: FiltrerbarInnsatsgruppe.AndreInnsatsgrupper,
-        label: 'Andre innsatsgrupper',
+        label: 'Servicegrupper',
         description:
-            'Ikke vurderte, behov for arbeidsevnevurdering, helserelatert arbeidsrettet oppfølging, sykmeldte',
+            'Ikke vurdert, behov for arbeidsevnevurdering, helserelatert arbeidsrettet oppfølging, sykmeldt',
     },
 ];
 
