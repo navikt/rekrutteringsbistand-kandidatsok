@@ -22,8 +22,8 @@ const App = ({ navKontor }: AppProps) => {
 
     return (
         <div className={css.container}>
-            <TømFiltre />
             <Placeholder />
+            <TømFiltre />
             <aside className={css.filter}>
                 <Fritekstsøk />
                 <VelgInnsatsgruppe />
