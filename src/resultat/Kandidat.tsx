@@ -1,6 +1,7 @@
-import { Checkbox } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
+import { Checkbox, Detail } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
+import { alleInnsatsgrupper } from '../filter/VelgInnsatsgruppe';
 import { Kandidat as Kandidattype } from '../Kandidat';
 import css from './Resultat.module.css';
 
@@ -22,9 +23,12 @@ const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker, erF
             <Checkbox hideLabel value={kandidat} checked={erMarkert} onChange={onMarker}>
                 Valgt
             </Checkbox>
-            <Link className="navds-link" to={lenkeTilKandidat(kandidat)}>
-                {hentKandidatensNavn(kandidat)}
-            </Link>
+            <div className={css.kandidatinformasjon}>
+                <Link className="navds-link" to={lenkeTilKandidat(kandidat)}>
+                    {hentKandidatensNavn(kandidat)}
+                </Link>
+                <Detail>{alleInnsatsgrupper[kandidat.kvalifiseringsgruppekode]?.label}</Detail>
+            </div>
         </div>
     );
 };

@@ -22,40 +22,56 @@ export enum AnnenInnsatsgruppe {
 
 export type Innsatsgruppe = FiltrerbarInnsatsgruppe | AnnenInnsatsgruppe;
 
-type Config = {
-    kode: Innsatsgruppe;
-    label: string;
-    description?: string;
-};
-
-const innsatsgrupper: Config[] = [
+type Config = Record<
+    Innsatsgruppe,
     {
-        kode: FiltrerbarInnsatsgruppe.SpesieltTilpassetInnsats,
+        label: string;
+        description?: string;
+    }
+>;
+
+const filtrerbareInnsatsgrupper: Partial<Config> = {
+    [FiltrerbarInnsatsgruppe.SpesieltTilpassetInnsats]: {
         label: 'Spesielt tilpasset innsats',
         description: 'Nedsatt arbeidsevne og et identifisert behov for tilrettelegging',
     },
-    {
-        kode: FiltrerbarInnsatsgruppe.SituasjonsbestemtInnsats,
+    [FiltrerbarInnsatsgruppe.SituasjonsbestemtInnsats]: {
         label: 'Situasjonsbestemt innsats',
         description: 'Moderat bistandsbehov',
     },
-    {
-        kode: FiltrerbarInnsatsgruppe.Standardinnsats,
+    [FiltrerbarInnsatsgruppe.Standardinnsats]: {
         label: 'Standardinnsats',
         description: 'Behov for ordinær bistand',
     },
-    {
-        kode: FiltrerbarInnsatsgruppe.VarigTilpasset,
+    [FiltrerbarInnsatsgruppe.VarigTilpasset]: {
         label: 'Varig tilpasset innsats',
         description: 'Varig nedsatt arbeidsevne',
     },
-    {
-        kode: FiltrerbarInnsatsgruppe.AndreInnsatsgrupper,
+    [FiltrerbarInnsatsgruppe.AndreInnsatsgrupper]: {
         label: 'Servicegrupper',
         description:
             'Ikke vurdert, behov for arbeidsevnevurdering, helserelatert arbeidsrettet oppfølging, sykmeldt',
     },
-];
+};
+
+export const alleInnsatsgrupper: Partial<Config> = {
+    ...filtrerbareInnsatsgrupper,
+    [AnnenInnsatsgruppe.IkkeVurdert]: {
+        label: 'Ikke vurdert',
+    },
+    [AnnenInnsatsgruppe.BehovForArbeidsevnevurdering]: {
+        label: 'Behov for arbeidsevnevurdering',
+    },
+    [AnnenInnsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav]: {
+        label: 'Helserelatert arbeidsrettet oppfølging i NAV',
+    },
+    [AnnenInnsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen]: {
+        label: 'Sykmeldt med oppfølging på arbeidsplassen',
+    },
+    [AnnenInnsatsgruppe.SykmeldtUtenArbeidsgiver]: {
+        label: 'sykmeldt uten arbeidsgiver',
+    },
+};
 
 export const andreInnsatsgrupper = [
     AnnenInnsatsgruppe.IkkeVurdert,
@@ -83,12 +99,8 @@ const VelgInnsatsgruppe = () => {
                         onChange={onChange}
                         value={Array.from(søkekriterier.innsatsgruppe)}
                     >
-                        {innsatsgrupper.map((gruppe) => (
-                            <Checkbox
-                                key={gruppe.kode}
-                                value={gruppe.kode}
-                                description={gruppe.description}
-                            >
+                        {Object.entries(filtrerbareInnsatsgrupper).map(([kode, gruppe]) => (
+                            <Checkbox key={kode} value={kode} description={gruppe.description}>
                                 {gruppe.label}
                             </Checkbox>
                         ))}
