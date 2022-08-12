@@ -10,6 +10,7 @@ import useInnloggetBruker from './hooks/useBrukerensIdent';
 import css from './App.module.css';
 import VelgInnsatsgruppe from './filter/VelgInnsatsgruppe';
 import TømFiltre from './filter/TømFiltre';
+import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 
 export type AppProps = {
     navKontor: string | null;
@@ -19,6 +20,8 @@ export type AppProps = {
 const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
+
+    const { markerteKandidater, onMarkerKandidat } = useMarkerteKandidater();
 
     return (
         <div className={css.container}>
@@ -34,7 +37,11 @@ const App = ({ navKontor }: AppProps) => {
                         <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
                     )}
                     {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
-                        <Resultat respons={respons.data} />
+                        <Resultat
+                            respons={respons.data}
+                            markerteKandidater={markerteKandidater}
+                            onMarkerKandidat={onMarkerKandidat}
+                        />
                     )}
                 </PorteføljeTabs>
             </main>
