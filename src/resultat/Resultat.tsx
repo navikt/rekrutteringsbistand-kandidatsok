@@ -1,5 +1,7 @@
 import React from 'react';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { Button, Heading } from '@navikt/ds-react';
+import { Error } from '@navikt/ds-icons';
+
 import { Respons } from '../elasticSearchTyper';
 import Kandidat from './Kandidat';
 import Paginering from '../filter/Paginering';
@@ -10,9 +12,10 @@ type Props = {
     respons: Respons;
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string) => void;
+    fjernMarkering: () => void;
 };
 
-const Resultat = ({ respons, markerteKandidater, onMarkerKandidat }: Props) => {
+const Resultat = ({ respons, markerteKandidater, onMarkerKandidat, fjernMarkering }: Props) => {
     const sistBesøkteKandidat = useSistBesøkteKandidat();
 
     const treff = respons.hits.hits;
@@ -26,7 +29,15 @@ const Resultat = ({ respons, markerteKandidater, onMarkerKandidat }: Props) => {
                     {antallTreff} kandidater
                 </Heading>
                 {markerteKandidater.size > 0 && (
-                    <BodyShort>{markerteKandidater.size} markert</BodyShort>
+                    <Button
+                        size="small"
+                        variant="secondary"
+                        aria-label="Fjern markerte kandidater"
+                        onClick={fjernMarkering}
+                    >
+                        <Error />
+                        {markerteKandidater.size} markert
+                    </Button>
                 )}
             </div>
             <ul className={css.kandidater}>

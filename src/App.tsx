@@ -21,7 +21,7 @@ const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
 
-    const { markerteKandidater, onMarkerKandidat } = useMarkerteKandidater();
+    const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater();
 
     return (
         <div className={css.container}>
@@ -41,6 +41,7 @@ const App = ({ navKontor }: AppProps) => {
                             respons={respons.data}
                             markerteKandidater={markerteKandidater}
                             onMarkerKandidat={onMarkerKandidat}
+                            fjernMarkering={fjernMarkering}
                         />
                     )}
                 </PorteføljeTabs>

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Search } from '@navikt/ds-react';
 import { Param } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
@@ -7,6 +7,12 @@ import css from './Fritekstsøk.module.css';
 const Fritekstsøk: FunctionComponent = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [query, setQuery] = useState<string>(søkekriterier.fritekst || '');
+
+    useEffect(() => {
+        if (søkekriterier.fritekst === null) {
+            setQuery('');
+        }
+    }, [søkekriterier]);
 
     const onSearchChange = (query: string) => {
         setQuery(query.trim());

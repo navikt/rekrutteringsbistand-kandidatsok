@@ -4,8 +4,6 @@ const useMarkerteKandidater = () => {
     const [markerteKandidater, setMarkerteKandidater] = useState<Set<string>>(new Set());
 
     const onMarkerKandidat = (kandidatNr: string) => {
-        console.log('SABLA');
-
         const nyeMarkerteKandidater = new Set(markerteKandidater);
 
         if (markerteKandidater.has(kandidatNr)) {
@@ -17,9 +15,14 @@ const useMarkerteKandidater = () => {
         setMarkerteKandidater(nyeMarkerteKandidater);
     };
 
+    const fjernMarkering = () => {
+        setMarkerteKandidater(new Set());
+    };
+
     return {
         markerteKandidater,
         onMarkerKandidat,
+        fjernMarkering,
     };
 };
 
