@@ -9,3 +9,13 @@
 .filter :global(.navds-checkbox__label) {
     padding-bottom: 0.5rem;
 }
+
+.fjernFilter {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fjernFilter button {
+    padding: 0.5rem;
+    background: none;
+}
