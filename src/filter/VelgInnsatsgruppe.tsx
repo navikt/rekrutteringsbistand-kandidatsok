@@ -5,16 +5,71 @@ import { Param } from '../hooks/useRespons';
 import filterCss from './Filter.module.css';
 
 export enum Innsatsgruppe {
-    SpesieltTilpasset = 'BATT',
-    Situasjonsbestemt = 'BFORM',
-    Standard = 'IKVAL',
+    SpesieltTilpassetInnsats = 'BATT',
+    SituasjonsbestemtInnsats = 'BFORM',
+    Standardinnsats = 'IKVAL',
     VarigTilpasset = 'VARIG',
-    SykmeldtMedOppfølgingPåArbeidsplassen = 'VURDI',
+    IkkeVurdert = 'IVURD',
     BehovForArbeidsevnevurdering = 'BKART',
-    Placeholder = 'IVURD',
-    SykmeldtUtenArbeidsgiver = 'VURDU',
     HelserelatertArbeidsrettetOppfølgingINav = 'OPPFI',
+    SykmeldtMedOppfølgingPåArbeidsplassen = 'VURDI',
+    SykmeldtUtenArbeidsgiver = 'VURDU',
 }
+
+type Config = {
+    kode: Innsatsgruppe;
+    label: string;
+    description?: string;
+};
+
+const vurderteInnsatsgrupper: Config[] = [
+    {
+        kode: Innsatsgruppe.SpesieltTilpassetInnsats,
+        label: 'Spesielt tilpasset innsats',
+        description: 'Nedsatt arbeidsevne og et identifisert behov for tilrettelegging',
+    },
+    {
+        kode: Innsatsgruppe.SituasjonsbestemtInnsats,
+        label: 'Situasjonsbestemt innsats',
+        description: 'Moderat bistandsbehov',
+    },
+    {
+        kode: Innsatsgruppe.Standardinnsats,
+        label: 'Standardinnsats',
+        description: 'Behov for ordinær bistand',
+    },
+    {
+        kode: Innsatsgruppe.VarigTilpasset,
+        label: 'Varig tilpasset innsats',
+        description: 'Varig nedsatt arbeidsevne',
+    },
+];
+
+const uvurderteInnsatsgrupper: Config[] = [
+    {
+        kode: Innsatsgruppe.IkkeVurdert,
+        label: 'Ikke vurdert',
+    },
+    {
+        kode: Innsatsgruppe.BehovForArbeidsevnevurdering,
+        label: 'Behov for arbeidsevnevurdering',
+    },
+];
+
+const sykmeldteGrupper: Config[] = [
+    {
+        kode: Innsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav,
+        label: 'Helserelatert arbeidsrettet oppfølging i NAV',
+    },
+    {
+        kode: Innsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen,
+        label: 'Sykmeldt, oppfølging på arbeidsplassen',
+    },
+    {
+        kode: Innsatsgruppe.SykmeldtUtenArbeidsgiver,
+        label: 'Sykmeldt uten arbeidsgiver',
+    },
+];
 
 const VelgInnsatsgruppe = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
@@ -29,14 +84,50 @@ const VelgInnsatsgruppe = () => {
                 <Accordion.Header id="innsatsgruppe-header">Innsatsgruppe</Accordion.Header>
                 <Accordion.Content>
                     <CheckboxGroup
-                        legend="Velg innsatsgruppe"
-                        hideLegend
+                        legend="Vurderte kandidater"
+                        description="Kandidater med vurdert bistandsbehov"
                         onChange={onChange}
                         value={Array.from(søkekriterier.innsatsgruppe)}
                     >
-                        {Object.values(Innsatsgruppe).map((innsatsgruppe) => (
-                            <Checkbox key={innsatsgruppe} value={innsatsgruppe}>
-                                {innsatsgruppeTilLabel(innsatsgruppe)}
+                        {vurderteInnsatsgrupper.map((gruppe) => (
+                            <Checkbox
+                                key={gruppe.kode}
+                                value={gruppe.kode}
+                                description={gruppe.description}
+                            >
+                                {gruppe.label}
+                            </Checkbox>
+                        ))}
+                    </CheckboxGroup>
+
+                    <CheckboxGroup
+                        legend="Ikke-vurderte kandidater"
+                        onChange={onChange}
+                        value={Array.from(søkekriterier.innsatsgruppe)}
+                    >
+                        {uvurderteInnsatsgrupper.map((gruppe) => (
+                            <Checkbox
+                                key={gruppe.kode}
+                                value={gruppe.kode}
+                                description={gruppe.description}
+                            >
+                                {gruppe.label}
+                            </Checkbox>
+                        ))}
+                    </CheckboxGroup>
+
+                    <CheckboxGroup
+                        legend="Sykmeldte kandidater"
+                        onChange={onChange}
+                        value={Array.from(søkekriterier.innsatsgruppe)}
+                    >
+                        {sykmeldteGrupper.map((gruppe) => (
+                            <Checkbox
+                                key={gruppe.kode}
+                                value={gruppe.kode}
+                                description={gruppe.description}
+                            >
+                                {gruppe.label}
                             </Checkbox>
                         ))}
                     </CheckboxGroup>
@@ -44,29 +135,6 @@ const VelgInnsatsgruppe = () => {
             </Accordion.Item>
         </Accordion>
     );
-};
-
-const innsatsgruppeTilLabel = (innsatsgruppe: Innsatsgruppe) => {
-    switch (innsatsgruppe) {
-        case Innsatsgruppe.SpesieltTilpasset:
-            return 'Spesielt tilpasset innsats';
-        case Innsatsgruppe.Situasjonsbestemt:
-            return 'Situasjonsbestemt innsats';
-        case Innsatsgruppe.Standard:
-            return 'Standardinnsats';
-        case Innsatsgruppe.VarigTilpasset:
-            return 'Spesielt tilpasset innsats';
-        case Innsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen:
-            return 'Sykmeldt med oppfølging på arbeidsplassen';
-        case Innsatsgruppe.BehovForArbeidsevnevurdering:
-            return 'Behov for arbeidsevnevurdering';
-        case Innsatsgruppe.Placeholder:
-            return 'IVURD. Hva er dette?';
-        case Innsatsgruppe.SykmeldtUtenArbeidsgiver:
-            return 'Sykmeldt uten arbeidsgiver';
-        case Innsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav:
-            return 'Helserelatert arbeidsrettet oppfølging i NAV';
-    }
 };
 
 export default VelgInnsatsgruppe;

@@ -72,6 +72,30 @@ vervObj.organisasjon
 vervObj.tittel
 ```
 
+## Filtrering på innsatsgruppe
+
+Alle arbeidssøkere i NAV er medlem av en innsatsgruppe. Innsatsgruppen forteller hvor mye bistand kandidaten trenger av NAV for å nå sitt hovedmål. Hovedmålet kan enten være å skaffe arbeid, beholde arbeid eller øke deltagelsen i arbeidslivet.
+
+Innsatsgruppene er NAVs implementasjon av [14a-vedtaket](https://lovdata.no/lov/2006-06-16-20/§14a) som sier at alle som henvender seg til et NAV-kontor skal få en slik vurdering om bistandsbehov.
+
+Innsatsgruppene er som følger:
+
+* Spesielt tilpasset innsats (BATT)
+* Situasjonsbestemt innsats (BFORM)
+* Standardinnsats (IKVAL)
+* Varig tilpasset innsats (VARIG)
+
+Innsatsgruppene deler datafelt med følgende "servicegrupper" (så en kandidat er enten medlem av en innsatsgruppe eller en servicegruppe):
+
+* Ikke vurdert (IVURD)
+* Behov for arbeidsevnevurdering (BKART)
+* Helserelatert arbeidsrettet oppfølging i NAV (OPPFI)
+* Sykmeldt med oppfølging på arbeidsplassen (VURDI)
+* Sykmeldt uten arbeidsgiver (VURDU)
+
+Les mer [på Confluence](https://confluence.adeo.no/display/INI754/9.2.4+Arena+datamodeller+og+kodeverk).
+
+
 # Henvendelser
 
 ## For Nav-ansatte
