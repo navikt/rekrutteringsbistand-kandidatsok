@@ -4,11 +4,15 @@ import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekr
 import { Param } from '../hooks/useRespons';
 import filterCss from './Filter.module.css';
 
-export enum Innsatsgruppe {
+export enum FiltrerbarInnsatsgruppe {
     SpesieltTilpassetInnsats = 'BATT',
     SituasjonsbestemtInnsats = 'BFORM',
     Standardinnsats = 'IKVAL',
     VarigTilpasset = 'VARIG',
+    AndreInnsatsgrupper = 'ANDRE',
+}
+
+export enum AnnenInnsatsgruppe {
     IkkeVurdert = 'IVURD',
     BehovForArbeidsevnevurdering = 'BKART',
     HelserelatertArbeidsrettetOppfølgingINav = 'OPPFI',
@@ -16,59 +20,49 @@ export enum Innsatsgruppe {
     SykmeldtUtenArbeidsgiver = 'VURDU',
 }
 
+export type Innsatsgruppe = FiltrerbarInnsatsgruppe | AnnenInnsatsgruppe;
+
 type Config = {
     kode: Innsatsgruppe;
     label: string;
     description?: string;
 };
 
-const vurderteInnsatsgrupper: Config[] = [
+const innsatsgrupper: Config[] = [
     {
-        kode: Innsatsgruppe.SpesieltTilpassetInnsats,
+        kode: FiltrerbarInnsatsgruppe.SpesieltTilpassetInnsats,
         label: 'Spesielt tilpasset innsats',
         description: 'Nedsatt arbeidsevne og et identifisert behov for tilrettelegging',
     },
     {
-        kode: Innsatsgruppe.SituasjonsbestemtInnsats,
+        kode: FiltrerbarInnsatsgruppe.SituasjonsbestemtInnsats,
         label: 'Situasjonsbestemt innsats',
         description: 'Moderat bistandsbehov',
     },
     {
-        kode: Innsatsgruppe.Standardinnsats,
+        kode: FiltrerbarInnsatsgruppe.Standardinnsats,
         label: 'Standardinnsats',
         description: 'Behov for ordinær bistand',
     },
     {
-        kode: Innsatsgruppe.VarigTilpasset,
+        kode: FiltrerbarInnsatsgruppe.VarigTilpasset,
         label: 'Varig tilpasset innsats',
         description: 'Varig nedsatt arbeidsevne',
     },
-];
-
-const uvurderteInnsatsgrupper: Config[] = [
     {
-        kode: Innsatsgruppe.IkkeVurdert,
-        label: 'Ikke vurdert',
-    },
-    {
-        kode: Innsatsgruppe.BehovForArbeidsevnevurdering,
-        label: 'Behov for arbeidsevnevurdering',
+        kode: FiltrerbarInnsatsgruppe.AndreInnsatsgrupper,
+        label: 'Andre innsatsgrupper',
+        description:
+            'Ikke vurderte, behov for arbeidsevnevurdering, helserelatert arbeidsrettet oppfølging, sykmeldte',
     },
 ];
 
-const sykmeldteGrupper: Config[] = [
-    {
-        kode: Innsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav,
-        label: 'Helserelatert arbeidsrettet oppfølging i NAV',
-    },
-    {
-        kode: Innsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen,
-        label: 'Sykmeldt, oppfølging på arbeidsplassen',
-    },
-    {
-        kode: Innsatsgruppe.SykmeldtUtenArbeidsgiver,
-        label: 'Sykmeldt uten arbeidsgiver',
-    },
+export const andreInnsatsgrupper = [
+    AnnenInnsatsgruppe.IkkeVurdert,
+    AnnenInnsatsgruppe.BehovForArbeidsevnevurdering,
+    AnnenInnsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav,
+    AnnenInnsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen,
+    AnnenInnsatsgruppe.SykmeldtUtenArbeidsgiver,
 ];
 
 const VelgInnsatsgruppe = () => {
@@ -84,44 +78,12 @@ const VelgInnsatsgruppe = () => {
                 <Accordion.Header id="innsatsgruppe-header">Innsatsgruppe</Accordion.Header>
                 <Accordion.Content>
                     <CheckboxGroup
-                        legend="Vurderte kandidater"
-                        description="Kandidater med vurdert bistandsbehov"
+                        hideLegend
+                        legend="Velg innsatsgrupper"
                         onChange={onChange}
                         value={Array.from(søkekriterier.innsatsgruppe)}
                     >
-                        {vurderteInnsatsgrupper.map((gruppe) => (
-                            <Checkbox
-                                key={gruppe.kode}
-                                value={gruppe.kode}
-                                description={gruppe.description}
-                            >
-                                {gruppe.label}
-                            </Checkbox>
-                        ))}
-                    </CheckboxGroup>
-
-                    <CheckboxGroup
-                        legend="Ikke-vurderte kandidater"
-                        onChange={onChange}
-                        value={Array.from(søkekriterier.innsatsgruppe)}
-                    >
-                        {uvurderteInnsatsgrupper.map((gruppe) => (
-                            <Checkbox
-                                key={gruppe.kode}
-                                value={gruppe.kode}
-                                description={gruppe.description}
-                            >
-                                {gruppe.label}
-                            </Checkbox>
-                        ))}
-                    </CheckboxGroup>
-
-                    <CheckboxGroup
-                        legend="Sykmeldte kandidater"
-                        onChange={onChange}
-                        value={Array.from(søkekriterier.innsatsgruppe)}
-                    >
-                        {sykmeldteGrupper.map((gruppe) => (
+                        {innsatsgrupper.map((gruppe) => (
                             <Checkbox
                                 key={gruppe.kode}
                                 value={gruppe.kode}
