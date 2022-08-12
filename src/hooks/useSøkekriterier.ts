@@ -29,6 +29,10 @@ const useSøkekriterier = (): Returverdi => {
             searchParams.delete(parameter);
         }
 
+        if (parameter !== Param.Side && søkekriterier.side > 1) {
+            searchParams.delete(Param.Side);
+        }
+
         setSearchParams(searchParams);
     };
 
