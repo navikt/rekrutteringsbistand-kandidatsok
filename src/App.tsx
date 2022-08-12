@@ -8,6 +8,7 @@ import Fritekstsøk from './filter/Fritekstsøk';
 import PorteføljeTabs from './filter/PorteføljeTabs';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
 import css from './App.module.css';
+import VelgInnsatsgruppe from './filter/VelgInnsatsgruppe';
 
 export type AppProps = {
     navKontor: string | null;
@@ -22,6 +23,7 @@ const App = ({ navKontor }: AppProps) => {
         <div className={css.container}>
             <aside>
                 <Fritekstsøk />
+                <VelgInnsatsgruppe />
             </aside>
             <main>
                 <PorteføljeTabs>

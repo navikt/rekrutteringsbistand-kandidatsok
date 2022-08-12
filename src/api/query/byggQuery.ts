@@ -2,6 +2,7 @@ import { Query, Sorteringsrekkefølge } from '../../elasticSearchTyper';
 import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
 import { Søkekriterier } from '../../hooks/useRespons';
 import { queryMedFritekst } from './queryMedFritekst';
+import { queryMedInnsatsgruppe } from './queryMedInnsatsgruppe';
 import { queryMedPortefølje } from './queryMedPortefølje';
 
 export const PAGE_SIZE = 10;
@@ -10,7 +11,7 @@ export const byggQuery = (
     søkekriterier: Søkekriterier,
     innloggetBruker: InnloggetBruker
 ): Query => {
-    const { fritekst, portefølje, side } = søkekriterier;
+    const { fritekst, portefølje, side, innsatsgruppe } = søkekriterier;
 
     return {
         query: {
@@ -18,6 +19,7 @@ export const byggQuery = (
                 must: [
                     ...queryMedFritekst(fritekst),
                     ...queryMedPortefølje(portefølje, innloggetBruker),
+                    ...queryMedInnsatsgruppe(innsatsgruppe),
                 ],
             },
         },

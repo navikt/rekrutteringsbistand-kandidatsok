@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/PorteføljeTabs';
+import { Innsatsgruppe } from '../filter/VelgInnsatsgruppe';
 import { Param, Søkekriterier } from './useRespons';
+
+export const LISTEPARAMETER_SEPARATOR = '.';
 
 type Returverdi = {
     setSearchParam: (parameter: Param, value?: string) => void;
@@ -43,6 +46,9 @@ const useSøkekriterier = (): Returverdi => {
 const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): Søkekriterier => ({
     fritekst: searchParams.get(Param.Fritekst),
     portefølje: (searchParams.get(Param.Portefølje) as Portefølje) || Portefølje.Alle,
+    innsatsgruppe: new Set(
+        searchParams.get(Param.Innsatsgruppe)?.split(LISTEPARAMETER_SEPARATOR)
+    ) as Set<Innsatsgruppe>,
     side: Number(searchParams.get(Param.Side)) || 1,
 });
 

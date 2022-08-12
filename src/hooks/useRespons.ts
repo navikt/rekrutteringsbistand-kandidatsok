@@ -4,6 +4,7 @@ import { Nettressurs } from '../api/Nettressurs';
 import { byggQuery } from '../api/query/byggQuery';
 import { Respons } from '../elasticSearchTyper';
 import { Portefølje } from '../filter/PorteføljeTabs';
+import { Innsatsgruppe } from '../filter/VelgInnsatsgruppe';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
 
@@ -11,11 +12,13 @@ export enum Param {
     Fritekst = 'q',
     Side = 'side',
     Portefølje = 'portefolje',
+    Innsatsgruppe = 'innsatsgruppe',
 }
 
 export type Søkekriterier = {
     fritekst: string | null;
     portefølje: Portefølje;
+    innsatsgruppe: Set<Innsatsgruppe>;
     side: number;
 };
 
