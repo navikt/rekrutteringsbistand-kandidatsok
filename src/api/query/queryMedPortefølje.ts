@@ -14,7 +14,7 @@ export const queryMedPortefølje = (portefølje: Portefølje, innloggetBruker: I
         return [
             {
                 term: {
-                    navKontorNr: innloggetBruker.navKontor || '',
+                    orgenhet: innloggetBruker.navKontor || '',
                 },
             },
         ];
