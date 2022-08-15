@@ -15,11 +15,11 @@ const Fritekstsøk: FunctionComponent = () => {
     }, [søkekriterier]);
 
     const onSearchChange = (query: string) => {
-        setQuery(query.trim());
+        setQuery(query);
     };
 
     const onSearchApply = () => {
-        setSearchParam(Param.Fritekst, query);
+        setSearchParam(Param.Fritekst, query.trim());
     };
 
     const onClear = () => {
