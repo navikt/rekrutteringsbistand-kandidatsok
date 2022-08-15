@@ -31,8 +31,8 @@ const App = ({ navKontor }: AppProps) => {
                 <Fritekstsøk />
                 <VelgInnsatsgruppe />
             </aside>
-            <main>
-                <PorteføljeTabs>
+            <PorteføljeTabs>
+                <main className={css.hovedinnhold}>
                     {respons.kind === 'laster-inn' && (
                         <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
                     )}
@@ -44,8 +44,8 @@ const App = ({ navKontor }: AppProps) => {
                             fjernMarkering={fjernMarkering}
                         />
                     )}
-                </PorteføljeTabs>
-            </main>
+                </main>
+            </PorteføljeTabs>
         </div>
     );
 };

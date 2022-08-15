@@ -11,6 +11,11 @@
     flex-direction: column;
 }
 
+.hovedinnhold {
+    display: flex;
+    flex-direction: column;
+}
+
 @media (min-width: 900px) {
     .container {
         display: grid;
@@ -20,5 +25,6 @@
 }
 
 .lasterInn {
-    margin: 5rem auto;
+    align-self: center;
+    margin: 5rem 1rem;
 }
