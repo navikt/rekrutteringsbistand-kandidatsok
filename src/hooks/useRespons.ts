@@ -28,6 +28,8 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
         kind: 'ikke-lastet',
     });
 
+    const query = byggQuery(søkekriterier, innloggetBruker);
+
     const setOpptatt = () => {
         setRespons(
             respons.kind === 'suksess'
@@ -46,7 +48,7 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
             setOpptatt();
 
             try {
-                let søkeresultat = await søk(byggQuery(søkekriterier, innloggetBruker));
+                let søkeresultat = await søk(query);
 
                 setRespons({
                     kind: 'suksess',
@@ -63,7 +65,7 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
         hentKandidater();
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [søkekriterier, innloggetBruker.navIdent, innloggetBruker.navKontor]);
+    }, [JSON.stringify(query)]);
 
     return respons;
 };
