@@ -8,7 +8,7 @@ import Fritekstsøk from './filter/Fritekstsøk';
 import PorteføljeTabs from './filter/PorteføljeTabs';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
 import css from './App.module.css';
-import VelgInnsatsgruppe from './filter/VelgInnsatsgruppe';
+import VelgInnsatsgruppe from './filter/Jobbmuligheter';
 import TømFiltre from './filter/TømFiltre';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 

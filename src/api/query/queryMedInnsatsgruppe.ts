@@ -1,24 +1,33 @@
 import {
-    andreInnsatsgrupper,
     FiltrerbarInnsatsgruppe,
     Innsatsgruppe,
-} from '../../filter/VelgInnsatsgruppe';
+    Kvalifiseringsgruppe,
+    Servicegruppe,
+} from '../../filter/Jobbmuligheter';
 
-export const queryMedInnsatsgruppe = (innsatsgruppe: Set<Innsatsgruppe>) => {
-    if (innsatsgruppe.size === 0) {
-        return [];
+export const queryMedInnsatsgruppe = (innsatsgrupper: Set<FiltrerbarInnsatsgruppe>) => {
+    const kvalifiseringsgrupper = new Set(innsatsgrupper) as Set<Kvalifiseringsgruppe>;
+
+    if (kvalifiseringsgrupper.size === 0) {
+        return [
+            {
+                terms: {
+                    kvalifiseringsgruppekode: Object.values(Innsatsgruppe),
+                },
+            },
+        ];
     }
 
-    if (innsatsgruppe.has(FiltrerbarInnsatsgruppe.AndreInnsatsgrupper)) {
-        andreInnsatsgrupper.forEach((gruppe) => {
-            innsatsgruppe.add(gruppe);
+    if (kvalifiseringsgrupper.has(FiltrerbarInnsatsgruppe.AndreInnsatsgrupper)) {
+        Object.values(Servicegruppe).forEach((gruppe) => {
+            kvalifiseringsgrupper.add(gruppe);
         });
     }
 
     return [
         {
             terms: {
-                kvalifiseringsgruppekode: Array.from(innsatsgruppe),
+                kvalifiseringsgruppekode: Array.from(kvalifiseringsgrupper),
             },
         },
     ];

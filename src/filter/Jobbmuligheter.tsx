@@ -4,15 +4,19 @@ import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekr
 import { Param } from '../hooks/useRespons';
 import filterCss from './Filter.module.css';
 
-export enum FiltrerbarInnsatsgruppe {
+export enum Innsatsgruppe {
     SpesieltTilpassetInnsats = 'BATT',
     SituasjonsbestemtInnsats = 'BFORM',
     Standardinnsats = 'IKVAL',
     VarigTilpasset = 'VARIG',
+}
+
+export enum FiltrerbarInnsatsgruppe {
+    Innsatsgruppe,
     AndreInnsatsgrupper = 'ANDRE',
 }
 
-export enum AnnenInnsatsgruppe {
+export enum Servicegruppe {
     IkkeVurdert = 'IVURD',
     BehovForArbeidsevnevurdering = 'BKART',
     HelserelatertArbeidsrettetOppfølgingINav = 'OPPFI',
@@ -20,68 +24,52 @@ export enum AnnenInnsatsgruppe {
     SykmeldtUtenArbeidsgiver = 'VURDU',
 }
 
-export type Innsatsgruppe = FiltrerbarInnsatsgruppe | AnnenInnsatsgruppe;
+export type Kvalifiseringsgruppe = FiltrerbarInnsatsgruppe | Servicegruppe;
 
-type Config = Record<
-    Innsatsgruppe,
-    {
-        label: string;
-        description?: string;
-    }
->;
-
-const filtrerbareInnsatsgrupper: Partial<Config> = {
-    [FiltrerbarInnsatsgruppe.SpesieltTilpassetInnsats]: {
-        label: 'Spesielt tilpasset innsats',
+const filtrerbareInnsatsgrupper = {
+    [Innsatsgruppe.SpesieltTilpassetInnsats]: {
+        label: 'Trenger mye veiledning',
         description: 'Nedsatt arbeidsevne og et identifisert behov for tilrettelegging',
     },
-    [FiltrerbarInnsatsgruppe.SituasjonsbestemtInnsats]: {
-        label: 'Situasjonsbestemt innsats',
+    [Innsatsgruppe.SituasjonsbestemtInnsats]: {
+        label: 'Trenger veiledning',
         description: 'Moderat bistandsbehov',
     },
-    [FiltrerbarInnsatsgruppe.Standardinnsats]: {
-        label: 'Standardinnsats',
+    [Innsatsgruppe.Standardinnsats]: {
+        label: 'Gode muligheter',
         description: 'Behov for ordinær bistand',
     },
-    [FiltrerbarInnsatsgruppe.VarigTilpasset]: {
-        label: 'Varig tilpasset innsats',
+    [Innsatsgruppe.VarigTilpasset]: {
+        label: 'Liten mulighet til å jobbe',
         description: 'Varig nedsatt arbeidsevne',
     },
     [FiltrerbarInnsatsgruppe.AndreInnsatsgrupper]: {
-        label: 'Servicegrupper',
+        label: 'Andre kvalifiseringsgrupper',
         description:
             'Ikke vurdert, behov for arbeidsevnevurdering, helserelatert arbeidsrettet oppfølging, sykmeldt',
     },
 };
 
-export const alleInnsatsgrupper: Partial<Config> = {
+export const alleInnsatsgrupper = {
     ...filtrerbareInnsatsgrupper,
-    [AnnenInnsatsgruppe.IkkeVurdert]: {
+    [Servicegruppe.IkkeVurdert]: {
         label: 'Ikke vurdert',
     },
-    [AnnenInnsatsgruppe.BehovForArbeidsevnevurdering]: {
+    [Servicegruppe.BehovForArbeidsevnevurdering]: {
         label: 'Behov for arbeidsevnevurdering',
     },
-    [AnnenInnsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav]: {
+    [Servicegruppe.HelserelatertArbeidsrettetOppfølgingINav]: {
         label: 'Helserelatert arbeidsrettet oppfølging i NAV',
     },
-    [AnnenInnsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen]: {
+    [Servicegruppe.SykmeldtMedOppfølgingPåArbeidsplassen]: {
         label: 'Sykmeldt med oppfølging på arbeidsplassen',
     },
-    [AnnenInnsatsgruppe.SykmeldtUtenArbeidsgiver]: {
+    [Servicegruppe.SykmeldtUtenArbeidsgiver]: {
         label: 'sykmeldt uten arbeidsgiver',
     },
 };
 
-export const andreInnsatsgrupper = [
-    AnnenInnsatsgruppe.IkkeVurdert,
-    AnnenInnsatsgruppe.BehovForArbeidsevnevurdering,
-    AnnenInnsatsgruppe.HelserelatertArbeidsrettetOppfølgingINav,
-    AnnenInnsatsgruppe.SykmeldtMedOppfølgingPåArbeidsplassen,
-    AnnenInnsatsgruppe.SykmeldtUtenArbeidsgiver,
-];
-
-const VelgInnsatsgruppe = () => {
+const Jobbmuligheter = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
     const onChange = (valgteInnsatsgrupper: Innsatsgruppe[]) => {
@@ -91,7 +79,7 @@ const VelgInnsatsgruppe = () => {
     return (
         <Accordion className={filterCss.filter}>
             <Accordion.Item defaultOpen>
-                <Accordion.Header id="innsatsgruppe-header">Innsatsgruppe</Accordion.Header>
+                <Accordion.Header id="innsatsgruppe-header">Jobbmuligheter</Accordion.Header>
                 <Accordion.Content>
                     <CheckboxGroup
                         hideLegend
@@ -111,4 +99,4 @@ const VelgInnsatsgruppe = () => {
     );
 };
 
-export default VelgInnsatsgruppe;
+export default Jobbmuligheter;

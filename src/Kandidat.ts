@@ -1,4 +1,4 @@
-import { Innsatsgruppe } from './filter/VelgInnsatsgruppe';
+import { Innsatsgruppe } from './filter/Jobbmuligheter';
 
 export type Kandidat = {
     fodselsnummer: string;

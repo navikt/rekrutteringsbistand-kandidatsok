@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Checkbox, Detail } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
-import { alleInnsatsgrupper } from '../filter/VelgInnsatsgruppe';
+import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat as Kandidattype } from '../Kandidat';
 import css from './Resultat.module.css';
 
