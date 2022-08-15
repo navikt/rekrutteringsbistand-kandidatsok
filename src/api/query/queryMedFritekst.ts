@@ -6,7 +6,7 @@ const søkbareFelterIFritekstsøk = [
     'fritekst',
     'fornavn',
     'etternavn',
-    'yrkeJobbonskerObj.styrkBeskrivelse',
+    'yrkeJobbonskerObj.styrkBeskrivelse^2',
     'yrkeJobbonskerObj.sokeTitler',
 ];
 

@@ -29,6 +29,11 @@ const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker, erF
                     {hentKandidatensNavn(kandidat)}
                 </Link>
                 <Detail>{alleInnsatsgrupper[kandidat.kvalifiseringsgruppekode]?.label}</Detail>
+                <Detail className={css.jobbønsker}>
+                    {kandidat.yrkeJobbonskerObj
+                        .map((jobbønske) => jobbønske.styrkBeskrivelse)
+                        .join(', ')}
+                </Detail>
             </div>
         </div>
     );

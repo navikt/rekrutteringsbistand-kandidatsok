@@ -22,9 +22,16 @@
 }
 
 .kandidatinformasjon {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
     width: 100%;
+}
+
+.jobbønsker {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 70%;
 }
 
 .fremhevetKandidat {
