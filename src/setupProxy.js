@@ -22,5 +22,9 @@ module.exports = (app) => {
 
     if (!REACT_APP_MOCK_ES) {
         setupProxy('/kandidatsok-proxy', `${OPEN_SEARCH_URI}/veilederkandidat_current/_search`);
+        setupProxy(
+            '/kandidatsok-hent-kandidat',
+            `${OPEN_SEARCH_URI}/veilederkandidat_current/_doc`
+        );
     }
 };

@@ -39,7 +39,7 @@ const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker, erF
     );
 };
 
-const hentKandidatensNavn = (kandidat: Kandidattype) =>
+export const hentKandidatensNavn = (kandidat: Kandidattype) =>
     `${storForbokstav(kandidat.etternavn)}, ${storForbokstav(kandidat.fornavn)}`;
 
 const lenkeTilKandidat = ({ arenaKandidatnr }: Kandidattype) =>

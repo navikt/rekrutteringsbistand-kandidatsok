@@ -6,6 +6,8 @@ import App from '../App';
 import css from './Utviklingsapp.module.css';
 import { createBrowserHistory } from 'history';
 import CustomRouter from './CustomRouter';
+import Kandidatside from './KandidatsideForUtvikling';
+import KandidatsideForUtvikling from './KandidatsideForUtvikling';
 
 const history = createBrowserHistory();
 
@@ -33,7 +35,10 @@ const Utviklingsapp = () => {
                 </Link>
             </header>
             <Routes>
-                <Route path="/kandidater/kandidat/:kandidatNr/cv" element={<>Kandidatside</>} />
+                <Route
+                    path="/kandidater/kandidat/:kandidatNr/cv"
+                    element={<KandidatsideForUtvikling />}
+                />
                 <Route
                     path="/kandidatsok"
                     element={
