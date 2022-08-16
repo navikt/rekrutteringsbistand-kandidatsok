@@ -6,7 +6,6 @@ import App from '../App';
 import css from './Utviklingsapp.module.css';
 import { createBrowserHistory } from 'history';
 import CustomRouter from './CustomRouter';
-import Kandidatside from './KandidatsideForUtvikling';
 import KandidatsideForUtvikling from './KandidatsideForUtvikling';
 
 const history = createBrowserHistory();
@@ -37,7 +36,7 @@ const Utviklingsapp = () => {
             <Routes>
                 <Route
                     path="/kandidater/kandidat/:kandidatNr/cv"
-                    element={<KandidatsideForUtvikling />}
+                    element={<KandidatsideForUtvikling navKontor={navKontor} />}
                 />
                 <Route
                     path="/kandidatsok"

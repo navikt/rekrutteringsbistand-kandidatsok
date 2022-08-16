@@ -4,11 +4,7 @@ import { Nettressurs } from '../api/Nettressurs';
 import { byggQuery } from '../api/query/byggQuery';
 import { Respons } from '../elasticSearchTyper';
 import { Portefølje } from '../filter/PorteføljeTabs';
-import {
-    FiltrerbarInnsatsgruppe,
-    Innsatsgruppe,
-    Kvalifiseringsgruppe,
-} from '../filter/Jobbmuligheter';
+import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
 

@@ -7,6 +7,7 @@ export type Kandidat = {
     arenaKandidatnr: string;
     kvalifiseringsgruppekode: Innsatsgruppe;
     yrkeJobbonskerObj: Jobbønske[];
+    geografiJobbonsker: JobbønskeSted[];
 };
 
 type Jobbønske = {
@@ -14,4 +15,9 @@ type Jobbønske = {
     styrkBeskrivelse: string;
     sokeTitler: string[];
     primaertJobbonske: boolean;
+};
+
+type JobbønskeSted = {
+    geografiKodeTekst: string;
+    geografiKode: string;
 };

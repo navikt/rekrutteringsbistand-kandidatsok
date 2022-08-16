@@ -15,7 +15,7 @@ export type Query = {
         };
         filter?: any;
     };
-    sort: {
+    sort?: {
         [felt: string]: {
             order: Sorteringsrekkefølge;
         };

@@ -48,7 +48,6 @@ export const queryMedFritekst = (fritekst: string | null): Array<any> => {
                 multi_match: {
                     query: fritekst,
                     fields: søkbareFelterIFritekstsøk,
-                    fuzziness: 'AUTO',
                 },
             },
         ];

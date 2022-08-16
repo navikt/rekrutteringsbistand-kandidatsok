@@ -15,7 +15,7 @@ export const søk = async (query: Query): Promise<Respons> => {
     }
 };
 
-const post = (url: string, body: object) =>
+export const post = (url: string, body: object) =>
     fetch(url, {
         body: JSON.stringify(body),
         method: 'POST',

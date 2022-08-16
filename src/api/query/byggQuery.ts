@@ -11,22 +11,28 @@ export const byggQuery = (
     søkekriterier: Søkekriterier,
     innloggetBruker: InnloggetBruker
 ): Query => {
-    const { fritekst, portefølje, side, innsatsgruppe } = søkekriterier;
+    const { side } = søkekriterier;
 
     return {
-        query: {
-            bool: {
-                must: [
-                    ...queryMedFritekst(fritekst),
-                    ...queryMedPortefølje(portefølje, innloggetBruker),
-                    ...queryMedInnsatsgruppe(innsatsgruppe),
-                ],
-            },
-        },
+        query: byggInnerQuery(søkekriterier, innloggetBruker),
         size: PAGE_SIZE,
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
-        sort: sorterSisteKandidaterFørst,
+        sort: søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst,
+    };
+};
+
+export const byggInnerQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
+    const { fritekst, portefølje, innsatsgruppe } = søkekriterier;
+
+    return {
+        bool: {
+            must: [
+                ...queryMedFritekst(fritekst),
+                ...queryMedPortefølje(portefølje, innloggetBruker),
+                ...queryMedInnsatsgruppe(innsatsgruppe),
+            ],
+        },
     };
 };
 

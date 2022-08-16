@@ -24,14 +24,27 @@
 .kandidatinformasjon {
     display: grid;
     grid-template-columns: 1fr auto;
+    gap: 0.5rem 1rem;
     width: 100%;
 }
 
+.ønsketYrke {
+    display: flex;
+}
+
+.ønsketYrke svg {
+    transform: translateY(4px);
+    margin-right: 0.5rem;
+}
+
 .jobbønsker {
+    max-width: 90%;
+
+    /* Maks to linjer */
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 70%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .fremhevetKandidat {

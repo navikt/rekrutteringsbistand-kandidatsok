@@ -47,7 +47,7 @@ const useSøkekriterier = (): Returverdi => {
     };
 };
 
-const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): Søkekriterier => ({
+export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): Søkekriterier => ({
     fritekst: searchParams.get(Param.Fritekst),
     portefølje: (searchParams.get(Param.Portefølje) as Portefølje) || Portefølje.Alle,
     innsatsgruppe: new Set(
