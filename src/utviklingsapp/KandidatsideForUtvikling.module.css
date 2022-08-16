@@ -3,8 +3,14 @@
     overflow: hidden;
 }
 
+.panel code {
+    white-space: pre;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+}
+
 .wrapper {
-    max-width: 60rem;
+    max-width: 80rem;
     margin: 2.5rem auto;
 }
 

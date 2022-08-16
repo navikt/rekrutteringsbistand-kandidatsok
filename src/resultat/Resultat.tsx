@@ -5,19 +5,24 @@ import { Error } from '@navikt/ds-icons';
 import { Respons } from '../elasticSearchTyper';
 import Kandidat from './Kandidat';
 import Paginering from '../filter/Paginering';
-import useSistBesøkteKandidat from '../hooks/useSistBesøkteKandidat';
 import css from './Resultat.module.css';
+import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 
-type Props = {
+export type Props = {
     respons: Respons;
+    navigeringsstate: Navigeringsstate;
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string) => void;
     fjernMarkering: () => void;
 };
 
-const Resultat = ({ respons, markerteKandidater, onMarkerKandidat, fjernMarkering }: Props) => {
-    const sistBesøkteKandidat = useSistBesøkteKandidat();
-
+const Resultat = ({
+    respons,
+    navigeringsstate,
+    markerteKandidater,
+    onMarkerKandidat,
+    fjernMarkering,
+}: Props) => {
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
     const kandidater = treff.map((t) => t._source);
@@ -45,11 +50,12 @@ const Resultat = ({ respons, markerteKandidater, onMarkerKandidat, fjernMarkerin
                     <Kandidat
                         kandidat={kandidat}
                         key={kandidat.arenaKandidatnr}
+                        markerteKandidater={markerteKandidater}
                         erMarkert={markerteKandidater.has(kandidat.arenaKandidatnr)}
                         onMarker={() => {
                             onMarkerKandidat(kandidat.arenaKandidatnr);
                         }}
-                        erFremhevet={sistBesøkteKandidat === kandidat.arenaKandidatnr}
+                        erFremhevet={navigeringsstate.fraKandidat === kandidat.arenaKandidatnr}
                     />
                 ))}
             </ul>

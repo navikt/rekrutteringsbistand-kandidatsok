@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useMarkerteKandidater = () => {
-    const [markerteKandidater, setMarkerteKandidater] = useState<Set<string>>(new Set());
+const useMarkerteKandidater = (initiellVerdi: Set<string> = new Set()) => {
+    const [markerteKandidater, setMarkerteKandidater] = useState<Set<string>>(initiellVerdi);
 
     const onMarkerKandidat = (kandidatNr: string) => {
         const nyeMarkerteKandidater = new Set(markerteKandidater);

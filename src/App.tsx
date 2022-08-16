@@ -7,10 +7,11 @@ import useRespons from './hooks/useRespons';
 import Fritekstsøk from './filter/Fritekstsøk';
 import PorteføljeTabs from './filter/PorteføljeTabs';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
-import css from './App.module.css';
 import VelgInnsatsgruppe from './filter/Jobbmuligheter';
 import TømFiltre from './filter/TømFiltre';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
+import useNavigeringsstate from './hooks/useNavigeringsstate';
+import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
@@ -20,8 +21,11 @@ export type AppProps = {
 const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
+    const navigeringsstate = useNavigeringsstate();
 
-    const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater();
+    const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
+        navigeringsstate.markerteKandidater
+    );
 
     return (
         <div className={css.container}>
@@ -39,6 +43,7 @@ const App = ({ navKontor }: AppProps) => {
                     {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
                         <Resultat
                             respons={respons.data}
+                            navigeringsstate={navigeringsstate}
                             markerteKandidater={markerteKandidater}
                             onMarkerKandidat={onMarkerKandidat}
                             fjernMarkering={fjernMarkering}

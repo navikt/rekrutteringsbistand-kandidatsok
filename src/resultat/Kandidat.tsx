@@ -3,17 +3,26 @@ import { Checkbox, Detail } from '@navikt/ds-react';
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat as Kandidattype } from '../Kandidat';
 import { storForbokstav } from '../utils';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import css from './Resultat.module.css';
 
 type Props = {
     kandidat: Kandidattype;
+    markerteKandidater: Set<string>;
     erMarkert: boolean;
     onMarker: () => void;
     erFremhevet: boolean;
 };
 
-const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker, erFremhevet }) => {
+const Kandidat: FunctionComponent<Props> = ({
+    kandidat,
+    markerteKandidater,
+    erMarkert,
+    onMarker,
+    erFremhevet,
+}) => {
+    const { search } = useLocation();
+
     let className = css.kandidat;
     if (erFremhevet) {
         className += ' ' + css.fremhevetKandidat;
@@ -25,7 +34,14 @@ const Kandidat: FunctionComponent<Props> = ({ kandidat, erMarkert, onMarker, erF
                 Valgt
             </Checkbox>
             <div className={css.kandidatinformasjon}>
-                <Link className="navds-link" to={lenkeTilKandidat(kandidat)}>
+                <Link
+                    className="navds-link"
+                    to={lenkeTilKandidat(kandidat)}
+                    state={{
+                        search,
+                        markerteKandidater,
+                    }}
+                >
                     {hentKandidatensNavn(kandidat)}
                 </Link>
                 <Detail>{alleInnsatsgrupper[kandidat.kvalifiseringsgruppekode]?.label}</Detail>
