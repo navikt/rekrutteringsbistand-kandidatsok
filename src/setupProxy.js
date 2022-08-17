@@ -6,7 +6,7 @@ const { OPEN_SEARCH_URI, OPEN_SEARCH_USERNAME, OPEN_SEARCH_PASSWORD, REACT_APP_M
     process.env;
 
 module.exports = (app) => {
-    const setupProxy = (fraPath, tilTarget) => {
+    const setupProxyTilEs = (fraPath, tilTarget) => {
         app.use(
             fraPath,
             createProxyMiddleware({
@@ -18,7 +18,10 @@ module.exports = (app) => {
         );
     };
 
-    const setupProxyWithGet = (fraPath, tilTarget) => {
+    /* Explain-endepunktet forventer en GET med body, som ikke er
+       enkelt å sette opp med http-proxy-middleware. Derfor setter
+       vi opp en egen proxy med axios for akkurat dette. */
+    const setupProxyTilEsExplain = (fraPath, tilTarget) => {
         app.use(express.json());
         app.use(fraPath, (req, res) => {
             axios
@@ -36,12 +39,17 @@ module.exports = (app) => {
     };
 
     if (!REACT_APP_MOCK_ES) {
-        setupProxy('/kandidatsok-proxy', `${OPEN_SEARCH_URI}/veilederkandidat_current/_search`);
-        setupProxy(
+        setupProxyTilEs(
+            '/kandidatsok-proxy',
+            `${OPEN_SEARCH_URI}/veilederkandidat_current/_search`
+        );
+
+        setupProxyTilEs(
             '/kandidatsok-hent-kandidat',
             `${OPEN_SEARCH_URI}/veilederkandidat_current/_doc`
         );
-        setupProxyWithGet(
+
+        setupProxyTilEsExplain(
             '/kandidatsok-hent-forklaring',
             `${OPEN_SEARCH_URI}/veilederkandidat_current/_explain`
         );
