@@ -1,22 +1,22 @@
 import React, { FunctionComponent } from 'react';
-import { BodyLong, BodyShort, Checkbox, Detail } from '@navikt/ds-react';
+import { Checkbox, Detail } from '@navikt/ds-react';
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
-import { Kandidat as Kandidattype } from '../Kandidat';
+import { Kandidat } from '../Kandidat';
 import { storForbokstav } from '../utils';
 import { Link, useLocation } from 'react-router-dom';
-import css from './Resultat.module.css';
 import { Heart, Place } from '@navikt/ds-icons';
-import Kandidatinfo from './Kandidatinfo';
+import TekstlinjeMedIkon from './TekstlinjeMedIkon';
+import css from './Resultat.module.css';
 
 type Props = {
-    kandidat: Kandidattype;
+    kandidat: Kandidat;
     markerteKandidater: Set<string>;
     erMarkert: boolean;
     onMarker: () => void;
     erFremhevet: boolean;
 };
 
-const Kandidat: FunctionComponent<Props> = ({
+const Kandidatrad: FunctionComponent<Props> = ({
     kandidat,
     markerteKandidater,
     erMarkert,
@@ -26,9 +26,9 @@ const Kandidat: FunctionComponent<Props> = ({
     const { search } = useLocation();
     const { kvalifiseringsgruppekode } = kandidat;
 
-    let className = css.kandidat;
+    let className = css.kandidatrad;
     if (erFremhevet) {
-        className += ' ' + css.fremhevetKandidat;
+        className += ' ' + css.fremhevetKandidatrad;
     }
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
@@ -56,14 +56,14 @@ const Kandidat: FunctionComponent<Props> = ({
                 {(alleØnskedeYrker || alleØnskedeSteder) && (
                     <div className={css.jobbønske}>
                         {alleØnskedeYrker && (
-                            <Kandidatinfo
+                            <TekstlinjeMedIkon
                                 label="Ønsket yrke"
                                 ikon={<Heart />}
                                 tekst={alleØnskedeYrker}
                             />
                         )}
                         {alleØnskedeSteder && (
-                            <Kandidatinfo
+                            <TekstlinjeMedIkon
                                 label="Ønsket sted"
                                 ikon={<Place />}
                                 tekst={alleØnskedeSteder}
@@ -76,20 +76,20 @@ const Kandidat: FunctionComponent<Props> = ({
     );
 };
 
-export const hentKandidatensNavn = (kandidat: Kandidattype) =>
+export const hentKandidatensNavn = (kandidat: Kandidat) =>
     `${storForbokstav(kandidat.etternavn)}, ${storForbokstav(kandidat.fornavn)}`;
 
-const hentKandidatensØnskedeYrker = (kandidat: Kandidattype) =>
+const hentKandidatensØnskedeYrker = (kandidat: Kandidat) =>
     kandidat.yrkeJobbonskerObj.length === 0
         ? undefined
         : kandidat.yrkeJobbonskerObj.map((jobbønske) => jobbønske.styrkBeskrivelse).join(', ');
 
-const hentKandidatensØnskedeSteder = (kandidat: Kandidattype) =>
+const hentKandidatensØnskedeSteder = (kandidat: Kandidat) =>
     kandidat.geografiJobbonsker.length === 0
         ? undefined
         : kandidat.geografiJobbonsker.map((jobbønske) => jobbønske.geografiKodeTekst).join(', ');
 
-const lenkeTilKandidat = ({ arenaKandidatnr }: Kandidattype) =>
+const lenkeTilKandidat = ({ arenaKandidatnr }: Kandidat) =>
     `/kandidater/kandidat/${arenaKandidatnr}/cv`;
 
-export default Kandidat;
+export default Kandidatrad;

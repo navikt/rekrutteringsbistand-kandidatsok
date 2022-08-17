@@ -1,6 +1,6 @@
 import { BodyLong } from '@navikt/ds-react';
 import React, { FunctionComponent, ReactNode } from 'react';
-import css from './Kandidatinfo.module.css';
+import css from './TekstlinjeMedIkon.module.css';
 
 type Props = {
     ikon: ReactNode;
@@ -8,13 +8,13 @@ type Props = {
     label?: string;
 };
 
-const Kandidatinfo: FunctionComponent<Props> = ({ ikon, tekst, label }) => {
+const TekstlinjeMedIkon: FunctionComponent<Props> = ({ ikon, tekst, label }) => {
     return (
-        <div title={label} className={css.info}>
+        <div title={label} className={css.linje}>
             {ikon}
             <BodyLong className={css.tekst}>{tekst}</BodyLong>
         </div>
     );
 };
 
-export default Kandidatinfo;
+export default TekstlinjeMedIkon;

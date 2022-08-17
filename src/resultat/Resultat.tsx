@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Heading } from '@navikt/ds-react';
 import { Error } from '@navikt/ds-icons';
 
+import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 import { Respons } from '../elasticSearchTyper';
-import Kandidat from './Kandidat';
+import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import css from './Resultat.module.css';
-import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 
 export type Props = {
     respons: Respons;
@@ -47,7 +47,7 @@ const Resultat = ({
             </div>
             <ul className={css.kandidater}>
                 {kandidater.map((kandidat) => (
-                    <Kandidat
+                    <Kandidatrad
                         kandidat={kandidat}
                         key={kandidat.arenaKandidatnr}
                         markerteKandidater={markerteKandidater}

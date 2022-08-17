@@ -1,8 +1,8 @@
-.info {
+.linje {
     display: flex;
 }
 
-.info svg {
+.linje svg {
     transform: translateY(5px);
     margin-right: 0.5rem;
 }
