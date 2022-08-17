@@ -31,8 +31,8 @@ const Kandidat: FunctionComponent<Props> = ({
         className += ' ' + css.fremhevetKandidat;
     }
 
-    const alleØnskedeYrker = hentKandidatensØnskedeSteder(kandidat);
-    const alleØnskedeSteder = hentKandidatensØnskedeYrker(kandidat);
+    const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
+    const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
     return (
         <div className={className} key={kandidat.fodselsnummer} aria-selected={erMarkert}>
