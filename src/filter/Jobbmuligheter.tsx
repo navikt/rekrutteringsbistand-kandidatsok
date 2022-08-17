@@ -28,8 +28,8 @@ export type Kvalifiseringsgruppe = FiltrerbarInnsatsgruppe | Servicegruppe;
 
 const filtrerbareInnsatsgrupper = {
     [Innsatsgruppe.SpesieltTilpassetInnsats]: {
-        label: 'Trenger veiledning, nedsatt arbeidsevne',
-        description: 'Nedsatt arbeidsevne og et identifisert behov for tilrettelegging',
+        label: 'Trenger veiledning, har nedsatt arbeidsevne',
+        description: 'Har et identifisert behov for tilrettelegging',
     },
     [Innsatsgruppe.SituasjonsbestemtInnsats]: {
         label: 'Trenger veiledning',
@@ -45,8 +45,7 @@ const filtrerbareInnsatsgrupper = {
     },
     [FiltrerbarInnsatsgruppe.AndreInnsatsgrupper]: {
         label: 'Andre kvalifiseringsgrupper',
-        description:
-            'Ikke vurdert, behov for arbeidsevnevurdering, helserelatert arbeidsrettet oppfølging, sykmeldt',
+        description: 'Ikke vurdert, helserelatert arbeidsrettet oppfølging, sykmeldt',
     },
 };
 

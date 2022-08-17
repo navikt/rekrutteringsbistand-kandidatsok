@@ -6,7 +6,9 @@ const søkbareFelterIFritekstsøk = [
     'fritekst',
     'fornavn',
     'etternavn',
-    'yrkeJobbonskerObj.styrkBeskrivelse^2',
+
+    // TODO: Dette fungerer ikke. Må søke med "nested fields"
+    'yrkeJobbonskerObj.styrkBeskrivelse',
     'yrkeJobbonskerObj.sokeTitler',
 ];
 

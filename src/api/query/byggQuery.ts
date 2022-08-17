@@ -14,7 +14,7 @@ export const byggQuery = (
     const { side } = søkekriterier;
 
     return {
-        query: byggInnerQuery(søkekriterier, innloggetBruker),
+        query: byggIndreQuery(søkekriterier, innloggetBruker),
         size: PAGE_SIZE,
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
@@ -22,7 +22,7 @@ export const byggQuery = (
     };
 };
 
-export const byggInnerQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
+export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
     const { fritekst, portefølje, innsatsgruppe } = søkekriterier;
 
     return {

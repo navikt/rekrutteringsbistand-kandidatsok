@@ -28,17 +28,22 @@
     width: 100%;
 }
 
+.jobbønske {
+    grid-column: span 2;
+}
+
 .ønsketYrke {
     display: flex;
 }
 
 .ønsketYrke svg {
-    transform: translateY(4px);
+    transform: translateY(5px);
     margin-right: 0.5rem;
 }
 
-.jobbønsker {
+.ønsketYrkeTekst {
     max-width: 90%;
+    font-size: 1rem;
 
     /* Maks to linjer */
     overflow: hidden;

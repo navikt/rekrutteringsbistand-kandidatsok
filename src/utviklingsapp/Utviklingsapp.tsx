@@ -6,7 +6,7 @@ import App from '../App';
 import css from './Utviklingsapp.module.css';
 import { createBrowserHistory } from 'history';
 import CustomRouter from './CustomRouter';
-import KandidatsideForUtvikling from './KandidatsideForUtvikling';
+import KandidatsideForUtvikling from './kandidatside/KandidatsideForUtvikling';
 
 const history = createBrowserHistory();
 
