@@ -1,0 +1,21 @@
+.innhold {
+    width: 40rem;
+    padding: 1.5rem;
+}
+
+.liste {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.kandidatliste {
+    display: grid;
+    gap: 1rem 1rem;
+    align-items: center;
+    grid-template-columns: auto 1fr auto;
+}
+
+.lagreKandidaterKnapp {
+    margin-right: 1rem !important;
+}

@@ -6,6 +6,7 @@ import { Router } from 'react-router-dom';
 import App, { AppProps } from './App';
 import { setupMock } from './mocks/mockSetup';
 import '@navikt/ds-css';
+import { Modal } from '@navikt/ds-react';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 
@@ -20,10 +21,15 @@ const AppMedRouter = (props: AppProps) => (
 );
 
 if (skalEksporteres) {
+    const container = document.getElementById('rekrutteringsbistand-container');
+    Modal.setAppElement!(container);
+
     Navspa.eksporter('rekrutteringsbistand-kandidatsok', AppMedRouter);
 } else {
     const app = document.getElementById('utviklingsapp');
     const root = createRoot(app!);
+
+    Modal.setAppElement!(app);
 
     root.render(<Utviklingsapp />);
 }
