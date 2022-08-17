@@ -15,12 +15,19 @@ export type Query = {
         };
         filter?: any;
     };
+    highlight?: {
+        pre_tags?: string;
+        post_tags?: string;
+        fields: Record<HighlightedField, {}>;
+    };
     sort?: {
         [felt: string]: {
             order: Sorteringsrekkefølge;
         };
     };
 };
+
+export type HighlightedField = 'yrkeJobbonskerObj.styrkBeskrivelse';
 
 export type Sorteringsrekkefølge = 'asc' | 'desc';
 
@@ -53,5 +60,8 @@ export type Hit = {
     _id: string;
     _score: number | null;
     _source: Kandidat;
+    highlight: Highlight;
     sort?: number[];
 };
+
+export type Highlight = Record<HighlightedField, string[] | undefined> | undefined;

@@ -4,7 +4,7 @@ import css from './TekstlinjeMedIkon.module.css';
 
 type Props = {
     ikon: ReactNode;
-    tekst: string;
+    tekst: string | ReactNode;
     label?: string;
 };
 

@@ -6,10 +6,15 @@ const søkbareFelterIFritekstsøk = [
     'fritekst',
     'fornavn',
     'etternavn',
-
-    // TODO: Dette fungerer ikke. Må søke med "nested fields"
     'yrkeJobbonskerObj.styrkBeskrivelse',
     'yrkeJobbonskerObj.sokeTitler',
+
+    // TODO: Dette fungerer ikke fordi feltet er indeksert som et "nested" field,
+    // som indekserer det som et helt eget felt. Man kan søke på nested fields
+    // med en nested query, men dette er ikke anbefalt mtp. ytelse. Løsningen
+    // er muligens å fjerne "nested"-typen fra feltet i indeksen, men har dette
+    // andre konsekvenser?
+    'geografiJobbonsker.geografiKodeTekst',
 ];
 
 export const queryMedFritekst = (fritekst: string | null): Array<any> => {

@@ -19,6 +19,7 @@ export const byggQuery = (
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
         sort: søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst,
+        highlight: highlightMatcherFraFritekstfelt,
     };
 };
 
@@ -34,6 +35,14 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
             ],
         },
     };
+};
+
+const highlightMatcherFraFritekstfelt = {
+    pre_tags: '',
+    post_tags: '',
+    fields: {
+        'yrkeJobbonskerObj.styrkBeskrivelse': {},
+    },
 };
 
 const sorterSisteKandidaterFørst = {

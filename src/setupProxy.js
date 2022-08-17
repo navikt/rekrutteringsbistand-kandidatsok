@@ -13,11 +13,7 @@ module.exports = (app) => {
                 target: tilTarget,
                 changeOrigin: true,
                 auth: `${OPEN_SEARCH_USERNAME}:${OPEN_SEARCH_PASSWORD}`,
-                pathRewrite: (path) => {
-                    const nyPath = path.replace(fraPath, '');
-                    console.log(`Proxy fra '${path}' til '${tilTarget + nyPath}'`);
-                    return nyPath;
-                },
+                pathRewrite: (path) => path.replace(fraPath, ''),
             })
         );
     };

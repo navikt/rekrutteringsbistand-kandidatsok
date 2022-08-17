@@ -25,7 +25,6 @@ const Resultat = ({
 }: Props) => {
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
-    const kandidater = treff.map((t) => t._source);
 
     return (
         <div className={css.resultat}>
@@ -46,9 +45,10 @@ const Resultat = ({
                 )}
             </div>
             <ul className={css.kandidater}>
-                {kandidater.map((kandidat) => (
+                {treff.map(({ _source: kandidat, highlight }) => (
                     <Kandidatrad
                         kandidat={kandidat}
+                        highlight={highlight}
                         key={kandidat.arenaKandidatnr}
                         markerteKandidater={markerteKandidater}
                         erMarkert={markerteKandidater.has(kandidat.arenaKandidatnr)}
