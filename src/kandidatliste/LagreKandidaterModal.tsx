@@ -1,9 +1,10 @@
-import { Button, Checkbox, Heading, Loader, Modal } from '@navikt/ds-react';
+import { Button, Checkbox, CheckboxGroup, Heading, Loader, Modal } from '@navikt/ds-react';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
 import { hentMineKandidatlister } from '../api/api';
 import css from './LagreKandidaterModal.module.css';
 import { Link } from 'react-router-dom';
+import { AddPerson, Close, ExternalLink } from '@navikt/ds-icons';
 
 type Props = {
     vis: boolean;
@@ -67,18 +68,15 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
 
     const onKandidatlisteMarkert = (event: ChangeEvent<HTMLInputElement>) => {
         const kandidatlisteId = event.target.value;
-        const erMarkert = event.target.checked;
-        console.log('kand:', kandidatlisteId, erMarkert);
+        const markerte = new Set(markerteLister);
 
-        const nyMarkering = new Set(markerteLister);
-
-        if (erMarkert) {
-            nyMarkering.add(kandidatlisteId);
+        if (event.target.checked) {
+            markerte.add(kandidatlisteId);
         } else {
-            nyMarkering.delete(kandidatlisteId);
+            markerte.delete(kandidatlisteId);
         }
 
-        setMarkerteLister(nyMarkering);
+        setMarkerteLister(markerte);
     };
 
     const onLagreKandidater = async () => {
@@ -93,27 +91,36 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
                 </Heading>
                 {mineKandidatlister.kind === 'laster-inn' && <Loader />}
                 {mineKandidatlister.kind === 'suksess' && (
-                    <ul className={css.liste}>
-                        {mineKandidatlister.data.liste.map((kandidatliste) => (
-                            <li className={css.kandidatliste} key={kandidatliste.kandidatlisteId}>
-                                <Checkbox
-                                    hideLabel
-                                    value={kandidatliste.kandidatlisteId}
-                                    checked={markerteLister.has(kandidatliste.kandidatlisteId)}
-                                    onChange={onKandidatlisteMarkert}
-                                >
-                                    {kandidatliste.tittel}
-                                </Checkbox>
-                                <Link
-                                    to={lenkeTilKandidatliste(kandidatliste)}
-                                    className="navds-link"
-                                >
-                                    {kandidatliste.tittel}
-                                </Link>
-                                <span>{kandidatliste.antallKandidater} kandidater</span>
-                            </li>
-                        ))}
-                    </ul>
+                    <CheckboxGroup
+                        className={css.liste}
+                        legend="Velg kandidatlister"
+                        value={Array.from(markerteLister)}
+                    >
+                        {mineKandidatlister.data.liste.map(
+                            ({ kandidatlisteId, tittel, antallKandidater }) => {
+                                return (
+                                    <div className={css.kandidatliste}>
+                                        <Checkbox
+                                            value={kandidatlisteId}
+                                            onChange={onKandidatlisteMarkert}
+                                        >
+                                            <span>
+                                                {tittel} ({antallKandidater} kandidater)
+                                            </span>
+                                        </Checkbox>
+                                        <Link
+                                            target="_blank"
+                                            to={lenkeTilKandidatliste(kandidatlisteId)}
+                                            aria-label="Lenke til kandidatliste"
+                                            className="navds-link"
+                                        >
+                                            <ExternalLink />
+                                        </Link>
+                                    </div>
+                                );
+                            }
+                        )}
+                    </CheckboxGroup>
                 )}
                 <Button
                     variant="primary"
@@ -122,9 +129,11 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
                     className={css.lagreKandidaterKnapp}
                     disabled={markerteLister.size === 0}
                 >
-                    Lagre i {markerteLister.size || ''} lister
+                    <AddPerson />
+                    Lagre i lister
                 </Button>
                 <Button variant="secondary" size="small" onClick={onClose}>
+                    <Close />
                     Avbryt
                 </Button>
             </div>
@@ -132,7 +141,7 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
     );
 };
 
-const lenkeTilKandidatliste = (kandidatliste: Kandidatliste) =>
-    `/kandidater/kandidatliste/${kandidatliste.kandidatlisteId}`;
+const lenkeTilKandidatliste = (kandidatlisteId: string) =>
+    `/kandidater/kandidatliste/${kandidatlisteId}`;
 
 export default LagreKandidaterModal;

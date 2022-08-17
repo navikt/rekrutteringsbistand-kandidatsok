@@ -10,10 +10,13 @@
 }
 
 .kandidatliste {
-    display: grid;
+    display: flex;
     gap: 1rem 1rem;
     align-items: center;
-    grid-template-columns: auto 1fr auto;
+}
+
+.valgtKandidatliste {
+    background-color: var(--navds-global-color-green-100);
 }
 
 .lagreKandidaterKnapp {
