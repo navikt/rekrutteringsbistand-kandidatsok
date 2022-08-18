@@ -14,4 +14,9 @@ export const handlers = [
     rest.get(`${kandidatApi}/veileder/kandidatlister`, (req, res, ctx) =>
         res(ctx.json(mineKandidatlister))
     ),
+
+    rest.post(
+        `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
+        (req, res, ctx) => res(ctx.json(mineKandidatlister))
+    ),
 ];

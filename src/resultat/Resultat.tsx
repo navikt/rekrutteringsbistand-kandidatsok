@@ -78,6 +78,7 @@ const Resultat = ({
             <LagreKandidaterModal
                 vis={visLagreKandidaterModal}
                 onClose={() => setVisLagreKandidaterModal(false)}
+                markerteKandidater={markerteKandidater}
             />
         </div>
     );

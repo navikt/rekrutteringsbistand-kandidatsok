@@ -8,6 +8,11 @@ type LasterInn = {
     kind: 'laster-inn';
 };
 
+type LasterOpp<T> = {
+    kind: 'laster-opp';
+    data: T;
+};
+
 type Suksess<T> = {
     kind: 'suksess';
     data: T;
@@ -23,4 +28,10 @@ type Feil = {
     error: string;
 };
 
-export type Nettressurs<T> = IkkeLastet | LasterInn | Suksess<T> | Oppdaterer<T> | Feil;
+export type Nettressurs<T> =
+    | IkkeLastet
+    | LasterInn
+    | LasterOpp<T>
+    | Suksess<T>
+    | Oppdaterer<T>
+    | Feil;

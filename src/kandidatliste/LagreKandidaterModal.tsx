@@ -1,14 +1,16 @@
-import { Button, Checkbox, CheckboxGroup, Heading, Loader, Modal } from '@navikt/ds-react';
+import { Button, Heading, Loader, Modal } from '@navikt/ds-react';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
-import { hentMineKandidatlister } from '../api/api';
+import { hentMineKandidatlister, lagreKandidaterIValgteKandidatlister } from '../api/api';
+import { AddPerson } from '@navikt/ds-icons';
+import VelgKandidatlister from './VelgKandidatlister';
 import css from './LagreKandidaterModal.module.css';
-import { Link } from 'react-router-dom';
-import { AddPerson, Close, ExternalLink } from '@navikt/ds-icons';
+import { Kandidat } from '../Kandidat';
 
 type Props = {
     vis: boolean;
     onClose: () => void;
+    markerteKandidater: Set<string>;
 };
 
 export type MineKandidatlister = {
@@ -16,20 +18,19 @@ export type MineKandidatlister = {
     antall: number;
 };
 
-type Kandidatliste = {
+export type Kandidatliste = {
     kandidatlisteId: string;
     tittel: string;
     organisasjonNavn: string | null;
     antallKandidater: number;
+    kandidater: Kandidat[];
 };
 
-type LagreKandidaterDto = [
-    {
-        kandidatnr: string;
-    }
-];
+export type LagreKandidaterDto = Array<{
+    kandidatnr: string;
+}>;
 
-const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
+const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerteKandidater }) => {
     const [markerteLister, setMarkerteLister] = useState<Set<string>>(new Set());
     const [mineKandidatlister, setMineKandidatlister] = useState<Nettressurs<MineKandidatlister>>({
         kind: 'ikke-lastet',
@@ -80,7 +81,33 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
     };
 
     const onLagreKandidater = async () => {
-        setMarkerteLister(new Set());
+        const lagreKandidaterDto = Array.from(markerteKandidater).map((kandidat) => ({
+            kandidatnr: kandidat,
+        }));
+
+        setLagreIKandidatlister({ kind: 'laster-opp', data: lagreKandidaterDto });
+
+        try {
+            const markerteKandidatlister = Array.from(markerteLister);
+
+            const mineOppdaterteKandidatlister = await lagreKandidaterIValgteKandidatlister(
+                lagreKandidaterDto,
+                markerteKandidatlister
+            );
+
+            setLagreIKandidatlister({ kind: 'suksess', data: lagreKandidaterDto });
+            setMineKandidatlister({
+                kind: 'suksess',
+                data: mineOppdaterteKandidatlister[0],
+            });
+
+            setMarkerteLister(new Set());
+        } catch (e) {
+            setLagreIKandidatlister({
+                kind: 'feil',
+                error: e as string,
+            });
+        }
     };
 
     return (
@@ -91,57 +118,30 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose }) => {
                 </Heading>
                 {mineKandidatlister.kind === 'laster-inn' && <Loader />}
                 {mineKandidatlister.kind === 'suksess' && (
-                    <CheckboxGroup
-                        className={css.liste}
-                        legend="Velg kandidatlister"
-                        value={Array.from(markerteLister)}
-                    >
-                        {mineKandidatlister.data.liste.map(
-                            ({ kandidatlisteId, tittel, antallKandidater }) => {
-                                return (
-                                    <div className={css.kandidatliste}>
-                                        <Checkbox
-                                            value={kandidatlisteId}
-                                            onChange={onKandidatlisteMarkert}
-                                        >
-                                            <span>
-                                                {tittel} ({antallKandidater} kandidater)
-                                            </span>
-                                        </Checkbox>
-                                        <Link
-                                            target="_blank"
-                                            to={lenkeTilKandidatliste(kandidatlisteId)}
-                                            aria-label="Lenke til kandidatliste"
-                                            className="navds-link"
-                                        >
-                                            <ExternalLink />
-                                        </Link>
-                                    </div>
-                                );
-                            }
-                        )}
-                    </CheckboxGroup>
+                    <VelgKandidatlister
+                        markerteLister={markerteLister}
+                        mineKandidatlister={mineKandidatlister.data}
+                        onKandidatlisteMarkert={onKandidatlisteMarkert}
+                    />
                 )}
-                <Button
-                    variant="primary"
-                    size="small"
-                    onClick={onLagreKandidater}
-                    className={css.lagreKandidaterKnapp}
-                    disabled={markerteLister.size === 0}
-                >
-                    <AddPerson />
-                    Lagre i lister
-                </Button>
-                <Button variant="secondary" size="small" onClick={onClose}>
-                    <Close />
-                    Avbryt
-                </Button>
+                <div className={css.knapper}>
+                    <Button
+                        variant="primary"
+                        size="small"
+                        onClick={onLagreKandidater}
+                        disabled={markerteLister.size === 0}
+                        loading={lagreIKandidatlister.kind === 'laster-opp'}
+                    >
+                        <AddPerson />
+                        Lagre i lister
+                    </Button>
+                    <Button variant="secondary" size="small" onClick={onClose}>
+                        Avbryt
+                    </Button>
+                </div>
             </div>
         </Modal>
     );
 };
-
-const lenkeTilKandidatliste = (kandidatlisteId: string) =>
-    `/kandidater/kandidatliste/${kandidatlisteId}`;
 
 export default LagreKandidaterModal;

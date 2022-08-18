@@ -1,5 +1,5 @@
 import { Query, Respons } from '../elasticSearchTyper';
-import { MineKandidatlister } from '../kandidatliste/LagreKandidaterModal';
+import { LagreKandidaterDto, MineKandidatlister } from '../kandidatliste/LagreKandidaterModal';
 
 const kandidatsøkProxy = `/kandidatsok-proxy`;
 export const kandidatApi = '/kandidat-api';
@@ -27,6 +27,38 @@ export const hentMineKandidatlister = async (): Promise<MineKandidatlister> => {
         throw new Error('Er ikke logget inn');
     } else {
         throw new Error(`Klarte ikke å hente mine kandidatlister: ${respons.statusText}`);
+    }
+};
+
+export const lagreKandidaterIValgteKandidatlister = async (
+    lagreKandidaterDto: LagreKandidaterDto,
+    kandidatlister: string[]
+): Promise<MineKandidatlister[]> => {
+    return Promise.all(
+        kandidatlister.map((kandidatlisteId) =>
+            lagreKandidaterIKandidatliste(lagreKandidaterDto, kandidatlisteId)
+        )
+    );
+};
+
+export const lagreKandidaterIKandidatliste = async (
+    lagreKandidaterDto: LagreKandidaterDto,
+    kandidatlisteId: string
+): Promise<MineKandidatlister> => {
+    const respons = await post(
+        `/kandidat-api/veileder/kandidatlister/${kandidatlisteId}/kandidater`,
+        lagreKandidaterDto
+    );
+
+    if (respons.ok) {
+        return await respons.json();
+    } else if (respons.status === 401) {
+        videresendTilInnlogging();
+        throw new Error('Er ikke logget inn');
+    } else {
+        throw new Error(
+            `Klarte ikke å lagre kandidater i kandidatliste ${kandidatlisteId}: ${respons.statusText}`
+        );
     }
 };
 
