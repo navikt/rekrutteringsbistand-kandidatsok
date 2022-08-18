@@ -18,11 +18,13 @@ export const søk = async (query: Query): Promise<Respons> => {
     }
 };
 
-export const hentMineKandidatlister = async (side: number = 0): Promise<MineKandidatlister> => {
-    const pageSize = 5;
+export const hentMineKandidatlister = async (
+    side: number = 1,
+    pageSize: number = 5
+): Promise<MineKandidatlister> => {
     const respons = await get(
         `${kandidatApi}/veileder/kandidatlister?kunEgne=true&pagesize=${pageSize}${
-            side > 0 ? `&pagenumber=${side}` : ''
+            side > 1 ? `&pagenumber=${side - 1}` : ''
         }`
     );
 

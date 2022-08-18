@@ -1,10 +1,11 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
-import { Button, CheckboxGroup, Loader } from '@navikt/ds-react';
+import { Button, CheckboxGroup, Loader, Pagination } from '@navikt/ds-react';
 import { hentMineKandidatlister } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from './LagreKandidaterModal';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import css from './LagreKandidaterModal.module.css';
+import { Download, Refresh, Upload } from '@navikt/ds-icons';
 
 type Props = {
     markerteLister: Set<string>;
@@ -19,6 +20,8 @@ export type MineKandidatlister = {
     antall: number;
 };
 
+const pageSize = 5;
+
 const VelgKandidatlister: FunctionComponent<Props> = ({
     markerteLister,
     lagredeLister,
@@ -26,7 +29,7 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
     mineKandidatlister,
     setMineKandidatlister,
 }) => {
-    const [side, setSide] = useState<number>(0);
+    const [side, setSide] = useState<number>(1);
 
     useEffect(() => {
         const lastInnKandidatlister = async () => {
@@ -39,7 +42,7 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
             );
 
             try {
-                const nesteSideMedLister = await hentMineKandidatlister(side);
+                const nesteSideMedLister = await hentMineKandidatlister(side, pageSize);
 
                 if (mineKandidatlister.kind === 'oppdaterer') {
                     const alleLister = {
@@ -70,8 +73,8 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [setMineKandidatlister, side]);
 
-    const hentFlereKandidatlister = () => {
-        setSide(side + 1);
+    const hentFlereKandidatlister = (side: number) => {
+        setSide(side);
     };
 
     if (mineKandidatlister.kind === 'laster-inn') {
@@ -93,9 +96,12 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
                         />
                     ))}
                 </CheckboxGroup>
-                <Button size="small" variant="secondary" onClick={hentFlereKandidatlister}>
-                    Hent flere kandidatlister
-                </Button>
+                <Pagination
+                    size="small"
+                    page={side}
+                    onPageChange={hentFlereKandidatlister}
+                    count={Math.floor(mineKandidatlister.data.antall / pageSize)}
+                />
             </div>
         );
     } else {
