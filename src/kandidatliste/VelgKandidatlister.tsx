@@ -39,12 +39,24 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
             );
 
             try {
-                const mineKandidatlister = await hentMineKandidatlister(side);
+                const nesteSideMedLister = await hentMineKandidatlister(side);
 
-                setMineKandidatlister({
-                    kind: 'suksess',
-                    data: mineKandidatlister,
-                });
+                if (mineKandidatlister.kind === 'oppdaterer') {
+                    const alleLister = {
+                        ...nesteSideMedLister,
+                        liste: [...mineKandidatlister.data.liste, ...nesteSideMedLister.liste],
+                    };
+
+                    setMineKandidatlister({
+                        kind: 'suksess',
+                        data: alleLister,
+                    });
+                } else {
+                    setMineKandidatlister({
+                        kind: 'suksess',
+                        data: nesteSideMedLister,
+                    });
+                }
             } catch (e) {
                 setMineKandidatlister({
                     kind: 'feil',
