@@ -27,11 +27,11 @@ export type LagreKandidaterDto = Array<{
 }>;
 
 const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerteKandidater }) => {
+    const [markerteLister, setMarkerteLister] = useState<Set<string>>(new Set());
+    const [lagredeLister, setLagredeLister] = useState<Set<string>>(new Set());
     const [mineKandidatlister, setMineKandidatlister] = useState<Nettressurs<MineKandidatlister>>({
         kind: 'ikke-lastet',
     });
-
-    const [markerteLister, setMarkerteLister] = useState<Set<string>>(new Set());
 
     const [lagreIKandidatlister, setLagreIKandidatlister] = useState<
         Nettressurs<LagreKandidaterDto>
@@ -74,6 +74,13 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
             });
 
             setMarkerteLister(new Set());
+
+            const oppdaterteLagredeLister = new Set(lagredeLister);
+            markerteKandidatlister.forEach((kandidatlisteId) => {
+                oppdaterteLagredeLister.add(kandidatlisteId);
+            });
+
+            setLagredeLister(oppdaterteLagredeLister);
         } catch (e) {
             setLagreIKandidatlister({
                 kind: 'feil',
@@ -91,14 +98,14 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
                 </Heading>
                 <VelgKandidatlister
                     markerteLister={markerteLister}
-                    markerteKandidater={markerteKandidater}
+                    lagredeLister={lagredeLister}
                     onKandidatlisteMarkert={onKandidatlisteMarkert}
                     mineKandidatlister={mineKandidatlister}
                     setMineKandidatlister={setMineKandidatlister}
                 />
                 <SøkPåKandidatliste
                     markerteLister={markerteLister}
-                    markerteKandidater={markerteKandidater}
+                    lagredeLister={lagredeLister}
                     onKandidatlisteMarkert={onKandidatlisteMarkert}
                 />
                 <div className={css.knapper}>

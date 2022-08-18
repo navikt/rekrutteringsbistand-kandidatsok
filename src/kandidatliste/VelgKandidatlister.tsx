@@ -8,20 +8,20 @@ import css from './LagreKandidaterModal.module.css';
 
 type Props = {
     markerteLister: Set<string>;
-    markerteKandidater: Set<string>;
+    lagredeLister: Set<string>;
     onKandidatlisteMarkert: (event: ChangeEvent<HTMLInputElement>) => void;
     mineKandidatlister: Nettressurs<MineKandidatlister>;
     setMineKandidatlister: (mineKandidatlister: Nettressurs<MineKandidatlister>) => void;
 };
 
 export type MineKandidatlister = {
-    liste: Kandidatliste[];
+    liste: Omit<Kandidatliste, 'kandidater'>[];
     antall: number;
 };
 
 const VelgKandidatlister: FunctionComponent<Props> = ({
     markerteLister,
-    markerteKandidater,
+    lagredeLister,
     onKandidatlisteMarkert,
     mineKandidatlister,
     setMineKandidatlister,
@@ -63,7 +63,7 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
                     <VelgbarKandidatliste
                         key={kandidatliste.kandidatlisteId}
                         kandidatliste={kandidatliste}
-                        markerteKandidater={markerteKandidater}
+                        lagredeLister={lagredeLister}
                         onKandidatlisteMarkert={onKandidatlisteMarkert}
                     />
                 ))}

@@ -8,13 +8,13 @@ import css from './LagreKandidaterModal.module.css';
 
 type Props = {
     markerteLister: Set<string>;
-    markerteKandidater: Set<string>;
+    lagredeLister: Set<string>;
     onKandidatlisteMarkert: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const SøkPåKandidatliste: FunctionComponent<Props> = ({
     markerteLister,
-    markerteKandidater,
+    lagredeLister,
     onKandidatlisteMarkert,
 }) => {
     const [annonsenummer, setAnnonsenummer] = useState<string>('');
@@ -31,7 +31,6 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
 
         try {
             const kandidatliste = await hentKandidatlisteMedAnnonsenummer(annonsenummer);
-            console.log('JALLA:');
 
             setSøkeresultat({
                 kind: 'suksess',
@@ -68,7 +67,7 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
                     <VelgbarKandidatliste
                         kandidatliste={søkeresultat.data}
                         onKandidatlisteMarkert={onKandidatlisteMarkert}
-                        markerteKandidater={markerteKandidater}
+                        lagredeLister={lagredeLister}
                     />
                 </CheckboxGroup>
             )}

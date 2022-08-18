@@ -6,28 +6,23 @@ import { Kandidatliste } from './LagreKandidaterModal';
 import css from './LagreKandidaterModal.module.css';
 
 type Props = {
-    kandidatliste: Kandidatliste;
-    markerteKandidater: Set<string>;
+    kandidatliste: Omit<Kandidatliste, 'kandidater'>;
+    lagredeLister: Set<string>;
     onKandidatlisteMarkert: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const VelgbarKandidatliste: FunctionComponent<Props> = ({
     kandidatliste,
-    markerteKandidater,
+    lagredeLister,
     onKandidatlisteMarkert,
 }) => {
-    const { kandidatlisteId, tittel, antallKandidater, kandidater } = kandidatliste;
-
-    const alleMarkerteKandidaterErPåListen = Array.from(markerteKandidater).every(
-        (markertKandidat) =>
-            kandidater.find((kandidat) => kandidat.arenaKandidatnr === markertKandidat)
-    );
+    const { kandidatlisteId, tittel, antallKandidater } = kandidatliste;
 
     return (
         <div key={kandidatlisteId} className={css.kandidatliste}>
             <div className={css.leftAlign}>
                 <Checkbox
-                    disabled={alleMarkerteKandidaterErPåListen}
+                    disabled={lagredeLister.has(kandidatlisteId)}
                     value={kandidatlisteId}
                     onChange={onKandidatlisteMarkert}
                 >
@@ -43,7 +38,7 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
                     <ExternalLink title="Åpne kandidatliste" />
                 </Link>
             </div>
-            {alleMarkerteKandidaterErPåListen && <SuccessColored />}
+            {lagredeLister.has(kandidatlisteId) && <SuccessColored />}
         </div>
     );
 };
