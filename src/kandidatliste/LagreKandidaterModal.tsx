@@ -128,7 +128,6 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
                 <div className={css.knapper}>
                     <Button
                         variant="primary"
-                        size="small"
                         onClick={onLagreKandidater}
                         disabled={markerteLister.size === 0}
                         loading={lagreIKandidatlister.kind === 'laster-opp'}
@@ -136,7 +135,7 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
                         <AddPerson />
                         Lagre i lister
                     </Button>
-                    <Button variant="secondary" size="small" onClick={onClose}>
+                    <Button variant="secondary" onClick={onClose}>
                         Avbryt
                     </Button>
                 </div>

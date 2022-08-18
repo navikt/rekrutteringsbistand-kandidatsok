@@ -8,7 +8,7 @@ export const mockMineKandidatlister: MineKandidatlister = {
             tittel: 'Parykkmaker søkes',
             organisasjonNavn: null,
             antallKandidater: 1,
-            kandidater: [{ arenaKandidatnr: 'AB123456' } as Kandidat],
+            kandidater: [{ arenaKandidatnr: 'PAM019ggtqmck' } as Kandidat],
         },
         {
             kandidatlisteId: 'dc6282eb-a6a1-4009-888c-997e3b2f4f0d',
@@ -22,7 +22,7 @@ export const mockMineKandidatlister: MineKandidatlister = {
 };
 
 export const mockLagringAvKandidaterIKandidatliste = (
-    dto: LagreKandidaterDto,
+    lagreKandidaterDto: LagreKandidaterDto,
     kandidatlisteId: string
 ): MineKandidatlister => {
     const lister = mockMineKandidatlister;
@@ -30,11 +30,18 @@ export const mockLagringAvKandidaterIKandidatliste = (
     return {
         antall: lister.antall,
         liste: lister.liste.map((liste) => {
+            const dtoSomKandidater = lagreKandidaterDto.map(
+                (lagretKandidat) =>
+                    ({
+                        arenaKandidatnr: lagretKandidat.kandidatnr,
+                    } as Kandidat)
+            );
+
             if (liste.kandidatlisteId === kandidatlisteId) {
                 return {
                     ...liste,
-                    antallKandidater: liste.antallKandidater + dto.length,
-                    kandidater: [...liste.kandidater, ...dto] as Kandidat[],
+                    antallKandidater: liste.antallKandidater + lagreKandidaterDto.length,
+                    kandidater: [...liste.kandidater, ...dtoSomKandidater],
                 };
             } else {
                 return liste;

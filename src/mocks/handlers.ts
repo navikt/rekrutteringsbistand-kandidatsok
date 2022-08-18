@@ -22,10 +22,12 @@ export const handlers = [
     rest.post(
         `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
         async (req, res, ctx) => {
-            const dto: LagreKandidaterDto = await req.json();
+            const lagreKandidaterDto: LagreKandidaterDto = await req.json();
             const kandidatlisteId = req.params['kandidatlisteId'] as string;
 
-            return res(ctx.json(mockLagringAvKandidaterIKandidatliste(dto, kandidatlisteId)));
+            return res(
+                ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto, kandidatlisteId))
+            );
         }
     ),
 ];
