@@ -18,8 +18,13 @@ export const søk = async (query: Query): Promise<Respons> => {
     }
 };
 
-export const hentMineKandidatlister = async (): Promise<MineKandidatlister> => {
-    const respons = await get(`${kandidatApi}/veileder/kandidatlister`);
+export const hentMineKandidatlister = async (side: number = 0): Promise<MineKandidatlister> => {
+    const pageSize = 5;
+    const respons = await get(
+        `${kandidatApi}/veileder/kandidatlister?kunEgne=true&pageSize=${pageSize}${
+            side > 0 ? `&pageNumber=${side}` : ''
+        }`
+    );
 
     if (respons.ok) {
         return await respons.json();
