@@ -1,6 +1,10 @@
 import { rest } from 'msw';
 import { kandidatApi } from '../api/api';
-import { mineKandidatlister } from './mineKandidatlister';
+import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterModal';
+import {
+    mockMineKandidatlister,
+    mockLagringAvKandidaterIKandidatliste,
+} from './mockKandidatlister';
 
 export const handlers = [
     rest.get('/meg', (req, res, ctx) =>
@@ -12,11 +16,16 @@ export const handlers = [
     ),
 
     rest.get(`${kandidatApi}/veileder/kandidatlister`, (req, res, ctx) =>
-        res(ctx.json(mineKandidatlister))
+        res(ctx.json(mockMineKandidatlister))
     ),
 
     rest.post(
         `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
-        (req, res, ctx) => res(ctx.json(mineKandidatlister))
+        async (req, res, ctx) => {
+            const dto: LagreKandidaterDto = await req.json();
+            const kandidatlisteId = req.params['kandidatlisteId'] as string;
+
+            return res(ctx.json(mockLagringAvKandidaterIKandidatliste(dto, kandidatlisteId)));
+        }
     ),
 ];

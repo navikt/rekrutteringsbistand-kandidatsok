@@ -120,6 +120,7 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
                 {mineKandidatlister.kind === 'suksess' && (
                     <VelgKandidatlister
                         markerteLister={markerteLister}
+                        markerteKandidater={markerteKandidater}
                         mineKandidatlister={mineKandidatlister.data}
                         onKandidatlisteMarkert={onKandidatlisteMarkert}
                     />
