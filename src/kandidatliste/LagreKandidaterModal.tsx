@@ -86,7 +86,8 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
         <Modal closeButton open={vis} onClose={onClose}>
             <div className={css.innhold}>
                 <Heading size="medium" level="1">
-                    Lagre kandidater
+                    Lagre {markerteKandidater.size} kandidat
+                    {markerteKandidater.size === 1 ? '' : 'er'} i kandidatlister
                 </Heading>
                 <VelgKandidatlister
                     markerteLister={markerteLister}
