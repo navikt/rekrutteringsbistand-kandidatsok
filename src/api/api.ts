@@ -18,7 +18,7 @@ export const søk = async (query: Query): Promise<Respons> => {
 };
 
 export const hentMineKandidatlister = async (): Promise<MineKandidatlister> => {
-    const respons = await get('/kandidat-api/veileder/kandidatlister');
+    const respons = await get(`${kandidatApi}/veileder/kandidatlister`);
 
     if (respons.ok) {
         return await respons.json();
@@ -46,7 +46,7 @@ export const lagreKandidaterIKandidatliste = async (
     kandidatlisteId: string
 ): Promise<MineKandidatlister> => {
     const respons = await post(
-        `/kandidat-api/veileder/kandidatlister/${kandidatlisteId}/kandidater`,
+        `${kandidatApi}/veileder/kandidatlister/${kandidatlisteId}/kandidater`,
         lagreKandidaterDto
     );
 
