@@ -21,8 +21,8 @@ export const søk = async (query: Query): Promise<Respons> => {
 export const hentMineKandidatlister = async (side: number = 0): Promise<MineKandidatlister> => {
     const pageSize = 5;
     const respons = await get(
-        `${kandidatApi}/veileder/kandidatlister?kunEgne=true&pageSize=${pageSize}${
-            side > 0 ? `&pageNumber=${side}` : ''
+        `${kandidatApi}/veileder/kandidatlister?kunEgne=true&pagesize=${pageSize}${
+            side > 0 ? `&pagenumber=${side}` : ''
         }`
     );
 
