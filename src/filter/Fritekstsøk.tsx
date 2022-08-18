@@ -32,7 +32,7 @@ const Fritekstsøk: FunctionComponent = () => {
     };
 
     return (
-        <form onSubmit={onFormSubmit}>
+        <form role="search" onSubmit={onFormSubmit}>
             <Search
                 type="text"
                 value={query}

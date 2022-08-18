@@ -1,21 +1,17 @@
-import { Button, Heading, Loader, Modal } from '@navikt/ds-react';
-import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
+import { Button, Heading, Modal } from '@navikt/ds-react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
-import { hentMineKandidatlister, lagreKandidaterIValgteKandidatlister } from '../api/api';
+import { lagreKandidaterIValgteKandidatlister } from '../api/api';
 import { AddPerson } from '@navikt/ds-icons';
-import VelgKandidatlister from './VelgKandidatlister';
-import css from './LagreKandidaterModal.module.css';
+import VelgKandidatlister, { MineKandidatlister } from './VelgKandidatlister';
 import { Kandidat } from '../Kandidat';
+import SøkPåKandidatliste from './SøkPåKandidatliste';
+import css from './LagreKandidaterModal.module.css';
 
 type Props = {
     vis: boolean;
     onClose: () => void;
     markerteKandidater: Set<string>;
-};
-
-export type MineKandidatlister = {
-    liste: Kandidatliste[];
-    antall: number;
 };
 
 export type Kandidatliste = {
@@ -31,41 +27,17 @@ export type LagreKandidaterDto = Array<{
 }>;
 
 const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerteKandidater }) => {
-    const [markerteLister, setMarkerteLister] = useState<Set<string>>(new Set());
     const [mineKandidatlister, setMineKandidatlister] = useState<Nettressurs<MineKandidatlister>>({
         kind: 'ikke-lastet',
     });
+
+    const [markerteLister, setMarkerteLister] = useState<Set<string>>(new Set());
+
     const [lagreIKandidatlister, setLagreIKandidatlister] = useState<
         Nettressurs<LagreKandidaterDto>
     >({
         kind: 'ikke-lastet',
     });
-
-    useEffect(() => {
-        const lastInnKandidatlister = async () => {
-            setMineKandidatlister({
-                kind: 'laster-inn',
-            });
-
-            try {
-                const mineKandidatlister = await hentMineKandidatlister();
-
-                setMineKandidatlister({
-                    kind: 'suksess',
-                    data: mineKandidatlister,
-                });
-            } catch (e) {
-                setMineKandidatlister({
-                    kind: 'feil',
-                    error: e as string,
-                });
-            }
-        };
-
-        if (vis) {
-            lastInnKandidatlister();
-        }
-    }, [vis]);
 
     const onKandidatlisteMarkert = (event: ChangeEvent<HTMLInputElement>) => {
         const kandidatlisteId = event.target.value;
@@ -116,15 +88,18 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
                 <Heading size="medium" level="1">
                     Lagre kandidater
                 </Heading>
-                {mineKandidatlister.kind === 'laster-inn' && <Loader />}
-                {mineKandidatlister.kind === 'suksess' && (
-                    <VelgKandidatlister
-                        markerteLister={markerteLister}
-                        markerteKandidater={markerteKandidater}
-                        mineKandidatlister={mineKandidatlister.data}
-                        onKandidatlisteMarkert={onKandidatlisteMarkert}
-                    />
-                )}
+                <VelgKandidatlister
+                    markerteLister={markerteLister}
+                    markerteKandidater={markerteKandidater}
+                    onKandidatlisteMarkert={onKandidatlisteMarkert}
+                    mineKandidatlister={mineKandidatlister}
+                    setMineKandidatlister={setMineKandidatlister}
+                />
+                <SøkPåKandidatliste
+                    markerteLister={markerteLister}
+                    markerteKandidater={markerteKandidater}
+                    onKandidatlisteMarkert={onKandidatlisteMarkert}
+                />
                 <div className={css.knapper}>
                     <Button
                         variant="primary"

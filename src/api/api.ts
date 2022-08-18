@@ -1,5 +1,6 @@
 import { Query, Respons } from '../elasticSearchTyper';
-import { LagreKandidaterDto, MineKandidatlister } from '../kandidatliste/LagreKandidaterModal';
+import { Kandidatliste, LagreKandidaterDto } from '../kandidatliste/LagreKandidaterModal';
+import { MineKandidatlister } from '../kandidatliste/VelgKandidatlister';
 
 const kandidatsøkProxy = `/kandidatsok-proxy`;
 export const kandidatApi = '/kandidat-api';
@@ -27,6 +28,25 @@ export const hentMineKandidatlister = async (): Promise<MineKandidatlister> => {
         throw new Error('Er ikke logget inn');
     } else {
         throw new Error(`Klarte ikke å hente mine kandidatlister: ${respons.statusText}`);
+    }
+};
+
+export const hentKandidatlisteMedAnnonsenummer = async (
+    annonsenummer: string
+): Promise<Kandidatliste> => {
+    const respons = await get(
+        `${kandidatApi}/veileder/stilling/byNr/${annonsenummer}/kandidatliste`
+    );
+
+    if (respons.ok) {
+        return await respons.json();
+    } else if (respons.status === 401) {
+        videresendTilInnlogging();
+        throw new Error('Er ikke logget inn');
+    } else {
+        throw new Error(
+            `Fant ikke kandidatliste med annonsenummer ${annonsenummer}: ${respons.statusText}`
+        );
     }
 };
 

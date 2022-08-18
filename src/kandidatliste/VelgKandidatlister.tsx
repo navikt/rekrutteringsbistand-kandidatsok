@@ -1,68 +1,77 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
-import { DecisionCheckFilled, ExternalLink, SuccessColored, SuccessStroke } from '@navikt/ds-icons';
-import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
-import { Link } from 'react-router-dom';
-import { MineKandidatlister } from './LagreKandidaterModal';
+import React, { ChangeEvent, FunctionComponent, useEffect } from 'react';
+import { CheckboxGroup, Loader } from '@navikt/ds-react';
+import { hentMineKandidatlister } from '../api/api';
+import { Nettressurs } from '../api/Nettressurs';
+import { Kandidatliste } from './LagreKandidaterModal';
+import VelgbarKandidatliste from './VelgbarKandidatliste';
 import css from './LagreKandidaterModal.module.css';
 
 type Props = {
     markerteLister: Set<string>;
     markerteKandidater: Set<string>;
-    mineKandidatlister: MineKandidatlister;
     onKandidatlisteMarkert: (event: ChangeEvent<HTMLInputElement>) => void;
+    mineKandidatlister: Nettressurs<MineKandidatlister>;
+    setMineKandidatlister: (mineKandidatlister: Nettressurs<MineKandidatlister>) => void;
+};
+
+export type MineKandidatlister = {
+    liste: Kandidatliste[];
+    antall: number;
 };
 
 const VelgKandidatlister: FunctionComponent<Props> = ({
     markerteLister,
     markerteKandidater,
-    mineKandidatlister,
     onKandidatlisteMarkert,
+    mineKandidatlister,
+    setMineKandidatlister,
 }) => {
-    return (
-        <CheckboxGroup
-            className={css.liste}
-            legend="Velg kandidatlister"
-            value={Array.from(markerteLister)}
-        >
-            {mineKandidatlister.liste.map(
-                ({ kandidatlisteId, tittel, antallKandidater, kandidater }) => {
-                    const alleMarkerteKandidaterErPåListen = Array.from(markerteKandidater).every(
-                        (markertKandidat) =>
-                            kandidater.find(
-                                (kandidat) => kandidat.arenaKandidatnr === markertKandidat
-                            )
-                    );
+    useEffect(() => {
+        const lastInnKandidatlister = async () => {
+            setMineKandidatlister({
+                kind: 'laster-inn',
+            });
 
-                    return (
-                        <div key={kandidatlisteId} className={css.kandidatliste}>
-                            <div className={css.leftAlign}>
-                                <Checkbox
-                                    disabled={alleMarkerteKandidaterErPåListen}
-                                    value={kandidatlisteId}
-                                    onChange={onKandidatlisteMarkert}
-                                >
-                                    <span>
-                                        {tittel} ({antallKandidater} kandidater)
-                                    </span>
-                                </Checkbox>
-                                <Link
-                                    target="_blank"
-                                    to={lenkeTilKandidatliste(kandidatlisteId)}
-                                    className="navds-link"
-                                >
-                                    <ExternalLink title="Åpne kandidatliste" />
-                                </Link>
-                            </div>
-                            {alleMarkerteKandidaterErPåListen && <SuccessColored />}
-                        </div>
-                    );
-                }
-            )}
-        </CheckboxGroup>
-    );
+            try {
+                const mineKandidatlister = await hentMineKandidatlister();
+
+                setMineKandidatlister({
+                    kind: 'suksess',
+                    data: mineKandidatlister,
+                });
+            } catch (e) {
+                setMineKandidatlister({
+                    kind: 'feil',
+                    error: e as string,
+                });
+            }
+        };
+
+        lastInnKandidatlister();
+    }, [setMineKandidatlister]);
+
+    if (mineKandidatlister.kind === 'laster-inn') {
+        return <Loader />;
+    } else if (mineKandidatlister.kind === 'suksess') {
+        return (
+            <CheckboxGroup
+                className={css.liste}
+                legend="Velg kandidatlister"
+                value={Array.from(markerteLister)}
+            >
+                {mineKandidatlister.data.liste.map((kandidatliste) => (
+                    <VelgbarKandidatliste
+                        key={kandidatliste.kandidatlisteId}
+                        kandidatliste={kandidatliste}
+                        markerteKandidater={markerteKandidater}
+                        onKandidatlisteMarkert={onKandidatlisteMarkert}
+                    />
+                ))}
+            </CheckboxGroup>
+        );
+    } else {
+        return null;
+    }
 };
-
-const lenkeTilKandidatliste = (kandidatlisteId: string) =>
-    `/kandidater/kandidatliste/${kandidatlisteId}`;
 
 export default VelgKandidatlister;

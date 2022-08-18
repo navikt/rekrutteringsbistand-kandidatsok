@@ -29,3 +29,11 @@
     align-items: center;
     column-gap: 1rem;
 }
+
+.søkPåKandidatliste {
+    margin-bottom: 2.5rem;
+}
+
+.søkPåKandidatliste :global(.navds-search__wrapper) {
+    max-width: 18rem;
+}

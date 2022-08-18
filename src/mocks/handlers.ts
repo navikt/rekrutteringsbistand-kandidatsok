@@ -19,6 +19,11 @@ export const handlers = [
         res(ctx.json(mockMineKandidatlister))
     ),
 
+    rest.get(
+        `${kandidatApi}/veileder/stilling/byNr/:annonsenummer/kandidatliste`,
+        (req, res, ctx) => res(ctx.json(mockMineKandidatlister.liste[0]))
+    ),
+
     rest.post(
         `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
         async (req, res, ctx) => {

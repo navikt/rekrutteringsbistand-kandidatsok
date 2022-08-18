@@ -1,4 +1,10 @@
-export type Nettstatus = 'ikke-lastet' | 'laster-inn' | 'oppdaterer' | 'suksess' | 'feil';
+export type Nettstatus =
+    | 'ikke-lastet'
+    | 'laster-inn'
+    | 'laster-opp'
+    | 'oppdaterer'
+    | 'suksess'
+    | 'feil';
 
 type IkkeLastet = {
     kind: 'ikke-lastet';
