@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Heading } from '@navikt/ds-react';
-import { Error } from '@navikt/ds-icons';
+import { AddPerson, Error } from '@navikt/ds-icons';
 
 import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 import { Respons } from '../elasticSearchTyper';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import css from './Resultat.module.css';
+import LagreKandidaterModal from '../kandidatliste/LagreKandidaterModal';
 
 export type Props = {
     respons: Respons;
@@ -27,23 +28,37 @@ const Resultat = ({
     const antallTreff = respons.hits.total.value;
     const kandidater = treff.map((t) => t._source);
 
+    const [visLagreKandidaterModal, setVisLagreKandidaterModal] = useState(false);
+
     return (
         <div className={css.resultat}>
             <div className={css.telling}>
                 <Heading size="medium" level="2">
                     {antallTreff} kandidater
                 </Heading>
-                {markerteKandidater.size > 0 && (
+                <div>
+                    {markerteKandidater.size > 0 && (
+                        <Button
+                            size="small"
+                            variant="secondary"
+                            aria-label="Fjern markerte kandidater"
+                            className={css.fjernMarkeringKnapp}
+                            onClick={fjernMarkering}
+                        >
+                            <Error />
+                            {markerteKandidater.size} markert
+                        </Button>
+                    )}
                     <Button
                         size="small"
-                        variant="secondary"
-                        aria-label="Fjern markerte kandidater"
-                        onClick={fjernMarkering}
+                        variant="primary"
+                        disabled={markerteKandidater.size === 0}
+                        onClick={() => setVisLagreKandidaterModal(true)}
                     >
-                        <Error />
-                        {markerteKandidater.size} markert
+                        <AddPerson />
+                        Lagre i kandidatliste
                     </Button>
-                )}
+                </div>
             </div>
             <ul className={css.kandidater}>
                 {kandidater.map((kandidat) => (
@@ -60,6 +75,11 @@ const Resultat = ({
                 ))}
             </ul>
             <Paginering antallTreff={antallTreff} />
+            <LagreKandidaterModal
+                vis={visLagreKandidaterModal}
+                onClose={() => setVisLagreKandidaterModal(false)}
+                markerteKandidater={markerteKandidater}
+            />
         </div>
     );
 };

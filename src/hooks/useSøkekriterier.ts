@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/PorteføljeTabs';
-import { FiltrerbarInnsatsgruppe, Innsatsgruppe } from '../filter/Jobbmuligheter';
+import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { Param, Søkekriterier } from './useRespons';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
