@@ -44,6 +44,6 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
 };
 
 const lenkeTilKandidatliste = (kandidatlisteId: string) =>
-    `/kandidater/kandidatliste/${kandidatlisteId}`;
+    `/kandidater/lister/detaljer/${kandidatlisteId}`;
 
 export default VelgbarKandidatliste;
