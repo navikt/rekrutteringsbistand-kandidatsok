@@ -1,6 +1,6 @@
 import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { Search } from '@navikt/ds-react';
-import { Param } from '../hooks/useRespons';
+import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './Fritekstsøk.module.css';
 
@@ -19,11 +19,11 @@ const Fritekstsøk: FunctionComponent = () => {
     };
 
     const onSearchApply = () => {
-        setSearchParam(Param.Fritekst, query.trim());
+        setSearchParam(FilterParam.Fritekst, query.trim());
     };
 
     const onClear = () => {
-        setSearchParam(Param.Fritekst, undefined);
+        setSearchParam(FilterParam.Fritekst, undefined);
     };
 
     const onFormSubmit: FormEventHandler = (event) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
-import { Param } from '../hooks/useRespons';
+import { FilterParam } from '../hooks/useRespons';
 import filterCss from './Filter.module.css';
 
 export enum Innsatsgruppe {
@@ -72,7 +72,10 @@ const Jobbmuligheter = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
     const onChange = (valgteInnsatsgrupper: Innsatsgruppe[]) => {
-        setSearchParam(Param.Innsatsgruppe, valgteInnsatsgrupper.join(LISTEPARAMETER_SEPARATOR));
+        setSearchParam(
+            FilterParam.Innsatsgruppe,
+            valgteInnsatsgrupper.join(LISTEPARAMETER_SEPARATOR)
+        );
     };
 
     return (

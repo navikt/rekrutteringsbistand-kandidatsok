@@ -8,12 +8,18 @@ import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
 
-export enum Param {
+export enum FilterParam {
     Fritekst = 'q',
     Side = 'side',
     Portefølje = 'portefolje',
     Innsatsgruppe = 'innsatsgruppe',
 }
+
+export enum OtherParam {
+    Stilling = 'stilling',
+}
+
+export type Param = FilterParam | OtherParam;
 
 export type Søkekriterier = {
     fritekst: string | null;

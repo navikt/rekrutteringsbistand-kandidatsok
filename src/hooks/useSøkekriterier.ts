@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/PorteføljeTabs';
 import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
-import { Param, Søkekriterier } from './useRespons';
+import { FilterParam, Søkekriterier } from './useRespons';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
 
 type Returverdi = {
-    setSearchParam: (parameter: Param, value?: string) => void;
+    setSearchParam: (parameter: FilterParam, value?: string) => void;
     søkekriterier: Søkekriterier;
     fjernSøkekriterier: () => void;
 };
@@ -22,22 +22,23 @@ const useSøkekriterier = (): Returverdi => {
         setSøkekriterier(searchParamsTilSøkekriterier(searchParams));
     }, [searchParams]);
 
-    const setSearchParam = (parameter: Param, value?: string) => {
+    const setSearchParam = (parameter: FilterParam, value?: string) => {
         if (value && value.length > 0) {
             searchParams.set(parameter, value);
         } else {
             searchParams.delete(parameter);
         }
 
-        if (parameter !== Param.Side && søkekriterier.side > 1) {
-            searchParams.delete(Param.Side);
+        if (parameter !== FilterParam.Side && søkekriterier.side > 1) {
+            searchParams.delete(FilterParam.Side);
         }
 
         setSearchParams(searchParams);
     };
 
     const fjernSøkekriterier = () => {
-        setSearchParams({});
+        Object.values(FilterParam).forEach((key) => searchParams.delete(key));
+        setSearchParams(searchParams);
     };
 
     return {
@@ -48,12 +49,12 @@ const useSøkekriterier = (): Returverdi => {
 };
 
 export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): Søkekriterier => ({
-    fritekst: searchParams.get(Param.Fritekst),
-    portefølje: (searchParams.get(Param.Portefølje) as Portefølje) || Portefølje.Alle,
+    fritekst: searchParams.get(FilterParam.Fritekst),
+    portefølje: (searchParams.get(FilterParam.Portefølje) as Portefølje) || Portefølje.Alle,
     innsatsgruppe: new Set(
-        searchParams.get(Param.Innsatsgruppe)?.split(LISTEPARAMETER_SEPARATOR)
+        searchParams.get(FilterParam.Innsatsgruppe)?.split(LISTEPARAMETER_SEPARATOR)
     ) as Set<FiltrerbarInnsatsgruppe>,
-    side: Number(searchParams.get(Param.Side)) || 1,
+    side: Number(searchParams.get(FilterParam.Side)) || 1,
 });
 
 export default useSøkekriterier;

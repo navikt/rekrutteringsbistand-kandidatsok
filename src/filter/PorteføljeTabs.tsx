@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Tabs } from '@navikt/ds-react';
-import { Param } from '../hooks/useRespons';
+import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './PorteføljeTabs.module.css';
 
@@ -14,7 +14,10 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
     const velgPortefølje = (portefølje: string) => {
-        setSearchParam(Param.Portefølje, portefølje === Portefølje.Alle ? undefined : portefølje);
+        setSearchParam(
+            FilterParam.Portefølje,
+            portefølje === Portefølje.Alle ? undefined : portefølje
+        );
     };
 
     return (

@@ -1,7 +1,7 @@
 import { Pagination } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { PAGE_SIZE } from '../api/query/byggQuery';
-import { Param } from '../hooks/useRespons';
+import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './Paginering.module.css';
 
@@ -14,7 +14,7 @@ const Paginering: FunctionComponent<Props> = ({ antallTreff }) => {
     const antallSider = Math.ceil(antallTreff / PAGE_SIZE);
 
     const setSidetall = (nySide: number) => {
-        setSearchParam(Param.Side, nySide > 1 ? String(nySide) : undefined);
+        setSearchParam(FilterParam.Side, nySide > 1 ? String(nySide) : undefined);
         scrollTilToppen();
     };
 
