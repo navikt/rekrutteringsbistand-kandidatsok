@@ -23,7 +23,7 @@ export const hentMineKandidatlister = async (
     pageSize: number
 ): Promise<MineKandidatlister> => {
     const respons = await get(
-        `${kandidatApi}/veileder/kandidatlister?kunEgne=true&pagesize=${pageSize}${
+        `${kandidatApi}/veileder/kandidatlister?kunEgne=true&status=ÅPEN&pagesize=${pageSize}${
             side > 1 ? `&pagenumber=${side - 1}` : ''
         }`
     );
