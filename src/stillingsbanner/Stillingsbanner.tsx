@@ -4,8 +4,7 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from '../kandidatliste/LagreKandidaterModal';
 import { Office1, People } from '@navikt/ds-icons';
-import { lenkeTilKandidatliste } from '../kandidatliste/VelgbarKandidatliste';
-import { lenkeTilStilling } from '../utils';
+import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
 import css from './Stillingsbanner.module.css';
 
 type Props = {
