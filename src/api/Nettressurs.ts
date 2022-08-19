@@ -1,4 +1,10 @@
-export type Nettstatus = 'ikke-lastet' | 'laster-inn' | 'oppdaterer' | 'suksess' | 'feil';
+export type Nettstatus =
+    | 'ikke-lastet'
+    | 'laster-inn'
+    | 'laster-opp'
+    | 'oppdaterer'
+    | 'suksess'
+    | 'feil';
 
 type IkkeLastet = {
     kind: 'ikke-lastet';
@@ -6,6 +12,11 @@ type IkkeLastet = {
 
 type LasterInn = {
     kind: 'laster-inn';
+};
+
+type LasterOpp<T> = {
+    kind: 'laster-opp';
+    data: T;
 };
 
 type Suksess<T> = {
@@ -23,4 +34,10 @@ type Feil = {
     error: string;
 };
 
-export type Nettressurs<T> = IkkeLastet | LasterInn | Suksess<T> | Oppdaterer<T> | Feil;
+export type Nettressurs<T> =
+    | IkkeLastet
+    | LasterInn
+    | LasterOpp<T>
+    | Suksess<T>
+    | Oppdaterer<T>
+    | Feil;

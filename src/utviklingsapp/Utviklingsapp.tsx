@@ -15,7 +15,7 @@ const Utviklingsapp = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            setNavKontor('0239');
+            setNavKontor('1860');
         }, 500);
 
         return () => {

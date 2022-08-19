@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { Search } from '@navikt/ds-react';
 import { Param } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
@@ -26,19 +26,26 @@ const Fritekstsøk: FunctionComponent = () => {
         setSearchParam(Param.Fritekst, undefined);
     };
 
+    const onFormSubmit: FormEventHandler = (event) => {
+        event.preventDefault();
+        onSearchApply();
+    };
+
     return (
-        <Search
-            type="text"
-            value={query}
-            className={css.beskrivelse}
-            label="Søk etter kandidater"
-            description="F.eks navn, fødselsnummer eller jobbønske"
-            onChange={onSearchChange}
-            onClear={onClear}
-            hideLabel={false}
-        >
-            <Search.Button onClick={onSearchApply} />
-        </Search>
+        <form role="search" onSubmit={onFormSubmit}>
+            <Search
+                type="text"
+                value={query}
+                className={css.beskrivelse}
+                label="Søk etter kandidater"
+                description="F.eks navn, fødselsnummer eller jobbønske"
+                onChange={onSearchChange}
+                onClear={onClear}
+                hideLabel={false}
+            >
+                <Search.Button onClick={onSearchApply} />
+            </Search>
+        </form>
     );
 };
 

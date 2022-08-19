@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
 import { get, post } from '../../api/api';
 import { byggIndreQuery } from '../../api/query/byggQuery';
 import useInnloggetBruker from '../../hooks/useBrukerensIdent';
