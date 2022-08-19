@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Checkbox, Detail } from '@navikt/ds-react';
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
-import { storForbokstav } from '../utils';
+import { lenkeTilKandidat, storForbokstav } from '../utils';
 import { Link, useLocation } from 'react-router-dom';
 import { Heart, Place } from '@navikt/ds-icons';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
@@ -43,7 +43,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 <div>
                     <Link
                         className="navds-link"
-                        to={lenkeTilKandidat(kandidat)}
+                        to={lenkeTilKandidat(kandidat.arenaKandidatnr)}
                         state={{
                             search,
                             markerteKandidater,
@@ -88,8 +88,5 @@ const hentKandidatensØnskedeSteder = (kandidat: Kandidat) =>
     kandidat.geografiJobbonsker.length === 0
         ? undefined
         : kandidat.geografiJobbonsker.map((jobbønske) => jobbønske.geografiKodeTekst).join(', ');
-
-const lenkeTilKandidat = ({ arenaKandidatnr }: Kandidat) =>
-    `/kandidater/kandidat/${arenaKandidatnr}/cv`;
 
 export default Kandidatrad;

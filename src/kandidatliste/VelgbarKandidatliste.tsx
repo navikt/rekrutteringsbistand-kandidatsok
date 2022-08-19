@@ -3,6 +3,7 @@ import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox } from '@navikt/ds-react';
 import { Kandidatliste } from './LagreKandidaterModal';
+import { lenkeTilKandidatliste } from '../utils';
 import css from './LagreKandidaterModal.module.css';
 
 type Props = {
@@ -40,8 +41,5 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
         </div>
     );
 };
-
-const lenkeTilKandidatliste = (kandidatlisteId: string) =>
-    `/kandidater/lister/detaljer/${kandidatlisteId}`;
 
 export default VelgbarKandidatliste;

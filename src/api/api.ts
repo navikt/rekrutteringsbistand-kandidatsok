@@ -8,14 +8,7 @@ export const kandidatApi = '/kandidat-api';
 export const søk = async (query: Query): Promise<Respons> => {
     const respons = await post(kandidatsøkProxy, query);
 
-    if (respons.ok) {
-        return await respons.json();
-    } else if (respons.status === 401) {
-        videresendTilInnlogging();
-        throw new Error('Er ikke logget inn');
-    } else {
-        throw new Error(`Klarte ikke å søke: ${respons.statusText}`);
-    }
+    return parseJsonEllerKastFeil(respons, 'Klarte ikke å søke');
 };
 
 export const hentMineKandidatlister = async (
@@ -28,14 +21,7 @@ export const hentMineKandidatlister = async (
         }`
     );
 
-    if (respons.ok) {
-        return await respons.json();
-    } else if (respons.status === 401) {
-        videresendTilInnlogging();
-        throw new Error('Er ikke logget inn');
-    } else {
-        throw new Error(`Klarte ikke å hente mine kandidatlister: ${respons.statusText}`);
-    }
+    return parseJsonEllerKastFeil(respons, 'Klarte ikke å hente mine kandidatlister');
 };
 
 export const hentKandidatlisteMedAnnonsenummer = async (
@@ -45,16 +31,21 @@ export const hentKandidatlisteMedAnnonsenummer = async (
         `${kandidatApi}/veileder/stilling/byNr/${annonsenummer}/kandidatliste`
     );
 
-    if (respons.ok) {
-        return await respons.json();
-    } else if (respons.status === 401) {
-        videresendTilInnlogging();
-        throw new Error('Er ikke logget inn');
-    } else {
-        throw new Error(
-            `Fant ikke kandidatliste med annonsenummer ${annonsenummer}: ${respons.statusText}`
-        );
-    }
+    return parseJsonEllerKastFeil(
+        respons,
+        `Fant ikke kandidatliste med annonsenummer ${annonsenummer}`
+    );
+};
+
+export const hentKandidatlisteMedStillingsId = async (
+    stillingsId: string
+): Promise<Kandidatliste> => {
+    const respons = await get(`${kandidatApi}/veileder/stilling/${stillingsId}/kandidatliste`);
+
+    return parseJsonEllerKastFeil(
+        respons,
+        `Fant ikke kandidatliste med stillingsId ${stillingsId}`
+    );
 };
 
 export const lagreKandidaterIValgteKandidatlister = async (
@@ -77,15 +68,20 @@ export const lagreKandidaterIKandidatliste = async (
         lagreKandidaterDto
     );
 
+    return parseJsonEllerKastFeil(
+        respons,
+        `Klarte ikke å lagre kandidater i kandidatliste ${kandidatlisteId}`
+    );
+};
+
+const parseJsonEllerKastFeil = async (respons: Response, feil: string) => {
     if (respons.ok) {
         return await respons.json();
     } else if (respons.status === 401) {
         videresendTilInnlogging();
         throw new Error('Er ikke logget inn');
     } else {
-        throw new Error(
-            `Klarte ikke å lagre kandidater i kandidatliste ${kandidatlisteId}: ${respons.statusText}`
-        );
+        throw new Error(feil + `: ${respons.statusText}`);
     }
 };
 

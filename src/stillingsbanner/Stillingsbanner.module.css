@@ -1,0 +1,22 @@
+.container {
+    background-color: var(--navds-global-color-blue-100);
+}
+
+.banner {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 2rem 2rem;
+
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner h1:global(.navds-heading) {
+    margin-bottom: 1rem;
+}
+
+.lenker a:first-child {
+    margin-right: 1rem;
+}

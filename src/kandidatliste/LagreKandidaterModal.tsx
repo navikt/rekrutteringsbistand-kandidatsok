@@ -20,6 +20,10 @@ export type Kandidatliste = {
     organisasjonNavn: string | null;
     antallKandidater: number;
     kandidater: Kandidat[];
+    opprettetAv: {
+        ident: string;
+        navn: string;
+    };
 };
 
 export type LagreKandidaterDto = Array<{
