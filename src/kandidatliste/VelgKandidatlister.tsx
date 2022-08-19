@@ -96,7 +96,6 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
                     ))}
                 </CheckboxGroup>
                 <Pagination
-                    size="small"
                     page={side}
                     className={css.paginering}
                     onPageChange={hentFlereKandidatlister}
