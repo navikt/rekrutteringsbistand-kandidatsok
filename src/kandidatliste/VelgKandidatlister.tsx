@@ -1,11 +1,10 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
-import { Button, CheckboxGroup, Loader, Pagination } from '@navikt/ds-react';
+import { CheckboxGroup, Loader, Pagination } from '@navikt/ds-react';
 import { hentMineKandidatlister } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from './LagreKandidaterModal';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import css from './LagreKandidaterModal.module.css';
-import { Download, Refresh, Upload } from '@navikt/ds-icons';
 
 type Props = {
     markerteLister: Set<string>;
