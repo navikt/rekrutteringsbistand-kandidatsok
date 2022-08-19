@@ -43,22 +43,10 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
             try {
                 const nesteSideMedLister = await hentMineKandidatlister(side, pageSize);
 
-                if (mineKandidatlister.kind === 'oppdaterer') {
-                    const alleLister = {
-                        ...nesteSideMedLister,
-                        liste: [...mineKandidatlister.data.liste, ...nesteSideMedLister.liste],
-                    };
-
-                    setMineKandidatlister({
-                        kind: 'suksess',
-                        data: alleLister,
-                    });
-                } else {
-                    setMineKandidatlister({
-                        kind: 'suksess',
-                        data: nesteSideMedLister,
-                    });
-                }
+                setMineKandidatlister({
+                    kind: 'suksess',
+                    data: nesteSideMedLister,
+                });
             } catch (e) {
                 setMineKandidatlister({
                     kind: 'feil',
