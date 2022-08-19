@@ -50,7 +50,7 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
                 <Search
                     clearButton
                     label="Søk på annonsenummer"
-                    size="small"
+                    description="Hvis du ikke finner kandidatlisten du leter etter"
                     variant="secondary"
                     hideLabel={false}
                     value={annonsenummer}

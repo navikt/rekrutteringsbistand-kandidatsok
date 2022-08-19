@@ -9,6 +9,8 @@
 
 .velgKandidatlister {
     margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .kandidatliste {
@@ -22,6 +24,11 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    max-width: 80%;
+}
+
+.paginering {
+    margin: 1.5rem 0;
 }
 
 .valgtKandidatliste {

@@ -19,7 +19,7 @@ export type MineKandidatlister = {
     antall: number;
 };
 
-const pageSize = 5;
+const pageSize = 8;
 
 const VelgKandidatlister: FunctionComponent<Props> = ({
     markerteLister,
@@ -83,7 +83,7 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
             <div className={css.velgKandidatlister}>
                 <CheckboxGroup
                     className={css.liste}
-                    legend="Velg kandidatlister"
+                    legend="Velg blant dine kandidatlister"
                     value={Array.from(markerteLister)}
                 >
                     {mineKandidatlister.data.liste.map((kandidatliste) => (
@@ -98,6 +98,7 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
                 <Pagination
                     size="small"
                     page={side}
+                    className={css.paginering}
                     onPageChange={hentFlereKandidatlister}
                     count={Math.floor(mineKandidatlister.data.antall / pageSize)}
                 />

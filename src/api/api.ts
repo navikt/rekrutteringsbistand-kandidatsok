@@ -19,8 +19,8 @@ export const søk = async (query: Query): Promise<Respons> => {
 };
 
 export const hentMineKandidatlister = async (
-    side: number = 1,
-    pageSize: number = 5
+    side: number,
+    pageSize: number
 ): Promise<MineKandidatlister> => {
     const respons = await get(
         `${kandidatApi}/veileder/kandidatlister?kunEgne=true&pagesize=${pageSize}${
