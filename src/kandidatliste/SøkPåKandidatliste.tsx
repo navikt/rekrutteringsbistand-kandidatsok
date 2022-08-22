@@ -4,7 +4,7 @@ import { hentKandidatlisteMedAnnonsenummer } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from './LagreKandidaterIMineKandidatlisterModal';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
-import css from './LagreKandidaterModal.module.css';
+import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 
 type Props = {
     markerteLister: Set<string>;

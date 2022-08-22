@@ -4,7 +4,7 @@ import { lagreKandidaterIKandidatliste } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { KontekstAvStilling } from '../hooks/useStilling';
 import { LagreKandidaterDto } from './LagreKandidaterIMineKandidatlisterModal';
-import css from './LagreKandidaterModal.module.css';
+import css from './LagreKandidaterISpesifikkKandidatlisteModal.module.css';
 
 type Props = {
     vis: boolean;

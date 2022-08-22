@@ -6,7 +6,7 @@ import { AddPerson } from '@navikt/ds-icons';
 import VelgKandidatlister from './VelgKandidatlister';
 import { Kandidat } from '../Kandidat';
 import SøkPåKandidatliste from './SøkPåKandidatliste';
-import css from './LagreKandidaterModal.module.css';
+import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 
 type Props = {
     vis: boolean;

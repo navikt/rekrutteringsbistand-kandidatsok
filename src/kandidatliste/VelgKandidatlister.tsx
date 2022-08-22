@@ -2,7 +2,7 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { CheckboxGroup, Loader, Pagination } from '@navikt/ds-react';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import useMineKandidatlister from './useMineKandidatlister';
-import css from './LagreKandidaterModal.module.css';
+import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 
 type Props = {
     markerteLister: Set<string>;

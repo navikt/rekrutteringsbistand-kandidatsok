@@ -1,0 +1,14 @@
+.innhold {
+    width: 40rem;
+    padding: 1.5rem;
+}
+
+.beskrivelse {
+    margin: 1rem 0 !important;
+}
+
+.knapper {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Checkbox } from '@navikt/ds-react';
 import { Kandidatliste } from './LagreKandidaterIMineKandidatlisterModal';
 import { lenkeTilKandidatliste } from '../utils';
-import css from './LagreKandidaterModal.module.css';
+import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 
 type Props = {
     kandidatliste: Omit<Kandidatliste, 'kandidater'>;
