@@ -6,17 +6,32 @@
     max-width: 75rem;
     margin: 0 auto;
     padding: 2rem 2rem;
-
     grid-column: span 2;
+
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
-.banner h1:global(.navds-heading) {
-    margin-bottom: 1rem;
+.lenker {
+    margin-top: 1rem;
 }
 
 .lenker a:first-child {
     margin-right: 1rem;
+}
+
+@media (min-width: 900px) {
+    .banner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .lenker {
+        margin-top: 0rem;
+    }
+}
+
+.banner h1:global(.navds-heading) {
+    margin-bottom: 1rem;
 }
