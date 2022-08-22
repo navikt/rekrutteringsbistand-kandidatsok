@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { kandidatApi } from '../api/api';
-import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterModal';
+import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import {
     mockMineKandidatlister,
     mockLagringAvKandidaterIKandidatliste,

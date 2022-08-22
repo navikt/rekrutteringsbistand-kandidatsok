@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Button, Heading } from '@navikt/ds-react';
 import { AddPerson, Error } from '@navikt/ds-icons';
 
+import { KontekstAvStilling } from '../hooks/useStilling';
 import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 import { Respons } from '../elasticSearchTyper';
 import Kandidatrad from './Kandidatrad';
+import LagreKandidaterISpesifikkKandidatlisteModal from '../kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
+import LagreKandidaterIMineKandidatlisterModal from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import Paginering from '../filter/Paginering';
 import css from './Resultat.module.css';
-import LagreKandidaterModal from '../kandidatliste/LagreKandidaterModal';
 
 export type Props = {
     respons: Respons;
@@ -15,6 +17,7 @@ export type Props = {
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string) => void;
     fjernMarkering: () => void;
+    kontekstAvStilling: KontekstAvStilling | null;
 };
 
 const Resultat = ({
@@ -23,12 +26,28 @@ const Resultat = ({
     markerteKandidater,
     onMarkerKandidat,
     fjernMarkering,
+    kontekstAvStilling,
 }: Props) => {
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
     const kandidater = treff.map((t) => t._source);
 
-    const [visLagreKandidaterModal, setVisLagreKandidaterModal] = useState(false);
+    const [
+        visLagreKandidaterIMineKandidatlisterModal,
+        setVisLagreKandidaterIMineKandidatlisterModal,
+    ] = useState(false);
+    const [
+        visLagreKandidaterISpesifikkKandidatlisteModal,
+        setVisLagreKandidaterISpesifikkKandidatlisteModal,
+    ] = useState(false);
+
+    const onLagreIKandidatlisteClick = () => {
+        if (kontekstAvStilling) {
+            setVisLagreKandidaterISpesifikkKandidatlisteModal(true);
+        } else {
+            setVisLagreKandidaterIMineKandidatlisterModal(true);
+        }
+    };
 
     return (
         <div className={css.resultat}>
@@ -53,7 +72,7 @@ const Resultat = ({
                         size="small"
                         variant="primary"
                         disabled={markerteKandidater.size === 0}
-                        onClick={() => setVisLagreKandidaterModal(true)}
+                        onClick={onLagreIKandidatlisteClick}
                     >
                         <AddPerson />
                         Lagre i kandidatliste
@@ -75,11 +94,20 @@ const Resultat = ({
                 ))}
             </ul>
             <Paginering antallTreff={antallTreff} />
-            <LagreKandidaterModal
-                vis={visLagreKandidaterModal}
-                onClose={() => setVisLagreKandidaterModal(false)}
+            <LagreKandidaterIMineKandidatlisterModal
+                vis={visLagreKandidaterIMineKandidatlisterModal}
+                onClose={() => setVisLagreKandidaterIMineKandidatlisterModal(false)}
                 markerteKandidater={markerteKandidater}
             />
+            {kontekstAvStilling !== null && (
+                <LagreKandidaterISpesifikkKandidatlisteModal
+                    vis={visLagreKandidaterISpesifikkKandidatlisteModal}
+                    onClose={() => setVisLagreKandidaterISpesifikkKandidatlisteModal(false)}
+                    markerteKandidater={markerteKandidater}
+                    kontekstAvStilling={kontekstAvStilling}
+                    onSuksess={fjernMarkering}
+                />
+            )}
         </div>
     );
 };

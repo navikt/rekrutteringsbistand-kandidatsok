@@ -1,5 +1,8 @@
 import { Kandidat } from '../Kandidat';
-import { Kandidatliste, LagreKandidaterDto } from '../kandidatliste/LagreKandidaterModal';
+import {
+    Kandidatliste,
+    LagreKandidaterDto,
+} from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
 
 export const mockMineKandidatlister: MineKandidatlister = {

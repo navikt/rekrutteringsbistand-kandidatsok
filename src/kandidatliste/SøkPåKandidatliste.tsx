@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'reac
 import { CheckboxGroup, Loader, Search } from '@navikt/ds-react';
 import { hentKandidatlisteMedAnnonsenummer } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidatliste } from './LagreKandidaterModal';
+import { Kandidatliste } from './LagreKandidaterIMineKandidatlisterModal';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import css from './LagreKandidaterModal.module.css';
 

@@ -30,7 +30,11 @@ export type LagreKandidaterDto = Array<{
     kandidatnr: string;
 }>;
 
-const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerteKandidater }) => {
+const LagreKandidaterIMineKandidatlisterModal: FunctionComponent<Props> = ({
+    vis,
+    onClose,
+    markerteKandidater,
+}) => {
     const [markerteLister, setMarkerteLister] = useState<Set<string>>(new Set());
     const [lagredeLister, setLagredeLister] = useState<Set<string>>(new Set());
     const [lagreIKandidatlister, setLagreIKandidatlister] = useState<
@@ -117,4 +121,4 @@ const LagreKandidaterModal: FunctionComponent<Props> = ({ vis, onClose, markerte
     );
 };
 
-export default LagreKandidaterModal;
+export default LagreKandidaterIMineKandidatlisterModal;

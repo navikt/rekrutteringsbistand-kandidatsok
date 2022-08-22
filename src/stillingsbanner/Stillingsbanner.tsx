@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidatliste } from '../kandidatliste/LagreKandidaterModal';
+import { Kandidatliste } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { Office1, People } from '@navikt/ds-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
 import css from './Stillingsbanner.module.css';

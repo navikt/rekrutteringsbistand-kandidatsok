@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { hentKandidatlisteMedStillingsId } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidatliste } from '../kandidatliste/LagreKandidaterModal';
+import { Kandidatliste } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
+
+export type KontekstAvStilling = {
+    stillingsId: string;
+    kandidatliste: Nettressurs<Kandidatliste>;
+};
 
 const useStilling = () => {
     const [searchParams] = useSearchParams();

@@ -2,7 +2,7 @@ import { ExternalLink, SuccessColored } from '@navikt/ds-icons';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox } from '@navikt/ds-react';
-import { Kandidatliste } from './LagreKandidaterModal';
+import { Kandidatliste } from './LagreKandidaterIMineKandidatlisterModal';
 import { lenkeTilKandidatliste } from '../utils';
 import css from './LagreKandidaterModal.module.css';
 

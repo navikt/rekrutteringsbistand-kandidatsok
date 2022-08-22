@@ -1,5 +1,8 @@
 import { Query, Respons } from '../elasticSearchTyper';
-import { Kandidatliste, LagreKandidaterDto } from '../kandidatliste/LagreKandidaterModal';
+import {
+    Kandidatliste,
+    LagreKandidaterDto,
+} from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
 
 const kandidatsøkProxy = `/kandidatsok-proxy`;

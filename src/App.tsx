@@ -24,7 +24,7 @@ const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
     const navigeringsstate = useNavigeringsstate();
-    const stilling = useStilling();
+    const kontekstAvStilling = useStilling();
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         navigeringsstate.markerteKandidater
@@ -32,10 +32,10 @@ const App = ({ navKontor }: AppProps) => {
 
     return (
         <>
-            {stilling !== null && (
+            {kontekstAvStilling !== null && (
                 <Stillingsbanner
-                    kandidatliste={stilling.kandidatliste}
-                    stillingsId={stilling.stillingsId}
+                    kandidatliste={kontekstAvStilling.kandidatliste}
+                    stillingsId={kontekstAvStilling.stillingsId}
                 />
             )}
             <div className={css.container}>
@@ -56,6 +56,7 @@ const App = ({ navKontor }: AppProps) => {
                         {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
                             <Resultat
                                 respons={respons.data}
+                                kontekstAvStilling={kontekstAvStilling}
                                 navigeringsstate={navigeringsstate}
                                 markerteKandidater={markerteKandidater}
                                 onMarkerKandidat={onMarkerKandidat}
