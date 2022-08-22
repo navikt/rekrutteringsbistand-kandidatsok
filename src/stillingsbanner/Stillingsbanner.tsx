@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
-import { Office1, People } from '@navikt/ds-icons';
+import { CoApplicant, Office1 } from '@navikt/ds-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
 import css from './Stillingsbanner.module.css';
 
@@ -37,7 +37,7 @@ const Stillingsbanner: FunctionComponent<Props> = ({ kandidatliste, stillingsId 
                         Se stilling
                     </Link>
                     <Link className="navds-link" to={lenkeTilKandidatliste(kandidatlisteId)}>
-                        <People />
+                        <CoApplicant />
                         Se kandidatliste
                     </Link>
                 </div>
