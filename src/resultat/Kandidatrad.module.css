@@ -1,0 +1,52 @@
+.kandidatrad {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.kandidatrad:nth-child(2n-1) {
+    background-color: white;
+}
+
+.fremhevetKandidatrad {
+    box-shadow: inset 0 0 0 3px var(--navds-global-color-orange-200);
+}
+
+.kandidatinformasjon {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    width: 100%;
+}
+
+.navn {
+    grid-column: span 2;
+}
+
+.innsatsgruppe {
+    text-align: left;
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+
+.jobbønske {
+    grid-column: span 2;
+}
+
+@media (min-width: 500px) {
+    .kandidatrad {
+        padding: 1rem 1.5rem;
+    }
+
+    .navn {
+        grid-column: span 1;
+    }
+
+    .innsatsgruppe {
+        text-align: right;
+    }
+}

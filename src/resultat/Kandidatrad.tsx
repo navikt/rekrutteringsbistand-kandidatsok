@@ -6,7 +6,7 @@ import { lenkeTilKandidat, storForbokstav } from '../utils';
 import { Link, useLocation } from 'react-router-dom';
 import { Heart, Place } from '@navikt/ds-icons';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
-import css from './Resultat.module.css';
+import css from './Kandidatrad.module.css';
 
 type Props = {
     kandidat: Kandidat;
@@ -40,7 +40,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 Valgt
             </Checkbox>
             <div className={css.kandidatinformasjon}>
-                <div>
+                <div className={css.navn}>
                     <Link
                         className="navds-link"
                         to={lenkeTilKandidat(kandidat.arenaKandidatnr)}
@@ -52,7 +52,9 @@ const Kandidatrad: FunctionComponent<Props> = ({
                         {hentKandidatensNavn(kandidat)}
                     </Link>
                 </div>
-                <Detail>{alleInnsatsgrupper[kvalifiseringsgruppekode].label}</Detail>
+                <Detail className={css.innsatsgruppe}>
+                    {alleInnsatsgrupper[kvalifiseringsgruppekode].label}
+                </Detail>
                 {(alleØnskedeYrker || alleØnskedeSteder) && (
                     <div className={css.jobbønske}>
                         {alleØnskedeYrker && (

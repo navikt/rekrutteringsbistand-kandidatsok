@@ -22,32 +22,6 @@
     list-style: none;
 }
 
-.kandidatrad {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1rem 1.5rem;
-}
-
-.kandidatrad:nth-child(2n-1) {
-    background-color: white;
-}
-
 .fjernMarkeringKnapp {
     margin-right: 1rem !important;
-}
-
-.fremhevetKandidatrad {
-    box-shadow: inset 0 0 0 3px var(--navds-global-color-orange-200);
-}
-
-.kandidatinformasjon {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.5rem 1rem;
-    width: 100%;
-}
-
-.jobbønske {
-    grid-column: span 2;
 }

@@ -9,7 +9,8 @@ export const storForbokstav = (s: string) => {
         .join(' ');
 };
 
-export const lenkeTilKandidat = (kandidatnr: string) => `/kandidater/kandidat/${kandidatnr}/cv`;
+export const lenkeTilKandidat = (kandidatnr: string) =>
+    `/kandidater/kandidat/${kandidatnr}/cv?fraNyttKandidatsok=true`;
 export const lenkeTilStilling = (stillingsId: string) => `/stillinger/stilling/${stillingsId}`;
 export const lenkeTilKandidatliste = (kandidatlisteId: string) =>
     `/kandidater/lister/detaljer/${kandidatlisteId}`;
