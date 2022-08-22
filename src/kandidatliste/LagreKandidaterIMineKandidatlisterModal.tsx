@@ -2,7 +2,6 @@ import { Button, Heading, Modal } from '@navikt/ds-react';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
 import { lagreKandidaterIValgteKandidatlister } from '../api/api';
-import { AddPerson } from '@navikt/ds-icons';
 import VelgKandidatlister from './VelgKandidatlister';
 import { Kandidat } from '../Kandidat';
 import SøkPåKandidatliste from './SøkPåKandidatliste';
@@ -109,8 +108,7 @@ const LagreKandidaterIMineKandidatlisterModal: FunctionComponent<Props> = ({
                         disabled={markerteLister.size === 0}
                         loading={lagreIKandidatlister.kind === 'laster-opp'}
                     >
-                        <AddPerson />
-                        Lagre i lister
+                        Lagre
                     </Button>
                     <Button variant="secondary" onClick={onClose}>
                         Avbryt

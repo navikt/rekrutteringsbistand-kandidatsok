@@ -11,13 +11,16 @@
     padding-bottom: 0.5rem;
 }
 
-.fjernFilter {
+.tømFilter {
     grid-column: span 2;
     display: flex;
     justify-content: flex-end;
 }
 
-.fjernFilter button {
+.tømFilter button {
     padding: 0.5rem;
-    background: none;
+}
+
+.tømFilter :global(.navds-label) {
+    font-weight: normal;
 }

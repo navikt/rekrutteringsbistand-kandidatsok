@@ -1,5 +1,6 @@
 .container {
-    background-color: var(--navds-global-color-deepblue-100);
+    background-color: var(--navds-global-color-deepblue-50);
+    border-bottom: 2px solid var(--navds-global-color-deepblue-200);
 }
 
 .banner {

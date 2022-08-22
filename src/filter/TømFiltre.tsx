@@ -8,9 +8,8 @@ const TømFiltre = () => {
     const { fjernSøkekriterier } = useSøkekriterier();
 
     return (
-        <div className={filterCss.fjernFilter}>
-            <Button className="navds-link" variant="tertiary" onClick={fjernSøkekriterier}>
-                <Delete />
+        <div className={filterCss.tømFilter}>
+            <Button icon={<Delete aria-hidden />} variant="tertiary" onClick={fjernSøkekriterier}>
                 Tøm filtre
             </Button>
         </div>

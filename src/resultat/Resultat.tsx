@@ -61,20 +61,20 @@ const Resultat = ({
                             size="small"
                             variant="secondary"
                             aria-label="Fjern markerte kandidater"
+                            icon={<Error aria-hidden />}
                             className={css.fjernMarkeringKnapp}
                             onClick={fjernMarkering}
                         >
-                            <Error />
                             {markerteKandidater.size} markert
                         </Button>
                     )}
                     <Button
                         size="small"
                         variant="primary"
+                        icon={<AddPerson aria-hidden />}
                         disabled={markerteKandidater.size === 0}
                         onClick={onLagreIKandidatlisteClick}
                     >
-                        <AddPerson />
                         Lagre i kandidatliste
                     </Button>
                 </div>
