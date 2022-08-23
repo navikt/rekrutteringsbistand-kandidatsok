@@ -1,23 +1,23 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import { Nettressurs } from '../api/Nettressurs';
-import { Kandidatliste } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
-import { CoApplicant, Office1 } from '@navikt/ds-icons';
+import { CoApplicant as KandidatlisteIkon, Office1 as StillingIkon } from '@navikt/ds-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import css from './Stillingsbanner.module.css';
 
 type Props = {
-    kandidatliste: Nettressurs<Kandidatliste>;
-    stillingsId: string;
+    kontekst: KontekstAvKandidatliste;
 };
 
-const Stillingsbanner: FunctionComponent<Props> = ({ kandidatliste, stillingsId }) => {
+const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
+    const { kandidatliste, kandidatlisteId } = kontekst;
+
     if (kandidatliste.kind !== 'suksess') {
         return null;
     }
 
-    const { kandidatlisteId, tittel, opprettetAv } = kandidatliste.data;
+    const { tittel, opprettetAv } = kandidatliste.data;
 
     return (
         <div role="banner" className={css.container}>
@@ -32,12 +32,15 @@ const Stillingsbanner: FunctionComponent<Props> = ({ kandidatliste, stillingsId 
                     </BodyShort>
                 </div>
                 <div className={css.lenker}>
-                    <Link className="navds-link" to={lenkeTilStilling(stillingsId)}>
-                        <Office1 />
+                    <Link
+                        className="navds-link"
+                        to={lenkeTilStilling(kandidatliste.data.stillingId)}
+                    >
+                        <StillingIkon />
                         Se stilling
                     </Link>
                     <Link className="navds-link" to={lenkeTilKandidatliste(kandidatlisteId)}>
-                        <CoApplicant />
+                        <KandidatlisteIkon />
                         Se kandidatliste
                     </Link>
                 </div>

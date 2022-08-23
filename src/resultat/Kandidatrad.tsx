@@ -7,6 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Heart, Place } from '@navikt/ds-icons';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
 import css from './Kandidatrad.module.css';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 
 type Props = {
     kandidat: Kandidat;
@@ -14,6 +15,7 @@ type Props = {
     erMarkert: boolean;
     onMarker: () => void;
     erFremhevet: boolean;
+    kontekstAvKandidatliste: KontekstAvKandidatliste | null;
 };
 
 const Kandidatrad: FunctionComponent<Props> = ({
@@ -22,6 +24,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
     erMarkert,
     onMarker,
     erFremhevet,
+    kontekstAvKandidatliste,
 }) => {
     const { search } = useLocation();
     const { kvalifiseringsgruppekode } = kandidat;
@@ -43,7 +46,10 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 <div className={css.navn}>
                     <Link
                         className="navds-link"
-                        to={lenkeTilKandidat(kandidat.arenaKandidatnr)}
+                        to={lenkeTilKandidat(
+                            kandidat.arenaKandidatnr,
+                            kontekstAvKandidatliste?.kandidatlisteId
+                        )}
                         state={{
                             search,
                             markerteKandidater,

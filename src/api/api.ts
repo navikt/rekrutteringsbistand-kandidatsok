@@ -40,15 +40,10 @@ export const hentKandidatlisteMedAnnonsenummer = async (
     );
 };
 
-export const hentKandidatlisteMedStillingsId = async (
-    stillingsId: string
-): Promise<Kandidatliste> => {
-    const respons = await get(`${kandidatApi}/veileder/stilling/${stillingsId}/kandidatliste`);
+export const hentKandidatliste = async (kandidatlisteId: string): Promise<Kandidatliste> => {
+    const respons = await get(`${kandidatApi}/veileder/kandidatlister/${kandidatlisteId}`);
 
-    return parseJsonEllerKastFeil(
-        respons,
-        `Fant ikke kandidatliste med stillingsId ${stillingsId}`
-    );
+    return parseJsonEllerKastFeil(respons, `Fant ikke kandidatliste med id ${kandidatlisteId}`);
 };
 
 export const lagreKandidaterIValgteKandidatlister = async (
