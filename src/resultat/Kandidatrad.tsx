@@ -11,6 +11,7 @@ import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 
 type Props = {
     kandidat: Kandidat;
+    kandidater: string[];
     markerteKandidater: Set<string>;
     erMarkert: boolean;
     onMarker: () => void;
@@ -20,6 +21,7 @@ type Props = {
 
 const Kandidatrad: FunctionComponent<Props> = ({
     kandidat,
+    kandidater,
     markerteKandidater,
     erMarkert,
     onMarker,
@@ -52,6 +54,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
                         )}
                         state={{
                             search,
+                            kandidater,
                             markerteKandidater,
                         }}
                     >

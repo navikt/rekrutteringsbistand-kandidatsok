@@ -84,6 +84,7 @@ const Resultat = ({
                     <Kandidatrad
                         key={kandidat.arenaKandidatnr}
                         kandidat={kandidat}
+                        kandidater={kandidater.map((k) => k.arenaKandidatnr)}
                         markerteKandidater={markerteKandidater}
                         erMarkert={markerteKandidater.has(kandidat.arenaKandidatnr)}
                         onMarker={() => {
