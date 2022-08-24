@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Button, Heading } from '@navikt/ds-react';
 import { AddPerson, Error } from '@navikt/ds-icons';
 
-import { KontekstAvStilling } from '../hooks/useStilling';
 import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 import { Respons } from '../elasticSearchTyper';
 import Kandidatrad from './Kandidatrad';
 import LagreKandidaterISpesifikkKandidatlisteModal from '../kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
 import LagreKandidaterIMineKandidatlisterModal from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import Paginering from '../filter/Paginering';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import css from './Resultat.module.css';
 
 export type Props = {
@@ -17,7 +17,7 @@ export type Props = {
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string) => void;
     fjernMarkering: () => void;
-    kontekstAvStilling: KontekstAvStilling | null;
+    kontekstAvKandidatliste: KontekstAvKandidatliste | null;
 };
 
 const Resultat = ({
@@ -26,7 +26,7 @@ const Resultat = ({
     markerteKandidater,
     onMarkerKandidat,
     fjernMarkering,
-    kontekstAvStilling,
+    kontekstAvKandidatliste,
 }: Props) => {
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
@@ -42,7 +42,7 @@ const Resultat = ({
     ] = useState(false);
 
     const onLagreIKandidatlisteClick = () => {
-        if (kontekstAvStilling) {
+        if (kontekstAvKandidatliste) {
             setVisLagreKandidaterISpesifikkKandidatlisteModal(true);
         } else {
             setVisLagreKandidaterIMineKandidatlisterModal(true);
@@ -82,14 +82,15 @@ const Resultat = ({
             <ul className={css.kandidater}>
                 {kandidater.map((kandidat) => (
                     <Kandidatrad
-                        kandidat={kandidat}
                         key={kandidat.arenaKandidatnr}
+                        kandidat={kandidat}
                         markerteKandidater={markerteKandidater}
                         erMarkert={markerteKandidater.has(kandidat.arenaKandidatnr)}
                         onMarker={() => {
                             onMarkerKandidat(kandidat.arenaKandidatnr);
                         }}
                         erFremhevet={navigeringsstate.fraKandidat === kandidat.arenaKandidatnr}
+                        kontekstAvKandidatliste={kontekstAvKandidatliste}
                     />
                 ))}
             </ul>
@@ -99,12 +100,12 @@ const Resultat = ({
                 onClose={() => setVisLagreKandidaterIMineKandidatlisterModal(false)}
                 markerteKandidater={markerteKandidater}
             />
-            {kontekstAvStilling !== null && (
+            {kontekstAvKandidatliste !== null && (
                 <LagreKandidaterISpesifikkKandidatlisteModal
                     vis={visLagreKandidaterISpesifikkKandidatlisteModal}
                     onClose={() => setVisLagreKandidaterISpesifikkKandidatlisteModal(false)}
                     markerteKandidater={markerteKandidater}
-                    kontekstAvStilling={kontekstAvStilling}
+                    kontekstAvKandidatliste={kontekstAvKandidatliste}
                     onSuksess={fjernMarkering}
                 />
             )}

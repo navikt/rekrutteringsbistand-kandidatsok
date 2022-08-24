@@ -11,9 +11,9 @@ import VelgInnsatsgruppe from './filter/Jobbmuligheter';
 import TømFiltre from './filter/TømFiltre';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useNavigeringsstate from './hooks/useNavigeringsstate';
-import css from './App.module.css';
-import useStilling from './hooks/useStilling';
 import Stillingsbanner from './stillingsbanner/Stillingsbanner';
+import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
+import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
@@ -24,7 +24,7 @@ const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
     const navigeringsstate = useNavigeringsstate();
-    const kontekstAvStilling = useStilling();
+    const kontekstAvKandidatliste = useKontekstAvKandidatliste();
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         navigeringsstate.markerteKandidater
@@ -32,11 +32,8 @@ const App = ({ navKontor }: AppProps) => {
 
     return (
         <>
-            {kontekstAvStilling !== null && (
-                <Stillingsbanner
-                    kandidatliste={kontekstAvStilling.kandidatliste}
-                    stillingsId={kontekstAvStilling.stillingsId}
-                />
+            {kontekstAvKandidatliste !== null && (
+                <Stillingsbanner kontekst={kontekstAvKandidatliste} />
             )}
             <div className={css.container}>
                 <TømFiltre />
@@ -56,7 +53,7 @@ const App = ({ navKontor }: AppProps) => {
                         {(respons.kind === 'suksess' || respons.kind === 'oppdaterer') && (
                             <Resultat
                                 respons={respons.data}
-                                kontekstAvStilling={kontekstAvStilling}
+                                kontekstAvKandidatliste={kontekstAvKandidatliste}
                                 navigeringsstate={navigeringsstate}
                                 markerteKandidater={markerteKandidater}
                                 onMarkerKandidat={onMarkerKandidat}

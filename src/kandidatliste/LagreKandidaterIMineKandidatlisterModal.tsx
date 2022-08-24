@@ -15,6 +15,7 @@ type Props = {
 
 export type Kandidatliste = {
     kandidatlisteId: string;
+    stillingId: string;
     tittel: string;
     organisasjonNavn: string | null;
     antallKandidater: number;

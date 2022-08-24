@@ -6,7 +6,8 @@
         "start": "cross-env BROWSER=none react-scripts start",
         "start:export": "cross-env BROWSER=none REACT_APP_EXPORT=true react-scripts start",
         "start:mock": "cross-env PUBLIC_URL=/ REACT_APP_MOCK=true react-scripts start",
-        "start:mock:export": "cross-env BROWSER=none REACT_APP_MOCK=true REACT_APP_EXPORT=true react-scripts start",
+        "start:mock:es": "cross-env PUBLIC_URL=/ REACT_APP_MOCK=true REACT_APP_MOCK_ES=true react-scripts start",
+        "start:mock:export": "cross-env BROWSER=none REACT_APP_MOCK=true REACT_APP_EXPORT=true REACT_APP_MOCK_ES=true react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "prepare": "husky install"

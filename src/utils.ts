@@ -9,8 +9,16 @@ export const storForbokstav = (s: string) => {
         .join(' ');
 };
 
-export const lenkeTilKandidat = (kandidatnr: string) =>
-    `/kandidater/kandidat/${kandidatnr}/cv?fraNyttKandidatsok=true`;
+export const lenkeTilKandidat = (kandidatnr: string, kandidatlisteId?: string) => {
+    let lenke = `/kandidater/kandidat/${kandidatnr}/cv?fraNyttKandidatsok=true`;
+
+    if (kandidatlisteId) {
+        lenke += `&kandidatlisteId=${kandidatlisteId}`;
+    }
+
+    return lenke;
+};
+
 export const lenkeTilStilling = (stillingsId: string) => `/stillinger/stilling/${stillingsId}`;
 export const lenkeTilKandidatliste = (kandidatlisteId: string) =>
     `/kandidater/lister/detaljer/${kandidatlisteId}`;

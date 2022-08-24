@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { hentKandidatlisteMedStillingsId } from '../api/api';
+import { hentKandidatliste } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 
-export type KontekstAvStilling = {
-    stillingsId: string;
+export type KontekstAvKandidatliste = {
+    kandidatlisteId: string;
     kandidatliste: Nettressurs<Kandidatliste>;
 };
 
-const useStilling = () => {
+const useKontekstAvKandidatliste = () => {
     const [searchParams] = useSearchParams();
-    const stillingsId = searchParams.get('stilling');
+    const kandidatlisteId = searchParams.get('kandidatliste');
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>({
         kind: 'ikke-lastet',
     });
 
     useEffect(() => {
-        const hentKandidatliste = async (stillingsId: string) => {
+        const hent = async (kandidatlisteId: string) => {
             setKandidatliste({
                 kind: 'laster-inn',
             });
 
             try {
-                const kandidatliste = await hentKandidatlisteMedStillingsId(stillingsId);
+                const kandidatliste = await hentKandidatliste(kandidatlisteId);
 
                 setKandidatliste({
                     kind: 'suksess',
@@ -37,19 +37,19 @@ const useStilling = () => {
             }
         };
 
-        if (stillingsId) {
-            hentKandidatliste(stillingsId);
+        if (kandidatlisteId) {
+            hent(kandidatlisteId);
         }
-    }, [stillingsId]);
+    }, [kandidatlisteId]);
 
-    if (stillingsId === null) {
+    if (kandidatlisteId === null) {
         return null;
     } else {
         return {
-            stillingsId,
+            kandidatlisteId,
             kandidatliste,
         };
     }
 };
 
-export default useStilling;
+export default useKontekstAvKandidatliste;

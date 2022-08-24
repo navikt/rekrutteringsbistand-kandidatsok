@@ -2,7 +2,7 @@ import { BodyLong, Button, Heading, Loader, Modal } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { lagreKandidaterIKandidatliste } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { KontekstAvStilling } from '../hooks/useStilling';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { LagreKandidaterDto } from './LagreKandidaterIMineKandidatlisterModal';
 import css from './LagreKandidaterISpesifikkKandidatlisteModal.module.css';
 
@@ -10,7 +10,7 @@ type Props = {
     vis: boolean;
     onClose: () => void;
     markerteKandidater: Set<string>;
-    kontekstAvStilling: KontekstAvStilling;
+    kontekstAvKandidatliste: KontekstAvKandidatliste;
     onSuksess: () => void;
 };
 
@@ -18,7 +18,7 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
     vis,
     onClose,
     markerteKandidater,
-    kontekstAvStilling,
+    kontekstAvKandidatliste,
     onSuksess,
 }) => {
     const [lagreKandidater, setLagreKandidater] = useState<Nettressurs<LagreKandidaterDto>>({
@@ -53,19 +53,17 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
                     Lagre {markerteKandidater.size} kandidat
                     {markerteKandidater.size > 1 ? 'er' : ''} i kandidatlisten
                 </Heading>
-                {kontekstAvStilling.kandidatliste.kind === 'laster-inn' && <Loader />}
-                {kontekstAvStilling.kandidatliste.kind === 'suksess' && (
+                {kontekstAvKandidatliste.kandidatliste.kind === 'laster-inn' && <Loader />}
+                {kontekstAvKandidatliste.kandidatliste.kind === 'suksess' && (
                     <>
                         <BodyLong className={css.beskrivelse}>
                             Ønsker du å lagre kandidaten i kandidatlisten til stillingen «
-                            {kontekstAvStilling.kandidatliste.data.tittel}»?
+                            {kontekstAvKandidatliste.kandidatliste.data.tittel}»?
                         </BodyLong>
                         <div className={css.knapper}>
                             <Button
                                 variant="primary"
-                                onClick={onBekreftClick(
-                                    kontekstAvStilling.kandidatliste.data.kandidatlisteId
-                                )}
+                                onClick={onBekreftClick(kontekstAvKandidatliste.kandidatlisteId)}
                             >
                                 Lagre
                             </Button>
