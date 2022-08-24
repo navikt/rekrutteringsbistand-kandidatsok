@@ -26,7 +26,7 @@ export const handlers = [
         (req, res, ctx) => res(ctx.json(mockMineKandidatlister.liste[0]))
     ),
 
-    rest.get(`${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`, (req, res, ctx) =>
+    rest.get(`${kandidatApi}/veileder/kandidatlister/:kandidatlisteId`, (req, res, ctx) =>
         res(ctx.json(mockMineKandidatlister.liste[0]))
     ),
 

@@ -26,6 +26,8 @@ const App = ({ navKontor }: AppProps) => {
     const navigeringsstate = useNavigeringsstate();
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
 
+    console.log('KONTEKST:', kontekstAvKandidatliste);
+
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         navigeringsstate.markerteKandidater
     );
