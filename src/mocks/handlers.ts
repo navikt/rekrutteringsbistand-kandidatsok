@@ -41,55 +41,59 @@ export const handlers = [
             );
         }
     ),
-
-    rest.post(`/kandidatsok-proxy`, (req, res, ctx) => {
-        const respons: Respons = {
-            _shards: {
-                total: 0,
-                failed: 0,
-                skipped: 0,
-                successful: 0,
-            },
-            took: 23,
-            timed_out: false,
-            hits: {
-                total: {
-                    value: 1,
-                    relation: 'eq',
-                },
-                max_score: 1,
-                hits: [
-                    {
-                        _id: '',
-                        _index: '',
-                        _score: 1,
-                        _type: '',
-                        _source: {
-                            arenaKandidatnr: 'AB123456',
-                            fornavn: 'Joar',
-                            etternavn: 'Giil',
-                            fodselsnummer: '01010101006',
-                            geografiJobbonsker: [
-                                {
-                                    geografiKodeTekst: 'Geiranger',
-                                    geografiKode: '1000',
-                                },
-                            ],
-                            kvalifiseringsgruppekode: Innsatsgruppe.SituasjonsbestemtInnsats,
-                            yrkeJobbonskerObj: [
-                                {
-                                    primaertJobbonske: true,
-                                    sokeTitler: [],
-                                    styrkBeskrivelse: 'Gartner',
-                                    styrkKode: '01',
-                                },
-                            ],
-                        },
-                    },
-                ],
-            },
-        };
-
-        return res(ctx.json(respons));
-    }),
 ];
+
+if (process.env.REACT_APP_MOCK_ES) {
+    handlers.push(
+        rest.post(`/kandidatsok-proxy`, (req, res, ctx) => {
+            const respons: Respons = {
+                _shards: {
+                    total: 0,
+                    failed: 0,
+                    skipped: 0,
+                    successful: 0,
+                },
+                took: 23,
+                timed_out: false,
+                hits: {
+                    total: {
+                        value: 1,
+                        relation: 'eq',
+                    },
+                    max_score: 1,
+                    hits: [
+                        {
+                            _id: '',
+                            _index: '',
+                            _score: 1,
+                            _type: '',
+                            _source: {
+                                arenaKandidatnr: 'AB123456',
+                                fornavn: 'Joar',
+                                etternavn: 'Giil',
+                                fodselsnummer: '01010101006',
+                                geografiJobbonsker: [
+                                    {
+                                        geografiKodeTekst: 'Geiranger',
+                                        geografiKode: '1000',
+                                    },
+                                ],
+                                kvalifiseringsgruppekode: Innsatsgruppe.SituasjonsbestemtInnsats,
+                                yrkeJobbonskerObj: [
+                                    {
+                                        primaertJobbonske: true,
+                                        sokeTitler: [],
+                                        styrkBeskrivelse: 'Gartner',
+                                        styrkKode: '01',
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            };
+
+            return res(ctx.json(respons));
+        })
+    );
+}
