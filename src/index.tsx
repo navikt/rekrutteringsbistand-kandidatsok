@@ -5,8 +5,8 @@ import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 import { Router } from 'react-router-dom';
 import App, { AppProps } from './App';
 import { setupMock } from './mocks/mockSetup';
-import '@navikt/ds-css';
 import { Modal } from '@navikt/ds-react';
+import '@navikt/ds-css';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 
