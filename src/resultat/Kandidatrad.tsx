@@ -7,7 +7,6 @@ import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
-import { SessionState } from '../hooks/useSessionStorage';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
 import useNavigeringsstate from '../hooks/useNavigeringsstate';
 import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
@@ -15,20 +14,16 @@ import css from './Kandidatrad.module.css';
 
 type Props = {
     kandidat: Kandidat;
-    kandidater: string[];
     markerteKandidater: Set<string>;
     onMarker: () => void;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
-    sessionState: SessionState;
 };
 
 const Kandidatrad: FunctionComponent<Props> = ({
     kandidat,
-    kandidater,
     markerteKandidater,
     onMarker,
     kontekstAvKandidatliste,
-    sessionState,
 }) => {
     const location = useLocation();
     const navigeringsstate = useNavigeringsstate();
@@ -36,15 +31,13 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
     const element = useRef<HTMLDivElement | null>(null);
 
-    useScrollTilKandidat(element, fremhevet, sessionState.lastScrollPosition);
+    useScrollTilKandidat(element, fremhevet);
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
     const stateTilKandidatside = {
         search: location.search,
-        kandidater,
-        markerteKandidater,
     };
 
     return (

@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { AddPerson } from '@navikt/ds-icons';
 import { Button, Loader } from '@navikt/ds-react';
 import { Error } from '@navikt/ds-icons';
 import { History } from 'history';
 
-import Resultat from './resultat/Resultat';
-import useRespons from './hooks/useRespons';
+import { KandidatsøkSessionProvider, useKandidatsøkSession } from './KandidatsøkSession';
 import Fritekstsøk from './filter/Fritekstsøk';
-import PorteføljeTabs from './filter/PorteføljeTabs';
-import useInnloggetBruker from './hooks/useBrukerensIdent';
-import VelgInnsatsgruppe from './filter/Jobbmuligheter';
-import TømFiltre from './filter/TømFiltre';
-import useMarkerteKandidater from './hooks/useMarkerteKandidater';
-import useNavigeringsstate from './hooks/useNavigeringsstate';
-import Stillingsbanner from './stillingsbanner/Stillingsbanner';
-import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
-import css from './App.module.css';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import LagreKandidaterISpesifikkKandidatlisteModal from './kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
-import { AddPerson } from '@navikt/ds-icons';
-import useSessionStorage from './hooks/useSessionStorage';
+import PorteføljeTabs from './filter/PorteføljeTabs';
+import Resultat from './resultat/Resultat';
+import Stillingsbanner from './stillingsbanner/Stillingsbanner';
+import TømFiltre from './filter/TømFiltre';
+import useInnloggetBruker from './hooks/useBrukerensIdent';
+import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
+import useMarkerteKandidater from './hooks/useMarkerteKandidater';
+import useRespons from './hooks/useRespons';
 import useScrollPosition from './hooks/useScrollPosition';
+import VelgInnsatsgruppe from './filter/Jobbmuligheter';
+import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
@@ -32,19 +31,26 @@ enum Modal {
 }
 
 const App = ({ navKontor }: AppProps) => {
-    const innloggetBruker = useInnloggetBruker(navKontor);
-    const respons = useRespons(innloggetBruker);
-
-    const navigeringsstate = useNavigeringsstate();
-    const scrollPosition = useScrollPosition();
-    const sessionState = useSessionStorage(scrollPosition);
-
-    const kontekstAvKandidatliste = useKontekstAvKandidatliste();
     const [aktivModal, setAktivModal] = useState<Modal | null>();
 
+    const innloggetBruker = useInnloggetBruker(navKontor);
+    const respons = useRespons(innloggetBruker);
+    const kontekstAvKandidatliste = useKontekstAvKandidatliste();
+    const scrollPosition = useScrollPosition();
+
+    const { initialSessionState, setSessionState } = useKandidatsøkSession();
+
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
-        navigeringsstate.markerteKandidater
+        initialSessionState.markerteKandidater
     );
+
+    useEffect(() => {
+        setSessionState({
+            markerteKandidater,
+            lastScrollPosition: scrollPosition,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [markerteKandidater, scrollPosition]);
 
     const onLagreIKandidatlisteClick = () => {
         setAktivModal(
@@ -78,7 +84,6 @@ const App = ({ navKontor }: AppProps) => {
                             <Resultat
                                 respons={respons.data}
                                 kontekstAvKandidatliste={kontekstAvKandidatliste}
-                                sessionState={sessionState}
                                 markerteKandidater={markerteKandidater}
                                 onMarkerKandidat={onMarkerKandidat}
                                 knapper={
@@ -130,4 +135,10 @@ const App = ({ navKontor }: AppProps) => {
     );
 };
 
-export default App;
+const MedSession = (props: AppProps) => (
+    <KandidatsøkSessionProvider>
+        <App {...props} />
+    </KandidatsøkSessionProvider>
+);
+
+export default MedSession;

@@ -1,26 +1,24 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { Heading } from '@navikt/ds-react';
 
 import { Respons } from '../elasticSearchTyper';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
+import { useKandidatsøkSession } from '../KandidatsøkSession';
 import css from './Resultat.module.css';
-import { SessionState } from '../hooks/useSessionStorage';
 
 export type Props = {
     respons: Respons;
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string) => void;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
-    sessionState: SessionState;
     knapper: ReactNode;
 };
 
 const Resultat = ({
     respons,
     kontekstAvKandidatliste,
-    sessionState,
     markerteKandidater,
     onMarkerKandidat,
     knapper,
@@ -28,6 +26,16 @@ const Resultat = ({
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
     const kandidater = treff.map((t) => t._source);
+    const kandidatnumre = kandidater.map((k) => k.arenaKandidatnr);
+
+    const { setSessionState } = useKandidatsøkSession();
+
+    useEffect(() => {
+        setSessionState({
+            kandidater: kandidatnumre,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [JSON.stringify(kandidatnumre)]);
 
     return (
         <div className={css.resultat}>
@@ -42,8 +50,6 @@ const Resultat = ({
                     <Kandidatrad
                         key={kandidat.arenaKandidatnr}
                         kandidat={kandidat}
-                        sessionState={sessionState}
-                        kandidater={kandidater.map((k) => k.arenaKandidatnr)}
                         markerteKandidater={markerteKandidater}
                         kontekstAvKandidatliste={kontekstAvKandidatliste}
                         onMarker={() => {

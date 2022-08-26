@@ -1,11 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Navspa from '@navikt/navspa';
-import Utviklingsapp from './utviklingsapp/Utviklingsapp';
-import { Router } from 'react-router-dom';
-import App, { AppProps } from './App';
-import { setupMock } from './mocks/mockSetup';
 import { Modal } from '@navikt/ds-react';
+import { Router } from 'react-router-dom';
+import Navspa from '@navikt/navspa';
+import { setupMock } from './mocks/mockSetup';
+import App, { AppProps } from './App';
+import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 import '@navikt/ds-css';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
