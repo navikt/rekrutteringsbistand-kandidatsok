@@ -1,68 +1,77 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
+import { Heart, Place } from '@navikt/ds-icons';
+
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
-import { lenkeTilKandidat, storForbokstav } from '../utils';
-import { Link, useLocation } from 'react-router-dom';
-import { Heart, Place } from '@navikt/ds-icons';
-import TekstlinjeMedIkon from './TekstlinjeMedIkon';
-import css from './Kandidatrad.module.css';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { lenkeTilKandidat, storForbokstav } from '../utils';
+import { SessionState } from '../hooks/useSessionStorage';
+import TekstlinjeMedIkon from './TekstlinjeMedIkon';
+import useNavigeringsstate from '../hooks/useNavigeringsstate';
+import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
+import css from './Kandidatrad.module.css';
 
 type Props = {
     kandidat: Kandidat;
     kandidater: string[];
     markerteKandidater: Set<string>;
-    erMarkert: boolean;
     onMarker: () => void;
-    erFremhevet: boolean;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    sessionState: SessionState;
 };
 
 const Kandidatrad: FunctionComponent<Props> = ({
     kandidat,
     kandidater,
     markerteKandidater,
-    erMarkert,
     onMarker,
-    erFremhevet,
     kontekstAvKandidatliste,
+    sessionState,
 }) => {
-    const { search } = useLocation();
-    const { kvalifiseringsgruppekode } = kandidat;
+    const location = useLocation();
+    const navigeringsstate = useNavigeringsstate();
+    const fremhevet = navigeringsstate.kandidat === kandidat.arenaKandidatnr;
+    const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
+    const element = useRef<HTMLDivElement | null>(null);
 
-    let className = css.kandidatrad;
-    if (erFremhevet) {
-        className += ' ' + css.fremhevetKandidatrad;
-    }
+    useScrollTilKandidat(element, fremhevet, sessionState.lastScrollPosition);
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
+    const stateTilKandidatside = {
+        search: location.search,
+        kandidater,
+        markerteKandidater,
+    };
+
     return (
-        <div className={className} key={kandidat.fodselsnummer} aria-selected={erMarkert}>
-            <Checkbox hideLabel value={kandidat} checked={erMarkert} onChange={onMarker}>
+        <div
+            ref={element}
+            className={css.kandidatrad + (fremhevet ? ' ' + css.fremhevetKandidatrad : '')}
+            key={kandidat.fodselsnummer}
+            aria-selected={markert}
+        >
+            <Checkbox hideLabel value={kandidat} checked={markert} onChange={onMarker}>
                 Valgt
             </Checkbox>
             <div className={css.kandidatinformasjon}>
                 <div className={css.navn}>
                     <Link
                         className="navds-link"
+                        state={stateTilKandidatside}
                         to={lenkeTilKandidat(
                             kandidat.arenaKandidatnr,
                             kontekstAvKandidatliste?.kandidatlisteId
                         )}
-                        state={{
-                            search,
-                            kandidater,
-                            markerteKandidater,
-                        }}
                     >
                         {hentKandidatensNavn(kandidat)}
                     </Link>
                 </div>
                 <Detail className={css.innsatsgruppe}>
-                    {alleInnsatsgrupper[kvalifiseringsgruppekode].label}
+                    {alleInnsatsgrupper[kandidat.kvalifiseringsgruppekode].label}
                 </Detail>
                 {(alleØnskedeYrker || alleØnskedeSteder) && (
                     <div className={css.jobbønske}>

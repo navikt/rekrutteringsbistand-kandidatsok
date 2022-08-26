@@ -18,6 +18,8 @@ import css from './App.module.css';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import LagreKandidaterISpesifikkKandidatlisteModal from './kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
 import { AddPerson } from '@navikt/ds-icons';
+import useSessionStorage from './hooks/useSessionStorage';
+import useScrollPosition from './hooks/useScrollPosition';
 
 export type AppProps = {
     navKontor: string | null;
@@ -32,7 +34,11 @@ enum Modal {
 const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
+
     const navigeringsstate = useNavigeringsstate();
+    const scrollPosition = useScrollPosition();
+    const sessionState = useSessionStorage(scrollPosition);
+
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
     const [aktivModal, setAktivModal] = useState<Modal | null>();
 
@@ -72,7 +78,7 @@ const App = ({ navKontor }: AppProps) => {
                             <Resultat
                                 respons={respons.data}
                                 kontekstAvKandidatliste={kontekstAvKandidatliste}
-                                navigeringsstate={navigeringsstate}
+                                sessionState={sessionState}
                                 markerteKandidater={markerteKandidater}
                                 onMarkerKandidat={onMarkerKandidat}
                                 knapper={

@@ -5,7 +5,7 @@ import { queryMedFritekst } from './queryMedFritekst';
 import { queryMedInnsatsgruppe } from './queryMedInnsatsgruppe';
 import { queryMedPortefølje } from './queryMedPortefølje';
 
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 15;
 
 export const byggQuery = (
     søkekriterier: Søkekriterier,

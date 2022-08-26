@@ -7,7 +7,7 @@ import css from './KandidatsideForUtvikling.module.css';
 
 const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) => {
     const location = useLocation();
-    const { search, markerteKandidater } = (location.state || {}) as any;
+    const { search, markerteKandidater, scroll } = (location.state || {}) as any;
 
     const { kandidatNr } = useParams();
     const { kandidat, forklaring } = useKandidatMedForklaringForUtvikling(
@@ -16,15 +16,18 @@ const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) =
         search
     );
 
+    const stateTilSøk = {
+        kandidat: kandidatNr,
+        markerteKandidater,
+        scroll,
+    };
+
     return (
         <div className={css.wrapper}>
             <Panel className={css.panel}>
                 <Link
                     to={'/kandidatsok' + (search || '')}
-                    state={{
-                        fraKandidat: kandidatNr,
-                        markerteKandidater,
-                    }}
+                    state={stateTilSøk}
                     className="navds-link"
                 >
                     <Back />

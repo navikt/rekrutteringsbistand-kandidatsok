@@ -1,26 +1,26 @@
 import React, { ReactNode } from 'react';
 import { Heading } from '@navikt/ds-react';
 
-import { Navigeringsstate } from '../hooks/useNavigeringsstate';
 import { Respons } from '../elasticSearchTyper';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import css from './Resultat.module.css';
+import { SessionState } from '../hooks/useSessionStorage';
 
 export type Props = {
     respons: Respons;
-    navigeringsstate: Navigeringsstate;
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string) => void;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    sessionState: SessionState;
     knapper: ReactNode;
 };
 
 const Resultat = ({
     respons,
-    navigeringsstate,
     kontekstAvKandidatliste,
+    sessionState,
     markerteKandidater,
     onMarkerKandidat,
     knapper,
@@ -42,10 +42,9 @@ const Resultat = ({
                     <Kandidatrad
                         key={kandidat.arenaKandidatnr}
                         kandidat={kandidat}
+                        sessionState={sessionState}
                         kandidater={kandidater.map((k) => k.arenaKandidatnr)}
                         markerteKandidater={markerteKandidater}
-                        erMarkert={markerteKandidater.has(kandidat.arenaKandidatnr)}
-                        erFremhevet={navigeringsstate.kandidat === kandidat.arenaKandidatnr}
                         kontekstAvKandidatliste={kontekstAvKandidatliste}
                         onMarker={() => {
                             onMarkerKandidat(kandidat.arenaKandidatnr);
