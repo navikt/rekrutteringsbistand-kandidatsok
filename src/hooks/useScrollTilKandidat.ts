@@ -6,8 +6,6 @@ const useScrollTilKandidat = (
     lastScrollPosition?: number
 ) => {
     useEffect(() => {
-        console.log('Yeah:', element !== null, lastScrollPosition, fremhevet);
-
         if (fremhevet && element.current) {
             if (lastScrollPosition) {
                 window.scrollTo({
