@@ -45,7 +45,7 @@ const Resultat = ({
                         kandidater={kandidater.map((k) => k.arenaKandidatnr)}
                         markerteKandidater={markerteKandidater}
                         erMarkert={markerteKandidater.has(kandidat.arenaKandidatnr)}
-                        erFremhevet={navigeringsstate.fraKandidat === kandidat.arenaKandidatnr}
+                        erFremhevet={navigeringsstate.kandidat === kandidat.arenaKandidatnr}
                         kontekstAvKandidatliste={kontekstAvKandidatliste}
                         onMarker={() => {
                             onMarkerKandidat(kandidat.arenaKandidatnr);

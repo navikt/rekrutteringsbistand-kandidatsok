@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 export type Navigeringsstate = {
-    fraKandidat?: string;
+    kandidat?: string;
     markerteKandidater?: Set<string>;
 };
 
