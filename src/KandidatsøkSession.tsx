@@ -32,7 +32,7 @@ export const KandidatsøkSessionProvider: FunctionComponent<Props> = ({ children
 
     const [sessionState, setSessionState] = useState<SessionState>(initialSessionState.current);
 
-    const middleware = (oppdaterteFelter: SessionState) => {
+    const onSetSessionState = (oppdaterteFelter: SessionState) => {
         const oppdatertSessionState = {
             ...sessionState,
             ...oppdaterteFelter,
@@ -46,7 +46,7 @@ export const KandidatsøkSessionProvider: FunctionComponent<Props> = ({ children
         <KandidatsøkSession.Provider
             value={{
                 initialSessionState: initialSessionState.current,
-                setSessionState: middleware,
+                setSessionState: onSetSessionState,
             }}
         >
             {children}
