@@ -28,10 +28,10 @@ const Resultat = ({
     const kandidater = treff.map((t) => t._source);
     const kandidatnumre = kandidater.map((k) => k.arenaKandidatnr);
 
-    const { setSessionState } = useKandidatsøkSession();
+    const { setØkt } = useKandidatsøkSession();
 
     useEffect(() => {
-        setSessionState({
+        setØkt({
             kandidater: kandidatnumre,
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps

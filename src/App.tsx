@@ -38,14 +38,14 @@ const App = ({ navKontor }: AppProps) => {
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
     const scrollPosition = useScrollPosition();
 
-    const { initialSessionState, setSessionState } = useKandidatsøkSession();
+    const { forrigeØkt, setØkt } = useKandidatsøkSession();
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
-        initialSessionState.markerteKandidater
+        forrigeØkt.markerteKandidater
     );
 
     useEffect(() => {
-        setSessionState({
+        setØkt({
             markerteKandidater: Array.from(markerteKandidater),
             sisteScrollposisjon: scrollPosition,
         });

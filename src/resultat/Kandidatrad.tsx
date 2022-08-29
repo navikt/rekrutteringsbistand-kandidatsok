@@ -25,8 +25,8 @@ const Kandidatrad: FunctionComponent<Props> = ({
     onMarker,
     kontekstAvKandidatliste,
 }) => {
-    const { initialSessionState } = useKandidatsøkSession();
-    const fremhevet = kandidat.arenaKandidatnr === initialSessionState.sistBesøkteKandidat;
+    const { forrigeØkt } = useKandidatsøkSession();
+    const fremhevet = kandidat.arenaKandidatnr === forrigeØkt.sistBesøkteKandidat;
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
     const element = useRef<HTMLDivElement | null>(null);
 

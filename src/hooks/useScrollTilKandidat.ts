@@ -5,8 +5,8 @@ const useScrollTilKandidat = (
     element: MutableRefObject<HTMLElement | null>,
     fremhevet: boolean
 ) => {
-    const { initialSessionState } = useKandidatsøkSession();
-    const { sisteScrollposisjon } = initialSessionState;
+    const { forrigeØkt } = useKandidatsøkSession();
+    const { sisteScrollposisjon } = forrigeØkt;
 
     useEffect(() => {
         if (fremhevet && element.current) {

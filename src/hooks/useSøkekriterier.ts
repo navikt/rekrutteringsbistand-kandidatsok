@@ -15,13 +15,13 @@ type Returverdi = {
 
 const useSøkekriterier = (): Returverdi => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { setSessionState } = useKandidatsøkSession();
+    const { setØkt } = useKandidatsøkSession();
     const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>(
         searchParamsTilSøkekriterier(searchParams)
     );
 
     useEffect(() => {
-        setSessionState({
+        setØkt({
             searchParams: searchParams.toString(),
         });
 

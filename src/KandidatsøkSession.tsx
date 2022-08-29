@@ -9,7 +9,7 @@ import React, {
 
 const SessionStorageKey = 'kandidatsøk';
 
-export type SessionState = Partial<{
+export type Økt = Partial<{
     sistBesøkteKandidat: string;
     markerteKandidater: string[];
     kandidater: string[];
@@ -18,11 +18,11 @@ export type SessionState = Partial<{
 }>;
 
 export const KandidatsøkSession = createContext<{
-    initialSessionState: SessionState;
-    setSessionState: (sessionState: SessionState) => void;
+    forrigeØkt: Økt;
+    setØkt: (økt: Økt) => void;
 }>({
-    initialSessionState: {},
-    setSessionState: () => {},
+    forrigeØkt: {},
+    setØkt: () => {},
 });
 
 type Props = {
@@ -30,25 +30,25 @@ type Props = {
 };
 
 export const KandidatsøkSessionProvider: FunctionComponent<Props> = ({ children }) => {
-    const initialSessionState = useRef(readSessionStorage());
+    const forrigeØkt = useRef(lesSessionStorage());
 
-    const [sessionState, setSessionState] = useState<SessionState>(initialSessionState.current);
+    const [økt, setØkt] = useState<Økt>(forrigeØkt.current);
 
-    const onSetSessionState = (oppdaterteFelter: SessionState) => {
-        const oppdatertSessionState = {
-            ...sessionState,
+    const onSetØkt = (oppdaterteFelter: Økt) => {
+        const oppdatertØkt = {
+            ...økt,
             ...oppdaterteFelter,
         };
 
-        writeSessionStorage(oppdatertSessionState);
-        setSessionState(oppdatertSessionState);
+        skrivSessionStorage(oppdatertØkt);
+        setØkt(oppdatertØkt);
     };
 
     return (
         <KandidatsøkSession.Provider
             value={{
-                initialSessionState: initialSessionState.current,
-                setSessionState: onSetSessionState,
+                forrigeØkt: forrigeØkt.current,
+                setØkt: onSetØkt,
             }}
         >
             {children}
@@ -58,7 +58,7 @@ export const KandidatsøkSessionProvider: FunctionComponent<Props> = ({ children
 
 export const useKandidatsøkSession = () => useContext(KandidatsøkSession);
 
-export const readSessionStorage = (): SessionState => {
+export const lesSessionStorage = (): Økt => {
     const session = window.sessionStorage.getItem(SessionStorageKey);
 
     if (session) {
@@ -73,7 +73,7 @@ export const readSessionStorage = (): SessionState => {
     }
 };
 
-const writeSessionStorage = ({ markerteKandidater, ...verdier }: SessionState) => {
+const skrivSessionStorage = ({ markerteKandidater, ...verdier }: Økt) => {
     window.sessionStorage.setItem(
         SessionStorageKey,
         JSON.stringify({

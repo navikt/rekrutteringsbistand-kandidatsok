@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 import { Link, useParams } from 'react-router-dom';
 import { Back } from '@navikt/ds-icons';
+import { Økt } from '../../KandidatsøkSession';
 import useKandidatMedForklaringForUtvikling from './useKandidatMedForklaringForUtvikling';
 import css from './KandidatsideForUtvikling.module.css';
-import { SessionState } from '../../KandidatsøkSession';
 
 const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) => {
     const searchParams = hentSearchParamsFraSessionStorage();
@@ -57,7 +57,7 @@ const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) =
     );
 };
 
-const hentKandidatsøkSession = (): SessionState | undefined => {
+const hentKandidatsøkSession = (): Økt | undefined => {
     const kandidatsøkString = window.sessionStorage.getItem('kandidatsøk');
 
     if (!kandidatsøkString) {
@@ -73,7 +73,7 @@ const hentSearchParamsFraSessionStorage = (): string | undefined =>
 const skrivKandidatnrTilSessionStorage = (kandidatNr: string) => {
     const session = hentKandidatsøkSession() || {};
 
-    const oppdatertSession: SessionState = {
+    const oppdatertSession: Økt = {
         ...session,
         sistBesøkteKandidat: kandidatNr,
     };
