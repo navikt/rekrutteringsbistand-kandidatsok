@@ -36,7 +36,7 @@ const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
-    const scrollPosition = useScrollPosition();
+    const sisteScrollposisjon = useScrollPosition();
 
     const { forrigeØkt, setØkt } = useKandidatsøkSession();
 
@@ -47,10 +47,10 @@ const App = ({ navKontor }: AppProps) => {
     useEffect(() => {
         setØkt({
             markerteKandidater: Array.from(markerteKandidater),
-            sisteScrollposisjon: scrollPosition,
+            sisteScrollposisjon: sisteScrollposisjon,
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [markerteKandidater, scrollPosition]);
+    }, [markerteKandidater, sisteScrollposisjon]);
 
     const onLagreIKandidatlisteClick = () => {
         setAktivModal(
