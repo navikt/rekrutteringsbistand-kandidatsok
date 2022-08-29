@@ -8,14 +8,14 @@ import { Kandidat } from '../../Kandidat';
 const useKandidatMedForklaringForUtvikling = (
     kandidatNr: string | undefined,
     navKontor: string | null,
-    search: string | undefined
+    searchParams: string | undefined
 ) => {
     const [kandidat, setKandidat] = useState<Kandidat | null>(null);
     const [forklaring, setForklaring] = useState<any>(null);
 
     const innloggetBruker = useInnloggetBruker(navKontor);
 
-    const søkekriterier = searchParamsTilSøkekriterier(new URLSearchParams(search));
+    const søkekriterier = searchParamsTilSøkekriterier(new URLSearchParams(searchParams));
     const bruktSøk = {
         query: byggIndreQuery(søkekriterier, innloggetBruker),
     };
@@ -41,7 +41,7 @@ const useKandidatMedForklaringForUtvikling = (
 
         hentKandidat();
 
-        if (search) {
+        if (searchParams) {
             hentForklaring();
         }
 

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/PorteføljeTabs';
 import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { FilterParam, Søkekriterier } from './useRespons';
+import { useKandidatsøkSession } from '../KandidatsøkSession';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
 
@@ -14,12 +15,19 @@ type Returverdi = {
 
 const useSøkekriterier = (): Returverdi => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const { setSessionState } = useKandidatsøkSession();
     const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>(
         searchParamsTilSøkekriterier(searchParams)
     );
 
     useEffect(() => {
+        setSessionState({
+            searchParams: searchParams.toString(),
+        });
+
         setSøkekriterier(searchParamsTilSøkekriterier(searchParams));
+
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [searchParams]);
 
     const setSearchParam = (parameter: FilterParam, value?: string) => {

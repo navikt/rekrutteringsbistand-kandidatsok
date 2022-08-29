@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
 import { Heart, Place } from '@navikt/ds-icons';
 
@@ -7,8 +7,8 @@ import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
+import { useKandidatsøkSession } from '../KandidatsøkSession';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
-import useNavigeringsstate from '../hooks/useNavigeringsstate';
 import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
 import css from './Kandidatrad.module.css';
 
@@ -25,9 +25,8 @@ const Kandidatrad: FunctionComponent<Props> = ({
     onMarker,
     kontekstAvKandidatliste,
 }) => {
-    const location = useLocation();
-    const navigeringsstate = useNavigeringsstate();
-    const fremhevet = navigeringsstate.kandidat === kandidat.arenaKandidatnr;
+    const { initialSessionState } = useKandidatsøkSession();
+    const fremhevet = kandidat.arenaKandidatnr === initialSessionState.sistBesøkteKandidat;
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
     const element = useRef<HTMLDivElement | null>(null);
 
@@ -35,10 +34,6 @@ const Kandidatrad: FunctionComponent<Props> = ({
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
-
-    const stateTilKandidatside = {
-        search: location.search,
-    };
 
     return (
         <div
@@ -54,7 +49,6 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 <div className={css.navn}>
                     <Link
                         className="navds-link"
-                        state={stateTilKandidatside}
                         to={lenkeTilKandidat(
                             kandidat.arenaKandidatnr,
                             kontekstAvKandidatliste?.kandidatlisteId

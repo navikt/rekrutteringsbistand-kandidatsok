@@ -1,33 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Back } from '@navikt/ds-icons';
 import useKandidatMedForklaringForUtvikling from './useKandidatMedForklaringForUtvikling';
 import css from './KandidatsideForUtvikling.module.css';
+import { SessionState } from '../../KandidatsøkSession';
 
 const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) => {
-    const location = useLocation();
-    const { search, markerteKandidater, scroll } = (location.state || {}) as any;
+    const searchParams = hentSearchParamsFraSessionStorage();
 
     const { kandidatNr } = useParams();
     const { kandidat, forklaring } = useKandidatMedForklaringForUtvikling(
         kandidatNr,
         navKontor,
-        search
+        searchParams
     );
 
-    const stateTilSøk = {
-        kandidat: kandidatNr,
-        markerteKandidater,
-        scroll,
-    };
+    useEffect(() => {
+        skrivKandidatnrTilSessionStorage(kandidatNr!);
+    }, [kandidatNr]);
 
     return (
         <div className={css.wrapper}>
             <Panel className={css.panel}>
                 <Link
-                    to={'/kandidatsok' + (search || '')}
-                    state={stateTilSøk}
+                    to={'/kandidatsok' + (searchParams ? `?${searchParams}` : '')}
                     className="navds-link"
                 >
                     <Back />
@@ -58,6 +55,30 @@ const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) =
             </Panel>
         </div>
     );
+};
+
+const hentKandidatsøkSession = (): SessionState | undefined => {
+    const kandidatsøkString = window.sessionStorage.getItem('kandidatsøk');
+
+    if (!kandidatsøkString) {
+        return undefined;
+    }
+
+    return JSON.parse(kandidatsøkString);
+};
+
+const hentSearchParamsFraSessionStorage = (): string | undefined =>
+    hentKandidatsøkSession()?.searchParams;
+
+const skrivKandidatnrTilSessionStorage = (kandidatNr: string) => {
+    const session = hentKandidatsøkSession() || {};
+
+    const oppdatertSession: SessionState = {
+        ...session,
+        sistBesøkteKandidat: kandidatNr,
+    };
+
+    window.sessionStorage.setItem('kandidatsøk', JSON.stringify(oppdatertSession));
 };
 
 export default KandidatsideForUtvikling;

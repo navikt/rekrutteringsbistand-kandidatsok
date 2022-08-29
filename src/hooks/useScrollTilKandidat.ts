@@ -6,13 +6,13 @@ const useScrollTilKandidat = (
     fremhevet: boolean
 ) => {
     const { initialSessionState } = useKandidatsøkSession();
-    const { lastScrollPosition } = initialSessionState;
+    const { sisteScrollposisjon } = initialSessionState;
 
     useEffect(() => {
         if (fremhevet && element.current) {
-            if (lastScrollPosition) {
+            if (sisteScrollposisjon) {
                 window.scrollTo({
-                    top: lastScrollPosition,
+                    top: sisteScrollposisjon,
                 });
             }
 
@@ -27,7 +27,7 @@ const useScrollTilKandidat = (
                 });
             }
         }
-    }, [element, lastScrollPosition, fremhevet]);
+    }, [element, sisteScrollposisjon, fremhevet]);
 };
 
 export default useScrollTilKandidat;

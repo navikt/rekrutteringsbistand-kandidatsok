@@ -10,9 +10,11 @@ import React, {
 const SessionStorageKey = 'kandidatsøk';
 
 export type SessionState = Partial<{
-    lastScrollPosition: number;
-    markerteKandidater: Set<string>;
+    sistBesøkteKandidat: string;
+    markerteKandidater: string[];
     kandidater: string[];
+    searchParams: string;
+    sisteScrollposisjon: number;
 }>;
 
 export const KandidatsøkSession = createContext<{
@@ -60,10 +62,10 @@ export const readSessionStorage = (): SessionState => {
     const session = window.sessionStorage.getItem(SessionStorageKey);
 
     if (session) {
-        const { lastScrollPosition, markerteKandidater } = JSON.parse(session);
+        const { markerteKandidater, ...verdier } = JSON.parse(session);
 
         return {
-            lastScrollPosition,
+            ...verdier,
             markerteKandidater: new Set(markerteKandidater),
         };
     } else {

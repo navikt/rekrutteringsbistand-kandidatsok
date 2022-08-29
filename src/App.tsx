@@ -46,8 +46,8 @@ const App = ({ navKontor }: AppProps) => {
 
     useEffect(() => {
         setSessionState({
-            markerteKandidater,
-            lastScrollPosition: scrollPosition,
+            markerteKandidater: Array.from(markerteKandidater),
+            sisteScrollposisjon: scrollPosition,
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [markerteKandidater, scrollPosition]);
