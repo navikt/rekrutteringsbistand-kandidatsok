@@ -5,7 +5,7 @@ import { Respons } from '../elasticSearchTyper';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
-import { useKandidatsøkSession } from '../KandidatsøkSession';
+import { useKandidatsøkØkt } from '../Økt';
 import css from './Resultat.module.css';
 
 export type Props = {
@@ -28,7 +28,7 @@ const Resultat = ({
     const kandidater = treff.map((t) => t._source);
     const kandidatnumre = kandidater.map((k) => k.arenaKandidatnr);
 
-    const { setØkt } = useKandidatsøkSession();
+    const { setØkt } = useKandidatsøkØkt();
 
     useEffect(() => {
         setØkt({

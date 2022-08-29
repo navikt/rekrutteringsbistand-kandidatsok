@@ -17,7 +17,7 @@ export type Økt = Partial<{
     sisteScrollposisjon: number;
 }>;
 
-export const KandidatsøkSession = createContext<{
+export const ØktContext = createContext<{
     forrigeØkt: Økt;
     setØkt: (økt: Økt) => void;
 }>({
@@ -29,7 +29,7 @@ type Props = {
     children: ReactNode;
 };
 
-export const KandidatsøkSessionProvider: FunctionComponent<Props> = ({ children }) => {
+export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
     const forrigeØkt = useRef(lesSessionStorage());
 
     const [økt, setØkt] = useState<Økt>(forrigeØkt.current);
@@ -45,18 +45,18 @@ export const KandidatsøkSessionProvider: FunctionComponent<Props> = ({ children
     };
 
     return (
-        <KandidatsøkSession.Provider
+        <ØktContext.Provider
             value={{
                 forrigeØkt: forrigeØkt.current,
                 setØkt: onSetØkt,
             }}
         >
             {children}
-        </KandidatsøkSession.Provider>
+        </ØktContext.Provider>
     );
 };
 
-export const useKandidatsøkSession = () => useContext(KandidatsøkSession);
+export const useKandidatsøkØkt = () => useContext(ØktContext);
 
 export const lesSessionStorage = (): Økt => {
     const session = window.sessionStorage.getItem(SessionStorageKey);

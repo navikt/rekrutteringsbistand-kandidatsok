@@ -1,11 +1,11 @@
 import { MutableRefObject, useEffect } from 'react';
-import { useKandidatsøkSession } from '../KandidatsøkSession';
+import { useKandidatsøkØkt } from '../Økt';
 
 const useScrollTilKandidat = (
     element: MutableRefObject<HTMLElement | null>,
     fremhevet: boolean
 ) => {
-    const { forrigeØkt } = useKandidatsøkSession();
+    const { forrigeØkt } = useKandidatsøkØkt();
     const { sisteScrollposisjon } = forrigeØkt;
 
     useEffect(() => {

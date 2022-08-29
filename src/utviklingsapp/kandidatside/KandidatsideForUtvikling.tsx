@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 import { Link, useParams } from 'react-router-dom';
 import { Back } from '@navikt/ds-icons';
-import { Økt } from '../../KandidatsøkSession';
+import { Økt } from '../../Økt';
 import useKandidatMedForklaringForUtvikling from './useKandidatMedForklaringForUtvikling';
 import css from './KandidatsideForUtvikling.module.css';
 

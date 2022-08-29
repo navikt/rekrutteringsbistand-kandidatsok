@@ -4,7 +4,7 @@ import { Button, Loader } from '@navikt/ds-react';
 import { Error } from '@navikt/ds-icons';
 import { History } from 'history';
 
-import { KandidatsøkSessionProvider, useKandidatsøkSession } from './KandidatsøkSession';
+import { useKandidatsøkØkt, ØktContextProvider } from './Økt';
 import Fritekstsøk from './filter/Fritekstsøk';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import LagreKandidaterISpesifikkKandidatlisteModal from './kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
@@ -38,7 +38,7 @@ const App = ({ navKontor }: AppProps) => {
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
     const sisteScrollposisjon = useScrollPosition();
 
-    const { forrigeØkt, setØkt } = useKandidatsøkSession();
+    const { forrigeØkt, setØkt } = useKandidatsøkØkt();
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         forrigeØkt.markerteKandidater
@@ -136,9 +136,9 @@ const App = ({ navKontor }: AppProps) => {
 };
 
 const MedSession = (props: AppProps) => (
-    <KandidatsøkSessionProvider>
+    <ØktContextProvider>
         <App {...props} />
-    </KandidatsøkSessionProvider>
+    </ØktContextProvider>
 );
 
 export default MedSession;

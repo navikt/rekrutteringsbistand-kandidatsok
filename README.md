@@ -26,6 +26,14 @@ OPEN_SEARCH_URI=<url>
 # 3) Start utviklingsmiljøet
 npm run start
 ```
+## Integrasjon med kandidatsidene
+
+Når man trykker på en kandidat sendes man til kandidatoversikten i [rekrutteringsbistand-kandidat](https://github.com/navikt/rekrutteringsbistand-kandidat) for å se kandidatens CV og historikk. Her kan man også navigere mellom kandidatene og når som helst trykke "Tilbake til kandidatsøket". Integrasjonen mellom denne appen og kandidat-appen fungerer slik:
+
+- Intern state for kandidatsøket lagres i SessionStorage
+    - Markerte kandidater, kandidatnumrene til kandidatene (for navigering mellom kandidatene) og scrollposisjonen da du forlot kandidatsøket (for å gjenopprette scroll når du kommer tilbake)
+- Selve søkestringen 
+
 
 ## Søk
 

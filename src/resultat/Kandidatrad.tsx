@@ -7,7 +7,7 @@ import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
-import { useKandidatsøkSession } from '../KandidatsøkSession';
+import { useKandidatsøkØkt } from '../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
 import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
 import css from './Kandidatrad.module.css';
@@ -25,7 +25,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
     onMarker,
     kontekstAvKandidatliste,
 }) => {
-    const { forrigeØkt } = useKandidatsøkSession();
+    const { forrigeØkt } = useKandidatsøkØkt();
     const fremhevet = kandidat.arenaKandidatnr === forrigeØkt.sistBesøkteKandidat;
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
     const element = useRef<HTMLDivElement | null>(null);
