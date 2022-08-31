@@ -19,6 +19,7 @@ import useRespons from './hooks/useRespons';
 import useScrollPosition from './hooks/useScrollPosition';
 import VelgInnsatsgruppe from './filter/Jobbmuligheter';
 import css from './App.module.css';
+import Jobbønsker from './filter/Jobbønsker';
 
 export type AppProps = {
     navKontor: string | null;
@@ -69,6 +70,7 @@ const App = ({ navKontor }: AppProps) => {
                 <TømFiltre />
                 <aside className={css.filter}>
                     <Fritekstsøk />
+                    <Jobbønsker />
                     <VelgInnsatsgruppe />
                 </aside>
                 <PorteføljeTabs>

@@ -63,6 +63,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
         searchParams.get(FilterParam.Innsatsgruppe)?.split(LISTEPARAMETER_SEPARATOR)
     ) as Set<FiltrerbarInnsatsgruppe>,
     side: Number(searchParams.get(FilterParam.Side)) || 1,
+    ønsketYrke: searchParams.get(FilterParam.ØnsketYrke),
 });
 
 export default useSøkekriterier;
