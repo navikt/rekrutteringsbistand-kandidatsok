@@ -4,6 +4,7 @@ import { Søkekriterier } from '../../hooks/useRespons';
 import { queryMedFritekst } from './queryMedFritekst';
 import { queryMedInnsatsgruppe } from './queryMedInnsatsgruppe';
 import { queryMedPortefølje } from './queryMedPortefølje';
+import queryMedØnsketYrke from './queryMedØnsketYrke';
 
 export const PAGE_SIZE = 15;
 
@@ -23,7 +24,7 @@ export const byggQuery = (
 };
 
 export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
-    const { fritekst, portefølje, innsatsgruppe } = søkekriterier;
+    const { fritekst, portefølje, innsatsgruppe, ønsketYrke } = søkekriterier;
 
     return {
         bool: {
@@ -31,6 +32,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedFritekst(fritekst),
                 ...queryMedPortefølje(portefølje, innloggetBruker),
                 ...queryMedInnsatsgruppe(innsatsgruppe),
+                ...queryMedØnsketYrke(ønsketYrke),
             ],
         },
     };
