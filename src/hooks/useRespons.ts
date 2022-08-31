@@ -14,6 +14,7 @@ export enum FilterParam {
     Portefølje = 'portefolje',
     Innsatsgruppe = 'innsatsgruppe',
     ØnsketYrke = 'yrke',
+    ØnsketSted = 'sted',
 }
 
 export enum OtherParam {
@@ -28,6 +29,7 @@ export type Søkekriterier = {
     innsatsgruppe: Set<FiltrerbarInnsatsgruppe>;
     side: number;
     ønsketYrke: string | null;
+    ønsketSted: string | null;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {

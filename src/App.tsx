@@ -20,6 +20,7 @@ import useScrollPosition from './hooks/useScrollPosition';
 import VelgInnsatsgruppe from './filter/Jobbmuligheter';
 import css from './App.module.css';
 import Jobbønsker from './filter/Jobbønsker';
+import Sted from './filter/Sted';
 
 export type AppProps = {
     navKontor: string | null;
@@ -71,6 +72,7 @@ const App = ({ navKontor }: AppProps) => {
                 <aside className={css.filter}>
                     <Fritekstsøk />
                     <Jobbønsker />
+                    <Sted />
                     <VelgInnsatsgruppe />
                 </aside>
                 <PorteføljeTabs>

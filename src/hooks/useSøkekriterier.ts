@@ -64,6 +64,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     ) as Set<FiltrerbarInnsatsgruppe>,
     side: Number(searchParams.get(FilterParam.Side)) || 1,
     ønsketYrke: searchParams.get(FilterParam.ØnsketYrke),
+    ønsketSted: searchParams.get(FilterParam.ØnsketSted),
 });
 
 export default useSøkekriterier;
