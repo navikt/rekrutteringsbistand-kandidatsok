@@ -1,5 +1,5 @@
 import { Search } from '@navikt/ds-react';
-import React, { FormEventHandler, FunctionComponent, useState } from 'react';
+import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
 
@@ -7,6 +7,12 @@ const ØnsketYrke: FunctionComponent = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
     const [ønsketYrke, setØnsketYrke] = useState<string | null>(søkekriterier.ønsketYrke);
+
+    useEffect(() => {
+        if (søkekriterier.ønsketYrke === null) {
+            setØnsketYrke('');
+        }
+    }, [søkekriterier]);
 
     const onChange = (tekst: string) => {
         setØnsketYrke(tekst || null);

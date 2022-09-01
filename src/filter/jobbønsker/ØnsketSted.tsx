@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { Search } from '@navikt/ds-react';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
@@ -7,6 +7,12 @@ const ØnsketSted = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
     const [ønsketSted, setØnsketSted] = useState<string | null>(søkekriterier.ønsketSted);
+
+    useEffect(() => {
+        if (søkekriterier.ønsketSted === null) {
+            setØnsketSted('');
+        }
+    }, [søkekriterier]);
 
     const onChange = (tekst: string) => {
         setØnsketSted(tekst || null);
