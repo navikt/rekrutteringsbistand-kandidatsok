@@ -28,7 +28,7 @@ export type Søkekriterier = {
     portefølje: Portefølje;
     innsatsgruppe: Set<FiltrerbarInnsatsgruppe>;
     side: number;
-    ønsketYrke: string | null;
+    ønsketYrke: Set<string>;
     ønsketSted: string | null;
 };
 

@@ -1,0 +1,25 @@
+.merkelapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.merkelapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    border: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--navds-global-color-blue-100);
+}
+
+.merkelapp:hover {
+    background-color: var(--navds-global-color-blue-50);
+}
+
+.merkelapp:focus {
+    box-shadow: 0 0 0 3px var(--navds-semantic-color-focus);
+}

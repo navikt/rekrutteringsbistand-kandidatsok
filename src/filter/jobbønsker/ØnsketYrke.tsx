@@ -1,21 +1,22 @@
 import { Search } from '@navikt/ds-react';
 import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { FilterParam } from '../../hooks/useRespons';
-import useSøkekriterier from '../../hooks/useSøkekriterier';
+import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
+import Merkelapp from '../merkelapp/Merkelapp';
+import Merkelapper from '../merkelapp/Merkelapper';
 
 const ØnsketYrke: FunctionComponent = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
-
-    const [ønsketYrke, setØnsketYrke] = useState<string | null>(søkekriterier.ønsketYrke);
+    const [ønsketYrke, setØnsketYrke] = useState<string>('');
 
     useEffect(() => {
-        if (søkekriterier.ønsketYrke === null) {
+        if (søkekriterier.ønsketYrke.size === 0) {
             setØnsketYrke('');
         }
     }, [søkekriterier]);
 
     const onChange = (tekst: string) => {
-        setØnsketYrke(tekst || null);
+        setØnsketYrke(tekst);
     };
 
     const onClear = () => {
@@ -24,14 +25,32 @@ const ØnsketYrke: FunctionComponent = () => {
 
     const onSubmit: FormEventHandler = (event) => {
         event.preventDefault();
-        setSearchParam(FilterParam.ØnsketYrke, ønsketYrke || undefined);
+
+        const alleØnskedeYrker = new Set(søkekriterier.ønsketYrke);
+        alleØnskedeYrker.add(ønsketYrke);
+
+        setSearchParam(
+            FilterParam.ØnsketYrke,
+            Array.from(alleØnskedeYrker).join(LISTEPARAMETER_SEPARATOR)
+        );
+
+        setØnsketYrke('');
+    };
+
+    const onValgtYrkeClick = (valgtYrke: string) => () => {
+        const alleØnskedeYrker = new Set(søkekriterier.ønsketYrke);
+        alleØnskedeYrker.delete(valgtYrke);
+
+        setSearchParam(
+            FilterParam.ØnsketYrke,
+            Array.from(alleØnskedeYrker).join(LISTEPARAMETER_SEPARATOR)
+        );
     };
 
     return (
         <form onSubmit={onSubmit}>
             <Search
-                type="text"
-                value={ønsketYrke || ''}
+                value={ønsketYrke}
                 label="Ønsket yrke"
                 description="Hva ønsker kandidaten å jobbe med?"
                 onChange={onChange}
@@ -39,6 +58,11 @@ const ØnsketYrke: FunctionComponent = () => {
                 variant="secondary"
                 hideLabel={false}
             />
+            <Merkelapper>
+                {Array.from(søkekriterier.ønsketYrke).map((yrke) => (
+                    <Merkelapp onClick={onValgtYrkeClick(yrke)}>{yrke}</Merkelapp>
+                ))}
+            </Merkelapper>
         </form>
     );
 };

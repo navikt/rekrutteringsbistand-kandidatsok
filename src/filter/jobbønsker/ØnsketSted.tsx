@@ -30,7 +30,6 @@ const ØnsketSted = () => {
     return (
         <form onSubmit={onSubmit}>
             <Search
-                type="text"
                 value={ønsketSted || ''}
                 label="Ønsket sted"
                 description="Hvor ønsker kandidaten å jobbe?"
