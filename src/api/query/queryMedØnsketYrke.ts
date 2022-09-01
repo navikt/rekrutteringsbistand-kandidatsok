@@ -6,12 +6,18 @@ const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
     const ønskedeYrker = Array.from(ønsketYrke).flatMap((yrke) => [
         {
             match: {
-                'yrkeJobbonskerObj.styrkBeskrivelse': yrke,
+                'yrkeJobbonskerObj.styrkBeskrivelse': {
+                    query: yrke,
+                    fuzziness: 'AUTO',
+                },
             },
         },
         {
             match: {
-                'yrkeJobbonskerObj.sokeTitler': yrke,
+                'yrkeJobbonskerObj.sokeTitler': {
+                    query: yrke,
+                    fuzziness: 0,
+                },
             },
         },
     ]);

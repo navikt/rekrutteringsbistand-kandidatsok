@@ -1,6 +1,6 @@
 import { Close } from '@navikt/ds-icons';
 import React, { FunctionComponent, ReactNode } from 'react';
-import css from './Merkelapp.module.css';
+import css from './Merkelapper.module.css';
 
 type Props = {
     onClick: () => void;
