@@ -7,6 +7,8 @@ import Merkelapper from '../merkelapp/Merkelapper';
 
 const ØnsketYrke: FunctionComponent = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
+
+    const valgteYrker = Array.from(søkekriterier.ønsketYrke);
     const [ønsketYrke, setØnsketYrke] = useState<string>('');
 
     useEffect(() => {
@@ -59,7 +61,7 @@ const ØnsketYrke: FunctionComponent = () => {
                 hideLabel={false}
             />
             <Merkelapper>
-                {Array.from(søkekriterier.ønsketYrke).map((yrke) => (
+                {valgteYrker.map((yrke) => (
                     <Merkelapp onClick={onValgtYrkeClick(yrke)}>{yrke}</Merkelapp>
                 ))}
             </Merkelapper>
