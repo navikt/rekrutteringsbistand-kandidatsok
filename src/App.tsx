@@ -18,9 +18,10 @@ import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useRespons from './hooks/useRespons';
 import useScrollPosition from './hooks/useScrollPosition';
 import VelgInnsatsgruppe from './filter/Jobbmuligheter';
+import Jobbønsker from './filter/jobbønsker/Jobbønsker';
+import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
+import ØnsketSted from './filter/jobbønsker/ØnsketSted';
 import css from './App.module.css';
-import Jobbønsker from './filter/Jobbønsker';
-import Sted from './filter/Sted';
 
 export type AppProps = {
     navKontor: string | null;
@@ -71,8 +72,10 @@ const App = ({ navKontor }: AppProps) => {
                 <TømFiltre />
                 <aside className={css.filter}>
                     <Fritekstsøk />
-                    <Jobbønsker />
-                    <Sted />
+                    <Jobbønsker>
+                        <ØnsketYrke />
+                        <ØnsketSted />
+                    </Jobbønsker>
                     <VelgInnsatsgruppe />
                 </aside>
                 <PorteføljeTabs>

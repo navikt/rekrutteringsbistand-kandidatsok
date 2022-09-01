@@ -11,6 +11,10 @@
     padding-bottom: 0.5rem;
 }
 
+.filter form:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
 .tømFilter {
     grid-column: span 2;
     display: flex;
