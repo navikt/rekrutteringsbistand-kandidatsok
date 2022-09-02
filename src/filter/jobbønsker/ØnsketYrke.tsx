@@ -24,13 +24,14 @@ const ØnsketYrke: FunctionComponent = () => {
     const onSelect = (value: string) => {
         setØnsketYrke('');
 
-        const alleØnskedeYrker = new Set(søkekriterier.ønsketYrke);
-        alleØnskedeYrker.add(value);
+        const alleØnskedeYrker = Array.from(søkekriterier.ønsketYrke);
 
-        setSearchParam(
-            FilterParam.ØnsketYrke,
-            Array.from(alleØnskedeYrker).join(LISTEPARAMETER_SEPARATOR)
-        );
+        const finnes = alleØnskedeYrker.some((y) => y.toLowerCase() === value.toLowerCase());
+
+        if (!finnes) {
+            alleØnskedeYrker.push(value);
+            setSearchParam(FilterParam.ØnsketYrke, alleØnskedeYrker.join(LISTEPARAMETER_SEPARATOR));
+        }
     };
 
     const onFjernValgtYrke = (valgtYrke: string) => () => {

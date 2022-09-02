@@ -59,7 +59,9 @@ export const Typeahead: FunctionComponent<Props> = ({
                     <ComboboxList>
                         {suggestions
                             .filter((suggestion) => {
-                                return !selectedSuggestions.includes(suggestion);
+                                return !selectedSuggestions
+                                    .map((s) => s.toLowerCase())
+                                    .includes(suggestion.toLowerCase());
                             })
                             .map((suggestion) => (
                                 <ComboboxOption
