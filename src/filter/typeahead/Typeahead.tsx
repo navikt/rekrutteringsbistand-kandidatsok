@@ -57,15 +57,19 @@ export const Typeahead: FunctionComponent<Props> = ({
 
                 <ComboboxPopover className={css.suggestionPopover}>
                     <ComboboxList>
-                        {suggestions.map((suggestion) => (
-                            <ComboboxOption
-                                key={suggestion}
-                                value={suggestion}
-                                className={'navds-body-short ' + css.suggestion}
-                            >
-                                <ComboboxOptionText />
-                            </ComboboxOption>
-                        ))}
+                        {suggestions
+                            .filter((suggestion) => {
+                                return !selectedSuggestions.includes(suggestion);
+                            })
+                            .map((suggestion) => (
+                                <ComboboxOption
+                                    key={suggestion}
+                                    value={suggestion}
+                                    className={'navds-body-short ' + css.suggestion}
+                                >
+                                    <ComboboxOptionText />
+                                </ComboboxOption>
+                            ))}
                     </ComboboxList>
                 </ComboboxPopover>
             </Combobox>
