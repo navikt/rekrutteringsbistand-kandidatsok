@@ -1,6 +1,6 @@
 import { Kandidat } from './Kandidat';
 
-export type Query = {
+export type SearchQuery = {
     size?: number;
     from?: number;
     track_total_hits?: boolean;
@@ -20,6 +20,20 @@ export type Query = {
             order: Sorteringsrekkefølge;
         };
     };
+};
+
+export type SuggestQuery = {
+    suggest: {
+        forslag: {
+            prefix: string;
+            completion: {
+                field: string;
+                size: number;
+                skip_duplicates: boolean;
+            };
+        };
+    };
+    _source: boolean;
 };
 
 export type Sorteringsrekkefølge = 'asc' | 'desc';
@@ -54,4 +68,19 @@ export type Hit = {
     _score: number | null;
     _source: Kandidat;
     sort?: number[];
+};
+
+export type SuggestionRespons = {
+    suggest: {
+        forslag: Array<{
+            text: string;
+            offset: number;
+            length: number;
+            options: Option[];
+        }>;
+    };
+};
+
+export type Option = {
+    text: string;
 };

@@ -1,4 +1,4 @@
-import { Query, Sorteringsrekkefølge } from '../../elasticSearchTyper';
+import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
 import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
 import { Søkekriterier } from '../../hooks/useRespons';
 import { queryMedFritekst } from './queryMedFritekst';
@@ -12,7 +12,7 @@ export const PAGE_SIZE = 15;
 export const byggQuery = (
     søkekriterier: Søkekriterier,
     innloggetBruker: InnloggetBruker
-): Query => {
+): SearchQuery => {
     const { side } = søkekriterier;
 
     return {

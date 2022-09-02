@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useDebouncedEffect = (effect: () => void, deps: any[], delay: number) => {
+const useDebouncedEffect = (effect: () => void, deps: any[], delay: number = 200) => {
     useEffect(() => {
         const handler = setTimeout(() => effect(), delay);
 

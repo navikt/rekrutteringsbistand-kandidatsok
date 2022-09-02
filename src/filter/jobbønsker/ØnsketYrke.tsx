@@ -1,6 +1,8 @@
 import { Search } from '@navikt/ds-react';
 import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
+import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
+import useSuggestions from '../../hooks/useSuggestions';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
 import Merkelapp from '../merkelapp/Merkelapp';
 import Merkelapper from '../merkelapp/Merkelapper';
@@ -10,6 +12,9 @@ const ØnsketYrke: FunctionComponent = () => {
 
     const valgteYrker = Array.from(søkekriterier.ønsketYrke);
     const [ønsketYrke, setØnsketYrke] = useState<string>('');
+    const forslag = useSuggestions(Forslagsfelt.ØnsketYrke, ønsketYrke);
+
+    console.log('Forslag:', forslag);
 
     useEffect(() => {
         if (søkekriterier.ønsketYrke.size === 0) {

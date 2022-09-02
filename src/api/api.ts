@@ -1,4 +1,4 @@
-import { Query, Respons } from '../elasticSearchTyper';
+import { SearchQuery, Respons, SuggestQuery, SuggestionRespons } from '../elasticSearchTyper';
 import {
     Kandidatliste,
     LagreKandidaterDto,
@@ -8,10 +8,16 @@ import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
 const kandidatsøkProxy = `/kandidatsok-proxy`;
 export const kandidatApi = '/kandidat-api';
 
-export const søk = async (query: Query): Promise<Respons> => {
+export const søk = async (query: SearchQuery): Promise<Respons> => {
     const respons = await post(kandidatsøkProxy, query);
 
     return parseJsonEllerKastFeil(respons, 'Klarte ikke å søke');
+};
+
+export const suggest = async (query: SuggestQuery): Promise<SuggestionRespons> => {
+    const respons = await post(kandidatsøkProxy, query);
+
+    return parseJsonEllerKastFeil(respons, 'Klarte ikke å hente suggestions');
 };
 
 export const hentMineKandidatlister = async (
