@@ -1,11 +1,4 @@
-import { Search } from '@navikt/ds-react';
-import React, {
-    FormEventHandler,
-    FunctionComponent,
-    ReactEventHandler,
-    useEffect,
-    useState,
-} from 'react';
+import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
 import useSuggestions from '../../hooks/useSuggestions';
@@ -51,8 +44,9 @@ const ØnsketYrke: FunctionComponent = () => {
         setØnsketYrke('');
     };
 
-    const onClear = () => {
-        setSearchParam(FilterParam.ØnsketYrke, undefined);
+    const onFormSubmit: FormEventHandler = (event) => {
+        event.preventDefault();
+        onSelect(ønsketYrke);
     };
 
     const onValgtYrkeClick = (valgtYrke: string) => () => {
@@ -66,7 +60,7 @@ const ØnsketYrke: FunctionComponent = () => {
     };
 
     return (
-        <>
+        <form onSubmit={onFormSubmit}>
             <Combobox aria-label="Ønsket yrke" onSelect={onSelect}>
                 <ComboboxInput onChange={onChange} value={ønsketYrke} />
                 <ComboboxPopover>
@@ -86,12 +80,7 @@ const ØnsketYrke: FunctionComponent = () => {
                     </Merkelapp>
                 ))}
             </Merkelapper>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-        </>
+        </form>
     );
 };
 
