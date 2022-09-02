@@ -1,0 +1,22 @@
+.suggestionPopover {
+    transform: translateY(4px);
+    border-radius: 0.25rem;
+}
+
+.suggestion {
+    border-radius: 0.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.suggestionPopover [data-reach-combobox-option][data-highlighted],
+.suggestionPopover [data-reach-combobox-option]:hover {
+    background-color: var(--navds-global-color-blue-100);
+}
+
+.suggestion [data-user-value] {
+    font-weight: bold;
+}
+.suggestion [data-suggested-value] {
+    font-weight: normal;
+}

@@ -10,6 +10,7 @@ import {
 import React, { FormEventHandler, FunctionComponent, ReactNode } from 'react';
 import Merkelapp from '../merkelapp/Merkelapp';
 import Merkelapper from '../merkelapp/Merkelapper';
+import css from './Typeahead.module.css';
 
 type Props = {
     children?: ReactNode;
@@ -54,10 +55,14 @@ export const Typeahead: FunctionComponent<Props> = ({
                     </span>
                 </button>
 
-                <ComboboxPopover>
+                <ComboboxPopover className={css.suggestionPopover}>
                     <ComboboxList>
                         {suggestions.map((suggestion) => (
-                            <ComboboxOption key={suggestion} value={suggestion}>
+                            <ComboboxOption
+                                key={suggestion}
+                                value={suggestion}
+                                className={'navds-body-short ' + css.suggestion}
+                            >
                                 <ComboboxOptionText />
                             </ComboboxOption>
                         ))}
