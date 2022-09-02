@@ -23,8 +23,6 @@ import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
 import ØnsketSted from './filter/jobbønsker/ØnsketSted';
 import css from './App.module.css';
 
-import '@reach/combobox/styles.css';
-
 export type AppProps = {
     navKontor: string | null;
     history: History;
