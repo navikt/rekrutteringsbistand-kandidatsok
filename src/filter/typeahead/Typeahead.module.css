@@ -4,9 +4,20 @@
 }
 
 .suggestion {
-    border-radius: 0.25rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+
+.suggestion:first-child {
+    border-radius: 0.2rem 0.2rem 0 0;
+}
+
+.suggestion:last-child {
+    border-radius: 0 0 0.2rem 0.2rem;
+}
+
+.suggestion:only-child {
+    border-radius: 0.2rem;
 }
 
 .suggestionPopover [data-reach-combobox-option][data-highlighted],
