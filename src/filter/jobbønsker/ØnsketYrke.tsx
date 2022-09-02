@@ -1,11 +1,25 @@
 import { Search } from '@navikt/ds-react';
-import React, { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
+import React, {
+    FormEventHandler,
+    FunctionComponent,
+    ReactEventHandler,
+    useEffect,
+    useState,
+} from 'react';
 import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
 import useSuggestions from '../../hooks/useSuggestions';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
 import Merkelapp from '../merkelapp/Merkelapp';
 import Merkelapper from '../merkelapp/Merkelapper';
+import {
+    Combobox,
+    ComboboxInput,
+    ComboboxPopover,
+    ComboboxList,
+    ComboboxOption,
+    ComboboxOptionText,
+} from '@reach/combobox';
 
 const ØnsketYrke: FunctionComponent = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
@@ -14,7 +28,7 @@ const ØnsketYrke: FunctionComponent = () => {
     const [ønsketYrke, setØnsketYrke] = useState<string>('');
     const forslag = useSuggestions(Forslagsfelt.ØnsketYrke, ønsketYrke);
 
-    console.log('Forslag:', forslag);
+    const forslagliste = forslag.kind === 'suksess' ? forslag.data : [];
 
     useEffect(() => {
         if (søkekriterier.ønsketYrke.size === 0) {
@@ -22,19 +36,12 @@ const ØnsketYrke: FunctionComponent = () => {
         }
     }, [søkekriterier]);
 
-    const onChange = (tekst: string) => {
-        setØnsketYrke(tekst);
-    };
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setØnsketYrke(event.target.value);
 
-    const onClear = () => {
-        setSearchParam(FilterParam.ØnsketYrke, undefined);
-    };
-
-    const onSubmit: FormEventHandler = (event) => {
-        event.preventDefault();
-
+    const onSelect = (value: string) => {
         const alleØnskedeYrker = new Set(søkekriterier.ønsketYrke);
-        alleØnskedeYrker.add(ønsketYrke);
+        alleØnskedeYrker.add(value);
 
         setSearchParam(
             FilterParam.ØnsketYrke,
@@ -42,6 +49,10 @@ const ØnsketYrke: FunctionComponent = () => {
         );
 
         setØnsketYrke('');
+    };
+
+    const onClear = () => {
+        setSearchParam(FilterParam.ØnsketYrke, undefined);
     };
 
     const onValgtYrkeClick = (valgtYrke: string) => () => {
@@ -55,22 +66,32 @@ const ØnsketYrke: FunctionComponent = () => {
     };
 
     return (
-        <form onSubmit={onSubmit}>
-            <Search
-                value={ønsketYrke}
-                label="Ønsket yrke"
-                description="Hva ønsker kandidaten å jobbe med?"
-                onChange={onChange}
-                onClear={onClear}
-                variant="secondary"
-                hideLabel={false}
-            />
+        <>
+            <Combobox aria-label="Ønsket yrke" onSelect={onSelect}>
+                <ComboboxInput onChange={onChange} value={ønsketYrke} />
+                <ComboboxPopover>
+                    <ComboboxList>
+                        {forslagliste.map((forslag) => (
+                            <ComboboxOption key={forslag} value={forslag}>
+                                <ComboboxOptionText />
+                            </ComboboxOption>
+                        ))}
+                    </ComboboxList>
+                </ComboboxPopover>
+            </Combobox>
             <Merkelapper>
                 {valgteYrker.map((yrke) => (
-                    <Merkelapp onClick={onValgtYrkeClick(yrke)}>{yrke}</Merkelapp>
+                    <Merkelapp key={yrke} onClick={onValgtYrkeClick(yrke)}>
+                        {yrke}
+                    </Merkelapp>
                 ))}
             </Merkelapper>
-        </form>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </>
     );
 };
 
