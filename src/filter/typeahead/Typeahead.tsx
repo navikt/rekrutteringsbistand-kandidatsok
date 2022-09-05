@@ -46,6 +46,10 @@ export const Typeahead: FunctionComponent<Props> = ({
         }
     };
 
+    const suggestionsWithoutSelected = suggestions.filter(
+        (suggestion) => !selectedSuggestions.includes(suggestion)
+    );
+
     return (
         <form onSubmit={onSubmit}>
             <Combobox className="navds-search__wrapper" aria-label={label} onSelect={onSelect}>
@@ -64,21 +68,15 @@ export const Typeahead: FunctionComponent<Props> = ({
 
                 <ComboboxPopover className={css.suggestionPopover}>
                     <ComboboxList>
-                        {suggestions
-                            .filter((suggestion) => {
-                                return !selectedSuggestions
-                                    .map((s) => s.toLowerCase())
-                                    .includes(suggestion.toLowerCase());
-                            })
-                            .map((suggestion) => (
-                                <ComboboxOption
-                                    key={suggestion}
-                                    value={suggestion}
-                                    className={'navds-body-short ' + css.suggestion}
-                                >
-                                    <ComboboxOptionText />
-                                </ComboboxOption>
-                            ))}
+                        {suggestionsWithoutSelected.map((suggestion) => (
+                            <ComboboxOption
+                                key={suggestion}
+                                value={suggestion}
+                                className={'navds-body-short ' + css.suggestion}
+                            >
+                                <ComboboxOptionText />
+                            </ComboboxOption>
+                        ))}
                     </ComboboxList>
                 </ComboboxPopover>
             </Combobox>

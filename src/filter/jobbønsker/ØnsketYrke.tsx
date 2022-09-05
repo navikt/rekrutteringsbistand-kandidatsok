@@ -25,10 +25,11 @@ const ØnsketYrke: FunctionComponent = () => {
         setØnsketYrke('');
 
         const alleØnskedeYrker = Array.from(søkekriterier.ønsketYrke);
+        const yrkeErAlleredeValgt = alleØnskedeYrker.some(
+            (y) => y.toLowerCase() === value.toLowerCase()
+        );
 
-        const finnes = alleØnskedeYrker.some((y) => y.toLowerCase() === value.toLowerCase());
-
-        if (!finnes) {
+        if (!yrkeErAlleredeValgt) {
             alleØnskedeYrker.push(value);
             setSearchParam(FilterParam.ØnsketYrke, alleØnskedeYrker.join(LISTEPARAMETER_SEPARATOR));
         }
