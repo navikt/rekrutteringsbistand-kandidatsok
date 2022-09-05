@@ -4,6 +4,8 @@ import { Nettressurs } from '../api/Nettressurs';
 import byggSuggestion, { Forslagsfelt } from '../api/query/byggSuggestion';
 import useDebouncedEffect from './useDebouncedEffect';
 
+const minimumTekstlengde = 2;
+
 const useSuggestions = (field: Forslagsfelt, prefix: string) => {
     const [suggestions, setSuggestions] = useState<Nettressurs<string[]>>({
         kind: 'ikke-lastet',
@@ -33,7 +35,7 @@ const useSuggestions = (field: Forslagsfelt, prefix: string) => {
             }
         };
 
-        if (prefix.length > 2) {
+        if (prefix.length >= minimumTekstlengde) {
             hentSuggestions();
         }
     }, [field, prefix, setSuggestions]);
