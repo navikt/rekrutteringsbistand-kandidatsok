@@ -66,19 +66,21 @@ export const Typeahead: FunctionComponent<Props> = ({
                     </span>
                 </button>
 
-                <ComboboxPopover className={css.suggestionPopover}>
-                    <ComboboxList>
-                        {suggestionsWithoutSelected.map((suggestion) => (
-                            <ComboboxOption
-                                key={suggestion}
-                                value={suggestion}
-                                className={'navds-body-short ' + css.suggestion}
-                            >
-                                <ComboboxOptionText />
-                            </ComboboxOption>
-                        ))}
-                    </ComboboxList>
-                </ComboboxPopover>
+                {suggestionsWithoutSelected.length > 0 && (
+                    <ComboboxPopover className={css.suggestionPopover}>
+                        <ComboboxList>
+                            {suggestionsWithoutSelected.map((suggestion) => (
+                                <ComboboxOption
+                                    key={suggestion}
+                                    value={suggestion}
+                                    className={'navds-body-short ' + css.suggestion}
+                                >
+                                    <ComboboxOptionText />
+                                </ComboboxOption>
+                            ))}
+                        </ComboboxList>
+                    </ComboboxPopover>
+                )}
             </Combobox>
 
             <Merkelapper>
