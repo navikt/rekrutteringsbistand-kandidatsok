@@ -10,7 +10,7 @@ const ØnsketSted = () => {
 
     useEffect(() => {
         if (søkekriterier.ønsketSted === null) {
-            setØnsketSted('');
+            setØnsketSted(null);
         }
     }, [søkekriterier]);
 
@@ -19,12 +19,12 @@ const ØnsketSted = () => {
     };
 
     const onClear = () => {
-        setSearchParam(FilterParam.ØnsketSted, undefined);
+        setSearchParam(FilterParam.ØnsketSted, null);
     };
 
     const onSubmit: FormEventHandler = (event) => {
         event.preventDefault();
-        setSearchParam(FilterParam.ØnsketSted, ønsketSted || undefined);
+        setSearchParam(FilterParam.ØnsketSted, ønsketSted);
     };
 
     return (

@@ -14,10 +14,7 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
     const velgPortefølje = (portefølje: string) => {
-        setSearchParam(
-            FilterParam.Portefølje,
-            portefølje === Portefølje.Alle ? undefined : portefølje
-        );
+        setSearchParam(FilterParam.Portefølje, portefølje === Portefølje.Alle ? null : portefølje);
     };
 
     return (

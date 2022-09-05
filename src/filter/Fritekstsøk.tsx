@@ -23,7 +23,7 @@ const Fritekstsøk: FunctionComponent = () => {
     };
 
     const onClear = () => {
-        setSearchParam(FilterParam.Fritekst, undefined);
+        setSearchParam(FilterParam.Fritekst, null);
     };
 
     const onFormSubmit: FormEventHandler = (event) => {

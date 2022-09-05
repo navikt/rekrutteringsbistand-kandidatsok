@@ -8,7 +8,7 @@ import { useKandidatsøkØkt } from '../Økt';
 export const LISTEPARAMETER_SEPARATOR = '.';
 
 type Returverdi = {
-    setSearchParam: (parameter: FilterParam, value?: string) => void;
+    setSearchParam: (parameter: FilterParam, value: string | null) => void;
     søkekriterier: Søkekriterier;
     fjernSøkekriterier: () => void;
 };
@@ -30,8 +30,8 @@ const useSøkekriterier = (): Returverdi => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [searchParams]);
 
-    const setSearchParam = (parameter: FilterParam, value?: string) => {
-        if (value && value.length > 0) {
+    const setSearchParam = (parameter: FilterParam, value: string | null) => {
+        if (value !== null) {
             searchParams.set(parameter, value);
         } else {
             searchParams.delete(parameter);
