@@ -34,8 +34,15 @@ export const Typeahead: FunctionComponent<Props> = ({
 }) => {
     const onSubmit: FormEventHandler = (event) => {
         event.preventDefault();
-        if (onSelect && value) {
-            onSelect(value);
+
+        const matchedSuggestion = suggestions.find(
+            (suggestion) => value.toLowerCase() === suggestion.toLowerCase()
+        );
+
+        if (matchedSuggestion) {
+            onSelect(matchedSuggestion);
+        } else {
+            onSelect(uppercaseFirstLetter(value));
         }
     };
 
@@ -85,4 +92,8 @@ export const Typeahead: FunctionComponent<Props> = ({
             </Merkelapper>
         </form>
     );
+};
+
+const uppercaseFirstLetter = (s: string) => {
+    return s.length === 0 ? s : s[0].toUpperCase() + s.slice(1);
 };
