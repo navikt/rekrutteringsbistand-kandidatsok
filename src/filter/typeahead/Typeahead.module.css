@@ -1,6 +1,7 @@
-.suggestionPopover {
+.suggestionPopover[data-reach-combobox-popover] {
     transform: translateY(4px);
     border-radius: 0.25rem;
+    border-color: var(--navds-search-color-border);
     box-shadow: var(--navds-shadow-medium);
 }
 
