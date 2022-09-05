@@ -4,7 +4,12 @@
     box-shadow: var(--navds-shadow-medium);
 }
 
-.suggestion {
+.suggestion[data-reach-combobox-option][data-highlighted],
+.suggestion[data-reach-combobox-option]:hover {
+    background-color: var(--navds-global-color-blue-100);
+}
+
+.suggestion[data-reach-combobox-option] {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
@@ -19,11 +24,6 @@
 
 .suggestion:only-child {
     border-radius: 0.2rem;
-}
-
-.suggestionPopover [data-reach-combobox-option][data-highlighted],
-.suggestionPopover [data-reach-combobox-option]:hover {
-    background-color: var(--navds-global-color-blue-100);
 }
 
 .suggestion [data-user-value] {
