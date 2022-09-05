@@ -23,6 +23,12 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.3.0"
     },
+    "overrides": {
+        "@reach/combobox": {
+            "react": "^18",
+            "react-dom": "^18"
+        }
+    },
     "devDependencies": {
         "@types/react": "^18.0.17",
         "@types/react-dom": "^18.0.6",
