@@ -1,5 +1,5 @@
 import { Search } from '@navikt/ds-icons';
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import {
     Combobox,
     ComboboxInput,
