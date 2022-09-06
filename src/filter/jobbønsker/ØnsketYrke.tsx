@@ -1,60 +1,23 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
-import { Typeahead } from '../typeahead/Typeahead';
-import useSuggestions from '../../hooks/useSuggestions';
-import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
+import useSøkekriterier from '../../hooks/useSøkekriterier';
+import FilterMedTypeahead from '../FilterMedTypeahead';
 
 const ØnsketYrke: FunctionComponent = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
-    const valgteYrker = Array.from(søkekriterier.ønsketYrke);
-    const [ønsketYrke, setØnsketYrke] = useState<string>('');
-    const forslag = useSuggestions(Forslagsfelt.ØnsketYrke, ønsketYrke);
-
-    useEffect(() => {
-        if (søkekriterier.ønsketYrke.size === 0) {
-            setØnsketYrke('');
-        }
-    }, [søkekriterier]);
-
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setØnsketYrke(event.target.value);
-
-    const onSelect = (value: string) => {
-        setØnsketYrke('');
-
-        const alleØnskedeYrker = Array.from(søkekriterier.ønsketYrke);
-        const yrkeErAlleredeValgt = alleØnskedeYrker.some(
-            (y) => y.toLowerCase() === value.toLowerCase()
-        );
-
-        if (!yrkeErAlleredeValgt) {
-            alleØnskedeYrker.push(value);
-            setSearchParam(FilterParam.ØnsketYrke, alleØnskedeYrker.join(LISTEPARAMETER_SEPARATOR));
-        }
-    };
-
-    const onFjernValgtYrke = (valgtYrke: string) => () => {
-        const alleØnskedeYrker = new Set(søkekriterier.ønsketYrke);
-        alleØnskedeYrker.delete(valgtYrke);
-
-        setSearchParam(
-            FilterParam.ØnsketYrke,
-            Array.from(alleØnskedeYrker).join(LISTEPARAMETER_SEPARATOR)
-        );
+    const setValue = (value: string | null) => {
+        setSearchParam(FilterParam.ØnsketYrke, value);
     };
 
     return (
-        <Typeahead
+        <FilterMedTypeahead
             label="Ønsket yrke"
             description="Hva ønsker kandidaten å jobbe med?"
-            value={ønsketYrke}
-            suggestions={forslag.kind === 'suksess' ? forslag.data : []}
-            selectedSuggestions={valgteYrker}
-            onRemoveSuggestion={onFjernValgtYrke}
-            onSelect={onSelect}
-            onChange={onChange}
+            suggestionField={Forslagsfelt.ØnsketYrke}
+            value={søkekriterier.ønsketYrke}
+            setValue={setValue}
         />
     );
 };
