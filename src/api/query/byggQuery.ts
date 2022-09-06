@@ -35,6 +35,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         ønsketSted,
         prioritertMålgruppe,
         harTilretteleggingsbehov,
+        behovskategori,
     } = søkekriterier;
 
     return {
@@ -46,7 +47,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedØnsketYrke(ønsketYrke),
                 ...queryMedØnsketSted(ønsketSted),
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
-                ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov),
+                ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
             ],
         },
     };

@@ -66,6 +66,7 @@ export const searchParamsTilSÃ¸kekriterier = (searchParams: URLSearchParams): SÃ
     harTilretteleggingsbehov: searchParams.get(FilterParam.HarTilretteleggingsbehov)
         ? Boolean(searchParams.get(FilterParam.HarTilretteleggingsbehov))
         : null,
+    behovskategori: searchParamTilSet(searchParams.get(FilterParam.Behovskategori)),
 });
 
 function searchParamTilSet<SetType = string>(searchParam: string | null) {

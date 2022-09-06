@@ -8,6 +8,7 @@ import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
 import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
+import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -18,7 +19,7 @@ export enum FilterParam {
     ØnsketSted = 'sted',
     PrioritertMålgruppe = 'malgruppe',
     HarTilretteleggingsbehov = 'tilretteleggingsbehov',
-    Tilretteleggingskategori = 'kategori',
+    Behovskategori = 'kategori',
 }
 
 export enum OtherParam {
@@ -36,6 +37,7 @@ export type Søkekriterier = {
     ønsketSted: Set<string>;
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
     harTilretteleggingsbehov: boolean | null;
+    behovskategori: Set<Behovskategori>;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {

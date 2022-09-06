@@ -21,10 +21,11 @@ import Jobbmuligheter from './filter/Jobbmuligheter';
 import Jobbønsker from './filter/jobbønsker/Jobbønsker';
 import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
 import ØnsketSted from './filter/jobbønsker/ØnsketSted';
-import css from './App.module.css';
 import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import Tilretteleggingsbehov from './filter/tilretteleggingsbehov/Tilretteleggingsbehov';
 import HarTilretteleggingsbehov from './filter/tilretteleggingsbehov/HarTilretteleggingsbehov';
+import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
+import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
@@ -83,6 +84,7 @@ const App = ({ navKontor }: AppProps) => {
                     <PrioriterteMålgrupper />
                     <Tilretteleggingsbehov>
                         <HarTilretteleggingsbehov />
+                        <VelgBehovskategorier />
                     </Tilretteleggingsbehov>
                 </aside>
                 <PorteføljeTabs>

@@ -1,12 +1,33 @@
-const queryMedTilretteleggingsbehov = (harTilretteleggingsbehov: boolean | null) => {
+import { Behovskategori } from '../../filter/tilretteleggingsbehov/VelgBehovskategorier';
+
+const queryMedTilretteleggingsbehov = (
+    harTilretteleggingsbehov: boolean | null,
+    behovskategorier: Set<Behovskategori>
+) => {
     if (harTilretteleggingsbehov === null) {
         return [];
     }
 
+    if (behovskategorier.size === 0) {
+        return [
+            {
+                term: {
+                    tilretteleggingsbehov: harTilretteleggingsbehov,
+                },
+            },
+        ];
+    }
+
+    const minstEnKategori = Array.from(behovskategorier).map((behov) => ({
+        term: {
+            'veilTilretteleggingsbehov.keyword': behov,
+        },
+    }));
+
     return [
         {
-            term: {
-                tilretteleggingsbehov: harTilretteleggingsbehov,
+            bool: {
+                should: minstEnKategori,
             },
         },
     ];
