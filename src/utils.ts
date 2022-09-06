@@ -9,6 +9,8 @@ export const storForbokstav = (s: string) => {
         .join(' ');
 };
 
+export const formaterStortTall = (n: number) => n.toLocaleString('nb-NO');
+
 export const lenkeTilKandidat = (kandidatnr: string, kandidatlisteId?: string) => {
     let lenke = `/kandidater/kandidat/${kandidatnr}/cv?fraNyttKandidatsok=true`;
 

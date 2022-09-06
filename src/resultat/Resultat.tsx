@@ -1,11 +1,12 @@
 import React, { ReactNode, useEffect } from 'react';
 import { Heading } from '@navikt/ds-react';
 
-import { Respons } from '../elasticSearchTyper';
+import { formaterStortTall } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Respons } from '../elasticSearchTyper';
+import { useKandidatsøkØkt } from '../Økt';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
-import { useKandidatsøkØkt } from '../Økt';
 import css from './Resultat.module.css';
 
 export type Props = {
@@ -41,7 +42,7 @@ const Resultat = ({
         <div className={css.resultat}>
             <div className={css.telling}>
                 <Heading size="medium" level="2">
-                    {antallTreff} kandidater
+                    {formaterStortTall(antallTreff)} kandidater
                 </Heading>
                 <div>{knapper}</div>
             </div>
