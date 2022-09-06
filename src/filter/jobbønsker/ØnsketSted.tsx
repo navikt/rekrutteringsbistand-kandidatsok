@@ -1,44 +1,63 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
-import { Search } from '@navikt/ds-react';
+import React, { useEffect, useState } from 'react';
 import { FilterParam } from '../../hooks/useRespons';
-import useSøkekriterier from '../../hooks/useSøkekriterier';
+import { Forslagsfelt } from '../../api/query/byggSuggestion';
+import { Typeahead } from '../typeahead/Typeahead';
+import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
+import useSuggestions from '../../hooks/useSuggestions';
 
 const ØnsketSted = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
-    const [ønsketSted, setØnsketSted] = useState<string | null>(søkekriterier.ønsketSted);
+    const valgteSteder = Array.from(søkekriterier.ønsketSted);
+    const [ønsketSted, setØnsketSted] = useState<string>('');
+    const forslag = useSuggestions(Forslagsfelt.ØnsketSted, ønsketSted);
 
     useEffect(() => {
         if (søkekriterier.ønsketSted === null) {
-            setØnsketSted(null);
+            setØnsketSted('');
         }
     }, [søkekriterier]);
 
-    const onChange = (tekst: string) => {
-        setØnsketSted(tekst || null);
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setØnsketSted(event.target.value);
+
+    const onSelect = (value: string) => {
+        setØnsketSted('');
+
+        const alleØnskedeSteder = Array.from(søkekriterier.ønsketSted);
+        const stedErAlleredeValgt = alleØnskedeSteder.some(
+            (y) => y.toLowerCase() === value.toLowerCase()
+        );
+
+        if (!stedErAlleredeValgt) {
+            alleØnskedeSteder.push(value);
+            setSearchParam(
+                FilterParam.ØnsketSted,
+                alleØnskedeSteder.join(LISTEPARAMETER_SEPARATOR)
+            );
+        }
     };
 
-    const onClear = () => {
-        setSearchParam(FilterParam.ØnsketSted, null);
-    };
+    const onFjernValgtSted = (valgtSted: string) => () => {
+        const alleØnskedeSteder = new Set(søkekriterier.ønsketSted);
+        alleØnskedeSteder.delete(valgtSted);
 
-    const onSubmit: FormEventHandler = (event) => {
-        event.preventDefault();
-        setSearchParam(FilterParam.ØnsketSted, ønsketSted);
+        setSearchParam(
+            FilterParam.ØnsketSted,
+            Array.from(alleØnskedeSteder).join(LISTEPARAMETER_SEPARATOR)
+        );
     };
 
     return (
-        <form onSubmit={onSubmit}>
-            <Search
-                value={ønsketSted || ''}
-                label="Ønsket sted"
-                description="Hvor ønsker kandidaten å jobbe?"
-                onChange={onChange}
-                onClear={onClear}
-                variant="secondary"
-                hideLabel={false}
-            />
-        </form>
+        <Typeahead
+            label="Ønsket sted"
+            value={ønsketSted}
+            suggestions={forslag.kind === 'suksess' ? forslag.data : []}
+            selectedSuggestions={valgteSteder}
+            onRemoveSuggestion={onFjernValgtSted}
+            onSelect={onSelect}
+            onChange={onChange}
+        />
     );
 };
 

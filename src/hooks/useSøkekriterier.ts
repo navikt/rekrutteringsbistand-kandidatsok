@@ -31,7 +31,7 @@ const useSøkekriterier = (): Returverdi => {
     }, [searchParams]);
 
     const setSearchParam = (parameter: FilterParam, value: string | null) => {
-        if (value !== null) {
+        if (value !== null && value.length > 0) {
             searchParams.set(parameter, value);
         } else {
             searchParams.delete(parameter);
@@ -64,7 +64,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     ) as Set<FiltrerbarInnsatsgruppe>,
     side: Number(searchParams.get(FilterParam.Side)) || 1,
     ønsketYrke: new Set(searchParams.get(FilterParam.ØnsketYrke)?.split(LISTEPARAMETER_SEPARATOR)),
-    ønsketSted: searchParams.get(FilterParam.ØnsketSted),
+    ønsketSted: new Set(searchParams.get(FilterParam.ØnsketSted)?.split(LISTEPARAMETER_SEPARATOR)),
 });
 
 export default useSøkekriterier;

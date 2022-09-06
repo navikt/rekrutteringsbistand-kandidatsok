@@ -29,7 +29,7 @@ export type Søkekriterier = {
     innsatsgruppe: Set<FiltrerbarInnsatsgruppe>;
     side: number;
     ønsketYrke: Set<string>;
-    ønsketSted: string | null;
+    ønsketSted: Set<string>;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {

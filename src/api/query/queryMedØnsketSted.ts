@@ -1,28 +1,34 @@
-const queryMedØnsketSted = (ønsketSted: string | null) => {
-    if (ønsketSted === null) {
+const queryMedØnsketSted = (ønsketSted: Set<string>) => {
+    if (ønsketSted.size === 0) {
         return [];
     }
 
+    const ønskedeSteder = Array.from(ønsketSted).map((sted) => ({
+        nested: {
+            path: 'geografiJobbonsker',
+            query: {
+                bool: {
+                    should: [
+                        {
+                            match: {
+                                'geografiJobbonsker.geografiKodeTekst': sted,
+                            },
+                        },
+                        {
+                            match: {
+                                'geografiJobbonsker.geografiKode': sted,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    }));
+
     return [
         {
-            nested: {
-                path: 'geografiJobbonsker',
-                query: {
-                    bool: {
-                        should: [
-                            {
-                                match: {
-                                    'geografiJobbonsker.geografiKodeTekst': ønsketSted,
-                                },
-                            },
-                            {
-                                match: {
-                                    'geografiJobbonsker.geografiKode': ønsketSted,
-                                },
-                            },
-                        ],
-                    },
-                },
+            bool: {
+                should: ønskedeSteder,
             },
         },
     ];

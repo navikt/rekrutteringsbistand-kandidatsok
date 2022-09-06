@@ -2,6 +2,7 @@ import { SuggestQuery } from '../../elasticSearchTyper';
 
 export enum Forslagsfelt {
     ØnsketYrke = 'yrkeJobbonskerObj.styrkBeskrivelse.completion',
+    ØnsketSted = 'geografiJobbonsker.geografiKodeTekst.completion',
 }
 
 const byggSuggestion = (field: Forslagsfelt, prefix: string, size = 100): SuggestQuery => {
