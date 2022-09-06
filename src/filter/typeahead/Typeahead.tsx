@@ -68,6 +68,7 @@ export const Typeahead: FunctionComponent<Props> = ({
                 <div className="navds-search__wrapper-inner">
                     <ComboboxInput
                         id={inputId}
+                        autoComplete="off"
                         aria-describedby={descriptionId}
                         className="navds-search__input navds-search__input--secondary navds-text-field__input navds-body-short navds-body-medium"
                         onChange={onChange}

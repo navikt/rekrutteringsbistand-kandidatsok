@@ -11,6 +11,7 @@
 
     border: none;
     cursor: pointer;
+    text-align: left;
     border-radius: var(--navds-border-radius-medium);
     padding: 0.5rem 1rem;
     background-color: var(--navds-global-color-blue-100);
@@ -22,4 +23,11 @@
 
 .merkelapp:focus {
     box-shadow: 0 0 0 3px var(--navds-semantic-color-focus);
+}
+
+.tekst {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
