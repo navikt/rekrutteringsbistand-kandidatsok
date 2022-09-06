@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Forslagsfelt } from '../../api/query/byggSuggestion';
-import { FilterParam } from '../../hooks/useRespons';
-import useSuggestions from '../../hooks/useSuggestions';
-import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
-import { Typeahead } from '../typeahead/Typeahead';
+import { Forslagsfelt } from '../api/query/byggSuggestion';
+import { FilterParam } from '../hooks/useRespons';
+import useSuggestions from '../hooks/useSuggestions';
+import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
+import { Typeahead } from './typeahead/Typeahead';
 
 const Kompetanse = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
