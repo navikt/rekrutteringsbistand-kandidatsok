@@ -8,10 +8,6 @@
     margin-bottom: 1rem;
 }
 
-.filter :global(.navds-search__wrapper):not(:last-child) {
-    margin-bottom: 0.5rem;
-}
-
 .filter :global(.navds-checkbox__label) {
     padding-bottom: 0.5rem;
 }
