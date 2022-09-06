@@ -80,11 +80,15 @@ const App = ({ navKontor }: AppProps) => {
                         <ØnsketYrke />
                         <ØnsketSted />
                     </Filtergruppe>
-                    <Jobbmuligheter />
+                    <Filtergruppe tittel="Jobbmuligheter">
+                        <Jobbmuligheter />
+                    </Filtergruppe>
                     <Filtergruppe tittel="Krav til kandidaten">
                         <Kompetanse />
                     </Filtergruppe>
-                    <PrioriterteMålgrupper />
+                    <Filtergruppe tittel="Prioriterte målgrupper">
+                        <PrioriterteMålgrupper />
+                    </Filtergruppe>
                     <Filtergruppe tittel="Tilretteleggingsbehov">
                         <HarTilretteleggingsbehov />
                         <VelgBehovskategorier />

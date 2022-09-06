@@ -1,8 +1,7 @@
 import React from 'react';
-import { Accordion, Checkbox, CheckboxGroup } from '@navikt/ds-react';
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
 import { FilterParam } from '../hooks/useRespons';
-import filterCss from './Filter.module.css';
 
 export enum Innsatsgruppe {
     SpesieltTilpassetInnsats = 'BATT',
@@ -79,25 +78,18 @@ const Jobbmuligheter = () => {
     };
 
     return (
-        <Accordion className={filterCss.filter}>
-            <Accordion.Item defaultOpen>
-                <Accordion.Header id="innsatsgruppe-header">Jobbmuligheter</Accordion.Header>
-                <Accordion.Content>
-                    <CheckboxGroup
-                        hideLegend
-                        legend="Velg innsatsgrupper"
-                        onChange={onChange}
-                        value={Array.from(søkekriterier.innsatsgruppe)}
-                    >
-                        {Object.entries(filtrerbareInnsatsgrupper).map(([kode, gruppe]) => (
-                            <Checkbox key={kode} value={kode} description={gruppe.description}>
-                                {gruppe.label}
-                            </Checkbox>
-                        ))}
-                    </CheckboxGroup>
-                </Accordion.Content>
-            </Accordion.Item>
-        </Accordion>
+        <CheckboxGroup
+            hideLegend
+            legend="Velg innsatsgrupper"
+            onChange={onChange}
+            value={Array.from(søkekriterier.innsatsgruppe)}
+        >
+            {Object.entries(filtrerbareInnsatsgrupper).map(([kode, gruppe]) => (
+                <Checkbox key={kode} value={kode} description={gruppe.description}>
+                    {gruppe.label}
+                </Checkbox>
+            ))}
+        </CheckboxGroup>
     );
 };
 
