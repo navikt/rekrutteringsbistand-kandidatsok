@@ -1,58 +1,45 @@
 import { PrioritertMålgruppe } from '../../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
-
-type RangeQuery = {
-    gt?: string | number;
-    gte?: string | number;
-    lt?: string | number;
-    lte?: string | number;
-    boost?: number;
-    relation?: 'INTERSECTS' | 'CONTAINS' | 'WITHIN';
-};
+import { rangeQuery } from './supportQueries';
+import queryMedHullICven from './queryMedHullICven';
 
 const queryMedPrioritertMålgruppe = (prioritertMålgruppe: Set<PrioritertMålgruppe>) => {
     if (prioritertMålgruppe.size === 0) {
         return [];
     }
 
-    const subQueries = [];
+    const queriesForMålgruppe = [];
 
     if (prioritertMålgruppe.has(PrioritertMålgruppe.UngeUnderTrettiÅr)) {
-        subQueries.push(
-            queryMedAldersspenn({
-                gte: 'now/d-30y',
-                lt: 'now',
-            })
-        );
+        queriesForMålgruppe.push(queryAlderUnderTredveÅr());
     }
 
     if (prioritertMålgruppe.has(PrioritertMålgruppe.SeniorFemtiPluss)) {
-        subQueries.push(
-            queryMedAldersspenn({
-                gte: 'now-200y/d',
-                lt: 'now/d-50y',
-            })
-        );
+        queriesForMålgruppe.push(queryAlderOverFemtiÅr());
+    }
+
+    if (prioritertMålgruppe.has(PrioritertMålgruppe.HullICv)) {
+        queriesForMålgruppe.push(queryMedHullICven());
     }
 
     return [
         {
             bool: {
-                should: subQueries,
+                should: queriesForMålgruppe,
             },
         },
     ];
 };
 
-const queryMedAldersspenn = (range: RangeQuery) => {
-    return rangeQuery('fodselsdato', range);
-};
+const queryAlderUnderTredveÅr = () =>
+    rangeQuery('fodselsdato', {
+        gte: 'now/d-30y',
+        lt: 'now',
+    });
 
-const rangeQuery = (field: string, range: RangeQuery) => {
-    return {
-        range: {
-            [field]: range,
-        },
-    };
-};
+const queryAlderOverFemtiÅr = () =>
+    rangeQuery('fodselsdato', {
+        gte: 'now-200y/d',
+        lt: 'now/d-50y',
+    });
 
 export default queryMedPrioritertMålgruppe;
