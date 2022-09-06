@@ -62,6 +62,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     side: Number(searchParams.get(FilterParam.Side)) || 1,
     ønsketYrke: searchParamTilSet(searchParams.get(FilterParam.ØnsketYrke)),
     ønsketSted: searchParamTilSet(searchParams.get(FilterParam.ØnsketSted)),
+    kompetanse: searchParamTilSet(searchParams.get(FilterParam.Kompetanse)),
     prioritertMålgruppe: searchParamTilSet(searchParams.get(FilterParam.PrioritertMålgruppe)),
     harTilretteleggingsbehov: searchParams.get(FilterParam.HarTilretteleggingsbehov)
         ? Boolean(searchParams.get(FilterParam.HarTilretteleggingsbehov))

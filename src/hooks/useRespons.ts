@@ -17,6 +17,7 @@ export enum FilterParam {
     Innsatsgruppe = 'innsatsgruppe',
     ØnsketYrke = 'yrke',
     ØnsketSted = 'sted',
+    Kompetanse = 'kompetanse',
     PrioritertMålgruppe = 'malgruppe',
     HarTilretteleggingsbehov = 'tilretteleggingsbehov',
     Behovskategori = 'kategori',
@@ -35,6 +36,7 @@ export type Søkekriterier = {
     side: number;
     ønsketYrke: Set<string>;
     ønsketSted: Set<string>;
+    kompetanse: Set<string>;
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
     harTilretteleggingsbehov: boolean | null;
     behovskategori: Set<Behovskategori>;

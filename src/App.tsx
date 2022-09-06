@@ -18,14 +18,14 @@ import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useRespons from './hooks/useRespons';
 import useScrollPosition from './hooks/useScrollPosition';
 import Jobbmuligheter from './filter/Jobbmuligheter';
-import Jobbønsker from './filter/jobbønsker/Jobbønsker';
 import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
 import ØnsketSted from './filter/jobbønsker/ØnsketSted';
 import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
-import Tilretteleggingsbehov from './filter/tilretteleggingsbehov/Tilretteleggingsbehov';
 import HarTilretteleggingsbehov from './filter/tilretteleggingsbehov/HarTilretteleggingsbehov';
 import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
 import css from './App.module.css';
+import Kompetanse from './filter/kompetanse/Kompetanse';
+import Filtergruppe from './filter/Filtergruppe';
 
 export type AppProps = {
     navKontor: string | null;
@@ -76,16 +76,19 @@ const App = ({ navKontor }: AppProps) => {
                 <TømFiltre />
                 <aside className={css.filter}>
                     <Fritekstsøk />
-                    <Jobbønsker>
+                    <Filtergruppe tittel="Jobbønske">
                         <ØnsketYrke />
                         <ØnsketSted />
-                    </Jobbønsker>
+                    </Filtergruppe>
                     <Jobbmuligheter />
+                    <Filtergruppe tittel="Krav til kandidaten">
+                        <Kompetanse />
+                    </Filtergruppe>
                     <PrioriterteMålgrupper />
-                    <Tilretteleggingsbehov>
+                    <Filtergruppe tittel="Tilretteleggingsbehov">
                         <HarTilretteleggingsbehov />
                         <VelgBehovskategorier />
-                    </Tilretteleggingsbehov>
+                    </Filtergruppe>
                 </aside>
                 <PorteføljeTabs>
                     <main className={css.hovedinnhold}>
