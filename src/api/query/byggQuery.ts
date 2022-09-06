@@ -7,6 +7,7 @@ import { queryMedPortefølje } from './queryMedPortefølje';
 import queryMedØnsketYrke from './queryMedØnsketYrke';
 import queryMedØnsketSted from './queryMedØnsketSted';
 import queryMedPrioritertMålgruppe from './queryMedPrioritertMålgruppe';
+import queryMedTilretteleggingsbehov from './queryMedTilretteleggingsbehov';
 
 export const PAGE_SIZE = 15;
 
@@ -26,8 +27,15 @@ export const byggQuery = (
 };
 
 export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
-    const { fritekst, portefølje, innsatsgruppe, ønsketYrke, ønsketSted, prioritertMålgruppe } =
-        søkekriterier;
+    const {
+        fritekst,
+        portefølje,
+        innsatsgruppe,
+        ønsketYrke,
+        ønsketSted,
+        prioritertMålgruppe,
+        harTilretteleggingsbehov,
+    } = søkekriterier;
 
     return {
         bool: {
@@ -38,6 +46,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedØnsketYrke(ønsketYrke),
                 ...queryMedØnsketSted(ønsketSted),
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
+                ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov),
             ],
         },
     };

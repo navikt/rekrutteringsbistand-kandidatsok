@@ -63,6 +63,9 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     ønsketYrke: searchParamTilSet(searchParams.get(FilterParam.ØnsketYrke)),
     ønsketSted: searchParamTilSet(searchParams.get(FilterParam.ØnsketSted)),
     prioritertMålgruppe: searchParamTilSet(searchParams.get(FilterParam.PrioritertMålgruppe)),
+    harTilretteleggingsbehov: searchParams.get(FilterParam.HarTilretteleggingsbehov)
+        ? Boolean(searchParams.get(FilterParam.HarTilretteleggingsbehov))
+        : null,
 });
 
 function searchParamTilSet<SetType = string>(searchParam: string | null) {

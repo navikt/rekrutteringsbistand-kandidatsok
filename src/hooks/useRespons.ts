@@ -17,6 +17,8 @@ export enum FilterParam {
     ØnsketYrke = 'yrke',
     ØnsketSted = 'sted',
     PrioritertMålgruppe = 'malgruppe',
+    HarTilretteleggingsbehov = 'tilretteleggingsbehov',
+    Tilretteleggingskategori = 'kategori',
 }
 
 export enum OtherParam {
@@ -33,6 +35,7 @@ export type Søkekriterier = {
     ønsketYrke: Set<string>;
     ønsketSted: Set<string>;
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
+    harTilretteleggingsbehov: boolean | null;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
