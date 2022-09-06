@@ -27,6 +27,10 @@
         "@reach/combobox": {
             "react": "^18",
             "react-dom": "^18"
+        },
+        "@reach/portal": {
+            "react": "^18",
+            "react-dom": "^18"
         }
     },
     "devDependencies": {

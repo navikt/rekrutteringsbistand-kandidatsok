@@ -1,0 +1,9 @@
+.checkboxOgHjelpetekst {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.checkboxOgHjelpetekst :global(.navds-popover__content) {
+    max-width: 17rem;
+}

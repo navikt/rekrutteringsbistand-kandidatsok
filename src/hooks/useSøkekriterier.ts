@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/PorteføljeTabs';
-import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { FilterParam, Søkekriterier } from './useRespons';
 import { useKandidatsøkØkt } from '../Økt';
 
@@ -59,12 +58,15 @@ const useSøkekriterier = (): Returverdi => {
 export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): Søkekriterier => ({
     fritekst: searchParams.get(FilterParam.Fritekst),
     portefølje: (searchParams.get(FilterParam.Portefølje) as Portefølje) || Portefølje.Alle,
-    innsatsgruppe: new Set(
-        searchParams.get(FilterParam.Innsatsgruppe)?.split(LISTEPARAMETER_SEPARATOR)
-    ) as Set<FiltrerbarInnsatsgruppe>,
+    innsatsgruppe: searchParamTilSet(searchParams.get(FilterParam.Innsatsgruppe)),
     side: Number(searchParams.get(FilterParam.Side)) || 1,
-    ønsketYrke: new Set(searchParams.get(FilterParam.ØnsketYrke)?.split(LISTEPARAMETER_SEPARATOR)),
-    ønsketSted: new Set(searchParams.get(FilterParam.ØnsketSted)?.split(LISTEPARAMETER_SEPARATOR)),
+    ønsketYrke: searchParamTilSet(searchParams.get(FilterParam.ØnsketYrke)),
+    ønsketSted: searchParamTilSet(searchParams.get(FilterParam.ØnsketSted)),
+    prioritertMålgruppe: searchParamTilSet(searchParams.get(FilterParam.PrioritertMålgruppe)),
 });
+
+function searchParamTilSet<SetType = string>(searchParam: string | null) {
+    return new Set(searchParam?.split(LISTEPARAMETER_SEPARATOR)) as Set<unknown> as Set<SetType>;
+}
 
 export default useSøkekriterier;

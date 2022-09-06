@@ -17,11 +17,12 @@ import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useRespons from './hooks/useRespons';
 import useScrollPosition from './hooks/useScrollPosition';
-import VelgInnsatsgruppe from './filter/Jobbmuligheter';
+import Jobbmuligheter from './filter/Jobbmuligheter';
 import Jobbønsker from './filter/jobbønsker/Jobbønsker';
 import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
 import ØnsketSted from './filter/jobbønsker/ØnsketSted';
 import css from './App.module.css';
+import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 
 export type AppProps = {
     navKontor: string | null;
@@ -76,7 +77,8 @@ const App = ({ navKontor }: AppProps) => {
                         <ØnsketYrke />
                         <ØnsketSted />
                     </Jobbønsker>
-                    <VelgInnsatsgruppe />
+                    <Jobbmuligheter />
+                    <PrioriterteMålgrupper />
                 </aside>
                 <PorteføljeTabs>
                     <main className={css.hovedinnhold}>

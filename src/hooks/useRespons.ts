@@ -7,6 +7,7 @@ import { Portefølje } from '../filter/PorteføljeTabs';
 import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
+import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -15,6 +16,7 @@ export enum FilterParam {
     Innsatsgruppe = 'innsatsgruppe',
     ØnsketYrke = 'yrke',
     ØnsketSted = 'sted',
+    PrioritertMålgruppe = 'malgruppe',
 }
 
 export enum OtherParam {
@@ -30,6 +32,7 @@ export type Søkekriterier = {
     side: number;
     ønsketYrke: Set<string>;
     ønsketSted: Set<string>;
+    prioritertMålgruppe: Set<PrioritertMålgruppe>;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
