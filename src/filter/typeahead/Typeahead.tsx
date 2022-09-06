@@ -1,4 +1,5 @@
 import { Search } from '@navikt/ds-icons';
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
 import {
     Combobox,
     ComboboxInput,
@@ -7,7 +8,7 @@ import {
     ComboboxOptionText,
     ComboboxPopover,
 } from '@reach/combobox';
-import React, { FormEventHandler, FunctionComponent, ReactNode } from 'react';
+import React, { FormEventHandler, FunctionComponent, ReactNode, useId } from 'react';
 import Merkelapp from '../merkelapp/Merkelapp';
 import Merkelapper from '../merkelapp/Merkelapper';
 import css from './Typeahead.module.css';
@@ -16,6 +17,7 @@ type Props = {
     children?: ReactNode;
     value: string;
     label: string;
+    description?: string;
     suggestions: string[];
     selectedSuggestions: string[];
     onRemoveSuggestion: (suggestion: string) => () => void;
@@ -26,12 +28,16 @@ type Props = {
 export const Typeahead: FunctionComponent<Props> = ({
     label,
     value,
+    description,
     suggestions,
     selectedSuggestions,
     onRemoveSuggestion,
     onSelect,
     onChange,
 }) => {
+    const inputId = useId();
+    const descriptionId = useId();
+
     const onSubmit: FormEventHandler = (event) => {
         event.preventDefault();
 
@@ -51,10 +57,18 @@ export const Typeahead: FunctionComponent<Props> = ({
     );
 
     return (
-        <form onSubmit={onSubmit}>
-            <Combobox className="navds-search__wrapper" aria-label={label} onSelect={onSelect}>
+        <form onSubmit={onSubmit} className="navds-form-field">
+            <Label htmlFor={inputId} className="navds-form-field__label">
+                {label}
+            </Label>
+            <BodyShort as="div" id={descriptionId} className="navds-form-field__description">
+                {description}
+            </BodyShort>
+            <Combobox className="navds-search__wrapper" onSelect={onSelect}>
                 <div className="navds-search__wrapper-inner">
                     <ComboboxInput
+                        id={inputId}
+                        aria-describedby={descriptionId}
                         className="navds-search__input navds-search__input--secondary navds-text-field__input navds-body-short navds-body-medium"
                         onChange={onChange}
                         value={value}

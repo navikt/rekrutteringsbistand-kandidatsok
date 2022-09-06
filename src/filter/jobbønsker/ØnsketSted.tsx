@@ -51,6 +51,7 @@ const ØnsketSted = () => {
     return (
         <Typeahead
             label="Ønsket sted"
+            description="Hvor ønsker kandidaten å jobbe?"
             value={ønsketSted}
             suggestions={forslag.kind === 'suksess' ? forslag.data : []}
             selectedSuggestions={valgteSteder}

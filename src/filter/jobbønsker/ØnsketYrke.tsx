@@ -48,6 +48,7 @@ const ØnsketYrke: FunctionComponent = () => {
     return (
         <Typeahead
             label="Ønsket yrke"
+            description="Hva ønsker kandidaten å jobbe med?"
             value={ønsketYrke}
             suggestions={forslag.kind === 'suksess' ? forslag.data : []}
             selectedSuggestions={valgteYrker}
