@@ -9,6 +9,7 @@ import queryMedØnsketSted from './queryMedØnsketSted';
 import queryMedPrioritertMålgruppe from './queryMedPrioritertMålgruppe';
 import queryMedTilretteleggingsbehov from './queryMedTilretteleggingsbehov';
 import queryMedKompetanse from './queryMedKompetanse';
+import queryMedFørerkort from './queryMedFørerkort';
 
 export const PAGE_SIZE = 15;
 
@@ -35,6 +36,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         ønsketYrke,
         ønsketSted,
         kompetanse,
+        førerkort,
         prioritertMålgruppe,
         harTilretteleggingsbehov,
         behovskategori,
@@ -49,6 +51,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedØnsketYrke(ønsketYrke),
                 ...queryMedØnsketSted(ønsketSted),
                 ...queryMedKompetanse(kompetanse),
+                ...queryMedFørerkort(førerkort),
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
                 ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
             ],
