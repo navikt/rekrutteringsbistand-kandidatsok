@@ -74,7 +74,12 @@ export const Typeahead: FunctionComponent<Props> = ({
             <Label htmlFor={inputId} className="navds-form-field__label">
                 {label}
             </Label>
-            <BodyShort as="div" id={descriptionId} className="navds-form-field__description">
+            <BodyShort
+                size="small"
+                as="div"
+                id={descriptionId}
+                className="navds-form-field__description"
+            >
                 {description}
             </BodyShort>
             <Combobox className="navds-search__wrapper" onSelect={onSelect}>

@@ -1,7 +1,3 @@
-.form :global(.navds-form-field__description) {
-    font-size: var(--navds-font-size-medium);
-}
-
 @media (min-width: 900px) {
     .form:global(.navds-form-field) {
         justify-items: stretch;
