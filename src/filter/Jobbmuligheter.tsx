@@ -27,19 +27,19 @@ export type Kvalifiseringsgruppe = FiltrerbarInnsatsgruppe | Servicegruppe;
 
 const filtrerbareInnsatsgrupper = {
     [Innsatsgruppe.SpesieltTilpassetInnsats]: {
-        label: 'Trenger veiledning, har nedsatt arbeidsevne',
+        label: 'Spesielt tilpasset innsats',
         description: 'Har et identifisert behov for tilrettelegging',
     },
     [Innsatsgruppe.SituasjonsbestemtInnsats]: {
-        label: 'Trenger veiledning',
+        label: 'Situasjonsbestemt innsats',
         description: 'Moderat bistandsbehov',
     },
     [Innsatsgruppe.VarigTilpasset]: {
-        label: 'Liten mulighet til å jobbe',
+        label: 'Varig tilpasset',
         description: 'Varig nedsatt arbeidsevne',
     },
     [Innsatsgruppe.Standardinnsats]: {
-        label: 'Gode muligheter',
+        label: 'Standardinnsats',
         description: 'Behov for ordinær bistand',
     },
     [FiltrerbarInnsatsgruppe.AndreInnsatsgrupper]: {
