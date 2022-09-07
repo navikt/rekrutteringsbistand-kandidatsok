@@ -9,6 +9,7 @@ import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
 import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
+import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -38,7 +39,7 @@ export type Søkekriterier = {
     ønsketYrke: Set<string>;
     ønsketSted: Set<string>;
     kompetanse: Set<string>;
-    førerkort: Set<string>;
+    førerkort: Set<Førerkortklasse>;
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
     harTilretteleggingsbehov: boolean | null;
     behovskategori: Set<Behovskategori>;

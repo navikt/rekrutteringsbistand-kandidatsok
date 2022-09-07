@@ -1,36 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { Klasse } from '../api/query/queryMedFørerkort';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
 import { Typeahead } from './typeahead/Typeahead';
 
 type Førerkortklasse = {
+    klasse: Klasse;
     kode: string;
-    tekst: string;
-    kodeOgTekst: string;
+    navn: string;
 };
 
-const alleKlasser: Førerkortklasse[] = [
-    { kode: 'B', tekst: 'Personbil' },
-    { kode: 'BE', tekst: 'Personbil med tilhenger' },
-    { kode: 'C', tekst: 'Lastebil' },
-    { kode: 'CE', tekst: 'Lastebil med tilhenger' },
-    { kode: 'C1', tekst: 'Lett lastebil' },
-    { kode: 'C1E', tekst: 'Lett lastebil med tilhenger' },
-    { kode: 'D', tekst: 'Buss' },
-    { kode: 'DE', tekst: 'Buss med tilhenger' },
-    { kode: 'D1', tekst: 'Minibuss' },
-    { kode: 'D1E', tekst: 'Minibuss med tilhenger' },
-    { kode: 'A', tekst: 'Tung motorsykkel' },
-    { kode: 'A1', tekst: 'Lett motorsykkel' },
-    { kode: 'A2', tekst: 'Mellomtung motorsykkel' },
-    { kode: 'AM', tekst: 'Moped' },
-    { kode: 'T', tekst: 'Traktor' },
-    { kode: 'S', tekst: 'Snøscooter' },
-].map(({ kode, tekst }) => ({
-    kode,
-    tekst,
-    kodeOgTekst: `${kode} - ${tekst}`,
-}));
+const alleKlasser: Førerkortklasse[] = Object.values(Klasse).map((esValue) => {
+    const [kode, navn] = esValue.split(' - ');
+
+    return {
+        klasse: esValue,
+        kode,
+        navn,
+    };
+});
 
 const Førerkort = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
@@ -42,13 +30,13 @@ const Førerkort = () => {
         if (input.length > 0) {
             const klasser = alleKlasser
                 .filter(klasseInneholderInput(input))
-                .map((klasse) => klasse.kodeOgTekst);
+                .map((klasse) => klasse.klasse);
 
             setForslag(klasser);
         }
     }, [input]);
 
-    const setValue = (valgteKlasser: Set<string>) => {
+    const setValue = (valgteKlasser: Set<Klasse>) => {
         setSearchParam(
             FilterParam.Førerkort,
             Array.from(valgteKlasser).join(LISTEPARAMETER_SEPARATOR)
@@ -59,13 +47,13 @@ const Førerkort = () => {
         setInput('');
 
         const valgteKlasser = new Set(søkekriterier.førerkort);
-        valgteKlasser.add(klasse);
+        valgteKlasser.add(klasse as Klasse);
         setValue(valgteKlasser);
     };
 
     const onFjernValgtKlasse = (valgtKlasse: string) => () => {
         const valgteKlasser = new Set(søkekriterier.førerkort);
-        valgteKlasser.delete(valgtKlasse);
+        valgteKlasser.delete(valgtKlasse as Klasse);
 
         setValue(valgteKlasser);
     };
@@ -73,7 +61,7 @@ const Førerkort = () => {
     return (
         <Typeahead
             label="Førerkort"
-            description={`For eksempel "B – personbil"`}
+            description={`For eksempel "Personbil"`}
             value={input}
             suggestions={forslag}
             selectedSuggestions={Array.from(søkekriterier.førerkort)}
@@ -87,10 +75,10 @@ const Førerkort = () => {
 
 const klasseInneholderInput =
     (input: string) =>
-    ({ kode, tekst, kodeOgTekst }: Førerkortklasse) => {
+    ({ klasse }: Førerkortklasse) => {
         const inputWords = input.toLowerCase().split(' ');
 
-        return inputWords.every((inputWord) => kodeOgTekst.toLowerCase().includes(inputWord));
+        return inputWords.every((inputWord) => klasse.toLowerCase().includes(inputWord));
     };
 
 export default Førerkort;
