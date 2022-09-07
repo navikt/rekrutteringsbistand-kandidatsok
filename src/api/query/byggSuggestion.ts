@@ -7,7 +7,7 @@ export enum Forslagsfelt {
     Førerkort = 'samletKompetanseObj.samletKompetanseTekst.completion',
 }
 
-const byggSuggestion = (field: Forslagsfelt, prefix: string, size = 100): SuggestQuery => {
+const byggSuggestion = (field: Forslagsfelt, prefix: string, size = 15): SuggestQuery => {
     return {
         suggest: {
             forslag: {
