@@ -23,6 +23,7 @@ type Props = {
     onRemoveSuggestion: (suggestion: string) => () => void;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onSelect: (selection: string) => void;
+    allowUnmatchedInputs?: boolean;
 };
 
 export const Typeahead: FunctionComponent<Props> = ({
@@ -34,6 +35,7 @@ export const Typeahead: FunctionComponent<Props> = ({
     onRemoveSuggestion,
     onSelect,
     onChange,
+    allowUnmatchedInputs = true,
 }) => {
     const inputId = useId();
     const descriptionId = useId();
@@ -47,7 +49,7 @@ export const Typeahead: FunctionComponent<Props> = ({
 
         if (matchedSuggestion) {
             onSelect(matchedSuggestion);
-        } else {
+        } else if (allowUnmatchedInputs) {
             onSelect(uppercaseFirstLetter(value));
         }
     };
