@@ -13,6 +13,17 @@ import Merkelapp from '../merkelapp/Merkelapp';
 import Merkelapper from '../merkelapp/Merkelapper';
 import css from './Typeahead.module.css';
 
+const formClassName = css.form + ' navds-form-field';
+
+const inputClassName =
+    css.input +
+    ' navds-search__input navds-search__input--secondary navds-text-field__input navds-body-short navds-body-medium';
+
+const buttonClassName =
+    'navds-search__button-search navds-button navds-button--secondary navds-button--medium navds-button--icon-only';
+
+const optionClassName = 'navds-body-short ' + css.suggestion;
+
 type Props = {
     children?: ReactNode;
     value: string;
@@ -59,7 +70,7 @@ export const Typeahead: FunctionComponent<Props> = ({
     );
 
     return (
-        <form onSubmit={onSubmit} className="navds-form-field">
+        <form onSubmit={onSubmit} className={formClassName}>
             <Label htmlFor={inputId} className="navds-form-field__label">
                 {label}
             </Label>
@@ -72,12 +83,12 @@ export const Typeahead: FunctionComponent<Props> = ({
                         id={inputId}
                         autoComplete="off"
                         aria-describedby={descriptionId}
-                        className="navds-search__input navds-search__input--secondary navds-text-field__input navds-body-short navds-body-medium"
+                        className={inputClassName}
                         onChange={onChange}
                         value={value}
                     />
                 </div>
-                <button className="navds-search__button-search navds-button navds-button--secondary navds-button--medium navds-button--icon-only">
+                <button className={buttonClassName}>
                     <span className="navds-button__icon">
                         <Search />
                     </span>
@@ -90,7 +101,7 @@ export const Typeahead: FunctionComponent<Props> = ({
                                 <ComboboxOption
                                     key={suggestion}
                                     value={suggestion}
-                                    className={'navds-body-short ' + css.suggestion}
+                                    className={optionClassName}
                                 >
                                     <ComboboxOptionText />
                                 </ComboboxOption>

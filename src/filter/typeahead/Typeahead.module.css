@@ -1,3 +1,13 @@
+@media (min-width: 900px) {
+    .form:global(.navds-form-field) {
+        justify-items: stretch;
+    }
+}
+
+.input:global(.navds-search__input) {
+    padding-right: var(--navds-spacing-2);
+}
+
 .suggestionPopover[data-reach-combobox-popover] {
     transform: translateY(4px);
     border-radius: var(--navds-border-radius-medium);
