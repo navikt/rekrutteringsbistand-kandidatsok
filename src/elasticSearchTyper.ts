@@ -20,6 +20,7 @@ export type SearchQuery = {
             order: Sorteringsrekkefølge;
         };
     };
+    _source?: string[];
 };
 
 export type SuggestQuery = {

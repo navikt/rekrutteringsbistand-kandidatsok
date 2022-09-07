@@ -13,6 +13,16 @@ import queryMedFørerkort from './queryMedFørerkort';
 
 export const PAGE_SIZE = 15;
 
+const interessanteKandidatfelter = [
+    'fodselsnummer',
+    'fornavn',
+    'etternavn',
+    'arenaKandidatnr',
+    'kvalifiseringsgruppekode',
+    'yrkeJobbonskerObj',
+    'geografiJobbonsker',
+];
+
 export const byggQuery = (
     søkekriterier: Søkekriterier,
     innloggetBruker: InnloggetBruker
@@ -25,6 +35,7 @@ export const byggQuery = (
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
         sort: søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst,
+        _source: interessanteKandidatfelter,
     };
 };
 
