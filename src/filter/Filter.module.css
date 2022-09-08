@@ -25,3 +25,8 @@
 .tømFilter :global(.navds-label) {
     font-weight: normal;
 }
+
+.arbeidserfaringErFersk {
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}

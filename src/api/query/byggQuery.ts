@@ -57,6 +57,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         behovskategori,
         utdanningsnivå,
         arbeidserfaring,
+        arbeidserfaringErFersk,
     } = søkekriterier;
 
     return {
@@ -73,7 +74,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
                 ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
                 ...queryMedUtdanningsnivå(utdanningsnivå),
-                ...queryMedArbeidserfaring(arbeidserfaring),
+                ...queryMedArbeidserfaring(arbeidserfaring, arbeidserfaringErFersk),
             ],
         },
     };

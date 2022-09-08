@@ -28,6 +28,7 @@ export enum FilterParam {
     Hovedmål = 'hovedmal',
     Utdanningsnivå = 'utdanning',
     Arbeidserfaring = 'arbeidserfaring',
+    ArbeidserfaringErFersk = 'fersk',
 }
 
 export enum OtherParam {
@@ -51,6 +52,7 @@ export type Søkekriterier = {
     hovedmål: Set<Hovedmål>;
     utdanningsnivå: Set<Utdanningsnivå>;
     arbeidserfaring: Set<string>;
+    arbeidserfaringErFersk: boolean | null;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
