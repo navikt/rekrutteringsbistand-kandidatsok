@@ -10,6 +10,7 @@ import useSøkekriterier from './useSøkekriterier';
 import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
 import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
+import { Mål as Hovedmål } from '../filter/Hovedmål';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -23,6 +24,7 @@ export enum FilterParam {
     PrioritertMålgruppe = 'malgruppe',
     HarTilretteleggingsbehov = 'tilretteleggingsbehov',
     Behovskategori = 'kategori',
+    Hovedmål = 'hovedmal',
 }
 
 export enum OtherParam {
@@ -43,6 +45,7 @@ export type Søkekriterier = {
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
     harTilretteleggingsbehov: boolean | null;
     behovskategori: Set<Behovskategori>;
+    hovedmål: Set<Hovedmål>;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {

@@ -27,6 +27,8 @@ import css from './App.module.css';
 import Kompetanse from './filter/Kompetanse';
 import Filtergruppe from './filter/Filtergruppe';
 import Førerkort from './filter/Førerkort';
+import Hovedmål from './filter/Hovedmål';
+import { erIkkeProd } from './utils';
 
 export type AppProps = {
     navKontor: string | null;
@@ -84,6 +86,11 @@ const App = ({ navKontor }: AppProps) => {
                     <Filtergruppe tittel="Jobbmuligheter">
                         <Jobbmuligheter />
                     </Filtergruppe>
+                    {erIkkeProd && (
+                        <Filtergruppe tittel="Hovedmål">
+                            <Hovedmål />
+                        </Filtergruppe>
+                    )}
                     <Filtergruppe tittel="Krav til kandidaten">
                         <Kompetanse />
                         <Førerkort />
