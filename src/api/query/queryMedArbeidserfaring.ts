@@ -7,6 +7,15 @@ export const queryMedArbeidserfaring = (
     }
 
     const ønsketArbeidserfaring = Array.from(arbeidserfaring).map((erfaring) => {
+        const erfaringQuery = {
+            match: {
+                'yrkeserfaring.sokeTitler': {
+                    query: erfaring,
+                    operator: 'and',
+                },
+            },
+        };
+
         if (arbeidserfaringErFersk) {
             return {
                 nested: {
@@ -14,14 +23,7 @@ export const queryMedArbeidserfaring = (
                     query: {
                         bool: {
                             must: [
-                                {
-                                    match: {
-                                        'yrkeserfaring.sokeTitler': {
-                                            query: erfaring,
-                                            operator: 'and',
-                                        },
-                                    },
-                                },
+                                erfaringQuery,
                                 {
                                     range: {
                                         'yrkeserfaring.tilDato': {
@@ -38,14 +40,7 @@ export const queryMedArbeidserfaring = (
             return {
                 nested: {
                     path: 'yrkeserfaring',
-                    query: {
-                        match: {
-                            'yrkeserfaring.sokeTitler': {
-                                query: erfaring,
-                                operator: 'and',
-                            },
-                        },
-                    },
+                    query: erfaringQuery,
                 },
             };
         }
