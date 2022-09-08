@@ -29,6 +29,7 @@ import Filtergruppe from './filter/Filtergruppe';
 import Førerkort from './filter/Førerkort';
 import Hovedmål from './filter/Hovedmål';
 import { erIkkeProd } from './utils';
+import Utdanningsnivå from './filter/Utdanningsnivå';
 
 export type AppProps = {
     navKontor: string | null;
@@ -94,6 +95,7 @@ const App = ({ navKontor }: AppProps) => {
                     <Filtergruppe tittel="Krav til kandidaten">
                         <Kompetanse />
                         <Førerkort />
+                        {erIkkeProd && <Utdanningsnivå />}
                     </Filtergruppe>
                     <Filtergruppe tittel="Prioriterte målgrupper">
                         <PrioriterteMålgrupper />

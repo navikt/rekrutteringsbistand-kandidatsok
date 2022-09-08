@@ -11,6 +11,7 @@ import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/Priorite
 import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
 import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
 import { Mål as Hovedmål } from '../filter/Hovedmål';
+import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -25,6 +26,7 @@ export enum FilterParam {
     HarTilretteleggingsbehov = 'tilretteleggingsbehov',
     Behovskategori = 'kategori',
     Hovedmål = 'hovedmal',
+    Utdanningsnivå = 'utdanning',
 }
 
 export enum OtherParam {
@@ -46,6 +48,7 @@ export type Søkekriterier = {
     harTilretteleggingsbehov: boolean | null;
     behovskategori: Set<Behovskategori>;
     hovedmål: Set<Hovedmål>;
+    utdanningsnivå: Set<Utdanningsnivå>;
 };
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
