@@ -5,6 +5,7 @@ export enum Forslagsfelt {
     ØnsketSted = 'geografiJobbonsker.geografiKodeTekst.completion',
     Kompetanse = 'samletKompetanseObj.samletKompetanseTekst.completion',
     Førerkort = 'samletKompetanseObj.samletKompetanseTekst.completion',
+    Arbeidserfaring = 'yrkeserfaring.stillingstitlerForTypeahead',
 }
 
 const byggSuggestion = (field: Forslagsfelt, prefix: string, size = 15): SuggestQuery => {

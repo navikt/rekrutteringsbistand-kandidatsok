@@ -5,7 +5,7 @@
 
 .filter :global(.navds-fieldset):not(:last-child),
 .filter form:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .filter :global(.navds-checkbox__label) {

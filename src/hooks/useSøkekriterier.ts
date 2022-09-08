@@ -71,6 +71,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     behovskategori: searchParamTilSet(searchParams.get(FilterParam.Behovskategori)),
     hovedmål: searchParamTilSet(searchParams.get(FilterParam.Hovedmål)),
     utdanningsnivå: searchParamTilSet(searchParams.get(FilterParam.Utdanningsnivå)),
+    arbeidserfaring: searchParamTilSet(searchParams.get(FilterParam.Arbeidserfaring)),
 });
 
 function searchParamTilSet<SetType = string>(searchParam: string | null) {

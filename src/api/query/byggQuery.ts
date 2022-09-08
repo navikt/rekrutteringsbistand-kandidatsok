@@ -12,6 +12,7 @@ import queryMedKompetanse from './queryMedKompetanse';
 import queryMedFørerkort from './queryMedFørerkort';
 import { queryMedHovedmål } from './queryMedHovedmål';
 import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
+import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
 
 export const PAGE_SIZE = 15;
 
@@ -55,6 +56,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         harTilretteleggingsbehov,
         behovskategori,
         utdanningsnivå,
+        arbeidserfaring,
     } = søkekriterier;
 
     return {
@@ -71,6 +73,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
                 ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
                 ...queryMedUtdanningsnivå(utdanningsnivå),
+                ...queryMedArbeidserfaring(arbeidserfaring),
             ],
         },
     };
