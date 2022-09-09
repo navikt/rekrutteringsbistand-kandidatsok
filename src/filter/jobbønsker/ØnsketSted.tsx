@@ -31,8 +31,6 @@ const ØnsketSted = () => {
 
     const onSelectEnkodetSted = (enkodetSted: string) => {
         setInput('');
-        console.log('enkodet', enkodetSted);
-        console.log('valgtesteder', valgteSteder);
         const oppdaterteSteder = [...valgteSteder.map(enkodGeografiforslag), enkodetSted];
         setSearchParam(FilterParam.ØnsketSted, oppdaterteSteder.join('_'));
     };
@@ -43,8 +41,6 @@ const ØnsketSted = () => {
                 return sted.geografiKodeTekst !== valgtSted;
             })
             .map(enkodGeografiforslag);
-
-        console.log('alle', alleØnskedeSteder);
 
         setSearchParam(FilterParam.ØnsketSted, alleØnskedeSteder.join('_'));
     };

@@ -1,4 +1,5 @@
 const queryMedØnsketSted = (ønsketSted: Set<string>) => {
+    console.log('ønsketSted', ønsketSted);
     if (ønsketSted.size === 0) {
         return [];
     }
