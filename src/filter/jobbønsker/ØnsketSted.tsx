@@ -9,8 +9,8 @@ const ØnsketSted = () => {
     const [input, setInput] = useState<string>('');
     const forslag = useGeografiSuggestions(input);
 
-    const valgteSteder = Array.from(søkekriterier.ønsketSted).map(
-        (enkodet) => hentGeografiFraUrl(enkodet).geografiKodeTekst
+    const valgteSteder = Array.from(søkekriterier.ønsketSted).map((enkodet) =>
+        hentGeografiFraUrl(enkodet)
     );
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setInput(event.target.value);
@@ -22,7 +22,7 @@ const ØnsketSted = () => {
             );
 
             if (korresponderendeForslag) {
-                const enkodetSted = `${korresponderendeForslag.geografiKodeTekst}.${korresponderendeForslag.geografiKode}`;
+                const enkodetSted = enkodGeografiforslag(korresponderendeForslag);
 
                 onSelectEnkodetSted(enkodetSted);
             }
@@ -31,16 +31,22 @@ const ØnsketSted = () => {
 
     const onSelectEnkodetSted = (enkodetSted: string) => {
         setInput('');
-
-        const oppdaterteSteder = [...valgteSteder, enkodetSted];
+        console.log('enkodet', enkodetSted);
+        console.log('valgtesteder', valgteSteder);
+        const oppdaterteSteder = [...valgteSteder.map(enkodGeografiforslag), enkodetSted];
         setSearchParam(FilterParam.ØnsketSted, oppdaterteSteder.join('_'));
     };
 
     const onFjernValgtSted = (valgtSted: string) => () => {
-        const alleØnskedeSteder = new Set(valgteSteder);
-        alleØnskedeSteder.delete(valgtSted);
+        const alleØnskedeSteder = [...valgteSteder]
+            .filter((sted) => {
+                return sted.geografiKodeTekst !== valgtSted;
+            })
+            .map(enkodGeografiforslag);
 
-        setSearchParam(FilterParam.ØnsketSted, Array.from(alleØnskedeSteder).join('_'));
+        console.log('alle', alleØnskedeSteder);
+
+        setSearchParam(FilterParam.ØnsketSted, alleØnskedeSteder.join('_'));
     };
 
     const suggestions =
@@ -53,12 +59,16 @@ const ØnsketSted = () => {
             allowUnmatchedInputs={false}
             value={input}
             suggestions={suggestions}
-            selectedSuggestions={valgteSteder}
+            selectedSuggestions={valgteSteder.map((valgt) => valgt.geografiKodeTekst)}
             onRemoveSuggestion={onFjernValgtSted}
             onSelect={onSelect}
             onChange={onChange}
         />
     );
+};
+
+const enkodGeografiforslag = (korresponderendeForslag: Geografiforslag) => {
+    return `${korresponderendeForslag.geografiKodeTekst}.${korresponderendeForslag.geografiKode}`;
 };
 
 const hentGeografiFraUrl = (enkodetIUrl: string): Geografiforslag => {
