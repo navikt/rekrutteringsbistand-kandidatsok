@@ -33,11 +33,12 @@ const Arbeidserfaring = () => {
                 <RadioGroup
                     value={søkekriterier.ferskhet}
                     onChange={onFerskhetChange}
-                    legend="Hvor fersk må arbeidserfaringen være?"
+                    legend="Nylig arbeidserfaring"
+                    description="Hvor fersk må arbeidserfaringen være?"
                 >
                     <Radio value={null}>Ingen krav</Radio>
                     <Radio value={2}>Siste to år</Radio>
-                    <Radio value={4}>Siste fem år</Radio>
+                    <Radio value={5}>Siste fem år</Radio>
                 </RadioGroup>
             )}
         </>
