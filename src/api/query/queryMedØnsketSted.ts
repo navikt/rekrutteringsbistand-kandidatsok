@@ -20,12 +20,7 @@ const queryMedØnsketSted = (ønsketSted: Set<string>) => {
                     bool: {
                         should: [
                             {
-                                match: {
-                                    'geografiJobbonsker.geografiKodeTekst': sted,
-                                },
-                            },
-                            {
-                                match: {
+                                regexp: {
                                     'geografiJobbonsker.geografiKode': sted,
                                 },
                             },
