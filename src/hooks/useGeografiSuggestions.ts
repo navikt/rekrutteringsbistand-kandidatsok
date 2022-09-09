@@ -6,7 +6,7 @@ import useDebouncedEffect from './useDebouncedEffect';
 
 const minimumTekstlengde = 2;
 
-type Geografiforslag = {
+export type Geografiforslag = {
     geografiKodeTekst: string;
     geografiKode: string;
 };

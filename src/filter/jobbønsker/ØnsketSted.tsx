@@ -1,19 +1,46 @@
 import React, { useState } from 'react';
 import { FilterParam } from '../../hooks/useRespons';
-import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
-import FilterMedTypeahead from '../FilterMedTypeahead';
 import { Typeahead } from '../typeahead/Typeahead';
-import useGeografiSuggestions from '../../hooks/useGeografiSuggestions';
-import { it } from 'date-fns/locale';
+import useGeografiSuggestions, { Geografiforslag } from '../../hooks/useGeografiSuggestions';
 
 const ØnsketSted = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [input, setInput] = useState<string>('');
     const forslag = useGeografiSuggestions(input);
 
-    const setValue = (value: string | null) => {
-        setSearchParam(FilterParam.ØnsketSted, value);
+    const valgteSteder = Array.from(søkekriterier.ønsketSted).map(
+        (enkodet) => hentGeografiFraUrl(enkodet).geografiKodeTekst
+    );
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setInput(event.target.value);
+
+    const onSelect = (selection: string) => {
+        if (forslag.kind === 'suksess') {
+            const korresponderendeForslag = forslag.data.find(
+                (forslag) => forslag.geografiKodeTekst === selection
+            );
+
+            if (korresponderendeForslag) {
+                const enkodetSted = `${korresponderendeForslag.geografiKodeTekst}.${korresponderendeForslag.geografiKode}`;
+
+                onSelectEnkodetSted(enkodetSted);
+            }
+        }
+    };
+
+    const onSelectEnkodetSted = (enkodetSted: string) => {
+        setInput('');
+
+        const oppdaterteSteder = [...valgteSteder, enkodetSted];
+        setSearchParam(FilterParam.ØnsketSted, oppdaterteSteder.join('_'));
+    };
+
+    const onFjernValgtSted = (valgtSted: string) => () => {
+        const alleØnskedeSteder = new Set(valgteSteder);
+        alleØnskedeSteder.delete(valgtSted);
+
+        setSearchParam(FilterParam.ØnsketSted, Array.from(alleØnskedeSteder).join('_'));
     };
 
     const suggestions =
@@ -23,21 +50,24 @@ const ØnsketSted = () => {
         <Typeahead
             label="Ønsket sted"
             description="Hvor ønsker kandidaten å jobbe?"
+            allowUnmatchedInputs={false}
             value={input}
             suggestions={suggestions}
-            selectedSuggestions={valgteVerdier}
-            onRemoveSuggestion={onFjernValgtVerdi}
+            selectedSuggestions={valgteSteder}
+            onRemoveSuggestion={onFjernValgtSted}
             onSelect={onSelect}
             onChange={onChange}
         />
-        /*<FilterMedTypeahead
-            label="Ønsket sted"
-            description="Hvor ønsker kandidaten å jobbe?"
-            suggestionField={Forslagsfelt.ØnsketSted}
-            value={søkekriterier.ønsketSted}
-            setValue={setValue}
-        />*/
     );
+};
+
+const hentGeografiFraUrl = (enkodetIUrl: string): Geografiforslag => {
+    const [sted, fylkeskode, kommunekode] = enkodetIUrl.split('.');
+
+    return {
+        geografiKode: fylkeskode + (kommunekode ? `.${kommunekode}` : ''),
+        geografiKodeTekst: sted,
+    };
 };
 
 export default ØnsketSted;

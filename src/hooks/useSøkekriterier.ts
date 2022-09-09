@@ -85,7 +85,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     innsatsgruppe: searchParamTilSet(searchParams.get(FilterParam.Innsatsgruppe)),
     side: Number(searchParams.get(FilterParam.Side)) || 1,
     ønsketYrke: searchParamTilSet(searchParams.get(FilterParam.ØnsketYrke)),
-    ønsketSted: searchParamTilSet(searchParams.get(FilterParam.ØnsketSted)),
+    ønsketSted: searchParamTilSet(searchParams.get(FilterParam.ØnsketSted), '_'),
     kompetanse: searchParamTilSet(searchParams.get(FilterParam.Kompetanse)),
     førerkort: searchParamTilSet(searchParams.get(FilterParam.Førerkort)),
     prioritertMålgruppe: searchParamTilSet(searchParams.get(FilterParam.PrioritertMålgruppe)),
@@ -101,8 +101,11 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
         : null,
 });
 
-function searchParamTilSet<SetType = string>(searchParam: string | null) {
-    return new Set(searchParam?.split(LISTEPARAMETER_SEPARATOR)) as Set<unknown> as Set<SetType>;
+function searchParamTilSet<SetType = string>(
+    searchParam: string | null,
+    separator = LISTEPARAMETER_SEPARATOR
+) {
+    return new Set(searchParam?.split(separator)) as Set<unknown> as Set<SetType>;
 }
 
 export default useSøkekriterier;
