@@ -3,15 +3,8 @@ import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { byggQuery } from '../api/query/byggQuery';
 import { Respons } from '../elasticSearchTyper';
-import { Portefølje } from '../filter/PorteføljeTabs';
-import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
-import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
-import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
-import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
-import { Mål as Hovedmål } from '../filter/Hovedmål';
-import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -28,7 +21,7 @@ export enum FilterParam {
     Hovedmål = 'hovedmal',
     Utdanningsnivå = 'utdanning',
     Arbeidserfaring = 'arbeidserfaring',
-    ArbeidserfaringErFersk = 'fersk',
+    Ferskhet = 'ferskhet',
 }
 
 export enum OtherParam {
@@ -36,24 +29,6 @@ export enum OtherParam {
 }
 
 export type Param = FilterParam | OtherParam;
-
-export type Søkekriterier = {
-    fritekst: string | null;
-    portefølje: Portefølje;
-    innsatsgruppe: Set<FiltrerbarInnsatsgruppe>;
-    side: number;
-    ønsketYrke: Set<string>;
-    ønsketSted: Set<string>;
-    kompetanse: Set<string>;
-    førerkort: Set<Førerkortklasse>;
-    prioritertMålgruppe: Set<PrioritertMålgruppe>;
-    harTilretteleggingsbehov: boolean | null;
-    behovskategori: Set<Behovskategori>;
-    hovedmål: Set<Hovedmål>;
-    utdanningsnivå: Set<Utdanningsnivå>;
-    arbeidserfaring: Set<string>;
-    arbeidserfaringErFersk: boolean | null;
-};
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
     const { søkekriterier } = useSøkekriterier();

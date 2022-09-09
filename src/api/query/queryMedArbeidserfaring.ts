@@ -1,7 +1,4 @@
-export const queryMedArbeidserfaring = (
-    arbeidserfaring: Set<string>,
-    arbeidserfaringErFersk: boolean | null
-) => {
+export const queryMedArbeidserfaring = (arbeidserfaring: Set<string>, ferskhet: number | null) => {
     if (arbeidserfaring.size === 0) {
         return [];
     }
@@ -16,7 +13,7 @@ export const queryMedArbeidserfaring = (
             },
         };
 
-        if (arbeidserfaringErFersk) {
+        if (ferskhet !== null) {
             return {
                 nested: {
                     path: 'yrkeserfaring',
@@ -27,7 +24,7 @@ export const queryMedArbeidserfaring = (
                                 {
                                     range: {
                                         'yrkeserfaring.tilDato': {
-                                            gte: 'now-2y',
+                                            gte: `now-${ferskhet}y`,
                                         },
                                     },
                                 },

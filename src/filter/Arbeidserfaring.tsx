@@ -1,10 +1,9 @@
 import React from 'react';
-import { Checkbox } from '@navikt/ds-react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
 import { Forslagsfelt } from '../api/query/byggSuggestion';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import FilterMedTypeahead from './FilterMedTypeahead';
-import filterCss from './Filter.module.css';
 
 const Arbeidserfaring = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
@@ -13,18 +12,13 @@ const Arbeidserfaring = () => {
         setSearchParam(FilterParam.Arbeidserfaring, value);
 
         if (value === '') {
-            setSearchParam(FilterParam.ArbeidserfaringErFersk, null);
+            setSearchParam(FilterParam.Ferskhet, null);
         }
     };
 
-    const onFerskArbeidserfaringChange = () => {
-        setSearchParam(
-            FilterParam.ArbeidserfaringErFersk,
-            søkekriterier.arbeidserfaringErFersk === true ? null : String(true)
-        );
+    const onFerskhetChange = (value: number | null) => {
+        setSearchParam(FilterParam.Ferskhet, value === null ? null : String(value));
     };
-
-    const checked = søkekriterier.arbeidserfaringErFersk || false;
 
     return (
         <>
@@ -36,14 +30,15 @@ const Arbeidserfaring = () => {
                 setValue={setArbeidserfaring}
             />
             {søkekriterier.arbeidserfaring.size > 0 && (
-                <Checkbox
-                    className={filterCss.arbeidserfaringErFersk}
-                    checked={checked}
-                    onChange={onFerskArbeidserfaringChange}
-                    description="Gjennomført siste 2 år"
+                <RadioGroup
+                    value={søkekriterier.ferskhet}
+                    onChange={onFerskhetChange}
+                    legend="Hvor fersk må arbeidserfaringen være?"
                 >
-                    Arbeidserfaringen må være fersk
-                </Checkbox>
+                    <Radio value={null}>Ingen krav</Radio>
+                    <Radio value={2}>Siste to år</Radio>
+                    <Radio value={4}>Siste fem år</Radio>
+                </RadioGroup>
             )}
         </>
     );

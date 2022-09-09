@@ -1,6 +1,5 @@
 import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
 import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
-import { Søkekriterier } from '../../hooks/useRespons';
 import { queryMedFritekst } from './queryMedFritekst';
 import { queryMedInnsatsgruppe } from './queryMedInnsatsgruppe';
 import { queryMedPortefølje } from './queryMedPortefølje';
@@ -13,6 +12,7 @@ import queryMedFørerkort from './queryMedFørerkort';
 import { queryMedHovedmål } from './queryMedHovedmål';
 import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
 import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
+import { Søkekriterier } from '../../hooks/useSøkekriterier';
 
 export const PAGE_SIZE = 15;
 
@@ -57,7 +57,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         behovskategori,
         utdanningsnivå,
         arbeidserfaring,
-        arbeidserfaringErFersk,
+        ferskhet,
     } = søkekriterier;
 
     return {
@@ -74,7 +74,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
                 ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
                 ...queryMedUtdanningsnivå(utdanningsnivå),
-                ...queryMedArbeidserfaring(arbeidserfaring, arbeidserfaringErFersk),
+                ...queryMedArbeidserfaring(arbeidserfaring, ferskhet),
             ],
         },
     };

@@ -1,10 +1,34 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/PorteføljeTabs';
-import { FilterParam, Søkekriterier } from './useRespons';
+import { FilterParam } from './useRespons';
 import { useKandidatsøkØkt } from '../Økt';
+import { Mål as Hovedmål } from '../filter/Hovedmål';
+import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
+import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
+import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
+import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
+import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
+
+export type Søkekriterier = {
+    fritekst: string | null;
+    portefølje: Portefølje;
+    innsatsgruppe: Set<FiltrerbarInnsatsgruppe>;
+    side: number;
+    ønsketYrke: Set<string>;
+    ønsketSted: Set<string>;
+    kompetanse: Set<string>;
+    førerkort: Set<Førerkortklasse>;
+    prioritertMålgruppe: Set<PrioritertMålgruppe>;
+    harTilretteleggingsbehov: boolean | null;
+    behovskategori: Set<Behovskategori>;
+    hovedmål: Set<Hovedmål>;
+    utdanningsnivå: Set<Utdanningsnivå>;
+    arbeidserfaring: Set<string>;
+    ferskhet: number | null;
+};
 
 type Returverdi = {
     setSearchParam: (parameter: FilterParam, value: string | null) => void;
@@ -72,8 +96,8 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     hovedmål: searchParamTilSet(searchParams.get(FilterParam.Hovedmål)),
     utdanningsnivå: searchParamTilSet(searchParams.get(FilterParam.Utdanningsnivå)),
     arbeidserfaring: searchParamTilSet(searchParams.get(FilterParam.Arbeidserfaring)),
-    arbeidserfaringErFersk: searchParams.get(FilterParam.ArbeidserfaringErFersk)
-        ? Boolean(searchParams.get(FilterParam.ArbeidserfaringErFersk))
+    ferskhet: searchParams.get(FilterParam.Ferskhet)
+        ? Number(searchParams.get(FilterParam.Ferskhet))
         : null,
 });
 
