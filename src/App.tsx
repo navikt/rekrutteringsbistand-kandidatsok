@@ -23,14 +23,13 @@ import ØnsketSted from './filter/jobbønsker/ØnsketSted';
 import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import HarTilretteleggingsbehov from './filter/tilretteleggingsbehov/HarTilretteleggingsbehov';
 import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
-import css from './App.module.css';
 import Kompetanse from './filter/Kompetanse';
 import Filtergruppe from './filter/Filtergruppe';
 import Førerkort from './filter/Førerkort';
 import Hovedmål from './filter/Hovedmål';
-import { erIkkeProd } from './utils';
 import Utdanningsnivå from './filter/Utdanningsnivå';
 import Arbeidserfaring from './filter/Arbeidserfaring';
+import css from './App.module.css';
 
 export type AppProps = {
     navKontor: string | null;
@@ -88,16 +87,14 @@ const App = ({ navKontor }: AppProps) => {
                     <Filtergruppe tittel="Jobbmuligheter">
                         <Jobbmuligheter />
                     </Filtergruppe>
-                    {erIkkeProd && (
-                        <Filtergruppe tittel="Hovedmål">
-                            <Hovedmål />
-                        </Filtergruppe>
-                    )}
+                    <Filtergruppe tittel="Hovedmål">
+                        <Hovedmål />
+                    </Filtergruppe>
                     <Filtergruppe tittel="Krav til kandidaten">
                         <Kompetanse />
                         <Førerkort />
-                        {erIkkeProd && <Arbeidserfaring />}
-                        {erIkkeProd && <Utdanningsnivå />}
+                        <Arbeidserfaring />
+                        <Utdanningsnivå />
                     </Filtergruppe>
                     <Filtergruppe tittel="Prioriterte målgrupper">
                         <PrioriterteMålgrupper />
