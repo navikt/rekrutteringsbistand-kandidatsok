@@ -24,7 +24,7 @@ const Arbeidserfaring = () => {
         <>
             <FilterMedTypeahead
                 label="Arbeidserfaring"
-                description={`For eksempel "barnehagelærer"`}
+                description={`For eksempel «barnehagelærer»`}
                 suggestionField={Forslagsfelt.Arbeidserfaring}
                 value={søkekriterier.arbeidserfaring}
                 setValue={setArbeidserfaring}

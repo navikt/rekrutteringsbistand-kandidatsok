@@ -79,7 +79,6 @@ const Jobbmuligheter = () => {
 
     return (
         <CheckboxGroup
-            hideLegend
             legend="Velg innsatsgrupper"
             onChange={onChange}
             value={Array.from(søkekriterier.innsatsgruppe)}

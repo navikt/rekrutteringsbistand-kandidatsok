@@ -61,7 +61,7 @@ const Førerkort = () => {
     return (
         <Typeahead
             label="Førerkort"
-            description={`For eksempel "Personbil"`}
+            description={`For eksempel «personbil»`}
             value={input}
             suggestions={forslag}
             selectedSuggestions={Array.from(søkekriterier.førerkort)}
