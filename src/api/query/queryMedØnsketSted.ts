@@ -5,7 +5,14 @@ const queryMedØnsketSted = (ønsketSted: Set<string>) => {
     }
 
     const ønskedeSteder = Array.from(ønsketSted)
-        .map((enkodetSted) => enkodetSted.split('.')[0])
+        .map((sted) => {
+            const stedArray = sted.split('.').slice(1);
+            var regex = `${stedArray.join('.')}|NO|${stedArray[0]}${
+                stedArray.length == 1 ? '.*' : ''
+            }`;
+            console.log('regex', regex);
+            return regex;
+        })
         .map((sted) => ({
             nested: {
                 path: 'geografiJobbonsker',
