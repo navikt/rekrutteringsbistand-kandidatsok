@@ -4,13 +4,15 @@ import useSøkekriterier from '../../hooks/useSøkekriterier';
 import { Typeahead } from '../typeahead/Typeahead';
 import useGeografiSuggestions, { Geografiforslag } from '../../hooks/useGeografiSuggestions';
 
+export const GEOGRAFI_SEPARATOR = '.';
+
 const ØnsketSted = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [input, setInput] = useState<string>('');
     const forslag = useGeografiSuggestions(input);
 
-    const valgteSteder = Array.from(søkekriterier.ønsketSted).map((enkodet) =>
-        hentGeografiFraUrl(enkodet)
+    const valgteSteder = Array.from(søkekriterier.ønsketSted).map((encoded) =>
+        decodeGeografiforslag(encoded)
     );
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setInput(event.target.value);
@@ -22,16 +24,17 @@ const ØnsketSted = () => {
             );
 
             if (korresponderendeForslag) {
-                const enkodetSted = enkodGeografiforslag(korresponderendeForslag);
+                const encodedSted = encodeGeografiforslag(korresponderendeForslag);
 
-                onSelectEnkodetSted(enkodetSted);
+                setSelectedSted(encodedSted);
             }
         }
     };
 
-    const onSelectEnkodetSted = (enkodetSted: string) => {
+    const setSelectedSted = (encodedSted: string) => {
         setInput('');
-        const oppdaterteSteder = [...valgteSteder.map(enkodGeografiforslag), enkodetSted];
+
+        const oppdaterteSteder = [...valgteSteder.map(encodeGeografiforslag), encodedSted];
         setSearchParam(FilterParam.ØnsketSted, oppdaterteSteder.join('_'));
     };
 
@@ -40,7 +43,7 @@ const ØnsketSted = () => {
             .filter((sted) => {
                 return sted.geografiKodeTekst !== valgtSted;
             })
-            .map(enkodGeografiforslag);
+            .map(encodeGeografiforslag);
 
         setSearchParam(FilterParam.ØnsketSted, alleØnskedeSteder.join('_'));
     };
@@ -63,16 +66,16 @@ const ØnsketSted = () => {
     );
 };
 
-const enkodGeografiforslag = (korresponderendeForslag: Geografiforslag) => {
-    return `${korresponderendeForslag.geografiKodeTekst}.${korresponderendeForslag.geografiKode}`;
+const encodeGeografiforslag = (decoded: Geografiforslag) => {
+    return `${decoded.geografiKodeTekst}${GEOGRAFI_SEPARATOR}${decoded.geografiKode}`;
 };
 
-const hentGeografiFraUrl = (enkodetIUrl: string): Geografiforslag => {
-    const [sted, fylkeskode, kommunekode] = enkodetIUrl.split('.');
+const decodeGeografiforslag = (encoded: string): Geografiforslag => {
+    const [stedsnavn, fylkeskode, kommunekode] = encoded.split(GEOGRAFI_SEPARATOR);
 
     return {
         geografiKode: fylkeskode + (kommunekode ? `.${kommunekode}` : ''),
-        geografiKodeTekst: sted,
+        geografiKodeTekst: stedsnavn,
     };
 };
 

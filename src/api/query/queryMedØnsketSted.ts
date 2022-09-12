@@ -1,10 +1,12 @@
+import { GEOGRAFI_SEPARATOR } from '../../filter/jobbønsker/ØnsketSted';
+
 const queryMedØnsketSted = (ønsketSted: Set<string>) => {
     if (ønsketSted.size === 0) {
         return [];
     }
 
     const ønskedeStederRegex = Array.from(ønsketSted).map((sted) => {
-        const [, fylkesnummer, kommunenummer] = sted.split('.');
+        const [, fylkesnummer, kommunenummer] = sted.split(GEOGRAFI_SEPARATOR);
 
         const kommune = kommunenummer ? `${fylkesnummer}.${kommunenummer}` : `${fylkesnummer}.*`;
         const norge = 'NO';
