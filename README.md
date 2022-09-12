@@ -24,7 +24,7 @@ OPEN_SEARCH_PASSWORD=<passord>
 OPEN_SEARCH_URI=<url>
 
 # 3) Start utviklingsmiljøet
-npm run start
+npm run start:mock
 ```
 ## Integrasjon med kandidatsidene
 
