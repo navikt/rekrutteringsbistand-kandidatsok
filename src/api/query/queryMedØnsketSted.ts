@@ -3,30 +3,36 @@ const queryMedØnsketSted = (ønsketSted: Set<string>) => {
         return [];
     }
 
-    const ønskedeSteder = Array.from(ønsketSted)
-        .map((sted) => sted.split('.').slice(1))
-        .map((sted) => `${sted.join('.')}|${sted[0]}${sted.length == 1 ? '.*' : ''}|NO`)
-        .map((sted) => ({
-            nested: {
-                path: 'geografiJobbonsker',
-                query: {
-                    bool: {
-                        should: [
-                            {
-                                regexp: {
-                                    'geografiJobbonsker.geografiKode': sted,
-                                },
+    const ønskedeStederRegex = Array.from(ønsketSted).map((sted) => {
+        const [, fylkesnummer, kommunenummer] = sted.split('.');
+
+        const kommune = kommunenummer ? `${fylkesnummer}.${kommunenummer}` : `${fylkesnummer}.*`;
+        const norge = 'NO';
+
+        return `${kommune}|${fylkesnummer}|${norge}`;
+    });
+
+    const ønskedeStederQuery = ønskedeStederRegex.map((regex) => ({
+        nested: {
+            path: 'geografiJobbonsker',
+            query: {
+                bool: {
+                    should: [
+                        {
+                            regexp: {
+                                'geografiJobbonsker.geografiKode': regex,
                             },
-                        ],
-                    },
+                        },
+                    ],
                 },
             },
-        }));
+        },
+    }));
 
     return [
         {
             bool: {
-                should: ønskedeSteder,
+                should: ønskedeStederQuery,
             },
         },
     ];
