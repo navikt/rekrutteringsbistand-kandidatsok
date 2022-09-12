@@ -84,4 +84,5 @@ export type SuggestionRespons = {
 
 export type Option = {
     text: string;
+    _source?: object;
 };

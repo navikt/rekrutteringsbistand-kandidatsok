@@ -8,7 +8,12 @@ export enum Forslagsfelt {
     Arbeidserfaring = 'yrkeserfaring.stillingstitlerForTypeahead',
 }
 
-const byggSuggestion = (field: Forslagsfelt, prefix: string, size = 15): SuggestQuery => {
+const byggSuggestion = (
+    field: Forslagsfelt,
+    prefix: string,
+    size = 15,
+    source = false
+): SuggestQuery => {
     return {
         suggest: {
             forslag: {
@@ -20,7 +25,7 @@ const byggSuggestion = (field: Forslagsfelt, prefix: string, size = 15): Suggest
                 },
             },
         },
-        _source: false,
+        _source: source,
     };
 };
 

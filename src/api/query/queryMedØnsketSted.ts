@@ -1,22 +1,28 @@
+import { GEOGRAFI_SEPARATOR } from '../../filter/jobbønsker/ØnsketSted';
+
 const queryMedØnsketSted = (ønsketSted: Set<string>) => {
     if (ønsketSted.size === 0) {
         return [];
     }
 
-    const ønskedeSteder = Array.from(ønsketSted).map((sted) => ({
+    const ønskedeStederRegex = Array.from(ønsketSted).map((sted) => {
+        const [, fylkesnummer, kommunenummer] = sted.split(GEOGRAFI_SEPARATOR);
+
+        const kommune = kommunenummer ? `${fylkesnummer}.${kommunenummer}` : `${fylkesnummer}.*`;
+        const norge = 'NO';
+
+        return `${kommune}|${fylkesnummer}|${norge}`;
+    });
+
+    const ønskedeStederQuery = ønskedeStederRegex.map((regex) => ({
         nested: {
             path: 'geografiJobbonsker',
             query: {
                 bool: {
                     should: [
                         {
-                            match: {
-                                'geografiJobbonsker.geografiKodeTekst': sted,
-                            },
-                        },
-                        {
-                            match: {
-                                'geografiJobbonsker.geografiKode': sted,
+                            regexp: {
+                                'geografiJobbonsker.geografiKode': regex,
                             },
                         },
                     ],
@@ -28,7 +34,7 @@ const queryMedØnsketSted = (ønsketSted: Set<string>) => {
     return [
         {
             bool: {
-                should: ønskedeSteder,
+                should: ønskedeStederQuery,
             },
         },
     ];
