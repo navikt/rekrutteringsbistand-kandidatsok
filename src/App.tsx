@@ -29,7 +29,9 @@ import Førerkort from './filter/Førerkort';
 import Hovedmål from './filter/Hovedmål';
 import Utdanningsnivå from './filter/Utdanningsnivå';
 import Arbeidserfaring from './filter/Arbeidserfaring';
+import BorPåØnsketSted from './filter/jobbønsker/BorPåØnsketSted';
 import css from './App.module.css';
+import { erIkkeProd } from './utils';
 
 export type AppProps = {
     navKontor: string | null;
@@ -83,6 +85,7 @@ const App = ({ navKontor }: AppProps) => {
                     <Filtergruppe tittel="Jobbønske">
                         <ØnsketYrke />
                         <ØnsketSted />
+                        {erIkkeProd && <BorPåØnsketSted />}
                     </Filtergruppe>
                     <Filtergruppe tittel="Jobbmuligheter">
                         <Jobbmuligheter />

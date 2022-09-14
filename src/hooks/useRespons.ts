@@ -13,6 +13,7 @@ export enum FilterParam {
     Innsatsgruppe = 'innsatsgruppe',
     ØnsketYrke = 'yrke',
     ØnsketSted = 'sted',
+    BorPåØnsketSted = 'borDer',
     Kompetanse = 'kompetanse',
     Førerkort = 'forerkort',
     PrioritertMålgruppe = 'malgruppe',

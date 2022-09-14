@@ -19,6 +19,7 @@ export type Søkekriterier = {
     side: number;
     ønsketYrke: Set<string>;
     ønsketSted: Set<string>;
+    borPåØnsketSted: boolean | null;
     kompetanse: Set<string>;
     førerkort: Set<Førerkortklasse>;
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
@@ -86,12 +87,13 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     side: Number(searchParams.get(FilterParam.Side)) || 1,
     ønsketYrke: searchParamTilSet(searchParams.get(FilterParam.ØnsketYrke)),
     ønsketSted: searchParamTilSet(searchParams.get(FilterParam.ØnsketSted), '_'),
+    borPåØnsketSted: searchParamTilBoolean(searchParams.get(FilterParam.BorPåØnsketSted)),
     kompetanse: searchParamTilSet(searchParams.get(FilterParam.Kompetanse)),
     førerkort: searchParamTilSet(searchParams.get(FilterParam.Førerkort)),
     prioritertMålgruppe: searchParamTilSet(searchParams.get(FilterParam.PrioritertMålgruppe)),
-    harTilretteleggingsbehov: searchParams.get(FilterParam.HarTilretteleggingsbehov)
-        ? Boolean(searchParams.get(FilterParam.HarTilretteleggingsbehov))
-        : null,
+    harTilretteleggingsbehov: searchParamTilBoolean(
+        searchParams.get(FilterParam.HarTilretteleggingsbehov)
+    ),
     behovskategori: searchParamTilSet(searchParams.get(FilterParam.Behovskategori)),
     hovedmål: searchParamTilSet(searchParams.get(FilterParam.Hovedmål)),
     utdanningsnivå: searchParamTilSet(searchParams.get(FilterParam.Utdanningsnivå)),
@@ -106,6 +108,10 @@ function searchParamTilSet<SetType = string>(
     separator = LISTEPARAMETER_SEPARATOR
 ) {
     return new Set(searchParam?.split(separator)) as Set<unknown> as Set<SetType>;
+}
+
+function searchParamTilBoolean(searchParam: string | null) {
+    return searchParam ? Boolean(searchParam) : null;
 }
 
 export default useSøkekriterier;
