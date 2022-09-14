@@ -15,7 +15,7 @@ import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { queryMedKravOmBosted } from './queryMedKravOmBosted';
 
-export const PAGE_SIZE = 15;
+export const PAGE_SIZE = 20;
 
 const interessanteKandidatfelter = [
     'fodselsnummer',
