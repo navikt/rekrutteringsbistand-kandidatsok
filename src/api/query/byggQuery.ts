@@ -13,6 +13,7 @@ import { queryMedHovedmål } from './queryMedHovedmål';
 import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
 import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
+import { queryMedKravOmBosted } from './queryMedKravOmBosted';
 
 export const PAGE_SIZE = 15;
 
@@ -50,6 +51,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         hovedmål,
         ønsketYrke,
         ønsketSted,
+        borPåØnsketSted,
         kompetanse,
         førerkort,
         prioritertMålgruppe,
@@ -69,6 +71,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedHovedmål(hovedmål),
                 ...queryMedØnsketYrke(ønsketYrke),
                 ...queryMedØnsketSted(ønsketSted),
+                ...queryMedKravOmBosted(ønsketSted, borPåØnsketSted),
                 ...queryMedKompetanse(kompetanse),
                 ...queryMedFørerkort(førerkort),
                 ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
