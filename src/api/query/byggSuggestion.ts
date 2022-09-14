@@ -6,6 +6,7 @@ export enum Forslagsfelt {
     Kompetanse = 'samletKompetanseObj.samletKompetanseTekst.completion',
     Førerkort = 'samletKompetanseObj.samletKompetanseTekst.completion',
     Arbeidserfaring = 'yrkeserfaring.stillingstitlerForTypeahead',
+    Språk = 'sprak.sprakKodeTekst.completion',
 }
 
 const byggSuggestion = (

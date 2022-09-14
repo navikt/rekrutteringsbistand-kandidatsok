@@ -14,6 +14,7 @@ import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
 import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { queryMedKravOmBosted } from './queryMedKravOmBosted';
+import queryMedSpråk from './queryMedSpråk';
 
 export const PAGE_SIZE = 20;
 
@@ -60,6 +61,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
         utdanningsnivå,
         arbeidserfaring,
         ferskhet,
+        språk,
     } = søkekriterier;
 
     return {
@@ -78,6 +80,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
                 ...queryMedUtdanningsnivå(utdanningsnivå),
                 ...queryMedArbeidserfaring(arbeidserfaring, ferskhet),
+                ...queryMedSpråk(språk),
             ],
         },
     };

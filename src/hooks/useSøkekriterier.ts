@@ -29,6 +29,7 @@ export type Søkekriterier = {
     utdanningsnivå: Set<Utdanningsnivå>;
     arbeidserfaring: Set<string>;
     ferskhet: number | null;
+    språk: Set<string>;
 };
 
 type Returverdi = {
@@ -101,6 +102,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     ferskhet: searchParams.get(FilterParam.Ferskhet)
         ? Number(searchParams.get(FilterParam.Ferskhet))
         : null,
+    språk: searchParamTilSet(searchParams.get(FilterParam.Språk)),
 });
 
 function searchParamTilSet<SetType = string>(
