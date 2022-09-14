@@ -97,7 +97,7 @@ const App = ({ navKontor }: AppProps) => {
                     <Filtergruppe tittel="Krav til kandidaten">
                         <Kompetanse />
                         <Førerkort />
-                        {erIkkeProd && <Språk />}
+                        <Språk />
                         <Arbeidserfaring />
                         <Utdanningsnivå />
                     </Filtergruppe>
