@@ -1,11 +1,17 @@
 import { Checkbox } from '@navikt/ds-react';
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, useEffect } from 'react';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
 import filterCss from '../Filter.module.css';
 
 const BorPåØnsketSted = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
+
+    useEffect(() => {
+        if (søkekriterier.ønsketSted.size === 0 && søkekriterier.borPåØnsketSted) {
+            setSearchParam(FilterParam.BorPåØnsketSted, null);
+        }
+    }, [søkekriterier.ønsketSted, søkekriterier.borPåØnsketSted, setSearchParam]);
 
     if (søkekriterier.ønsketSted.size === 0) {
         return null;

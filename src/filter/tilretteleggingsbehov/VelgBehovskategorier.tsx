@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
@@ -13,6 +13,12 @@ export enum Behovskategori {
 
 const VelgBehovskategorier = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
+
+    useEffect(() => {
+        if (!søkekriterier.harTilretteleggingsbehov && søkekriterier.behovskategori.size > 0) {
+            setSearchParam(FilterParam.Behovskategori, '');
+        }
+    }, [søkekriterier.harTilretteleggingsbehov, setSearchParam, søkekriterier.behovskategori.size]);
 
     if (!søkekriterier.harTilretteleggingsbehov) {
         return null;
