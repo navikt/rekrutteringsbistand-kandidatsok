@@ -85,7 +85,7 @@ const App = ({ navKontor }: AppProps) => {
                     <Filtergruppe tittel="Jobbønske">
                         <ØnsketYrke />
                         <ØnsketSted />
-                        {erIkkeProd && <BorPåØnsketSted />}
+                        <BorPåØnsketSted />
                     </Filtergruppe>
                     <Filtergruppe tittel="Jobbmuligheter">
                         <Jobbmuligheter />
