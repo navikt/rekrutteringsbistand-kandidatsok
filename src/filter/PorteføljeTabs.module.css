@@ -1,3 +1,16 @@
-.tabpanel {
-    margin-top: 1.5rem;
+.tabpanel :global(.navds-tabs__tab-inner) {
+    flex-direction: row-reverse;
+}
+
+.andreKontorTab {
+    padding-right: 0.5rem;
+}
+
+.andreKontorKnapp {
+    padding: 0 0.25rem;
+    margin-left: 0.25rem;
+}
+
+.andreKontorKnapp svg {
+    transform: translateY(2px);
 }

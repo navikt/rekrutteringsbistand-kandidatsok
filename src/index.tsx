@@ -1,3 +1,6 @@
+import '@navikt/ds-css';
+import '@reach/combobox/styles.css';
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Modal } from '@navikt/ds-react';
@@ -6,9 +9,6 @@ import Navspa from '@navikt/navspa';
 import { setupMock } from './mocks/mockSetup';
 import App, { AppProps } from './App';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
-
-import '@navikt/ds-css';
-import '@reach/combobox/styles.css';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 

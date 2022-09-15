@@ -1,13 +1,16 @@
 import React, { ReactNode } from 'react';
-import { Tabs } from '@navikt/ds-react';
+import { Button, Tabs } from '@navikt/ds-react';
 import { FilterParam } from '../hooks/useRespons';
+import { Expand } from '@navikt/ds-icons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './PorteføljeTabs.module.css';
+import { erIkkeProd } from '../utils';
 
 export enum Portefølje {
     Alle = 'alle',
     MineBrukere = 'mine',
     MittKontor = 'kontor',
+    AndreKontor = 'andre',
 }
 
 const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
@@ -18,11 +21,23 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <Tabs value={søkekriterier.portefølje} onChange={velgPortefølje}>
+        <Tabs className={css.tabpanel} value={søkekriterier.portefølje} onChange={velgPortefølje}>
             <Tabs.List>
                 <Tabs.Tab value={Portefølje.Alle} label="Alle" />
                 <Tabs.Tab value={Portefølje.MineBrukere} label="Mine brukere" />
                 <Tabs.Tab value={Portefølje.MittKontor} label="Mitt kontor" />
+                {erIkkeProd && (
+                    <Tabs.Tab
+                        value={Portefølje.AndreKontor}
+                        label="Andre kontor"
+                        className={css.andreKontorTab}
+                        icon={
+                            <Button className={css.andreKontorKnapp} variant="tertiary">
+                                <Expand title="Velg andre kontor" />
+                            </Button>
+                        }
+                    />
+                )}
             </Tabs.List>
             <Tabs.Panel className={css.tabpanel} value={søkekriterier.portefølje}>
                 {children}
