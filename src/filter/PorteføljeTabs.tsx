@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { MouseEventHandler, ReactNode, useState } from 'react';
 import { Button, Tabs } from '@navikt/ds-react';
 import { FilterParam } from '../hooks/useRespons';
-import { Expand } from '@navikt/ds-icons';
+import { Collapse, Expand } from '@navikt/ds-icons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './PorteføljeTabs.module.css';
 import { erIkkeProd } from '../utils';
@@ -16,8 +16,14 @@ export enum Portefølje {
 const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
 
+    const [visKontorvelger, setVisKontorvelger] = useState<boolean>(false);
+
     const velgPortefølje = (portefølje: string) => {
         setSearchParam(FilterParam.Portefølje, portefølje === Portefølje.Alle ? null : portefølje);
+    };
+
+    const onVelgKontorClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+        setVisKontorvelger(!visKontorvelger);
     };
 
     return (
@@ -32,8 +38,18 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
                         label="Andre kontor"
                         className={css.andreKontorTab}
                         icon={
-                            <Button className={css.andreKontorKnapp} variant="tertiary">
-                                <Expand title="Velg andre kontor" />
+                            <Button
+                                as="div"
+                                className={css.andreKontorKnapp}
+                                onClick={onVelgKontorClick}
+                                variant="tertiary"
+                                role="button"
+                            >
+                                {visKontorvelger ? (
+                                    <Collapse title="Lukk kontorvelger" />
+                                ) : (
+                                    <Expand title="Velg andre kontor" />
+                                )}
                             </Button>
                         }
                     />
