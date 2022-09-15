@@ -1,5 +1,5 @@
-import React, { MouseEventHandler, ReactNode, useState } from 'react';
-import { Button, Tabs } from '@navikt/ds-react';
+import React, { MouseEventHandler, ReactNode, useRef, useState } from 'react';
+import { Button, Popover, Tabs } from '@navikt/ds-react';
 import { FilterParam } from '../hooks/useRespons';
 import { Collapse, Expand } from '@navikt/ds-icons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
@@ -18,6 +18,8 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
 
     const [visKontorvelger, setVisKontorvelger] = useState<boolean>(false);
 
+    const andreKontorRef = useRef<HTMLButtonElement>(null);
+
     const velgPortefølje = (portefølje: string) => {
         setSearchParam(FilterParam.Portefølje, portefølje === Portefølje.Alle ? null : portefølje);
     };
@@ -34,6 +36,7 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
                 <Tabs.Tab value={Portefølje.MittKontor} label="Mitt kontor" />
                 {erIkkeProd && (
                     <Tabs.Tab
+                        ref={andreKontorRef}
                         value={Portefølje.AndreKontor}
                         label="Andre kontor"
                         className={css.andreKontorTab}
@@ -55,6 +58,16 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
                     />
                 )}
             </Tabs.List>
+            <Popover
+                placement="bottom"
+                open={visKontorvelger}
+                onClose={() => {
+                    setVisKontorvelger(false);
+                }}
+                anchorEl={andreKontorRef.current}
+            >
+                <Popover.Content>Innhold her!</Popover.Content>
+            </Popover>
             <Tabs.Panel className={css.tabpanel} value={søkekriterier.portefølje}>
                 {children}
             </Tabs.Panel>
