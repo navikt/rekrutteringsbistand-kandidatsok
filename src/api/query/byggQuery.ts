@@ -1,5 +1,4 @@
 import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
-import { målQuery } from './målQuery';
 import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
 import { queryMedFørerkort } from './queryMedFørerkort';
 import { queryMedFritekst } from './queryMedFritekst';
@@ -46,8 +45,6 @@ export const byggQuery = (
 };
 
 export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
-    målQuery(søkekriterier);
-
     return {
         bool: {
             must: [
