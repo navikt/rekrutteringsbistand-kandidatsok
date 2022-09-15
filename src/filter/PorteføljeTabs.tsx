@@ -5,6 +5,7 @@ import { Collapse, Expand } from '@navikt/ds-icons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './PorteføljeTabs.module.css';
 import { erIkkeProd } from '../utils';
+import VelgKontor from './VelgKontor';
 
 export enum Portefølje {
     Alle = 'alle',
@@ -15,9 +16,7 @@ export enum Portefølje {
 
 const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
-
     const [visKontorvelger, setVisKontorvelger] = useState<boolean>(false);
-
     const andreKontorRef = useRef<HTMLButtonElement>(null);
 
     const velgPortefølje = (portefølje: string) => {
@@ -61,12 +60,14 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
             <Popover
                 placement="bottom"
                 open={visKontorvelger}
+                anchorEl={andreKontorRef.current}
                 onClose={() => {
                     setVisKontorvelger(false);
                 }}
-                anchorEl={andreKontorRef.current}
             >
-                <Popover.Content>Innhold her!</Popover.Content>
+                <Popover.Content>
+                    <VelgKontor />
+                </Popover.Content>
             </Popover>
             <Tabs.Panel className={css.tabpanel} value={søkekriterier.portefølje}>
                 {children}
