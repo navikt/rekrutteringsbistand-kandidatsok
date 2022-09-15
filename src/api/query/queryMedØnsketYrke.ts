@@ -1,4 +1,4 @@
-const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
+export const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
     if (ønsketYrke.size === 0) {
         return [];
     }
@@ -30,5 +30,3 @@ const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
         },
     ];
 };
-
-export default queryMedØnsketYrke;

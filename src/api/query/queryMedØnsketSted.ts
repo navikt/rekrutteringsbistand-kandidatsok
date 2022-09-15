@@ -1,6 +1,6 @@
 import { GEOGRAFI_SEPARATOR } from '../../filter/jobbønsker/ØnsketSted';
 
-const queryMedØnsketSted = (ønsketSted: Set<string>) => {
+export const queryMedØnsketSted = (ønsketSted: Set<string>) => {
     if (ønsketSted.size === 0) {
         return [];
     }
@@ -39,5 +39,3 @@ const queryMedØnsketSted = (ønsketSted: Set<string>) => {
         },
     ];
 };
-
-export default queryMedØnsketSted;

@@ -1,4 +1,4 @@
-const queryMedKompetanse = (kompetanse: Set<string>) => {
+export const queryMedKompetanse = (kompetanse: Set<string>) => {
     if (kompetanse.size === 0) {
         return [];
     }
@@ -20,5 +20,3 @@ const queryMedKompetanse = (kompetanse: Set<string>) => {
         },
     ];
 };
-
-export default queryMedKompetanse;

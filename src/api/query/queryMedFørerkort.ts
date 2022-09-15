@@ -14,7 +14,7 @@ export enum Klasse {
     BussMedTilhenger = 'DE - Buss med tilhenger',
 }
 
-const queryMedFørerkort = (førerkort: Set<Klasse>) => {
+export const queryMedFørerkort = (førerkort: Set<Klasse>) => {
     if (førerkort.size === 0) {
         return [];
     }
@@ -83,5 +83,3 @@ const implisitteKlasser = {
     [Klasse.Buss]: [Klasse.BussMedTilhenger],
     [Klasse.BussMedTilhenger]: [],
 };
-
-export default queryMedFørerkort;

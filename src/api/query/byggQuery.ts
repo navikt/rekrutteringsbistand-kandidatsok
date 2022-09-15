@@ -1,20 +1,21 @@
-import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
 import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
-import { queryMedFritekst } from './queryMedFritekst';
-import { queryMedInnsatsgruppe } from './queryMedInnsatsgruppe';
-import { queryMedPortefølje } from './queryMedPortefølje';
-import queryMedØnsketYrke from './queryMedØnsketYrke';
-import queryMedØnsketSted from './queryMedØnsketSted';
-import queryMedPrioritertMålgruppe from './queryMedPrioritertMålgruppe';
-import queryMedTilretteleggingsbehov from './queryMedTilretteleggingsbehov';
-import queryMedKompetanse from './queryMedKompetanse';
-import queryMedFørerkort from './queryMedFørerkort';
-import { queryMedHovedmål } from './queryMedHovedmål';
-import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
+import { målQuery } from './målQuery';
 import { queryMedArbeidserfaring } from './queryMedArbeidserfaring';
-import { Søkekriterier } from '../../hooks/useSøkekriterier';
+import { queryMedFørerkort } from './queryMedFørerkort';
+import { queryMedFritekst } from './queryMedFritekst';
+import { queryMedHovedmål } from './queryMedHovedmål';
+import { queryMedInnsatsgruppe } from './queryMedInnsatsgruppe';
+import { queryMedKompetanse } from './queryMedKompetanse';
 import { queryMedKravOmBosted } from './queryMedKravOmBosted';
-import queryMedSpråk from './queryMedSpråk';
+import { queryMedØnsketSted } from './queryMedØnsketSted';
+import { queryMedØnsketYrke } from './queryMedØnsketYrke';
+import { queryMedPortefølje } from './queryMedPortefølje';
+import { queryMedPrioritertMålgruppe } from './queryMedPrioritertMålgruppe';
+import { queryMedSpråk } from './queryMedSpråk';
+import { queryMedTilretteleggingsbehov } from './queryMedTilretteleggingsbehov';
+import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
+import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
+import { Søkekriterier } from '../../hooks/useSøkekriterier';
 
 export const PAGE_SIZE = 20;
 
@@ -45,42 +46,28 @@ export const byggQuery = (
 };
 
 export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: InnloggetBruker) => {
-    const {
-        fritekst,
-        portefølje,
-        innsatsgruppe,
-        hovedmål,
-        ønsketYrke,
-        ønsketSted,
-        borPåØnsketSted,
-        kompetanse,
-        førerkort,
-        prioritertMålgruppe,
-        harTilretteleggingsbehov,
-        behovskategori,
-        utdanningsnivå,
-        arbeidserfaring,
-        ferskhet,
-        språk,
-    } = søkekriterier;
+    målQuery(søkekriterier);
 
     return {
         bool: {
             must: [
-                ...queryMedFritekst(fritekst),
-                ...queryMedPortefølje(portefølje, innloggetBruker),
-                ...queryMedInnsatsgruppe(innsatsgruppe),
-                ...queryMedHovedmål(hovedmål),
-                ...queryMedØnsketYrke(ønsketYrke),
-                ...queryMedØnsketSted(ønsketSted),
-                ...queryMedKravOmBosted(ønsketSted, borPåØnsketSted),
-                ...queryMedKompetanse(kompetanse),
-                ...queryMedFørerkort(førerkort),
-                ...queryMedPrioritertMålgruppe(prioritertMålgruppe),
-                ...queryMedTilretteleggingsbehov(harTilretteleggingsbehov, behovskategori),
-                ...queryMedUtdanningsnivå(utdanningsnivå),
-                ...queryMedArbeidserfaring(arbeidserfaring, ferskhet),
-                ...queryMedSpråk(språk),
+                ...queryMedFritekst(søkekriterier.fritekst),
+                ...queryMedPortefølje(søkekriterier.portefølje, innloggetBruker),
+                ...queryMedInnsatsgruppe(søkekriterier.innsatsgruppe),
+                ...queryMedHovedmål(søkekriterier.hovedmål),
+                ...queryMedØnsketYrke(søkekriterier.ønsketYrke),
+                ...queryMedØnsketSted(søkekriterier.ønsketSted),
+                ...queryMedKravOmBosted(søkekriterier.ønsketSted, søkekriterier.borPåØnsketSted),
+                ...queryMedKompetanse(søkekriterier.kompetanse),
+                ...queryMedFørerkort(søkekriterier.førerkort),
+                ...queryMedPrioritertMålgruppe(søkekriterier.prioritertMålgruppe),
+                ...queryMedTilretteleggingsbehov(
+                    søkekriterier.harTilretteleggingsbehov,
+                    søkekriterier.behovskategori
+                ),
+                ...queryMedUtdanningsnivå(søkekriterier.utdanningsnivå),
+                ...queryMedArbeidserfaring(søkekriterier.arbeidserfaring, søkekriterier.ferskhet),
+                ...queryMedSpråk(søkekriterier.språk),
             ],
         },
     };

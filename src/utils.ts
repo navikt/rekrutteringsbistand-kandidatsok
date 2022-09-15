@@ -1,6 +1,22 @@
-export const erIkkeProd =
-    window.location.href.includes('dev.intern.nav.no') ||
-    window.location.href.includes('localhost');
+export enum Miljø {
+    Lokalt,
+    DevGcp,
+    ProdGcp,
+}
+
+export const hentMiljø = (): Miljø => {
+    const { href } = window.location;
+
+    if (href.includes('dev.intern.nav.no')) {
+        return Miljø.DevGcp;
+    } else if (href.includes('intern.nav.no')) {
+        return Miljø.ProdGcp;
+    } else {
+        return Miljø.Lokalt;
+    }
+};
+
+export const erIkkeProd = hentMiljø() !== Miljø.ProdGcp;
 
 export const storForbokstav = (s: string) => {
     if (s.length === 0) {
