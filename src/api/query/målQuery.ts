@@ -64,19 +64,19 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
         kriterier.harTilretteleggingsbehov = harTilretteleggingsbehov;
     }
 
-    if (behovskategori) {
+    if (behovskategori.size > 0) {
         kriterier.behovskategori = Array.from(behovskategori);
     }
 
-    if (hovedmål) {
+    if (hovedmål.size > 0) {
         kriterier.hovedmål = Array.from(hovedmål);
     }
 
-    if (utdanningsnivå) {
+    if (utdanningsnivå.size > 0) {
         kriterier.utdanningsnivå = Array.from(utdanningsnivå);
     }
 
-    if (arbeidserfaring) {
+    if (arbeidserfaring.size > 0) {
         kriterier.arbeidserfaring = Array.from(arbeidserfaring);
     }
 
@@ -84,7 +84,7 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
         kriterier.ferskhet = ferskhet;
     }
 
-    if (språk) {
+    if (språk.size > 0) {
         kriterier.språk = Array.from(språk);
     }
 
