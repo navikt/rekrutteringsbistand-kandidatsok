@@ -15,6 +15,7 @@ import { queryMedTilretteleggingsbehov } from './queryMedTilretteleggingsbehov';
 import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
 import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
+import { queryMedValgtKontor } from './queryMedValgtKontor';
 
 export const PAGE_SIZE = 20;
 
@@ -50,6 +51,7 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
             must: [
                 ...queryMedFritekst(søkekriterier.fritekst),
                 ...queryMedPortefølje(søkekriterier.portefølje, innloggetBruker),
+                ...queryMedValgtKontor(søkekriterier.portefølje, søkekriterier.valgtKontor),
                 ...queryMedInnsatsgruppe(søkekriterier.innsatsgruppe),
                 ...queryMedHovedmål(søkekriterier.hovedmål),
                 ...queryMedØnsketYrke(søkekriterier.ønsketYrke),

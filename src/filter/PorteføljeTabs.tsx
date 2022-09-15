@@ -11,7 +11,7 @@ export enum Portefølje {
     Alle = 'alle',
     MineBrukere = 'mine',
     MittKontor = 'kontor',
-    AndreKontor = 'andre',
+    VelgKontor = 'valgte',
 }
 
 const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
@@ -23,9 +23,17 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
         setSearchParam(FilterParam.Portefølje, portefølje === Portefølje.Alle ? null : portefølje);
     };
 
-    const onVelgKontorClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const onVelgKontorKnappClick: MouseEventHandler<HTMLButtonElement> = () => {
         setVisKontorvelger(!visKontorvelger);
     };
+
+    const onVelgKontorTabClick: MouseEventHandler<HTMLButtonElement> = () => {
+        if (søkekriterier.valgtKontor.size === 0) {
+            setVisKontorvelger(true);
+        }
+    };
+
+    const antallKontorerValgt = søkekriterier.valgtKontor.size;
 
     return (
         <Tabs className={css.tabpanel} value={søkekriterier.portefølje} onChange={velgPortefølje}>
@@ -36,14 +44,17 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
                 {erIkkeProd && (
                     <Tabs.Tab
                         ref={andreKontorRef}
-                        value={Portefølje.AndreKontor}
-                        label="Andre kontor"
+                        value={Portefølje.VelgKontor}
+                        onClick={onVelgKontorTabClick}
+                        label={
+                            'Velg kontor' + (antallKontorerValgt ? ` (${antallKontorerValgt})` : '')
+                        }
                         className={css.andreKontorTab}
                         icon={
                             <Button
                                 as="div"
                                 className={css.andreKontorKnapp}
-                                onClick={onVelgKontorClick}
+                                onClick={onVelgKontorKnappClick}
                                 variant="tertiary"
                                 role="button"
                             >
