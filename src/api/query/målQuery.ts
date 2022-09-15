@@ -88,5 +88,8 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
         kriterier.språk = Array.from(språk);
     }
 
-    sendEvent('nytt_kandidatsøk', 'søk', kriterier);
+    sendEvent('nytt_kandidatsøk', 'søk', {
+        ...kriterier,
+        kriterier: Object.keys(kriterier),
+    });
 };
