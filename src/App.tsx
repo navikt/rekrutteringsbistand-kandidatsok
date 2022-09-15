@@ -32,6 +32,7 @@ import Arbeidserfaring from './filter/Arbeidserfaring';
 import BorPåØnsketSted from './filter/jobbønsker/BorPåØnsketSted';
 import css from './App.module.css';
 import Språk from './filter/Språk';
+import { setNavKontorIAmplitude } from './amplitude';
 
 export type AppProps = {
     navKontor: string | null;
@@ -56,6 +57,12 @@ const App = ({ navKontor }: AppProps) => {
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         forrigeØkt.markerteKandidater
     );
+
+    useEffect(() => {
+        if (navKontor) {
+            setNavKontorIAmplitude(navKontor);
+        }
+    }, [navKontor]);
 
     useEffect(() => {
         setØkt({

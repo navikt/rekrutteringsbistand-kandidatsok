@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { byggQuery } from '../api/query/byggQuery';
+import { målQuery } from '../api/query/målQuery';
 import { Respons } from '../elasticSearchTyper';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
@@ -52,6 +53,12 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
                   }
         );
     };
+
+    useEffect(() => {
+        målQuery(søkekriterier);
+
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [JSON.stringify(query)]);
 
     useEffect(() => {
         const hentKandidater = async () => {

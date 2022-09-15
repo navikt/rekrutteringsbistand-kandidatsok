@@ -2,7 +2,7 @@ import { PrioritertMålgruppe } from '../../filter/prioriterte-målgrupper/Prior
 import { rangeQuery } from './supportQueries';
 import queryMedHullICven from './queryMedHullICven';
 
-const queryMedPrioritertMålgruppe = (prioritertMålgruppe: Set<PrioritertMålgruppe>) => {
+export const queryMedPrioritertMålgruppe = (prioritertMålgruppe: Set<PrioritertMålgruppe>) => {
     if (prioritertMålgruppe.size === 0) {
         return [];
     }
@@ -41,5 +41,3 @@ const queryAlderOverFemtiÅr = () =>
         gte: 'now-200y/d',
         lt: 'now/d-50y',
     });
-
-export default queryMedPrioritertMålgruppe;

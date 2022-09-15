@@ -18,6 +18,8 @@
         "@navikt/ds-react": "^1.0.2",
         "@navikt/navspa": "^6.0.1",
         "@reach/combobox": "^0.17.0",
+        "@types/amplitude-js": "^8.16.2",
+        "amplitude-js": "^8.21.0",
         "date-fns": "^2.29.2",
         "history": "^5.3.0",
         "react": "^18.2.0",

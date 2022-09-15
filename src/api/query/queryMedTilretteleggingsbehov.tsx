@@ -1,6 +1,6 @@
 import { Behovskategori } from '../../filter/tilretteleggingsbehov/VelgBehovskategorier';
 
-const queryMedTilretteleggingsbehov = (
+export const queryMedTilretteleggingsbehov = (
     harTilretteleggingsbehov: boolean | null,
     behovskategorier: Set<Behovskategori>
 ) => {
@@ -32,5 +32,3 @@ const queryMedTilretteleggingsbehov = (
         },
     ];
 };
-
-export default queryMedTilretteleggingsbehov;

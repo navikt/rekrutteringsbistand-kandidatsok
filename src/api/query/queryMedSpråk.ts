@@ -1,4 +1,4 @@
-const queryMedSpråk = (språk: Set<string>) => {
+export const queryMedSpråk = (språk: Set<string>) => {
     if (språk.size === 0) {
         return [];
     }
@@ -26,5 +26,3 @@ const queryMedSpråk = (språk: Set<string>) => {
         },
     ];
 };
-
-export default queryMedSpråk;
