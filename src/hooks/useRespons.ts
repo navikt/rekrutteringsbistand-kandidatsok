@@ -11,6 +11,7 @@ export enum FilterParam {
     Fritekst = 'q',
     Side = 'side',
     Portefølje = 'portefolje',
+    ValgtKontor = 'kontor',
     Innsatsgruppe = 'innsatsgruppe',
     ØnsketYrke = 'yrke',
     ØnsketSted = 'sted',

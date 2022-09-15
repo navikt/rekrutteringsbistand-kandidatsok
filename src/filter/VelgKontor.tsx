@@ -1,12 +1,35 @@
 import React, { useState } from 'react';
-// import useSøkekriterier from '../hooks/useSøkekriterier';
+import { FilterParam } from '../hooks/useRespons';
+import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
 import { Typeahead } from './typeahead/Typeahead';
 
 const VelgKontor = () => {
-    // const { søkekriterier, setSearchParam } = useSøkekriterier();
+    const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [input, setInput] = useState<string>('');
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setInput(event.target.value);
+
+    const onSelect = (selection: string) => {
+        setInput('');
+
+        const alleKontor = new Set(søkekriterier.valgtKontor);
+        alleKontor.add(selection);
+
+        setSearchParam(
+            FilterParam.ValgtKontor,
+            Array.from(alleKontor).join(LISTEPARAMETER_SEPARATOR)
+        );
+    };
+
+    const onFjernValgtKontor = (kontor: string) => () => {
+        const alleKontor = new Set(søkekriterier.valgtKontor);
+        alleKontor.delete(kontor);
+
+        setSearchParam(
+            FilterParam.ValgtKontor,
+            Array.from(alleKontor).join(LISTEPARAMETER_SEPARATOR)
+        );
+    };
 
     return (
         <Typeahead
@@ -14,9 +37,9 @@ const VelgKontor = () => {
             description="For eksempel «NAV Kristiansand»"
             value={input}
             suggestions={[]}
-            selectedSuggestions={[]}
-            onRemoveSuggestion={(suggestion: string) => () => {}}
-            onSelect={() => {}}
+            selectedSuggestions={Array.from(søkekriterier.valgtKontor)}
+            onRemoveSuggestion={onFjernValgtKontor}
+            onSelect={onSelect}
             onChange={onChange}
         />
     );

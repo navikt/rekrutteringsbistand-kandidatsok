@@ -15,6 +15,7 @@ export const LISTEPARAMETER_SEPARATOR = '.';
 export type Søkekriterier = {
     fritekst: string | null;
     portefølje: Portefølje;
+    valgtKontor: Set<string>;
     innsatsgruppe: Set<FiltrerbarInnsatsgruppe>;
     side: number;
     ønsketYrke: Set<string>;
@@ -84,6 +85,7 @@ const useSøkekriterier = (): Returverdi => {
 export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): Søkekriterier => ({
     fritekst: searchParams.get(FilterParam.Fritekst),
     portefølje: (searchParams.get(FilterParam.Portefølje) as Portefølje) || Portefølje.Alle,
+    valgtKontor: searchParamTilSet(searchParams.get(FilterParam.ValgtKontor)),
     innsatsgruppe: searchParamTilSet(searchParams.get(FilterParam.Innsatsgruppe)),
     side: Number(searchParams.get(FilterParam.Side)) || 1,
     ønsketYrke: searchParamTilSet(searchParams.get(FilterParam.ØnsketYrke)),

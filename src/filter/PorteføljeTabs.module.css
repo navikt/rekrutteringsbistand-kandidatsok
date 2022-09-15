@@ -18,3 +18,7 @@
 .andreKontorKnapp svg {
     transform: translateY(2px);
 }
+
+.kontorvelger {
+    width: 20rem;
+}

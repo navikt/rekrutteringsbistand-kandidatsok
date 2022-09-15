@@ -65,7 +65,7 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
                     setVisKontorvelger(false);
                 }}
             >
-                <Popover.Content>
+                <Popover.Content className={css.kontorvelger}>
                     <VelgKontor />
                 </Popover.Content>
             </Popover>
