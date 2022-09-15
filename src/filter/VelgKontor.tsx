@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useFuzzySuggestions from '../hooks/useFuzzySuggestions';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
 import { Typeahead } from './typeahead/Typeahead';
@@ -6,6 +7,8 @@ import { Typeahead } from './typeahead/Typeahead';
 const VelgKontor = () => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [input, setInput] = useState<string>('');
+
+    const forslag = useFuzzySuggestions('navkontor', 'navkontor.text', input);
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setInput(event.target.value);
 
@@ -36,7 +39,7 @@ const VelgKontor = () => {
             label="Velg kontor"
             description="For eksempel «NAV Kristiansand»"
             value={input}
-            suggestions={[]}
+            suggestions={forslag.kind === 'suksess' ? forslag.data : []}
             selectedSuggestions={Array.from(søkekriterier.valgtKontor)}
             onRemoveSuggestion={onFjernValgtKontor}
             onSelect={onSelect}

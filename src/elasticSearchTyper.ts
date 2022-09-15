@@ -37,6 +37,26 @@ export type SuggestQuery = {
     _source: boolean;
 };
 
+export type FuzzySuggestQuery = {
+    query: {
+        match_phrase: {
+            [field: string]: {
+                query: string;
+                slop: number;
+            };
+        };
+    };
+    aggs: {
+        suggestions: {
+            terms: {
+                field: string;
+            };
+        };
+    };
+    size: number;
+    _source: boolean;
+};
+
 export type Sorteringsrekkefølge = 'asc' | 'desc';
 
 type MatchQuery = {
@@ -79,6 +99,16 @@ export type SuggestionRespons = {
             length: number;
             options: Option[];
         }>;
+    };
+};
+
+export type FuzzySuggestionRespons = {
+    aggregations: {
+        suggestions: {
+            buckets: Array<{
+                key: string;
+            }>;
+        };
     };
 };
 

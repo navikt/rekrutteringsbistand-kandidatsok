@@ -1,4 +1,11 @@
-import { SearchQuery, Respons, SuggestQuery, SuggestionRespons } from '../elasticSearchTyper';
+import {
+    SearchQuery,
+    Respons,
+    SuggestQuery,
+    SuggestionRespons,
+    FuzzySuggestQuery,
+    FuzzySuggestionRespons,
+} from '../elasticSearchTyper';
 import {
     Kandidatliste,
     LagreKandidaterDto,
@@ -18,6 +25,12 @@ export const suggest = async (query: SuggestQuery): Promise<SuggestionRespons> =
     const respons = await post(kandidatsøkProxy, query);
 
     return parseJsonEllerKastFeil(respons, 'Klarte ikke å hente suggestions');
+};
+
+export const fuzzySuggest = async (query: FuzzySuggestQuery): Promise<FuzzySuggestionRespons> => {
+    const respons = await post(kandidatsøkProxy, query);
+
+    return parseJsonEllerKastFeil(respons, 'Klarte ikke å hente fuzzy suggestions');
 };
 
 export const hentMineKandidatlister = async (
