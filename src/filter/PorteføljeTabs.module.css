@@ -1,3 +1,7 @@
+.tabpanel {
+    margin-top: 1.5rem;
+}
+
 .tabpanel :global(.navds-tabs__tab-inner) {
     flex-direction: row-reverse;
 }
