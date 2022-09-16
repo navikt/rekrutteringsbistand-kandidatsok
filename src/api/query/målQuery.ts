@@ -6,6 +6,7 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
     const {
         fritekst,
         portefølje,
+        valgtKontor,
         innsatsgruppe,
         ønsketYrke,
         ønsketSted,
@@ -91,5 +92,6 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
     sendEvent('nytt_kandidatsøk', 'søk', {
         ...kriterier,
         kriterier: Object.keys(kriterier),
+        antallValgteKontor: valgtKontor.size > 0 ? valgtKontor.size : undefined,
     });
 };
