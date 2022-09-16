@@ -11,8 +11,7 @@ type Props = {
 const VelgKontor: FunctionComponent<Props> = ({ forslagId }) => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [input, setInput] = useState<string>('');
-
-    const forslag = useFuzzySuggestions('navkontor', 'navkontor.text', input);
+    const kontorforslag = useFuzzySuggestions('navkontor', 'navkontor.text', input);
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setInput(event.target.value);
 
@@ -43,10 +42,11 @@ const VelgKontor: FunctionComponent<Props> = ({ forslagId }) => {
             label="Velg kontor"
             description="For eksempel «NAV Kristiansand»"
             value={input}
-            suggestions={forslag.kind === 'suksess' ? forslag.data : []}
+            suggestions={kontorforslag.kind === 'suksess' ? kontorforslag.data : []}
             suggestionsId={forslagId}
             selectedSuggestions={Array.from(søkekriterier.valgtKontor)}
             onRemoveSuggestion={onFjernValgtKontor}
+            allowUnmatchedInputs={false}
             onSelect={onSelect}
             onChange={onChange}
         />
