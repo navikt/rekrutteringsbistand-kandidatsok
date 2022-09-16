@@ -1,6 +1,12 @@
 import { Collapse, Expand } from '@navikt/ds-icons';
 import { Button, Popover, Tabs } from '@navikt/ds-react';
-import React, { FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
+import React, {
+    FunctionComponent,
+    KeyboardEventHandler,
+    MouseEventHandler,
+    useRef,
+    useState,
+} from 'react';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 import { Søkekriterier } from '../hooks/useSøkekriterier';
 import { Portefølje } from './PorteføljeTabs';
@@ -14,7 +20,7 @@ type Props = {
 const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
     const [visKontorvelger, setVisKontorvelger] = useState<boolean>(false);
     const [erÅpnet, setErÅpnet] = useState<boolean>(false);
-    const andreKontorRef = useRef<HTMLButtonElement>(null);
+    const velgKontorRef = useRef<HTMLButtonElement>(null);
 
     const onClickOutside = () => {
         if (visKontorvelger) {
@@ -30,12 +36,26 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
     useOnClickOutside(onClickOutside, ['velg-kontor-popover', 'velg-kontor-forslag']);
 
     const onVelgKontorKnappClick: MouseEventHandler<HTMLButtonElement> = () => {
-        setVisKontorvelger(!visKontorvelger);
+        if (visKontorvelger) {
+            setVisKontorvelger(false);
+        } else {
+            setErÅpnet(false);
+            setVisKontorvelger(true);
+        }
     };
 
     const onVelgKontorTabClick: MouseEventHandler<HTMLButtonElement> = () => {
         if (søkekriterier.valgtKontor.size === 0) {
             setVisKontorvelger(true);
+        }
+    };
+
+    const onVelgKontorTabKeyDown: KeyboardEventHandler = (event) => {
+        if (event.code === 'Space' || event.key === 'Enter') {
+            setVisKontorvelger(true);
+        } else if (event.code === 'Escape') {
+            setVisKontorvelger(false);
+            setErÅpnet(false);
         }
     };
 
@@ -45,14 +65,16 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
         <>
             <Tabs.Tab
                 id="velg-kontor-tab"
-                ref={andreKontorRef}
+                ref={velgKontorRef}
                 value={Portefølje.VelgKontor}
                 onClick={onVelgKontorTabClick}
-                label={'Velg kontor' + (antallKontorerValgt ? ` (${antallKontorerValgt})` : '')}
+                onKeyDown={onVelgKontorTabKeyDown}
+                label={'Valgte kontorer' + (antallKontorerValgt ? ` (${antallKontorerValgt})` : '')}
                 className={css.tab}
                 icon={
                     <Button
                         as="div"
+                        tabIndex={-1}
                         className={css.knapp}
                         onClick={onVelgKontorKnappClick}
                         variant="tertiary"
@@ -70,7 +92,7 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
                 placement="bottom"
                 id="velg-kontor-popover"
                 open={visKontorvelger}
-                anchorEl={andreKontorRef.current}
+                anchorEl={velgKontorRef.current}
                 onClose={() => {}}
             >
                 <Popover.Content className={css.popover}>

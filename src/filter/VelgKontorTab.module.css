@@ -5,6 +5,13 @@
 .knapp {
     padding: 0 0.25rem;
     margin-left: 0.25rem;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+
+.knapp:hover {
+    background-color: var(--navds-global-color-deepblue-100);
 }
 
 .knapp svg {
