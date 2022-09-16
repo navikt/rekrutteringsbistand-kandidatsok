@@ -3,7 +3,7 @@
     padding: 1.5rem;
 }
 
-.liste:global(.navds-fieldset) {
+.liste {
     margin: 1.5rem 0 0.5rem;
 }
 

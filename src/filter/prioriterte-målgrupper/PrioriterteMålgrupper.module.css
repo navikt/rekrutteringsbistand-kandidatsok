@@ -4,6 +4,6 @@
     gap: 1rem;
 }
 
-.checkboxOgHjelpetekst :global(.navds-popover__content) {
+.hjelpetekst :global(.navds-popover) {
     max-width: 17rem;
 }

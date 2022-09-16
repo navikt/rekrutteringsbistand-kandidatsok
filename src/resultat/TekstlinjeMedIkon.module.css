@@ -7,7 +7,7 @@
     margin-right: 0.5rem;
 }
 
-.tekst:global(.navds-body-long) {
+.tekst {
     max-width: 90%;
     font-size: 1rem;
 

@@ -35,10 +35,12 @@ const PrioriterteMålgrupper: FunctionComponent = () => {
                 <Checkbox value={PrioritertMålgruppe.HullICv} aria-describedby={hjelpetekstId}>
                     Har hull i CV-en
                 </Checkbox>
-                <HelpText title="Hva er hull i CV-en?" id={hjelpetekstId}>
-                    Du får treff på kandidater som ikke har registrert jobb eller utdanning i CV-en
-                    i en sammenhengende periode på 2 år i løpet av de siste 5 årene.
-                </HelpText>
+                <div className={css.hjelpetekst}>
+                    <HelpText id={hjelpetekstId} title="Hva er hull i CV-en?">
+                        Du får treff på kandidater som ikke har registrert jobb eller utdanning i
+                        CV-en i en sammenhengende periode på 2 år i løpet av de siste 5 årene.
+                    </HelpText>
+                </div>
             </div>
         </CheckboxGroup>
     );

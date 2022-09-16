@@ -17,7 +17,7 @@
 }
 
 .lenker a:first-child {
-    margin-right: 1rem;
+    margin-right: 1.5rem;
 }
 
 @media (min-width: 900px) {
@@ -32,6 +32,6 @@
     }
 }
 
-.banner h1:global(.navds-heading) {
+.banner h1 {
     margin-bottom: 1rem;
 }

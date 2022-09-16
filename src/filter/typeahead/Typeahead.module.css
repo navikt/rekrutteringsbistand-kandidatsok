@@ -1,10 +1,10 @@
 @media (min-width: 900px) {
-    .form:global(.navds-form-field) {
+    .form {
         justify-items: stretch;
     }
 }
 
-.input:global(.navds-search__input) {
+.input {
     padding-right: var(--navds-spacing-2);
 }
 
