@@ -20,7 +20,7 @@ const PorteføljeTabs = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <Tabs className={css.tabpanel} value={søkekriterier.portefølje} onChange={velgPortefølje}>
+        <Tabs value={søkekriterier.portefølje} onChange={velgPortefølje}>
             <Tabs.List>
                 <Tabs.Tab value={Portefølje.Alle} label="Alle" />
                 <Tabs.Tab value={Portefølje.MineBrukere} label="Mine brukere" />
