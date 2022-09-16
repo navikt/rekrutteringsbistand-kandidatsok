@@ -13,6 +13,9 @@
     border-radius: var(--navds-border-radius-medium);
     border-color: var(--navds-search-color-border);
     box-shadow: var(--navds-shadow-medium);
+
+    /* Laveste mulige verdi for å vises over Popover-komponenten */
+    z-index: 1000;
 }
 
 .suggestion[data-reach-combobox-option][data-highlighted],

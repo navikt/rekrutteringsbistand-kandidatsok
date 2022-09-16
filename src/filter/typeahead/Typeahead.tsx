@@ -30,6 +30,7 @@ type Props = {
     label: string;
     description?: string;
     suggestions: string[];
+    suggestionsId?: string;
     selectedSuggestions: string[];
     onRemoveSuggestion: (suggestion: string) => () => void;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -42,6 +43,7 @@ export const Typeahead: FunctionComponent<Props> = ({
     value,
     description,
     suggestions,
+    suggestionsId,
     selectedSuggestions,
     onRemoveSuggestion,
     onSelect,
@@ -100,7 +102,7 @@ export const Typeahead: FunctionComponent<Props> = ({
                 </button>
 
                 {suggestionsWithoutSelected.length > 0 && (
-                    <ComboboxPopover className={css.suggestionPopover}>
+                    <ComboboxPopover id={suggestionsId} className={css.suggestionPopover}>
                         <ComboboxList>
                             {suggestionsWithoutSelected.map((suggestion) => (
                                 <ComboboxOption

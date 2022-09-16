@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import useFuzzySuggestions from '../hooks/useFuzzySuggestions';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
 import { Typeahead } from './typeahead/Typeahead';
 
-const VelgKontor = () => {
+type Props = {
+    forslagId: string;
+};
+
+const VelgKontor: FunctionComponent<Props> = ({ forslagId }) => {
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [input, setInput] = useState<string>('');
 
@@ -40,6 +44,7 @@ const VelgKontor = () => {
             description="For eksempel «NAV Kristiansand»"
             value={input}
             suggestions={forslag.kind === 'suksess' ? forslag.data : []}
+            suggestionsId={forslagId}
             selectedSuggestions={Array.from(søkekriterier.valgtKontor)}
             onRemoveSuggestion={onFjernValgtKontor}
             onSelect={onSelect}
