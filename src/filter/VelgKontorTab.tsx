@@ -19,16 +19,16 @@ type Props = {
 
 const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
     const [visKontorvelger, setVisKontorvelger] = useState<boolean>(false);
-    const [erÅpnet, setErÅpnet] = useState<boolean>(false);
+    const [beholdKontorvelger, setBeholdKontorvelger] = useState<boolean>(true);
     const velgKontorRef = useRef<HTMLButtonElement>(null);
 
     const onClickOutside = () => {
         if (visKontorvelger) {
-            if (erÅpnet) {
-                setVisKontorvelger(false);
-                setErÅpnet(false);
+            if (beholdKontorvelger) {
+                setBeholdKontorvelger(false);
             } else {
-                setErÅpnet(true);
+                setVisKontorvelger(false);
+                setBeholdKontorvelger(true);
             }
         }
     };
@@ -39,7 +39,7 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
         if (visKontorvelger) {
             setVisKontorvelger(false);
         } else {
-            setErÅpnet(false);
+            setBeholdKontorvelger(true);
             setVisKontorvelger(true);
         }
     };
@@ -55,7 +55,7 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
             setVisKontorvelger(true);
         } else if (event.code === 'Escape') {
             setVisKontorvelger(false);
-            setErÅpnet(false);
+            setBeholdKontorvelger(true);
         }
     };
 
