@@ -8,7 +8,7 @@ import { useKandidatsøkØkt, ØktContextProvider } from './Økt';
 import Fritekstsøk from './filter/Fritekstsøk';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import LagreKandidaterISpesifikkKandidatlisteModal from './kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
-import PorteføljeTabs from './filter/PorteføljeTabs';
+import PorteføljeTabs from './filter/porteføljetabs/PorteføljeTabs';
 import Resultat from './resultat/Resultat';
 import Stillingsbanner from './stillingsbanner/Stillingsbanner';
 import TømFiltre from './filter/TømFiltre';

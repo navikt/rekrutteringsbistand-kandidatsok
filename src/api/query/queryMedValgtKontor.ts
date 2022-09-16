@@ -1,4 +1,4 @@
-import { Portefølje } from '../../filter/PorteføljeTabs';
+import { Portefølje } from '../../filter/porteføljetabs/PorteføljeTabs';
 
 export const queryMedValgtKontor = (portefølje: Portefølje, valgtKontor: Set<string>) => {
     if (portefølje !== Portefølje.VelgKontor) {

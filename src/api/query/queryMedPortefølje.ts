@@ -1,4 +1,4 @@
-import { Portefølje } from '../../filter/PorteføljeTabs';
+import { Portefølje } from '../../filter/porteføljetabs/PorteføljeTabs';
 import { InnloggetBruker } from '../../hooks/useBrukerensIdent';
 
 export const queryMedPortefølje = (portefølje: Portefølje, innloggetBruker: InnloggetBruker) => {

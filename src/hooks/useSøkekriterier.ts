@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Portefølje } from '../filter/PorteføljeTabs';
+import { Portefølje } from '../filter/porteføljetabs/PorteføljeTabs';
 import { FilterParam } from './useRespons';
 import { useKandidatsøkØkt } from '../Økt';
 import { Mål as Hovedmål } from '../filter/Hovedmål';

@@ -7,11 +7,14 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import useOnClickOutside from '../hooks/useOnClickOutside';
-import { Søkekriterier } from '../hooks/useSøkekriterier';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
+import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { Portefølje } from './PorteføljeTabs';
-import VelgKontor from './VelgKontor';
+import VelgKontor from '../VelgKontor';
 import css from './VelgKontorTab.module.css';
+
+const POPOVER_ID = 'velg-kontor-popover';
+const FORSLAG_ID = 'velg-kontor-tab';
 
 type Props = {
     søkekriterier: Søkekriterier;
@@ -33,7 +36,7 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
         }
     };
 
-    useOnClickOutside(onClickOutside, ['velg-kontor-popover', 'velg-kontor-forslag']);
+    useOnClickOutside(onClickOutside, [POPOVER_ID, FORSLAG_ID]);
 
     const onVelgKontorKnappClick: MouseEventHandler<HTMLButtonElement> = () => {
         if (visKontorvelger) {
@@ -64,7 +67,6 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
     return (
         <>
             <Tabs.Tab
-                id="velg-kontor-tab"
                 ref={velgKontorRef}
                 value={Portefølje.VelgKontor}
                 onClick={onVelgKontorTabClick}
@@ -90,13 +92,13 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
             />
             <Popover
                 placement="bottom"
-                id="velg-kontor-popover"
+                id={POPOVER_ID}
                 open={visKontorvelger}
                 anchorEl={velgKontorRef.current}
                 onClose={() => {}}
             >
                 <Popover.Content className={css.popover}>
-                    <VelgKontor forslagId="velg-kontor-forslag" />
+                    <VelgKontor forslagId={FORSLAG_ID} />
                 </Popover.Content>
             </Popover>
         </>

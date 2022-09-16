@@ -1,5 +1,5 @@
 import { sendEvent } from '../../amplitude';
-import { Portefølje } from '../../filter/PorteføljeTabs';
+import { Portefølje } from '../../filter/porteføljetabs/PorteføljeTabs';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 
 export const målQuery = (søkekriterier: Søkekriterier) => {
