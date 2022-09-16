@@ -21,7 +21,7 @@
     .container {
         display: grid;
         grid-template-columns: 20rem 1fr;
-        max-width: 80rem;
+        max-width: var(--app-maksbredde);
     }
 }
 

@@ -1,5 +1,6 @@
 import '@navikt/ds-css';
 import '@reach/combobox/styles.css';
+import './index.css';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
