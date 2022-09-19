@@ -18,6 +18,12 @@
     background-color: var(--navds-global-color-deepblue-100);
 }
 
+.lukkeknapp {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
 .knapp svg {
     transform: translateY(2px);
 }
