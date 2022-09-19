@@ -1,4 +1,4 @@
-import { Collapse, Expand } from '@navikt/ds-icons';
+import { Close, Collapse, Expand } from '@navikt/ds-icons';
 import { Button, Popover, Tabs } from '@navikt/ds-react';
 import React, {
     FunctionComponent,
@@ -62,6 +62,11 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
         }
     };
 
+    const onLukkeknappClick = () => {
+        setVisKontorvelger(false);
+        setBeholdKontorvelger(true);
+    };
+
     const antallKontorerValgt = søkekriterier.valgtKontor.size;
 
     return (
@@ -98,6 +103,14 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
                 onClose={() => {}}
             >
                 <Popover.Content className={css.popover}>
+                    <Button
+                        className={css.lukkeknapp}
+                        size="small"
+                        variant="tertiary"
+                        aria-label=""
+                        onClick={onLukkeknappClick}
+                        icon={<Close />}
+                    />
                     <VelgKontor forslagId={FORSLAG_ID} />
                 </Popover.Content>
             </Popover>
