@@ -107,7 +107,7 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
                         className={css.lukkeknapp}
                         size="small"
                         variant="tertiary"
-                        aria-label=""
+                        aria-label="Lukk kontorvelger"
                         onClick={onLukkeknappClick}
                         icon={<Close />}
                     />
