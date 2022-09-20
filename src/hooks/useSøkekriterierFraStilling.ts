@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Nettressurs } from '../api/Nettressurs';
 import { encodeGeografiforslag } from '../filter/jobbønsker/ØnsketSted';
 import { Stilling } from './useKontekstAvKandidatliste';
-import { FilterParam } from './useRespons';
-import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from './useSøkekriterier';
+import { FilterParam, OtherParam } from './useRespons';
+import useSøkekriterier, { LISTEPARAMETER_SEPARATOR, Søkekriterier } from './useSøkekriterier';
 
 const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
     const { setSearchParam } = useSøkekriterier();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         const anvendSøkekriterier = (stilling: Stilling) => {
@@ -33,11 +35,15 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
             }
         };
 
-        if (stilling.kind === 'suksess') {
+        if (stilling.kind === 'suksess' && harBareKandidatlisteSearchParam(searchParams)) {
             anvendSøkekriterier(stilling.data);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stilling]);
+    }, [stilling, searchParams]);
+};
+
+const harBareKandidatlisteSearchParam = (searchParams: URLSearchParams) => {
+    return Array.from(searchParams.keys()).every((param) => param === OtherParam.Kandidatliste);
 };
 
 export default useSøkekriterierFraStilling;

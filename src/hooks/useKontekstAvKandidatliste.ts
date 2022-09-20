@@ -64,10 +64,10 @@ const useKontekstAvKandidatliste = () => {
         };
 
         const brukKontekst = async (kandidatlisteId: string) => {
-            const listensStilling = await brukKandidatliste(kandidatlisteId);
+            const listensStillingsId = await brukKandidatliste(kandidatlisteId);
 
-            if (listensStilling) {
-                brukStilling(listensStilling);
+            if (listensStillingsId) {
+                brukStilling(listensStillingsId);
             }
         };
 
