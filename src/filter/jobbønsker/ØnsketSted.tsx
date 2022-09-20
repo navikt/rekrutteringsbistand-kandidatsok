@@ -66,7 +66,7 @@ const ØnsketSted = () => {
     );
 };
 
-const encodeGeografiforslag = (decoded: Geografiforslag) => {
+export const encodeGeografiforslag = (decoded: Geografiforslag) => {
     return `${decoded.geografiKodeTekst}${GEOGRAFI_SEPARATOR}${decoded.geografiKode}`;
 };
 

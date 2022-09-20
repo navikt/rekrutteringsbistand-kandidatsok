@@ -4,6 +4,7 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 import { CoApplicant as KandidatlisteIkon, Office1 as StillingIkon } from '@navikt/ds-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import useSøkekriterierFraStilling from '../hooks/useSøkekriterierFraStilling';
 import css from './Stillingsbanner.module.css';
 
 type Props = {
@@ -11,7 +12,9 @@ type Props = {
 };
 
 const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
-    const { kandidatliste, kandidatlisteId } = kontekst;
+    const { kandidatliste, stilling, kandidatlisteId } = kontekst;
+
+    useSøkekriterierFraStilling(stilling);
 
     if (kandidatliste.kind !== 'suksess') {
         return null;
