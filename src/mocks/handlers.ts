@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { kandidatApi } from '../api/api';
+import { kandidatApi, stillingApi } from '../api/api';
 import { Respons } from '../elasticSearchTyper';
 import { Innsatsgruppe } from '../filter/Jobbmuligheter';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
@@ -7,6 +7,7 @@ import {
     mockMineKandidatlister,
     mockLagringAvKandidaterIKandidatliste,
 } from './mockKandidatlister';
+import { mockStilling } from './mockStilling';
 
 export const handlers = [
     rest.get('/meg', (req, res, ctx) =>
@@ -28,6 +29,10 @@ export const handlers = [
 
     rest.get(`${kandidatApi}/veileder/kandidatlister/:kandidatlisteId`, (req, res, ctx) =>
         res(ctx.json(mockMineKandidatlister.liste[0]))
+    ),
+
+    rest.get(`${stillingApi}/rekrutteringsbistandstilling/:stillingsId`, (req, res, ctx) =>
+        res(ctx.json(mockStilling))
     ),
 
     rest.post(

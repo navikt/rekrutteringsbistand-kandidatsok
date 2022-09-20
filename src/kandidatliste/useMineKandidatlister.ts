@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { hentMineKandidatlister } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidatliste } from './LagreKandidaterIMineKandidatlisterModal';
+import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
 
 export type MineKandidatlister = {
     liste: Omit<Kandidatliste, 'kandidater'>[];

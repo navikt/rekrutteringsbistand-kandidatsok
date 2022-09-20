@@ -9,13 +9,15 @@ const getApiKey = () => {
 
 const client: AmplitudeClient = amplitudeJs.getInstance();
 
-client.init(getApiKey(), '', {
-    apiEndpoint: 'amplitude.nav.no/collect',
-    saveEvents: false,
-    includeUtm: true,
-    batchEvents: false,
-    includeReferrer: false,
-});
+if (process.env.NODE_ENV === 'production') {
+    client.init(getApiKey(), '', {
+        apiEndpoint: 'amplitude.nav.no/collect',
+        saveEvents: false,
+        includeUtm: true,
+        batchEvents: false,
+        includeReferrer: false,
+    });
+}
 
 export const setNavKontorIAmplitude = (navKontor: string) => {
     client.setUserProperties({

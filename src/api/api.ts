@@ -6,14 +6,13 @@ import {
     FuzzySuggestQuery,
     FuzzySuggestionRespons,
 } from '../elasticSearchTyper';
-import {
-    Kandidatliste,
-    LagreKandidaterDto,
-} from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
+import { Kandidatliste, Stilling } from '../hooks/useKontekstAvKandidatliste';
+import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
 
 const kandidatsøkProxy = `/kandidatsok-proxy`;
 export const kandidatApi = '/kandidat-api';
+export const stillingApi = '/stilling-api';
 
 export const søk = async (query: SearchQuery): Promise<Respons> => {
     const respons = await post(kandidatsøkProxy, query);
@@ -63,6 +62,12 @@ export const hentKandidatliste = async (kandidatlisteId: string): Promise<Kandid
     const respons = await get(`${kandidatApi}/veileder/kandidatlister/${kandidatlisteId}`);
 
     return parseJsonEllerKastFeil(respons, `Fant ikke kandidatliste med id ${kandidatlisteId}`);
+};
+
+export const hentStilling = async (stillingsId: string): Promise<Stilling> => {
+    const respons = await get(`${stillingApi}/rekrutteringsbistandstilling/${stillingsId}`);
+
+    return parseJsonEllerKastFeil(respons, `Fant ikke kandidatliste med id ${stillingsId}`);
 };
 
 export const lagreKandidaterIValgteKandidatlister = async (

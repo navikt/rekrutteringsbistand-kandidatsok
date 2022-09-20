@@ -3,7 +3,6 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
 import { lagreKandidaterIValgteKandidatlister } from '../api/api';
 import VelgKandidatlister from './VelgKandidatlister';
-import { Kandidat } from '../Kandidat';
 import SøkPåKandidatliste from './SøkPåKandidatliste';
 import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 
@@ -11,19 +10,6 @@ type Props = {
     vis: boolean;
     onClose: () => void;
     markerteKandidater: Set<string>;
-};
-
-export type Kandidatliste = {
-    kandidatlisteId: string;
-    stillingId: string;
-    tittel: string;
-    organisasjonNavn: string | null;
-    antallKandidater: number;
-    kandidater: Kandidat[];
-    opprettetAv: {
-        ident: string;
-        navn: string;
-    };
 };
 
 export type LagreKandidaterDto = Array<{
