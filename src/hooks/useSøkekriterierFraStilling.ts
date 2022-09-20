@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { suggest } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
+import byggSuggestion, { Forslagsfelt } from '../api/query/byggSuggestion';
 import { encodeGeografiforslag } from '../filter/jobbønsker/ØnsketSted';
+import { Geografiforslag } from './useGeografiSuggestions';
 import { Stilling } from './useKontekstAvKandidatliste';
 import { FilterParam, OtherParam } from './useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from './useSøkekriterier';
@@ -11,11 +14,11 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        const anvendSøkekriterier = (stilling: Stilling) => {
+        const anvendSøkekriterier = async (stilling: Stilling) => {
             const yrkerFraStilling = hentØnsketYrkeFraStilling(stilling);
             setSearchParam(FilterParam.ØnsketYrke, yrkerFraStilling);
 
-            const stedFraStilling = hentØnsketStedFraStilling(stilling);
+            const stedFraStilling = await hentØnsketStedFraStilling(stilling);
             if (stedFraStilling) {
                 setSearchParam(FilterParam.ØnsketSted, stedFraStilling);
             }
@@ -33,9 +36,9 @@ const hentØnsketYrkeFraStilling = (stilling: Stilling) => {
     return categoryList.map((s) => s.name).join(LISTEPARAMETER_SEPARATOR);
 };
 
-const hentØnsketStedFraStilling = (stilling: Stilling): string | null => {
+const hentØnsketStedFraStilling = async (stilling: Stilling): Promise<string | null> => {
     const { location } = stilling.stilling;
-    const { municipal, municipalCode } = location;
+    const { municipal, municipalCode, county } = location;
 
     if (municipal && municipalCode) {
         const kommunekode = `NO${municipalCode?.slice(0, 2)}.${municipalCode}`;
@@ -44,9 +47,33 @@ const hentØnsketStedFraStilling = (stilling: Stilling): string | null => {
             geografiKode: kommunekode,
             geografiKodeTekst: formaterStedsnavnSlikDetErRegistrertPåKandidat(municipal),
         });
+    } else if (county) {
+        const fylkeFraEs = await hentFylkeskodeMedFylkesnavn(county);
+
+        if (fylkeFraEs) {
+            const { geografiKode, geografiKodeTekst } = fylkeFraEs;
+
+            return encodeGeografiforslag({
+                geografiKode,
+                geografiKodeTekst,
+            });
+        } else {
+            return null;
+        }
     } else {
         return null;
     }
+};
+
+const hentFylkeskodeMedFylkesnavn = async (
+    fylkesnavn: string
+): Promise<Geografiforslag | undefined> => {
+    const respons = await suggest(byggSuggestion(Forslagsfelt.ØnsketSted, fylkesnavn, 20, true));
+    const forslag = respons.suggest.forslag[0].options.find(
+        (option) => option.text.toLowerCase() === fylkesnavn.toLowerCase()
+    );
+
+    return forslag?._source as Geografiforslag;
 };
 
 const kandidatlisteErEnesteSearchParam = (searchParams: URLSearchParams) =>

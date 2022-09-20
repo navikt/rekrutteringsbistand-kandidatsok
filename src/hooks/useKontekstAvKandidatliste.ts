@@ -110,6 +110,7 @@ export type Stilling = {
             municipalCode: string | null;
             municipal: string | null;
             postalCode: string | null;
+            county: string | null;
         };
     };
 };
