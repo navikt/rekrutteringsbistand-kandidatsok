@@ -26,7 +26,7 @@ const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
         <div role="banner" className={css.container}>
             <div className={css.banner}>
                 <div>
-                    <BodyShort>Finn kandidater til stilling/kandidatliste:</BodyShort>
+                    <BodyShort>Finn kandidater til kandidatliste:</BodyShort>
                     <Heading level="1" size="medium">
                         {tittel}
                     </Heading>

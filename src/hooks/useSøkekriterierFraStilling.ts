@@ -12,25 +12,12 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
 
     useEffect(() => {
         const anvendSøkekriterier = (stilling: Stilling) => {
-            const { categoryList: yrkerFraStilling, location: stedFraStilling } = stilling.stilling;
+            const yrkerFraStilling = hentØnsketYrkeFraStilling(stilling);
+            setSearchParam(FilterParam.ØnsketYrke, yrkerFraStilling);
 
-            setSearchParam(
-                FilterParam.ØnsketYrke,
-                yrkerFraStilling.map((s) => s.name).join(LISTEPARAMETER_SEPARATOR)
-            );
-
-            const { municipal, municipalCode } = stedFraStilling;
-            if (municipal && municipalCode) {
-                const kommunekode = `NO${municipalCode?.slice(0, 2)}.${municipalCode}`;
-
-                setSearchParam(
-                    FilterParam.ØnsketSted,
-                    encodeGeografiforslag({
-                        geografiKode: kommunekode,
-                        geografiKodeTekst:
-                            formaterStedsnavnSlikDetErRegistrertPåKandidat(municipal),
-                    })
-                );
+            const stedFraStilling = hentØnsketStedFraStilling(stilling);
+            if (stedFraStilling) {
+                setSearchParam(FilterParam.ØnsketSted, stedFraStilling);
             }
         };
 
@@ -39,6 +26,27 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stilling]);
+};
+
+const hentØnsketYrkeFraStilling = (stilling: Stilling) => {
+    const { categoryList } = stilling.stilling;
+    return categoryList.map((s) => s.name).join(LISTEPARAMETER_SEPARATOR);
+};
+
+const hentØnsketStedFraStilling = (stilling: Stilling): string | null => {
+    const { location } = stilling.stilling;
+    const { municipal, municipalCode } = location;
+
+    if (municipal && municipalCode) {
+        const kommunekode = `NO${municipalCode?.slice(0, 2)}.${municipalCode}`;
+
+        return encodeGeografiforslag({
+            geografiKode: kommunekode,
+            geografiKodeTekst: formaterStedsnavnSlikDetErRegistrertPåKandidat(municipal),
+        });
+    } else {
+        return null;
+    }
 };
 
 const kandidatlisteErEnesteSearchParam = (searchParams: URLSearchParams) =>
