@@ -26,7 +26,7 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
                     FilterParam.ØnsketSted,
                     encodeGeografiforslag({
                         geografiKode,
-                        geografiKodeTekst,
+                        geografiKodeTekst: formaterStedsnavn(geografiKodeTekst),
                     })
                 );
             }
@@ -42,5 +42,11 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
 const harBareKandidatlisteSearchParam = (searchParams: URLSearchParams) => {
     return Array.from(searchParams.keys()).every((param) => param === OtherParam.Kandidatliste);
 };
+
+const formaterStedsnavn = (inputString: string) =>
+    inputString
+        .split(' ')
+        .map((s) => (s !== 'i' ? s.charAt(0).toUpperCase() + s.substring(1) : s))
+        .join(' ');
 
 export default useSøkekriterierFraStilling;
