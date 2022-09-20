@@ -10,7 +10,7 @@ export const mockStilling: Stilling = {
         ],
         location: {
             municipalCode: '1804',
-            municipal: 'Bodø',
+            municipal: 'BODØ',
             postalCode: null,
         },
     },
