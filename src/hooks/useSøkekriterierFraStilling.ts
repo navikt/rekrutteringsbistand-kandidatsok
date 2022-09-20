@@ -14,9 +14,6 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
         const anvendSøkekriterier = (stilling: Stilling) => {
             const { categoryList: yrkerFraStilling, location: stedFraStilling } = stilling.stilling;
 
-            // TODO: Bare anvend søkekriterier hvis ingen andre filtre er oppgitt
-            // TODO: Anvend alle søkekriterier samtidig ved å eksponere hele setSearchParams
-
             setSearchParam(
                 FilterParam.ØnsketYrke,
                 yrkerFraStilling.map((s) => s.name).join(LISTEPARAMETER_SEPARATOR)
