@@ -4,7 +4,7 @@ import { Nettressurs } from '../api/Nettressurs';
 import { encodeGeografiforslag } from '../filter/jobbønsker/ØnsketSted';
 import { Stilling } from './useKontekstAvKandidatliste';
 import { FilterParam, OtherParam } from './useRespons';
-import useSøkekriterier, { LISTEPARAMETER_SEPARATOR, Søkekriterier } from './useSøkekriterier';
+import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from './useSøkekriterier';
 
 const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
     const { setSearchParam } = useSøkekriterier();
