@@ -103,7 +103,7 @@ export type Kandidatliste = {
 export type Stilling = {
     stilling: {
         categoryList: Array<{
-            categoryType: 'STYRK08' | 'STYRK08NAV' | string;
+            categoryType: 'STYRK08' | 'STYRK08NAV';
             name: string;
         }>;
         location: {

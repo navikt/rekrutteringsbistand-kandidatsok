@@ -33,7 +33,13 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
 
 const hentØnsketYrkeFraStilling = (stilling: Stilling) => {
     const { categoryList } = stilling.stilling;
-    return categoryList.map((s) => s.name).join(LISTEPARAMETER_SEPARATOR);
+    return categoryList
+        .filter(
+            (category) =>
+                category.categoryType === 'STYRK08' || category.categoryType === 'STYRK08NAV'
+        )
+        .map((category) => category.name)
+        .join(LISTEPARAMETER_SEPARATOR);
 };
 
 const hentØnsketStedFraStilling = async (stilling: Stilling): Promise<string | null> => {
