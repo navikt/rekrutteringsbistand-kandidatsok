@@ -18,7 +18,7 @@ const Merkelapp: FunctionComponent<Props> = ({ onClick, children }) => {
             className={css.merkelapp}
             title={typeof children === 'string' ? children : undefined}
         >
-            <span className={css.tekst}>{children}</span>
+            <span>{children}</span>
             <Close />
         </button>
     );
