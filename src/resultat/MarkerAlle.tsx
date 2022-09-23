@@ -40,7 +40,7 @@ const MarkerAlle: FunctionComponent<Props> = ({
 
     return (
         <Checkbox checked={alleKandidaterErMarkert} onChange={onChange}>
-            <span className={css.markerAlleLabel}>Marker alle kandidater</span>
+            <span className={css.markerAlleLabel}>Marker alle på siden</span>
         </Checkbox>
     );
 };
