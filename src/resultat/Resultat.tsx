@@ -47,15 +47,15 @@ const Resultat = ({
                 </Heading>
                 <div>{knapper}</div>
             </div>
-            {erIkkeProd && (
-                <div className={css.overKandidater}>
+            <div className={css.overKandidater}>
+                {erIkkeProd && kandidater.length > 0 && (
                     <MarkerAlle
                         kandidater={kandidater}
                         markerteKandidater={markerteKandidater}
                         onMarkerKandidat={onMarkerKandidat}
                     />
-                </div>
-            )}
+                )}
+            </div>
             <ul className={css.kandidater}>
                 {kandidater.map((kandidat) => (
                     <Kandidatrad
