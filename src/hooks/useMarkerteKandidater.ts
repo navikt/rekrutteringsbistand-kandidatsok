@@ -5,16 +5,20 @@ const useMarkerteKandidater = (initiellVerdi: string[] = []) => {
         new Set(initiellVerdi)
     );
 
-    const onMarkerKandidat = (kandidatNr: string) => {
-        const nyeMarkerteKandidater = new Set(markerteKandidater);
+    const onMarkerKandidat = (kandidatNr: string | string[]) => {
+        if (typeof kandidatNr === 'string') {
+            const nyeMarkerteKandidater = new Set(markerteKandidater);
 
-        if (markerteKandidater.has(kandidatNr)) {
-            nyeMarkerteKandidater.delete(kandidatNr);
+            if (markerteKandidater.has(kandidatNr)) {
+                nyeMarkerteKandidater.delete(kandidatNr);
+            } else {
+                nyeMarkerteKandidater.add(kandidatNr);
+            }
+
+            setMarkerteKandidater(nyeMarkerteKandidater);
         } else {
-            nyeMarkerteKandidater.add(kandidatNr);
+            setMarkerteKandidater(new Set(kandidatNr));
         }
-
-        setMarkerteKandidater(nyeMarkerteKandidater);
     };
 
     const fjernMarkering = () => {

@@ -1,18 +1,19 @@
 import React, { ReactNode, useEffect } from 'react';
 import { Heading } from '@navikt/ds-react';
 
-import { formaterStortTall } from '../utils';
+import { erIkkeProd, formaterStortTall } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Respons } from '../elasticSearchTyper';
 import { useKandidatsøkØkt } from '../Økt';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import css from './Resultat.module.css';
+import MarkerAlle from './MarkerAlle';
 
 export type Props = {
     respons: Respons;
     markerteKandidater: Set<string>;
-    onMarkerKandidat: (kandidatNr: string) => void;
+    onMarkerKandidat: (kandidatNr: string | string[]) => void;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
     knapper: ReactNode;
 };
@@ -46,6 +47,15 @@ const Resultat = ({
                 </Heading>
                 <div>{knapper}</div>
             </div>
+            {erIkkeProd && (
+                <div className={css.overKandidater}>
+                    <MarkerAlle
+                        kandidater={kandidater}
+                        markerteKandidater={markerteKandidater}
+                        onMarkerKandidat={onMarkerKandidat}
+                    />
+                </div>
+            )}
             <ul className={css.kandidater}>
                 {kandidater.map((kandidat) => (
                     <Kandidatrad
