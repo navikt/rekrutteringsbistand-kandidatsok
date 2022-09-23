@@ -7,8 +7,8 @@ import { Respons } from '../elasticSearchTyper';
 import { useKandidatsøkØkt } from '../Økt';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
-import css from './Resultat.module.css';
 import MarkerAlle from './MarkerAlle';
+import css from './Resultat.module.css';
 
 export type Props = {
     respons: Respons;

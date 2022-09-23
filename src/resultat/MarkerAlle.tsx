@@ -2,6 +2,7 @@ import React from 'react';
 import { Checkbox } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { Kandidat } from '../Kandidat';
+import css from './Resultat.module.css';
 
 type Props = {
     kandidater: Kandidat[];
@@ -39,7 +40,7 @@ const MarkerAlle: FunctionComponent<Props> = ({
 
     return (
         <Checkbox checked={alleKandidaterErMarkert} onChange={onChange}>
-            Marker alle kandidater
+            <span className={css.markerAlleLabel}>Marker alle kandidater</span>
         </Checkbox>
     );
 };
