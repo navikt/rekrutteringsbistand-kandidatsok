@@ -25,6 +25,13 @@
     }
 }
 
+@media (min-width: 1700px) {
+    .container {
+        grid-template-columns: 22rem 1fr;
+        max-width: var(--app-maksbredde-stor);
+    }
+}
+
 .lasterInn {
     align-self: center;
     margin: 5rem 1rem;

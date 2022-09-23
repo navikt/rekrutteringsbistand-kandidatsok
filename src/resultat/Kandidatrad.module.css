@@ -30,15 +30,18 @@
 
 .innsatsgruppe {
     text-align: left;
-
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
 }
 
 .jobbønske {
     grid-column: span 2;
+}
+
+.innsatsgruppe,
+.jobbønske p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 @media (min-width: 500px) {
@@ -52,5 +55,26 @@
 
     .innsatsgruppe {
         text-align: right;
+    }
+}
+
+@media (min-width: 1700px) {
+    .kandidatinformasjon {
+        grid-template-columns: 20rem 2fr auto;
+        grid-template-areas: 'navn jobbønske innsatsgruppe';
+    }
+
+    .navn {
+        grid-area: navn;
+        align-self: center;
+    }
+
+    .jobbønske {
+        grid-area: jobbønske;
+    }
+
+    .innsatsgruppe {
+        grid-area: innsatsgruppe;
+        align-self: center;
     }
 }
