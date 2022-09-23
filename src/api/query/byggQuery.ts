@@ -17,7 +17,7 @@ import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { queryMedValgtKontor } from './queryMedValgtKontor';
 
-export const PAGE_SIZE = 20;
+export const PAGE_SIZE = 25;
 
 const interessanteKandidatfelter = [
     'fodselsnummer',
