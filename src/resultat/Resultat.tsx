@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { Heading } from '@navikt/ds-react';
 
-import { erIkkeProd, formaterStortTall } from '../utils';
+import { formaterStortTall } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Respons } from '../elasticSearchTyper';
 import { useKandidatsøkØkt } from '../Økt';
@@ -48,7 +48,7 @@ const Resultat = ({
                 <div>{knapper}</div>
             </div>
             <div className={css.overKandidater}>
-                {erIkkeProd && kandidater.length > 0 && (
+                {kandidater.length > 0 && (
                     <MarkerAlle
                         kandidater={kandidater}
                         markerteKandidater={markerteKandidater}
