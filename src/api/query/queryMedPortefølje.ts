@@ -6,7 +6,7 @@ export const queryMedPortefølje = (portefølje: Portefølje, innloggetBruker: I
         return [
             {
                 term: {
-                    veileder: innloggetBruker.navIdent || '',
+                    veileder: (innloggetBruker.navIdent || '').toLowerCase(),
                 },
             },
         ];
