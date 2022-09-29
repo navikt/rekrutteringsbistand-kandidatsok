@@ -101,6 +101,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
 
 const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandidatliste): boolean => {
     return kandidatliste.kandidater.some((kandidatPåLista) => {
+        console.log("Sammenligner " + kandidat.arenaKandidatnr + " med " + kandidatPåLista.kandidatnr);
         return kandidatPåLista.kandidatnr === kandidat.arenaKandidatnr;
     });
 }
