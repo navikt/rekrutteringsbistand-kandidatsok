@@ -32,6 +32,9 @@ const Utviklingsapp = () => {
                 <Link to="/kandidatsok" className="navds-link">
                     Kandidatsøk
                 </Link>
+                <Link to="/kandidatsok?kandidatliste=123" className="navds-link">
+                    Finn kandidater
+                </Link>
             </header>
             <Routes>
                 <Route
