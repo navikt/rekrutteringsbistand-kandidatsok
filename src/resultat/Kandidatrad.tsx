@@ -102,7 +102,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
 const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandidatliste): boolean => {
     console.log("Sjekker om noen av kandidatene i søketreffet allerede finnes på lista");
     console.log("Sjekker lista om noen av kandidatene har kandidatnr " + kandidat.arenaKandidatnr);
-    kandidatliste.kandidater.some((kandidatPåLista) => {
+    return kandidatliste.kandidater.some((kandidatPåLista) => {
         console.log("Sammenligner mot " + kandidatPåLista.arenaKandidatnr);
         return kandidatPåLista.arenaKandidatnr === kandidat.arenaKandidatnr;
     });
