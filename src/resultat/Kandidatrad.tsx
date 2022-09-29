@@ -1,11 +1,10 @@
 import React, { FunctionComponent, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
-import { Heart, Place } from '@navikt/ds-icons';
-
+import { Heart, Place, DecisionCheck } from '@navikt/ds-icons';
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
 import { useKandidatsøkØkt } from '../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
@@ -35,6 +34,15 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
+    const kandidatliste: Kandidatliste | null =
+        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
+            ? kontekstAvKandidatliste.kandidatliste.data
+            : null;
+
+    const kandidatAlleredeLagtTilPåKandidatlista: boolean = kandidatliste
+        ? kandidatenErPåKandidatlista(kandidat, kandidatliste)
+        : false;
+
     return (
         <div
             ref={element}
@@ -42,7 +50,13 @@ const Kandidatrad: FunctionComponent<Props> = ({
             key={kandidat.fodselsnummer}
             aria-selected={markert}
         >
-            <Checkbox hideLabel value={kandidat} checked={markert} onChange={onMarker}>
+            <Checkbox
+                hideLabel
+                value={kandidat}
+                checked={markert}
+                onChange={onMarker}
+                disabled={kandidatAlleredeLagtTilPåKandidatlista}
+            >
                 Valgt
             </Checkbox>
             <div className={css.kandidatinformasjon}>
@@ -60,28 +74,40 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 <Detail className={css.innsatsgruppe}>
                     {alleInnsatsgrupper[kandidat.kvalifiseringsgruppekode].label}
                 </Detail>
-                {(alleØnskedeYrker || alleØnskedeSteder) && (
-                    <div className={css.jobbønske}>
-                        {alleØnskedeYrker && (
-                            <TekstlinjeMedIkon
-                                label="Ønsket yrke"
-                                ikon={<Heart />}
-                                tekst={alleØnskedeYrker}
-                            />
-                        )}
-                        {alleØnskedeSteder && (
-                            <TekstlinjeMedIkon
-                                label="Ønsket sted"
-                                ikon={<Place />}
-                                tekst={alleØnskedeSteder}
-                            />
-                        )}
-                    </div>
-                )}
+                <div>
+                    {(alleØnskedeYrker || alleØnskedeSteder) && (
+                        <div className={css.jobbønske}>
+                            {alleØnskedeYrker && (
+                                <TekstlinjeMedIkon
+                                    label="Ønsket yrke"
+                                    ikon={<Heart />}
+                                    tekst={alleØnskedeYrker}
+                                />
+                            )}
+                            {alleØnskedeSteder && (
+                                <TekstlinjeMedIkon
+                                    label="Ønsket sted"
+                                    ikon={<Place />}
+                                    tekst={alleØnskedeSteder}
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+                <div className={css.kandidatPåListe}>
+                    {kandidatAlleredeLagtTilPåKandidatlista &&
+                        <DecisionCheck height="1.5rem" width="1.5rem"/>
+                    }
+                </div>
             </div>
         </div>
     );
 };
+
+const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandidatliste): boolean =>
+    kandidatliste.kandidater.some((kandidatPåLista) => {
+        return kandidatPåLista.arenaKandidatnr === kandidat.arenaKandidatnr;
+    });
 
 export const hentKandidatensNavn = (kandidat: Kandidat) =>
     `${storForbokstav(kandidat.etternavn)}, ${storForbokstav(kandidat.fornavn)}`;

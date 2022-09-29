@@ -36,6 +36,11 @@
     grid-column: span 2;
 }
 
+.kandidatPåListe {
+    text-align: right;
+    color: var(--navds-global-color-green-500);
+}
+
 .innsatsgruppe,
 .jobbønske p {
     overflow: hidden;
