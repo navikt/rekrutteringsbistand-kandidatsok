@@ -2,7 +2,7 @@ import { BodyLong, Button, Heading, Loader, Modal } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { lagreKandidaterIKandidatliste } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { LagreKandidaterDto } from './LagreKandidaterIMineKandidatlisterModal';
 import css from './LagreKandidaterISpesifikkKandidatlisteModal.module.css';
 
@@ -11,7 +11,7 @@ type Props = {
     onClose: () => void;
     markerteKandidater: Set<string>;
     kontekstAvKandidatliste: KontekstAvKandidatliste;
-    onSuksess: () => void;
+    onSuksess: (kandidatliste: Kandidatliste) => void;
 };
 
 const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
@@ -38,10 +38,8 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
                 kandidatlisteId
             );
 
-            /* TODO: Bruk oppdatert kandidatliste etter POST som ny kandidatliste i konteksten */
-
             setLagreKandidater({ kind: 'suksess', data: lagreKandidaterDto });
-            onSuksess();
+            onSuksess(oppdatertKandidatliste);
             onClose();
         } catch (e) {
             setLagreKandidater({

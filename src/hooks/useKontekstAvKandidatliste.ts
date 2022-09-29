@@ -8,6 +8,7 @@ export type KontekstAvKandidatliste = {
     kandidatlisteId: string;
     kandidatliste: Nettressurs<Kandidatliste>;
     stilling: Nettressurs<Stilling>;
+    setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => void;
 };
 
 const useKontekstAvKandidatliste = () => {
@@ -83,6 +84,10 @@ const useKontekstAvKandidatliste = () => {
             kandidatlisteId,
             kandidatliste,
             stilling,
+            setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => setKandidatliste({
+                kind: 'suksess',
+                data: kandidatliste,
+            }),
         };
     }
 };
