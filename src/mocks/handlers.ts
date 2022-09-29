@@ -40,7 +40,6 @@ export const handlers = [
         `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
         async (req, res, ctx) => {
             const lagreKandidaterDto: LagreKandidaterDto = await req.json();
-            const kandidatlisteId = req.params['kandidatlisteId'] as string;
 
             return res(
                 ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto))
