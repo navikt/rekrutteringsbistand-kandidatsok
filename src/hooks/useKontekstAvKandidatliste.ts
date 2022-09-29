@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { hentKandidatliste, hentStilling } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidat } from '../Kandidat';
 
 export type KontekstAvKandidatliste = {
     kandidatlisteId: string;

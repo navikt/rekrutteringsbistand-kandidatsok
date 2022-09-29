@@ -43,7 +43,7 @@ export const handlers = [
             const kandidatlisteId = req.params['kandidatlisteId'] as string;
 
             return res(
-                ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto, kandidatlisteId))
+                ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto))
             );
         }
     ),

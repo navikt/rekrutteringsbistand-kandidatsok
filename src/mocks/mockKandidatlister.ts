@@ -1,8 +1,6 @@
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
-import { Kandidat } from '../Kandidat';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
-import { Innsatsgruppe } from '../filter/Jobbmuligheter';
 
 export const mockMineKandidatlister: MineKandidatlister = {
     liste: [
@@ -47,8 +45,7 @@ export const mockKandidatliste = (): Kandidatliste => {
 };
 
 export const mockLagringAvKandidaterIKandidatliste = (
-    lagreKandidaterDto: LagreKandidaterDto,
-    kandidatlisteId: string
+    lagreKandidaterDto: LagreKandidaterDto
 ): Kandidatliste => {
     const utdatertListe = mockKandidatliste();
 
