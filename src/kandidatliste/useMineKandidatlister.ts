@@ -3,8 +3,12 @@ import { hentMineKandidatlister } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
 
+type MinKandidatliste = Omit<Kandidatliste, 'kandidater'> & {
+    antallKandidater: number;
+};
+
 export type MineKandidatlister = {
-    liste: Omit<Kandidatliste, 'kandidater'>[];
+    liste: MinKandidatliste[];
     antall: number;
 };
 

@@ -5,7 +5,8 @@ import { Innsatsgruppe } from '../filter/Jobbmuligheter';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import {
     mockMineKandidatlister,
-    mockLagringAvKandidaterIKandidatliste, mockKandidatliste,
+    mockLagringAvKandidaterIKandidatliste,
+    mockKandidatliste,
 } from './mockKandidatlister';
 import { mockStilling } from './mockStilling';
 
@@ -24,11 +25,11 @@ export const handlers = [
 
     rest.get(
         `${kandidatApi}/veileder/stilling/byNr/:annonsenummer/kandidatliste`,
-        (req, res, ctx) => res(ctx.json(mockKandidatliste))
+        (req, res, ctx) => res(ctx.json(mockKandidatliste()))
     ),
 
     rest.get(`${kandidatApi}/veileder/kandidatlister/:kandidatlisteId`, (req, res, ctx) =>
-        res(ctx.json(mockKandidatliste))
+        res(ctx.json(mockKandidatliste()))
     ),
 
     rest.get(`${stillingApi}/rekrutteringsbistandstilling/:stillingsId`, (req, res, ctx) =>

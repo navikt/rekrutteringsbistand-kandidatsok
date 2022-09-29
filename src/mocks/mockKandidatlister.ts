@@ -32,33 +32,36 @@ export const mockMineKandidatlister: MineKandidatlister = {
     antall: 32,
 };
 
-export const mockKandidatliste: Kandidatliste = {
-    ...mockMineKandidatlister.liste[0],
-    kandidater: [
-        {
-            fodselsnummer: "01010012345",
-            fornavn: "Fornavn",
-            etternavn: "Etternavn",
-            arenaKandidatnr: "PAM017l0yhd38",
-            kvalifiseringsgruppekode: Innsatsgruppe.SituasjonsbestemtInnsats,
-            yrkeJobbonskerObj: [],
-            geografiJobbonsker: [],
-        }
-    ]
-}
+export const mockKandidatliste = (): Kandidatliste => {
+    const kandidatliste: any = {
+        ...mockMineKandidatlister.liste[0],
+        kandidater: [
+            {
+                fodselsnummer: '01010012345',
+                fornavn: 'Fornavn',
+                etternavn: 'Etternavn',
+                arenaKandidatnr: 'PAM017l0yhd38',
+                kvalifiseringsgruppekode: Innsatsgruppe.SituasjonsbestemtInnsats,
+                yrkeJobbonskerObj: [],
+                geografiJobbonsker: [],
+            },
+        ],
+    };
+
+    delete kandidatliste.antallKandidater;
+    return kandidatliste as Kandidatliste;
+};
 
 export const mockLagringAvKandidaterIKandidatliste = (
     lagreKandidaterDto: LagreKandidaterDto,
     kandidatlisteId: string
 ): Kandidatliste => {
-    const oppdatertListe = mockMineKandidatlister.liste.find(
-        (liste) => liste.kandidatlisteId === kandidatlisteId
-    )!;
+    const utdatertListe = mockKandidatliste();
 
     return {
-        ...oppdatertListe,
-        antallKandidater: oppdatertListe.antallKandidater + lagreKandidaterDto.length,
+        ...utdatertListe,
         kandidater: [
+            ...utdatertListe.kandidater,
             ...lagreKandidaterDto.map((k) => ({ arenaKandidatnr: k.kandidatnr } as Kandidat)),
         ],
     };

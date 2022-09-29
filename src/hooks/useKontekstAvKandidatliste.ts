@@ -92,7 +92,6 @@ export type Kandidatliste = {
     stillingId: string;
     tittel: string;
     organisasjonNavn: string | null;
-    antallKandidater: number;
     kandidater: Kandidat[];
     opprettetAv: {
         ident: string;

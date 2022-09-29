@@ -33,7 +33,12 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
         setLagreKandidater({ kind: 'laster-opp', data: lagreKandidaterDto });
 
         try {
-            await lagreKandidaterIKandidatliste(lagreKandidaterDto, kandidatlisteId);
+            const oppdatertKandidatliste = await lagreKandidaterIKandidatliste(
+                lagreKandidaterDto,
+                kandidatlisteId
+            );
+
+            /* TODO: Bruk oppdatert kandidatliste etter POST som ny kandidatliste i konteksten */
 
             setLagreKandidater({ kind: 'suksess', data: lagreKandidaterDto });
             onSuksess();
@@ -41,7 +46,7 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
         } catch (e) {
             setLagreKandidater({
                 kind: 'feil',
-                error: e as string,
+                error: typeof e === 'string' ? e : String(e),
             });
         }
     };
