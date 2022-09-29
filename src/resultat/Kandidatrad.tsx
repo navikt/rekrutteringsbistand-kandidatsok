@@ -34,13 +34,8 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
-    const kandidatliste: Kandidatliste | null =
-        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
-            ? kontekstAvKandidatliste.kandidatliste.data
-            : null;
-
-    const kandidatAlleredeLagtTilPåKandidatlista: boolean = kandidatliste
-        ? kandidatenErPåKandidatlista(kandidat, kandidatliste)
+    const kandidatAlleredeLagtTilPåKandidatlista = kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
+        ? kandidatenErPåKandidatlista(kandidat, kontekstAvKandidatliste.kandidatliste.data)
         : false;
 
     return (
@@ -104,10 +99,14 @@ const Kandidatrad: FunctionComponent<Props> = ({
     );
 };
 
-const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandidatliste): boolean =>
+const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandidatliste): boolean => {
+    console.log("Sjekker om noen av kandidatene i søketreffet allerede finnes på lista");
+    console.log("Sjekker lista om noen av kandidatene har kandidatnr " + kandidat.arenaKandidatnr);
     kandidatliste.kandidater.some((kandidatPåLista) => {
+        console.log("Sammenligner mot " + kandidatPåLista.arenaKandidatnr);
         return kandidatPåLista.arenaKandidatnr === kandidat.arenaKandidatnr;
     });
+}
 
 export const hentKandidatensNavn = (kandidat: Kandidat) =>
     `${storForbokstav(kandidat.etternavn)}, ${storForbokstav(kandidat.fornavn)}`;
