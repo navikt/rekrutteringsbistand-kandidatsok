@@ -37,13 +37,7 @@ export const mockKandidatliste = (): Kandidatliste => {
         ...mockMineKandidatlister.liste[0],
         kandidater: [
             {
-                fodselsnummer: '01010012345',
-                fornavn: 'Fornavn',
-                etternavn: 'Etternavn',
                 arenaKandidatnr: 'PAM017l0yhd38',
-                kvalifiseringsgruppekode: Innsatsgruppe.SituasjonsbestemtInnsats,
-                yrkeJobbonskerObj: [],
-                geografiJobbonsker: [],
             },
         ],
     };
@@ -62,7 +56,7 @@ export const mockLagringAvKandidaterIKandidatliste = (
         ...utdatertListe,
         kandidater: [
             ...utdatertListe.kandidater,
-            ...lagreKandidaterDto.map((k) => ({ arenaKandidatnr: k.kandidatnr } as Kandidat)),
+            ...lagreKandidaterDto.map((k) => ({ kandidatnr: k.kandidatnr })),
         ],
     };
 };
