@@ -55,7 +55,7 @@ const App = ({ navKontor }: AppProps) => {
     const { forrigeØkt, setØkt } = useKandidatsøkØkt();
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
-        forrigeØkt.markerteKandidater,
+        forrigeØkt.markerteKandidater
     );
 
     useEffect(() => {
@@ -76,15 +76,15 @@ const App = ({ navKontor }: AppProps) => {
         setAktivModal(
             kontekstAvKandidatliste
                 ? Modal.BekreftLagreIKandidatliste
-                : Modal.LagreIMineKandidatlister,
+                : Modal.LagreIMineKandidatlister
         );
     };
 
     const onSuccessLagretKandidaterISpesifikkKandidatliste = (
-        oppdatertKandidatliste: Kandidatliste,
+        oppdatertKandidatliste: Kandidatliste
     ) => {
         fjernMarkering();
-        kontekstAvKandidatliste?.setOppdatertKandidatliste(oppdatertKandidatliste)
+        kontekstAvKandidatliste?.setOppdatertKandidatliste(oppdatertKandidatliste);
     };
 
     return (
@@ -96,28 +96,28 @@ const App = ({ navKontor }: AppProps) => {
                 <TømFiltre />
                 <aside className={css.filter}>
                     <Fritekstsøk />
-                    <Filtergruppe tittel='Jobbønske'>
+                    <Filtergruppe tittel="Jobbønske">
                         <ØnsketYrke />
                         <ØnsketSted />
                         <BorPåØnsketSted />
                     </Filtergruppe>
-                    <Filtergruppe tittel='Jobbmuligheter'>
+                    <Filtergruppe tittel="Jobbmuligheter">
                         <Jobbmuligheter />
                     </Filtergruppe>
-                    <Filtergruppe tittel='Hovedmål'>
+                    <Filtergruppe tittel="Hovedmål">
                         <Hovedmål />
                     </Filtergruppe>
-                    <Filtergruppe tittel='Krav til kandidaten'>
+                    <Filtergruppe tittel="Krav til kandidaten">
                         <Kompetanse />
                         <Førerkort />
                         <Språk />
                         <Arbeidserfaring />
                         <Utdanningsnivå />
                     </Filtergruppe>
-                    <Filtergruppe tittel='Prioriterte målgrupper'>
+                    <Filtergruppe tittel="Prioriterte målgrupper">
                         <PrioriterteMålgrupper />
                     </Filtergruppe>
-                    <Filtergruppe tittel='Tilretteleggingsbehov'>
+                    <Filtergruppe tittel="Tilretteleggingsbehov">
                         <HarTilretteleggingsbehov />
                         <VelgBehovskategorier />
                     </Filtergruppe>
@@ -126,8 +126,8 @@ const App = ({ navKontor }: AppProps) => {
                     <main className={css.hovedinnhold}>
                         {respons.kind === 'laster-inn' && (
                             <Loader
-                                variant='interaction'
-                                size='2xlarge'
+                                variant="interaction"
+                                size="2xlarge"
                                 className={css.lasterInn}
                             />
                         )}
@@ -141,9 +141,9 @@ const App = ({ navKontor }: AppProps) => {
                                     <>
                                         {markerteKandidater.size > 0 && (
                                             <Button
-                                                size='small'
-                                                variant='secondary'
-                                                aria-label='Fjern markerte kandidater'
+                                                size="small"
+                                                variant="secondary"
+                                                aria-label="Fjern markerte kandidater"
                                                 icon={<Error aria-hidden />}
                                                 className={css.fjernMarkeringKnapp}
                                                 onClick={fjernMarkering}
@@ -152,8 +152,8 @@ const App = ({ navKontor }: AppProps) => {
                                             </Button>
                                         )}
                                         <Button
-                                            size='small'
-                                            variant='primary'
+                                            size="small"
+                                            variant="primary"
                                             icon={<AddPerson aria-hidden />}
                                             disabled={markerteKandidater.size === 0}
                                             onClick={onLagreIKandidatlisteClick}
