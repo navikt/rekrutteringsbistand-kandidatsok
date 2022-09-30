@@ -34,9 +34,10 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
-    const kandidatAlleredeLagtTilPåKandidatlista = kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
-        ? kandidatenErPåKandidatlista(kandidat, kontekstAvKandidatliste.kandidatliste.data)
-        : false;
+    const kandidatAlleredeLagtTilPåKandidatlista =
+        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
+            ? kandidatenErPåKandidatlista(kandidat, kontekstAvKandidatliste.kandidatliste.data)
+            : false;
 
     return (
         <div
@@ -89,11 +90,12 @@ const Kandidatrad: FunctionComponent<Props> = ({
                         </div>
                     )}
                 </div>
-                <div className={css.kandidatPåListe}>
-                    {kandidatAlleredeLagtTilPåKandidatlista &&
-                        <DecisionCheck height="1.5rem" width="1.5rem"/>
-                    }
-                </div>
+
+                {kandidatAlleredeLagtTilPåKandidatlista && (
+                    <div className={css.kandidatPåListe}>
+                        <DecisionCheck />
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -103,7 +105,7 @@ const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandida
     return kandidatliste.kandidater.some((kandidatPåLista) => {
         return kandidatPåLista.kandidatnr === kandidat.arenaKandidatnr;
     });
-}
+};
 
 export const hentKandidatensNavn = (kandidat: Kandidat) =>
     `${storForbokstav(kandidat.etternavn)}, ${storForbokstav(kandidat.fornavn)}`;

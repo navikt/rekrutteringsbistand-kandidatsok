@@ -3,6 +3,7 @@
     align-items: center;
     gap: 1.5rem;
     padding: 1rem;
+    position: relative;
 }
 
 .kandidatrad:focus {
@@ -36,17 +37,32 @@
     grid-column: span 2;
 }
 
-.kandidatPåListe {
-    text-align: right;
-    color: var(--navds-global-color-green-500);
-}
-
 .innsatsgruppe,
 .jobbønske p {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+}
+
+.kandidatPåListe {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(
+        to top left,
+        transparent 0%,
+        transparent 50%,
+        var(--navds-global-color-green-200) 50%,
+        var(--navds-global-color-green-200) 100%
+    );
+    height: 3.25rem;
+    width: 3.25rem;
+}
+
+.kandidatPåListe svg {
+    color: var(--navds-global-color-green-600);
+    transform: translate(5px, 7px) scale(1.25);
 }
 
 @media (min-width: 500px) {
