@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { hentKandidatliste, hentStilling } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidat } from '../Kandidat';
 
 export type KontekstAvKandidatliste = {
     kandidatlisteId: string;
     kandidatliste: Nettressurs<Kandidatliste>;
     stilling: Nettressurs<Stilling>;
+    setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => void;
 };
 
 const useKontekstAvKandidatliste = () => {
@@ -83,6 +83,10 @@ const useKontekstAvKandidatliste = () => {
             kandidatlisteId,
             kandidatliste,
             stilling,
+            setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => setKandidatliste({
+                kind: 'suksess',
+                data: kandidatliste,
+            }),
         };
     }
 };
@@ -92,8 +96,7 @@ export type Kandidatliste = {
     stillingId: string;
     tittel: string;
     organisasjonNavn: string | null;
-    antallKandidater: number;
-    kandidater: Kandidat[];
+    kandidater: Array<{kandidatnr: string}>;
     opprettetAv: {
         ident: string;
         navn: string;

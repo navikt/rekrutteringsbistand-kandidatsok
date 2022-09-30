@@ -1,11 +1,10 @@
 import React, { FunctionComponent, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
-import { Heart, Place } from '@navikt/ds-icons';
-
+import { Heart, Place, DecisionCheck } from '@navikt/ds-icons';
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
 import { useKandidatsøkØkt } from '../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
@@ -35,6 +34,11 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
+    const kandidatAlleredeLagtTilPåKandidatlista =
+        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
+            ? kandidatenErPåKandidatlista(kandidat, kontekstAvKandidatliste.kandidatliste.data)
+            : false;
+
     return (
         <div
             ref={element}
@@ -42,7 +46,13 @@ const Kandidatrad: FunctionComponent<Props> = ({
             key={kandidat.fodselsnummer}
             aria-selected={markert}
         >
-            <Checkbox hideLabel value={kandidat} checked={markert} onChange={onMarker}>
+            <Checkbox
+                hideLabel
+                value={kandidat}
+                checked={markert}
+                onChange={onMarker}
+                disabled={kandidatAlleredeLagtTilPåKandidatlista}
+            >
                 Valgt
             </Checkbox>
             <div className={css.kandidatinformasjon}>
@@ -78,9 +88,23 @@ const Kandidatrad: FunctionComponent<Props> = ({
                         )}
                     </div>
                 )}
+                {kandidatAlleredeLagtTilPåKandidatlista && (
+                    <div
+                        title="Kandidater er allerede lagt til på kandidatlisten"
+                        className={css.kandidatPåListe}
+                    >
+                        <DecisionCheck />
+                    </div>
+                )}
             </div>
         </div>
     );
+};
+
+const kandidatenErPåKandidatlista = (kandidat: Kandidat, kandidatliste: Kandidatliste): boolean => {
+    return kandidatliste.kandidater.some((kandidatPåLista) => {
+        return kandidatPåLista.kandidatnr === kandidat.arenaKandidatnr;
+    });
 };
 
 export const hentKandidatensNavn = (kandidat: Kandidat) =>

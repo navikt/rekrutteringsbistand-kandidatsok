@@ -13,7 +13,7 @@ import Resultat from './resultat/Resultat';
 import Stillingsbanner from './stillingsbanner/Stillingsbanner';
 import TømFiltre from './filter/TømFiltre';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
-import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
+import useKontekstAvKandidatliste, { Kandidatliste } from './hooks/useKontekstAvKandidatliste';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useRespons from './hooks/useRespons';
 import useScrollPosition from './hooks/useScrollPosition';
@@ -78,6 +78,13 @@ const App = ({ navKontor }: AppProps) => {
                 ? Modal.BekreftLagreIKandidatliste
                 : Modal.LagreIMineKandidatlister
         );
+    };
+
+    const onSuccessLagretKandidaterISpesifikkKandidatliste = (
+        oppdatertKandidatliste: Kandidatliste
+    ) => {
+        fjernMarkering();
+        kontekstAvKandidatliste?.setOppdatertKandidatliste(oppdatertKandidatliste);
     };
 
     return (
@@ -172,7 +179,7 @@ const App = ({ navKontor }: AppProps) => {
                     onClose={() => setAktivModal(null)}
                     markerteKandidater={markerteKandidater}
                     kontekstAvKandidatliste={kontekstAvKandidatliste}
-                    onSuksess={fjernMarkering}
+                    onSuksess={onSuccessLagretKandidaterISpesifikkKandidatliste}
                 />
             )}
         </>

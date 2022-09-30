@@ -73,7 +73,7 @@ export const hentStilling = async (stillingsId: string): Promise<Stilling> => {
 export const lagreKandidaterIValgteKandidatlister = async (
     lagreKandidaterDto: LagreKandidaterDto,
     kandidatlister: string[]
-): Promise<MineKandidatlister[]> => {
+): Promise<Kandidatliste[]> => {
     return Promise.all(
         kandidatlister.map((kandidatlisteId) =>
             lagreKandidaterIKandidatliste(lagreKandidaterDto, kandidatlisteId)
@@ -84,7 +84,7 @@ export const lagreKandidaterIValgteKandidatlister = async (
 export const lagreKandidaterIKandidatliste = async (
     lagreKandidaterDto: LagreKandidaterDto,
     kandidatlisteId: string
-): Promise<MineKandidatlister> => {
+): Promise<Kandidatliste> => {
     const respons = await post(
         `${kandidatApi}/veileder/kandidatlister/${kandidatlisteId}/kandidater`,
         lagreKandidaterDto

@@ -5,7 +5,8 @@ import { Innsatsgruppe } from '../filter/Jobbmuligheter';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import {
     mockMineKandidatlister,
-    mockLagringAvKandidaterIKandidatliste, mockKandidatliste,
+    mockLagringAvKandidaterIKandidatliste,
+    mockKandidatliste,
 } from './mockKandidatlister';
 import { mockStilling } from './mockStilling';
 
@@ -24,11 +25,11 @@ export const handlers = [
 
     rest.get(
         `${kandidatApi}/veileder/stilling/byNr/:annonsenummer/kandidatliste`,
-        (req, res, ctx) => res(ctx.json(mockKandidatliste))
+        (req, res, ctx) => res(ctx.json(mockKandidatliste()))
     ),
 
     rest.get(`${kandidatApi}/veileder/kandidatlister/:kandidatlisteId`, (req, res, ctx) =>
-        res(ctx.json(mockKandidatliste))
+        res(ctx.json(mockKandidatliste()))
     ),
 
     rest.get(`${stillingApi}/rekrutteringsbistandstilling/:stillingsId`, (req, res, ctx) =>
@@ -39,10 +40,9 @@ export const handlers = [
         `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
         async (req, res, ctx) => {
             const lagreKandidaterDto: LagreKandidaterDto = await req.json();
-            const kandidatlisteId = req.params['kandidatlisteId'] as string;
 
             return res(
-                ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto, kandidatlisteId))
+                ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto))
             );
         }
     ),
