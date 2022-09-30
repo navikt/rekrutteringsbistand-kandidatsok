@@ -92,7 +92,10 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 </div>
 
                 {kandidatAlleredeLagtTilPåKandidatlista && (
-                    <div className={css.kandidatPåListe}>
+                    <div
+                        title="Kandidater er allerede lagt til på kandidatlisten"
+                        className={css.kandidatPåListe}
+                    >
                         <DecisionCheck />
                     </div>
                 )}
