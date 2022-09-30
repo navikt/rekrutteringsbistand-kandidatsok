@@ -70,27 +70,24 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 <Detail className={css.innsatsgruppe}>
                     {alleInnsatsgrupper[kandidat.kvalifiseringsgruppekode].label}
                 </Detail>
-                <div>
-                    {(alleØnskedeYrker || alleØnskedeSteder) && (
-                        <div className={css.jobbønske}>
-                            {alleØnskedeYrker && (
-                                <TekstlinjeMedIkon
-                                    label="Ønsket yrke"
-                                    ikon={<Heart />}
-                                    tekst={alleØnskedeYrker}
-                                />
-                            )}
-                            {alleØnskedeSteder && (
-                                <TekstlinjeMedIkon
-                                    label="Ønsket sted"
-                                    ikon={<Place />}
-                                    tekst={alleØnskedeSteder}
-                                />
-                            )}
-                        </div>
-                    )}
-                </div>
-
+                {(alleØnskedeYrker || alleØnskedeSteder) && (
+                    <div className={css.jobbønske}>
+                        {alleØnskedeYrker && (
+                            <TekstlinjeMedIkon
+                                label="Ønsket yrke"
+                                ikon={<Heart />}
+                                tekst={alleØnskedeYrker}
+                            />
+                        )}
+                        {alleØnskedeSteder && (
+                            <TekstlinjeMedIkon
+                                label="Ønsket sted"
+                                ikon={<Place />}
+                                tekst={alleØnskedeSteder}
+                            />
+                        )}
+                    </div>
+                )}
                 {kandidatAlleredeLagtTilPåKandidatlista && (
                     <div
                         title="Kandidater er allerede lagt til på kandidatlisten"
