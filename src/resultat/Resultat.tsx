@@ -53,6 +53,7 @@ const Resultat = ({
                         kandidater={kandidater}
                         markerteKandidater={markerteKandidater}
                         onMarkerKandidat={onMarkerKandidat}
+                        kontekstAvKandidatliste={kontekstAvKandidatliste}
                     />
                 )}
             </div>
