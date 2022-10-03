@@ -52,8 +52,6 @@ const App = ({ navKontor }: AppProps) => {
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
     const { forrigeØkt, setØkt } = useKandidatsøkØkt();
 
-    useScrollTilKandidat(forrigeØkt.sistBesøkteKandidat);
-
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         forrigeØkt.markerteKandidater
     );
