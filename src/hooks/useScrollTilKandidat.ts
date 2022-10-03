@@ -1,14 +1,25 @@
 import { useLayoutEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+type StateFraKandidatside = null | {
+    scrollTilKandidat?: undefined;
+};
 
 const useScrollTilKandidat = (kandidatnr: string, sistBesøkteKandidatnr?: string) => {
+    const { state } = useLocation();
     const [harScrollet, setHarScrollet] = useState<boolean>(false);
+
     const element =
         kandidatnr === sistBesøkteKandidatnr
             ? document.getElementById(`kandidatrad-${kandidatnr}`)
             : null;
 
     useLayoutEffect(() => {
-        if (element !== null && harScrollet === false) {
+        if (
+            (state as StateFraKandidatside)?.scrollTilKandidat &&
+            element !== null &&
+            harScrollet === false
+        ) {
             if (element && elementErIkkeSynlig(element)) {
                 element.scrollIntoView({
                     block: 'center',
@@ -17,7 +28,7 @@ const useScrollTilKandidat = (kandidatnr: string, sistBesøkteKandidatnr?: strin
                 setHarScrollet(true);
             }
         }
-    }, [element, harScrollet]);
+    }, [element, state, harScrollet]);
 };
 
 const elementErIkkeSynlig = (element: HTMLElement) => {
