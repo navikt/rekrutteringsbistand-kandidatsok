@@ -14,7 +14,6 @@ export type Økt = Partial<{
     markerteKandidater: string[];
     kandidater: string[];
     searchParams: string;
-    sisteScrollposisjon: number;
 }>;
 
 export const ØktContext = createContext<{

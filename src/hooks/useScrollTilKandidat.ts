@@ -1,36 +1,28 @@
-import { MutableRefObject, useEffect, useState } from 'react';
-import { useKandidatsøkØkt } from '../Økt';
+import { useLayoutEffect, useState } from 'react';
 
-const useScrollTilKandidat = (
-    element: MutableRefObject<HTMLElement | null>,
-    fremhevet: boolean
-) => {
-    const { forrigeØkt } = useKandidatsøkØkt();
-    const { sisteScrollposisjon } = forrigeØkt;
+const useScrollTilKandidat = (kandidatnr?: string) => {
     const [harScrollet, setHarScrollet] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (fremhevet && element.current && !harScrollet) {
-            if (sisteScrollposisjon) {
-                window.scrollTo({
-                    top: sisteScrollposisjon,
-                });
+    useLayoutEffect(() => {
+        if (kandidatnr && harScrollet === false) {
+            const element = document.getElementById(`kandidatrad-${kandidatnr}`);
+
+            if (element) {
+                const kandidatBoundary = element.getBoundingClientRect();
+                const elementetErUnderViewport = kandidatBoundary.bottom >= 0;
+                const elementetErOverViewport = kandidatBoundary.top - window.innerHeight <= 0;
+                const kandidatErSynlig = elementetErUnderViewport || elementetErOverViewport;
+
+                if (!kandidatErSynlig) {
+                    element.scrollIntoView({
+                        block: 'center',
+                    });
+                }
+
+                setHarScrollet(true);
             }
-
-            const kandidatBoundary = element.current.getBoundingClientRect();
-            const elementetErUnderViewport = kandidatBoundary.bottom >= 0;
-            const elementetErOverViewport = kandidatBoundary.top - window.innerHeight <= 0;
-            const kandidatErSynlig = elementetErUnderViewport || elementetErOverViewport;
-
-            if (!kandidatErSynlig) {
-                element.current.scrollIntoView({
-                    block: 'center',
-                });
-            }
-
-            setHarScrollet(true);
         }
-    }, [element, sisteScrollposisjon, fremhevet, harScrollet]);
+    }, [kandidatnr, harScrollet]);
 };
 
 export default useScrollTilKandidat;
