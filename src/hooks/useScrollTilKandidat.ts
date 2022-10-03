@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 import { useKandidatsøkØkt } from '../Økt';
 
 const useScrollTilKandidat = (
@@ -7,9 +7,10 @@ const useScrollTilKandidat = (
 ) => {
     const { forrigeØkt } = useKandidatsøkØkt();
     const { sisteScrollposisjon } = forrigeØkt;
+    const [harScrollet, setHarScrollet] = useState<boolean>(false);
 
     useEffect(() => {
-        if (fremhevet && element.current) {
+        if (fremhevet && element.current && !harScrollet) {
             if (sisteScrollposisjon) {
                 window.scrollTo({
                     top: sisteScrollposisjon,
@@ -26,8 +27,10 @@ const useScrollTilKandidat = (
                     block: 'center',
                 });
             }
+
+            setHarScrollet(true);
         }
-    }, [element, sisteScrollposisjon, fremhevet]);
+    }, [element, sisteScrollposisjon, fremhevet, harScrollet]);
 };
 
 export default useScrollTilKandidat;
