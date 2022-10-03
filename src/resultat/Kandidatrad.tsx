@@ -1,15 +1,16 @@
-import React, { FunctionComponent, useRef } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
 import { Heart, Place, DecisionCheck } from '@navikt/ds-icons';
+
 import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
 import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
 import { useKandidatsøkØkt } from '../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
-import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
 import css from './Kandidatrad.module.css';
+import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
 
 type Props = {
     kandidat: Kandidat;
@@ -27,9 +28,8 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const { forrigeØkt } = useKandidatsøkØkt();
     const fremhevet = kandidat.arenaKandidatnr === forrigeØkt.sistBesøkteKandidat;
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
-    const element = useRef<HTMLDivElement | null>(null);
 
-    useScrollTilKandidat(element, fremhevet);
+    useScrollTilKandidat(kandidat.arenaKandidatnr, forrigeØkt.sistBesøkteKandidat);
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
@@ -41,7 +41,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
 
     return (
         <div
-            ref={element}
+            id={`kandidatrad-${kandidat.arenaKandidatnr}`}
             className={css.kandidatrad + (fremhevet ? ' ' + css.fremhevetKandidatrad : '')}
             key={kandidat.fodselsnummer}
             aria-selected={markert}

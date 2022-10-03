@@ -4,35 +4,34 @@ import { Button, Loader } from '@navikt/ds-react';
 import { Error } from '@navikt/ds-icons';
 import { History } from 'history';
 
+import { setNavKontorIAmplitude } from './amplitude';
 import { useKandidatsøkØkt, ØktContextProvider } from './Økt';
+import Arbeidserfaring from './filter/Arbeidserfaring';
+import BorPåØnsketSted from './filter/jobbønsker/BorPåØnsketSted';
+import Filtergruppe from './filter/Filtergruppe';
+import Førerkort from './filter/Førerkort';
 import Fritekstsøk from './filter/Fritekstsøk';
+import HarTilretteleggingsbehov from './filter/tilretteleggingsbehov/HarTilretteleggingsbehov';
+import Hovedmål from './filter/Hovedmål';
+import Jobbmuligheter from './filter/Jobbmuligheter';
+import Kompetanse from './filter/Kompetanse';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import LagreKandidaterISpesifikkKandidatlisteModal from './kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
+import ØnsketSted from './filter/jobbønsker/ØnsketSted';
+import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
 import PorteføljeTabs from './filter/porteføljetabs/PorteføljeTabs';
+import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import Resultat from './resultat/Resultat';
+import Språk from './filter/Språk';
 import Stillingsbanner from './stillingsbanner/Stillingsbanner';
 import TømFiltre from './filter/TømFiltre';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
 import useKontekstAvKandidatliste, { Kandidatliste } from './hooks/useKontekstAvKandidatliste';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useRespons from './hooks/useRespons';
-import useScrollPosition from './hooks/useScrollPosition';
-import Jobbmuligheter from './filter/Jobbmuligheter';
-import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
-import ØnsketSted from './filter/jobbønsker/ØnsketSted';
-import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
-import HarTilretteleggingsbehov from './filter/tilretteleggingsbehov/HarTilretteleggingsbehov';
-import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
-import Kompetanse from './filter/Kompetanse';
-import Filtergruppe from './filter/Filtergruppe';
-import Førerkort from './filter/Førerkort';
-import Hovedmål from './filter/Hovedmål';
 import Utdanningsnivå from './filter/Utdanningsnivå';
-import Arbeidserfaring from './filter/Arbeidserfaring';
-import BorPåØnsketSted from './filter/jobbønsker/BorPåØnsketSted';
+import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
 import css from './App.module.css';
-import Språk from './filter/Språk';
-import { setNavKontorIAmplitude } from './amplitude';
 
 export type AppProps = {
     navKontor: string | null;
@@ -50,8 +49,6 @@ const App = ({ navKontor }: AppProps) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const respons = useRespons(innloggetBruker);
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
-    const sisteScrollposisjon = useScrollPosition();
-
     const { forrigeØkt, setØkt } = useKandidatsøkØkt();
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
@@ -67,10 +64,9 @@ const App = ({ navKontor }: AppProps) => {
     useEffect(() => {
         setØkt({
             markerteKandidater: Array.from(markerteKandidater),
-            sisteScrollposisjon: sisteScrollposisjon,
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [markerteKandidater, sisteScrollposisjon]);
+    }, [markerteKandidater]);
 
     const onLagreIKandidatlisteClick = () => {
         setAktivModal(

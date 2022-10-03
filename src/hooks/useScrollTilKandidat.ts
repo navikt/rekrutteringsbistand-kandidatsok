@@ -1,33 +1,44 @@
-import { MutableRefObject, useEffect } from 'react';
-import { useKandidatsøkØkt } from '../Økt';
+import { useLayoutEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const useScrollTilKandidat = (
-    element: MutableRefObject<HTMLElement | null>,
-    fremhevet: boolean
-) => {
-    const { forrigeØkt } = useKandidatsøkØkt();
-    const { sisteScrollposisjon } = forrigeØkt;
+type StateFraKandidatside = null | {
+    scrollTilKandidat?: undefined;
+};
 
-    useEffect(() => {
-        if (fremhevet && element.current) {
-            if (sisteScrollposisjon) {
-                window.scrollTo({
-                    top: sisteScrollposisjon,
-                });
-            }
+const useScrollTilKandidat = (kandidatnr: string, sistBesøkteKandidatnr?: string) => {
+    const { state } = useLocation();
+    const [harScrollet, setHarScrollet] = useState<boolean>(false);
 
-            const kandidatBoundary = element.current.getBoundingClientRect();
-            const elementetErUnderViewport = kandidatBoundary.bottom >= 0;
-            const elementetErOverViewport = kandidatBoundary.top - window.innerHeight <= 0;
-            const kandidatErSynlig = elementetErUnderViewport || elementetErOverViewport;
+    const element =
+        kandidatnr === sistBesøkteKandidatnr
+            ? document.getElementById(`kandidatrad-${kandidatnr}`)
+            : null;
 
-            if (!kandidatErSynlig) {
-                element.current.scrollIntoView({
+    useLayoutEffect(() => {
+        if (
+            (state as StateFraKandidatside)?.scrollTilKandidat &&
+            element !== null &&
+            harScrollet === false
+        ) {
+            if (element && elementErIkkeSynlig(element)) {
+                element.scrollIntoView({
                     block: 'center',
                 });
+
+                setHarScrollet(true);
             }
         }
-    }, [element, sisteScrollposisjon, fremhevet]);
+    }, [element, state, harScrollet]);
+};
+
+const elementErIkkeSynlig = (element: HTMLElement) => {
+    const kandidatBoundary = element.getBoundingClientRect();
+
+    const elementetErOverViewport = kandidatBoundary.top < 0;
+    const elementetErUnderViewport =
+        window.scrollY + window.innerHeight - (kandidatBoundary.bottom + window.scrollY) < 0;
+
+    return elementetErOverViewport || elementetErUnderViewport;
 };
 
 export default useScrollTilKandidat;

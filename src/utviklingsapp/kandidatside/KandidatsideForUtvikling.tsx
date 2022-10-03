@@ -25,6 +25,9 @@ const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) =
             <Panel className={css.panel}>
                 <Link
                     to={'/kandidatsok' + (searchParams ? `?${searchParams}` : '')}
+                    state={{
+                        scrollTilKandidat: true,
+                    }}
                     className="navds-link"
                 >
                     <Back />
