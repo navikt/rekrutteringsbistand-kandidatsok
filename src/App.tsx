@@ -29,7 +29,6 @@ import useInnloggetBruker from './hooks/useBrukerensIdent';
 import useKontekstAvKandidatliste, { Kandidatliste } from './hooks/useKontekstAvKandidatliste';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import useRespons from './hooks/useRespons';
-import useScrollTilKandidat from './hooks/useScrollTilKandidat';
 import Utdanningsnivå from './filter/Utdanningsnivå';
 import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
 import css from './App.module.css';
