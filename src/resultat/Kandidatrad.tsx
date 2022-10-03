@@ -10,6 +10,7 @@ import { lenkeTilKandidat, storForbokstav } from '../utils';
 import { useKandidatsøkØkt } from '../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
 import css from './Kandidatrad.module.css';
+import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
 
 type Props = {
     kandidat: Kandidat;
@@ -27,6 +28,8 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const { forrigeØkt } = useKandidatsøkØkt();
     const fremhevet = kandidat.arenaKandidatnr === forrigeØkt.sistBesøkteKandidat;
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
+
+    useScrollTilKandidat(kandidat.arenaKandidatnr, forrigeØkt.sistBesøkteKandidat);
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);

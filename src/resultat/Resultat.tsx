@@ -9,7 +9,6 @@ import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import MarkerAlle from './MarkerAlle';
 import css from './Resultat.module.css';
-import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
 
 export type Props = {
     respons: Respons;
@@ -31,8 +30,7 @@ const Resultat = ({
     const kandidater = treff.map((t) => t._source);
     const kandidatnumre = kandidater.map((k) => k.arenaKandidatnr);
 
-    const { forrigeØkt, setØkt } = useKandidatsøkØkt();
-    useScrollTilKandidat(forrigeØkt.sistBesøkteKandidat);
+    const { setØkt } = useKandidatsøkØkt();
 
     useEffect(() => {
         setØkt({
