@@ -5,6 +5,7 @@ import { byggQuery } from '../api/query/byggQuery';
 import { målQuery } from '../api/query/målQuery';
 import { Respons } from '../elasticSearchTyper';
 import { InnloggetBruker } from './useBrukerensIdent';
+import { KontekstAvKandidatliste } from './useKontekstAvKandidatliste';
 import useSøkekriterier from './useSøkekriterier';
 
 export enum FilterParam {
@@ -34,7 +35,7 @@ export enum OtherParam {
 
 export type Param = FilterParam | OtherParam;
 
-const useRespons = (innloggetBruker: InnloggetBruker) => {
+const useRespons = (innloggetBruker: InnloggetBruker, kontekst: KontekstAvKandidatliste | null) => {
     const { søkekriterier } = useSøkekriterier();
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
@@ -80,10 +81,12 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
             }
         };
 
-        hentKandidater();
+        if (kontekst === null || kontekst.stilling.kind === 'suksess') {
+            hentKandidater();
+        }
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [JSON.stringify(query)]);
+    }, [JSON.stringify(query), kontekst]);
 
     return respons;
 };

@@ -6,6 +6,7 @@ import React, {
     useRef,
     useState,
 } from 'react';
+import useNavigeringsstate, { Navigeringsstate } from './hooks/useNavigeringsstate';
 
 const SessionStorageKey = 'kandidatsøk';
 
@@ -25,11 +26,12 @@ export const ØktContext = createContext<{
 });
 
 type Props = {
+    navigeringsstate: Navigeringsstate;
     children: ReactNode;
 };
 
-export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
-    const forrigeØkt = useRef(lesSessionStorage());
+export const ØktContextProvider: FunctionComponent<Props> = ({ navigeringsstate, children }) => {
+    const forrigeØkt = useRef(hentForrigeØkt(navigeringsstate));
 
     const [økt, setØkt] = useState<Økt>(forrigeØkt.current);
 
@@ -55,7 +57,28 @@ export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
     );
 };
 
-export const useKandidatsøkØkt = () => useContext(ØktContext);
+export const hentForrigeØkt = (navigeringsstate: Navigeringsstate) => {
+    if (navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt) {
+        return {};
+    } else {
+        return lesSessionStorage();
+    }
+};
+
+export const useKandidatsøkØkt = () => {
+    const { forrigeØkt, setØkt } = useContext(ØktContext);
+    const navigeringsstate = useNavigeringsstate();
+
+    console.log('NAVIGERINGSSTATE:', navigeringsstate);
+
+    return {
+        forrigeØkt:
+            navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt
+                ? {}
+                : forrigeØkt,
+        setØkt,
+    };
+};
 
 export const lesSessionStorage = (): Økt => {
     const session = window.sessionStorage.getItem(SessionStorageKey);

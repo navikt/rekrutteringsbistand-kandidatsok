@@ -32,6 +32,7 @@ import useRespons from './hooks/useRespons';
 import Utdanningsnivå from './filter/Utdanningsnivå';
 import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
 import css from './App.module.css';
+import useNavigeringsstate from './hooks/useNavigeringsstate';
 
 export type AppProps = {
     navKontor: string | null;
@@ -47,12 +48,14 @@ const App = ({ navKontor }: AppProps) => {
     const [aktivModal, setAktivModal] = useState<Modal | null>();
 
     const innloggetBruker = useInnloggetBruker(navKontor);
-    const respons = useRespons(innloggetBruker);
+
+    // TODO: Flytt opp til over respons, la respons vente på at stillingskriterier er klare?
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
-    const { forrigeØkt, setØkt } = useKandidatsøkØkt();
+    const kandidatsøkØkt = useKandidatsøkØkt();
+    const respons = useRespons(innloggetBruker, kontekstAvKandidatliste);
 
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
-        forrigeØkt.markerteKandidater
+        kandidatsøkØkt.forrigeØkt.markerteKandidater
     );
 
     useEffect(() => {
@@ -62,7 +65,7 @@ const App = ({ navKontor }: AppProps) => {
     }, [navKontor]);
 
     useEffect(() => {
-        setØkt({
+        kandidatsøkØkt.setØkt({
             markerteKandidater: Array.from(markerteKandidater),
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -182,10 +185,14 @@ const App = ({ navKontor }: AppProps) => {
     );
 };
 
-const MedSession = (props: AppProps) => (
-    <ØktContextProvider>
-        <App {...props} />
-    </ØktContextProvider>
-);
+const MedØkt = (props: AppProps) => {
+    const navigeringsstate = useNavigeringsstate();
 
-export default MedSession;
+    return (
+        <ØktContextProvider navigeringsstate={navigeringsstate}>
+            <App {...props} />
+        </ØktContextProvider>
+    );
+};
+
+export default MedØkt;
