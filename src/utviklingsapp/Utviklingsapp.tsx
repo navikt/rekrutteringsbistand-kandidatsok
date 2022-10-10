@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
 import { Link, Route, Routes } from 'react-router-dom';
 
-import App from '../App';
-import css from './Utviklingsapp.module.css';
 import { createBrowserHistory } from 'history';
+import App from '../App';
 import CustomRouter from './CustomRouter';
 import KandidatsideForUtvikling from './kandidatside/KandidatsideForUtvikling';
+import css from './Utviklingsapp.module.css';
 
 const history = createBrowserHistory();
 
@@ -29,7 +29,7 @@ const Utviklingsapp = () => {
                 <Heading size="medium" level="1">
                     Utviklingsapp for rekrutteringsbistand-kandidatsok
                 </Heading>
-                <Link to="/kandidatsok" className="navds-link">
+                <Link to="/kandidatsok" state={{ brukNyØkt: true }} className="navds-link">
                     Kandidatsøk
                 </Link>
                 <Link

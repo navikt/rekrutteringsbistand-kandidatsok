@@ -4,7 +4,7 @@ import { Heading } from '@navikt/ds-react';
 import { formaterStortTall } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Respons } from '../elasticSearchTyper';
-import { useKandidatsøkØkt } from '../Økt';
+import { useKandidatsøkØkt, Økt } from '../Økt';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import MarkerAlle from './MarkerAlle';
@@ -15,6 +15,7 @@ export type Props = {
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatNr: string | string[]) => void;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    forrigeØkt: Økt | null;
     knapper: ReactNode;
 };
 
@@ -23,6 +24,7 @@ const Resultat = ({
     kontekstAvKandidatliste,
     markerteKandidater,
     onMarkerKandidat,
+    forrigeØkt,
     knapper,
 }: Props) => {
     const treff = respons.hits.hits;
@@ -67,6 +69,7 @@ const Resultat = ({
                         onMarker={() => {
                             onMarkerKandidat(kandidat.arenaKandidatnr);
                         }}
+                        forrigeØkt={forrigeØkt}
                     />
                 ))}
             </ul>

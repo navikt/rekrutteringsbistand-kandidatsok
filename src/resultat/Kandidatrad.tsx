@@ -7,16 +7,17 @@ import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
 import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { lenkeTilKandidat, storForbokstav } from '../utils';
-import { useKandidatsøkØkt } from '../Økt';
+import { Økt } from '../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
-import css from './Kandidatrad.module.css';
 import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
+import css from './Kandidatrad.module.css';
 
 type Props = {
     kandidat: Kandidat;
     markerteKandidater: Set<string>;
     onMarker: () => void;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    forrigeØkt: Økt | null;
 };
 
 const Kandidatrad: FunctionComponent<Props> = ({
@@ -24,12 +25,12 @@ const Kandidatrad: FunctionComponent<Props> = ({
     markerteKandidater,
     onMarker,
     kontekstAvKandidatliste,
+    forrigeØkt,
 }) => {
-    const { forrigeØkt } = useKandidatsøkØkt();
-    const fremhevet = kandidat.arenaKandidatnr === forrigeØkt.sistBesøkteKandidat;
+    const fremhevet = kandidat.arenaKandidatnr === forrigeØkt?.sistBesøkteKandidat;
     const markert = markerteKandidater.has(kandidat.arenaKandidatnr);
 
-    useScrollTilKandidat(kandidat.arenaKandidatnr, forrigeØkt.sistBesøkteKandidat);
+    useScrollTilKandidat(kandidat.arenaKandidatnr, forrigeØkt?.sistBesøkteKandidat);
 
     const alleØnskedeYrker = hentKandidatensØnskedeYrker(kandidat);
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);

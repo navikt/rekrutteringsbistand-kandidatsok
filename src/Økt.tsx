@@ -26,12 +26,11 @@ export const ØktContext = createContext<{
 });
 
 type Props = {
-    navigeringsstate: Navigeringsstate;
     children: ReactNode;
 };
 
-export const ØktContextProvider: FunctionComponent<Props> = ({ navigeringsstate, children }) => {
-    const forrigeØkt = useRef(hentForrigeØkt(navigeringsstate));
+export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
+    const forrigeØkt = useRef(lesSessionStorage());
 
     const [økt, setØkt] = useState<Økt>(forrigeØkt.current);
 
@@ -57,24 +56,18 @@ export const ØktContextProvider: FunctionComponent<Props> = ({ navigeringsstate
     );
 };
 
-export const hentForrigeØkt = (navigeringsstate: Navigeringsstate) => {
-    if (navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt) {
-        return {};
-    } else {
-        return lesSessionStorage();
-    }
+export const brukForrigeØkt = (navigeringsstate: Navigeringsstate) => {
+    return navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt;
 };
 
 export const useKandidatsøkØkt = () => {
     const { forrigeØkt, setØkt } = useContext(ØktContext);
     const navigeringsstate = useNavigeringsstate();
 
-    console.log('NAVIGERINGSSTATE:', navigeringsstate);
-
     return {
         forrigeØkt:
             navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt
-                ? {}
+                ? null
                 : forrigeØkt,
         setØkt,
     };
