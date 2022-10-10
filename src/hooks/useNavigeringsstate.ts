@@ -1,12 +1,15 @@
 import { useLocation } from 'react-router-dom';
 
-export type Navigeringsstate = {
-    kandidat?: string;
-};
+export type Navigeringsstate = Partial<{
+    scrollTilKandidat: boolean;
+    brukKriterierFraStillingen: boolean;
+    fraMeny: boolean;
+}>;
 
 const useNavigeringsstate = () => {
-    const { state } = useLocation();
-    const navigeringsstate = (state as Navigeringsstate) || {};
+    const location = useLocation();
+    const navigeringsstate = (location.state || {}) as Navigeringsstate;
+
     return navigeringsstate;
 };
 

@@ -1,4 +1,5 @@
 import amplitudeJs, { AmplitudeClient } from 'amplitude-js';
+import { useEffect } from 'react';
 import { hentMiljø, Miljø } from './utils';
 
 const getApiKey = () => {
@@ -19,10 +20,14 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-export const setNavKontorIAmplitude = (navKontor: string) => {
-    client.setUserProperties({
-        navKontor,
-    });
+export const useNavKontorIAmplitude = (navKontor: string | null) => {
+    useEffect(() => {
+        if (navKontor) {
+            client.setUserProperties({
+                navKontor,
+            });
+        }
+    }, [navKontor]);
 };
 
 export const sendEvent = (område: string, hendelse: string, data?: Object): void => {

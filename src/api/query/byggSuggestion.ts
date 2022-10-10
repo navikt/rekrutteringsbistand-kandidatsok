@@ -1,4 +1,4 @@
-import { SuggestQuery } from '../../elasticSearchTyper';
+import { SuggestQuery } from '../../kandidater/elasticSearchTyper';
 
 export enum Forslagsfelt {
     ØnsketYrke = 'yrkeJobbonskerObj.styrkBeskrivelse.completion',

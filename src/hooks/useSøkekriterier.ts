@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/porteføljetabs/PorteføljeTabs';
 import { FilterParam } from './useRespons';
-import { useKandidatsøkØkt } from '../Økt';
 import { Mål as Hovedmål } from '../filter/Hovedmål';
 import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
 import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
 import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
+import { ØktContext } from '../Økt';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
 
@@ -41,7 +41,7 @@ type Returverdi = {
 
 const useSøkekriterier = (): Returverdi => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { setØkt } = useKandidatsøkØkt();
+    const { setØkt } = useContext(ØktContext);
     const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>(
         searchParamsTilSøkekriterier(searchParams)
     );

@@ -8,7 +8,7 @@ import { Modal } from '@navikt/ds-react';
 import { Router } from 'react-router-dom';
 import Navspa from '@navikt/navspa';
 import { setupMock } from './mocks/mockSetup';
-import App, { AppProps } from './App';
+import App, { MicrofrontendProps } from './App';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
@@ -17,7 +17,7 @@ if (process.env.REACT_APP_MOCK) {
     setupMock();
 }
 
-const AppMedRouter = (props: AppProps) => (
+const AppMedRouter = (props: MicrofrontendProps) => (
     <Router navigator={props.history} location={props.history.location}>
         <App {...props} />
     </Router>

@@ -1,29 +1,32 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useMarkerteKandidater = (initiellVerdi: string[] = []) => {
     const [markerteKandidater, setMarkerteKandidater] = useState<Set<string>>(
         new Set(initiellVerdi)
     );
 
-    const onMarkerKandidat = (kandidatNr: string | string[]) => {
-        if (typeof kandidatNr === 'string') {
-            const nyeMarkerteKandidater = new Set(markerteKandidater);
+    const onMarkerKandidat = useCallback(
+        (kandidatNr: string | string[]) => {
+            if (typeof kandidatNr === 'string') {
+                const nyeMarkerteKandidater = new Set(markerteKandidater);
 
-            if (markerteKandidater.has(kandidatNr)) {
-                nyeMarkerteKandidater.delete(kandidatNr);
+                if (markerteKandidater.has(kandidatNr)) {
+                    nyeMarkerteKandidater.delete(kandidatNr);
+                } else {
+                    nyeMarkerteKandidater.add(kandidatNr);
+                }
+
+                setMarkerteKandidater(nyeMarkerteKandidater);
             } else {
-                nyeMarkerteKandidater.add(kandidatNr);
+                setMarkerteKandidater(new Set(kandidatNr));
             }
+        },
+        [markerteKandidater]
+    );
 
-            setMarkerteKandidater(nyeMarkerteKandidater);
-        } else {
-            setMarkerteKandidater(new Set(kandidatNr));
-        }
-    };
-
-    const fjernMarkering = () => {
+    const fjernMarkering = useCallback(() => {
         setMarkerteKandidater(new Set());
-    };
+    }, []);
 
     return {
         markerteKandidater,

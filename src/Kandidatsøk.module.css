@@ -31,12 +31,3 @@
         max-width: var(--app-maksbredde-stor);
     }
 }
-
-.lasterInn {
-    align-self: center;
-    margin: 5rem 1rem;
-}
-
-.fjernMarkeringKnapp {
-    margin-right: 1rem !important;
-}

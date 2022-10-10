@@ -2,7 +2,7 @@ import React, {
     createContext,
     FunctionComponent,
     ReactNode,
-    useContext,
+    useMemo,
     useRef,
     useState,
 } from 'react';
@@ -33,29 +33,26 @@ export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
 
     const [økt, setØkt] = useState<Økt>(forrigeØkt.current);
 
-    const onSetØkt = (oppdaterteFelter: Økt) => {
-        const oppdatertØkt = {
-            ...økt,
-            ...oppdaterteFelter,
+    const context = useMemo(() => {
+        const onSetØkt = (oppdaterteFelter: Økt) => {
+            const oppdatertØkt = {
+                ...økt,
+                ...oppdaterteFelter,
+            };
+
+            skrivSessionStorage(oppdatertØkt);
+            setØkt(oppdatertØkt);
         };
 
-        skrivSessionStorage(oppdatertØkt);
-        setØkt(oppdatertØkt);
-    };
+        return {
+            forrigeØkt: forrigeØkt.current,
+            setØkt: onSetØkt,
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [JSON.stringify(økt)]);
 
-    return (
-        <ØktContext.Provider
-            value={{
-                forrigeØkt: forrigeØkt.current,
-                setØkt: onSetØkt,
-            }}
-        >
-            {children}
-        </ØktContext.Provider>
-    );
+    return <ØktContext.Provider value={context}>{children}</ØktContext.Provider>;
 };
-
-export const useKandidatsøkØkt = () => useContext(ØktContext);
 
 export const lesSessionStorage = (): Økt => {
     const session = window.sessionStorage.getItem(SessionStorageKey);

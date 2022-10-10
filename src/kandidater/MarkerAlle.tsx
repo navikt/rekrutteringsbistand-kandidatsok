@@ -1,9 +1,9 @@
 import React from 'react';
 import { Checkbox } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import { Kandidat } from '../Kandidat';
-import css from './Resultat.module.css';
+import { Kandidat } from './Kandidat';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import css from './Kandidater.module.css';
 
 type Props = {
     kandidater: Kandidat[];

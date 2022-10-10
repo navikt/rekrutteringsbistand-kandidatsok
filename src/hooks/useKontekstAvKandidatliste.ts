@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { hentKandidatliste, hentStilling } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
@@ -10,7 +10,7 @@ export type KontekstAvKandidatliste = {
     setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => void;
 };
 
-const useKontekstAvKandidatliste = () => {
+const useKontekstAvKandidatliste = (): KontekstAvKandidatliste | null => {
     const [searchParams] = useSearchParams();
     const kandidatlisteId = searchParams.get('kandidatliste');
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>({
@@ -76,19 +76,24 @@ const useKontekstAvKandidatliste = () => {
         }
     }, [kandidatlisteId]);
 
-    if (kandidatlisteId === null) {
-        return null;
-    } else {
-        return {
-            kandidatlisteId,
-            kandidatliste,
-            stilling,
-            setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => setKandidatliste({
-                kind: 'suksess',
-                data: kandidatliste,
-            }),
-        };
-    }
+    const memoisertReturverdi = useMemo(() => {
+        if (kandidatlisteId === null) {
+            return null;
+        } else {
+            return {
+                kandidatlisteId,
+                kandidatliste,
+                stilling,
+                setOppdatertKandidatliste: (kandidatliste: Kandidatliste) =>
+                    setKandidatliste({
+                        kind: 'suksess',
+                        data: kandidatliste,
+                    }),
+            };
+        }
+    }, [kandidatlisteId, kandidatliste, stilling]);
+
+    return memoisertReturverdi;
 };
 
 export type Kandidatliste = {
@@ -96,7 +101,7 @@ export type Kandidatliste = {
     stillingId: string;
     tittel: string;
     organisasjonNavn: string | null;
-    kandidater: Array<{kandidatnr: string}>;
+    kandidater: Array<{ kandidatnr: string }>;
     opprettetAv: {
         ident: string;
         navn: string;
