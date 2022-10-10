@@ -1,11 +1,4 @@
-import React, {
-    createContext,
-    FunctionComponent,
-    ReactNode,
-    useContext,
-    useRef,
-    useState,
-} from 'react';
+import React, { createContext, FunctionComponent, ReactNode, useRef, useState } from 'react';
 
 const SessionStorageKey = 'kandidatsøk';
 
@@ -53,10 +46,6 @@ export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
             {children}
         </ØktContext.Provider>
     );
-};
-
-export const useKandidatsøkØkt = () => {
-    return useContext(ØktContext);
 };
 
 export const lesSessionStorage = (): Økt => {

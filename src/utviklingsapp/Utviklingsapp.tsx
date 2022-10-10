@@ -29,7 +29,7 @@ const Utviklingsapp = () => {
                 <Heading size="medium" level="1">
                     Utviklingsapp for rekrutteringsbistand-kandidatsok
                 </Heading>
-                <Link to="/kandidatsok" state={{ brukNyØkt: true }} className="navds-link">
+                <Link to="/kandidatsok" state={{ fraMeny: true }} className="navds-link">
                     Kandidatsøk
                 </Link>
                 <Link

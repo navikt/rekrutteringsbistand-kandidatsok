@@ -1,10 +1,10 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import { Heading } from '@navikt/ds-react';
 
 import { formaterStortTall } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Respons } from '../elasticSearchTyper';
-import { useKandidatsøkØkt, Økt } from '../Økt';
+import { Økt, ØktContext } from '../Økt';
 import Kandidatrad from './Kandidatrad';
 import Paginering from '../filter/Paginering';
 import MarkerAlle from './MarkerAlle';
@@ -32,7 +32,7 @@ const Resultat = ({
     const kandidater = treff.map((t) => t._source);
     const kandidatnumre = kandidater.map((k) => k.arenaKandidatnr);
 
-    const { setØkt } = useKandidatsøkØkt();
+    const { setØkt } = useContext(ØktContext);
 
     useEffect(() => {
         setØkt({

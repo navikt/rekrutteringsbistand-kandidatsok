@@ -26,8 +26,6 @@ const Søk: FunctionComponent<Props> = ({
 }) => {
     const respons = useRespons(innloggetBruker);
 
-    console.log('HALLA:', kontekstAvKandidatliste, respons);
-
     if (respons.kind === 'laster-inn') {
         return <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />;
     } else if (respons.kind === 'suksess' || respons.kind === 'oppdaterer') {

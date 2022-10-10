@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
 import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
 import useNavigeringsstate from './hooks/useNavigeringsstate';
-import { useKandidatsøkØkt, ØktContextProvider } from './Økt';
+import { ØktContext, ØktContextProvider } from './Økt';
 import Kandidatsøk from './Kandidatsøk';
 import { History } from 'history';
 
@@ -12,8 +12,8 @@ export type MicrofrontendProps = {
 };
 
 const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
+    const kandidatsøkØkt = useContext(ØktContext);
     const navigeringsstate = useNavigeringsstate();
-    const kandidatsøkØkt = useKandidatsøkØkt();
     const forrigeØkt =
         navigeringsstate.brukKriterierFraStillingen || navigeringsstate.fraMeny
             ? null
@@ -23,17 +23,23 @@ const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
     const kontekstAvKandidatliste = useKontekstAvKandidatliste();
 
     return (
+        <Kandidatsøk
+            forrigeØkt={forrigeØkt}
+            setØkt={kandidatsøkØkt.setØkt}
+            navKontor={navKontor}
+            navigeringsstate={navigeringsstate}
+            innloggetBruker={innloggetBruker}
+            kontekstAvKandidatliste={kontekstAvKandidatliste}
+        />
+    );
+};
+
+const AppMedContext: FunctionComponent<MicrofrontendProps> = (props) => {
+    return (
         <ØktContextProvider>
-            <Kandidatsøk
-                forrigeØkt={forrigeØkt}
-                setØkt={kandidatsøkØkt.setØkt}
-                navKontor={navKontor}
-                navigeringsstate={navigeringsstate}
-                innloggetBruker={innloggetBruker}
-                kontekstAvKandidatliste={kontekstAvKandidatliste}
-            />
+            <App {...props} />
         </ØktContextProvider>
     );
 };
 
-export default App;
+export default AppMedContext;
