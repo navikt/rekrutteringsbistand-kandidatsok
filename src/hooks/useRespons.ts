@@ -3,7 +3,7 @@ import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { byggQuery } from '../api/query/byggQuery';
 import { målQuery } from '../api/query/målQuery';
-import { Respons } from '../elasticSearchTyper';
+import { Respons } from '../kandidater/elasticSearchTyper';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
 

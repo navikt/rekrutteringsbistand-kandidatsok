@@ -13,7 +13,7 @@ import { queryMedPrioritertMålgruppe } from './queryMedPrioritertMålgruppe';
 import { queryMedSpråk } from './queryMedSpråk';
 import { queryMedTilretteleggingsbehov } from './queryMedTilretteleggingsbehov';
 import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
-import { SearchQuery, Sorteringsrekkefølge } from '../../elasticSearchTyper';
+import { SearchQuery, Sorteringsrekkefølge } from '../../kandidater/elasticSearchTyper';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { queryMedValgtKontor } from './queryMedValgtKontor';
 

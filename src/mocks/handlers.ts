@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { kandidatApi, stillingApi } from '../api/api';
-import { Respons } from '../elasticSearchTyper';
+import { Respons } from '../kandidater/elasticSearchTyper';
 import { Innsatsgruppe } from '../filter/Jobbmuligheter';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import {
@@ -41,9 +41,7 @@ export const handlers = [
         async (req, res, ctx) => {
             const lagreKandidaterDto: LagreKandidaterDto = await req.json();
 
-            return res(
-                ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto))
-            );
+            return res(ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto)));
         }
     ),
 ];

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
 import { Heart, Place, DecisionCheck } from '@navikt/ds-icons';
 
-import { alleInnsatsgrupper } from '../filter/Jobbmuligheter';
+import { alleInnsatsgrupper } from '../../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
-import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
-import { lenkeTilKandidat, storForbokstav } from '../utils';
-import { Økt } from '../Økt';
+import { Kandidatliste, KontekstAvKandidatliste } from '../../hooks/useKontekstAvKandidatliste';
+import { lenkeTilKandidat, storForbokstav } from '../../utils';
+import { Økt } from '../../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
-import useScrollTilKandidat from '../hooks/useScrollTilKandidat';
+import useScrollTilKandidat from '../../hooks/useScrollTilKandidat';
 import css from './Kandidatrad.module.css';
 
 type Props = {

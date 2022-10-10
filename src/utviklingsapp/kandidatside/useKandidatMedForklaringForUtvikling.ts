@@ -3,7 +3,7 @@ import { get, post } from '../../api/api';
 import { byggIndreQuery } from '../../api/query/byggQuery';
 import useInnloggetBruker from '../../hooks/useBrukerensIdent';
 import { searchParamsTilSøkekriterier } from '../../hooks/useSøkekriterier';
-import { Kandidat } from '../../Kandidat';
+import { Kandidat } from '../../kandidater/Kandidat';
 
 const useKandidatMedForklaringForUtvikling = (
     kandidatNr: string | undefined,

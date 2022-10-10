@@ -1,4 +1,4 @@
-import { FuzzySuggestQuery } from '../../elasticSearchTyper';
+import { FuzzySuggestQuery } from '../../kandidater/elasticSearchTyper';
 
 const byggFuzzySuggestion = (
     field: string,
