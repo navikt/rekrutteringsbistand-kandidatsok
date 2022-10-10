@@ -5,6 +5,7 @@ import useNavigeringsstate from './hooks/useNavigeringsstate';
 import { ØktContext, ØktContextProvider } from './Økt';
 import Kandidatsøk from './Kandidatsøk';
 import { History } from 'history';
+import { useNavKontorIAmplitude } from './amplitude';
 
 export type MicrofrontendProps = {
     navKontor: string | null;
@@ -12,6 +13,8 @@ export type MicrofrontendProps = {
 };
 
 const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
+    useNavKontorIAmplitude(navKontor);
+
     const kandidatsøkØkt = useContext(ØktContext);
     const navigeringsstate = useNavigeringsstate();
     const forrigeØkt =

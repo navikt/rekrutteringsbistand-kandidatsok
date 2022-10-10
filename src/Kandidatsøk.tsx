@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from '@navikt/ds-react';
+import { AddPerson, Error } from '@navikt/ds-icons';
 
 import { InnloggetBruker } from './hooks/useBrukerensIdent';
 import { Kandidatliste, KontekstAvKandidatliste } from './hooks/useKontekstAvKandidatliste';
 import { Navigeringsstate } from './hooks/useNavigeringsstate';
 import { Økt } from './Økt';
-import { setNavKontorIAmplitude } from './amplitude';
 import Arbeidserfaring from './filter/Arbeidserfaring';
 import BorPåØnsketSted from './filter/jobbønsker/BorPåØnsketSted';
 import Filtergruppe from './filter/Filtergruppe';
@@ -20,16 +21,14 @@ import ØnsketSted from './filter/jobbønsker/ØnsketSted';
 import ØnsketYrke from './filter/jobbønsker/ØnsketYrke';
 import PorteføljeTabs from './filter/porteføljetabs/PorteføljeTabs';
 import PrioriterteMålgrupper from './filter/prioriterte-målgrupper/PrioriterteMålgrupper';
+import Søk from './Søk';
 import Språk from './filter/Språk';
 import Stillingsbanner from './stillingsbanner/Stillingsbanner';
 import TømFiltre from './filter/TømFiltre';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import Utdanningsnivå from './filter/Utdanningsnivå';
 import VelgBehovskategorier from './filter/tilretteleggingsbehov/VelgBehovskategorier';
-import { AddPerson, Error } from '@navikt/ds-icons';
 import css from './Kandidatsøk.module.css';
-import Søk from './Søk';
-import { Button } from '@navikt/ds-react';
 
 export type KandidatsøkProps = {
     forrigeØkt: Økt | null;
@@ -51,18 +50,11 @@ const Kandidatsøk = ({
     setØkt,
     innloggetBruker,
     kontekstAvKandidatliste,
-    navKontor,
 }: KandidatsøkProps) => {
     const [aktivModal, setAktivModal] = useState<Modal>(Modal.IngenModal);
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         forrigeØkt?.markerteKandidater
     );
-
-    useEffect(() => {
-        if (navKontor) {
-            setNavKontorIAmplitude(navKontor);
-        }
-    }, [navKontor]);
 
     useEffect(() => {
         setØkt({
