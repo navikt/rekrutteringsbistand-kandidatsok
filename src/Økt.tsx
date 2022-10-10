@@ -6,7 +6,6 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import useNavigeringsstate, { Navigeringsstate } from './hooks/useNavigeringsstate';
 
 const SessionStorageKey = 'kandidatsøk';
 
@@ -56,21 +55,8 @@ export const ØktContextProvider: FunctionComponent<Props> = ({ children }) => {
     );
 };
 
-export const brukForrigeØkt = (navigeringsstate: Navigeringsstate) => {
-    return navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt;
-};
-
 export const useKandidatsøkØkt = () => {
-    const { forrigeØkt, setØkt } = useContext(ØktContext);
-    const navigeringsstate = useNavigeringsstate();
-
-    return {
-        forrigeØkt:
-            navigeringsstate.brukKriterierFraStillingen || navigeringsstate.brukNyØkt
-                ? null
-                : forrigeØkt,
-        setØkt,
-    };
+    return useContext(ØktContext);
 };
 
 export const lesSessionStorage = (): Økt => {

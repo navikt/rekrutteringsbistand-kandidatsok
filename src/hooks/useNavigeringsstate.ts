@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 export type Navigeringsstate = Partial<{
     scrollTilKandidat: boolean;
     brukKriterierFraStillingen: boolean;
-    brukNyØkt: boolean;
+    fraMeny: boolean;
 }>;
 
 const useNavigeringsstate = () => {
