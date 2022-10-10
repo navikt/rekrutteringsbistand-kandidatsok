@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
 import { Heading } from '@navikt/ds-react';
 
 import { formaterStortTall } from '../utils';
@@ -29,8 +29,9 @@ const Resultat = ({
 }: Props) => {
     const treff = respons.hits.hits;
     const antallTreff = respons.hits.total.value;
-    const kandidater = treff.map((t) => t._source);
-    const kandidatnumre = kandidater.map((k) => k.arenaKandidatnr);
+
+    const kandidater = useMemo(() => treff.map((t) => t._source), [treff]);
+    const kandidatnumre = useMemo(() => kandidater.map((k) => k.arenaKandidatnr), [kandidater]);
 
     const { setØkt } = useContext(ØktContext);
 
@@ -38,8 +39,7 @@ const Resultat = ({
         setØkt({
             kandidater: kandidatnumre,
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSON.stringify(kandidatnumre)]);
+    }, [kandidatnumre, setØkt]);
 
     return (
         <div className={css.resultat}>

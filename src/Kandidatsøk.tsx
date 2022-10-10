@@ -68,8 +68,7 @@ const Kandidatsøk = ({
         setØkt({
             markerteKandidater: Array.from(markerteKandidater),
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [markerteKandidater]);
+    }, [markerteKandidater, setØkt]);
 
     const onLagreIKandidatlisteClick = () => {
         setAktivModal(
