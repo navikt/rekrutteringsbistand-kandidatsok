@@ -9,6 +9,7 @@ export const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
                 'yrkeJobbonskerObj.styrkBeskrivelse': {
                     query: yrke,
                     fuzziness: 'AUTO',
+                    operator: 'and',
                 },
             },
         },
@@ -17,6 +18,7 @@ export const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
                 'yrkeJobbonskerObj.sokeTitler': {
                     query: yrke,
                     fuzziness: 0,
+                    operator: 'and',
                 },
             },
         },
