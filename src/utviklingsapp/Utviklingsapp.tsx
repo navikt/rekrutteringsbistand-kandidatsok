@@ -33,11 +33,8 @@ const Utviklingsapp = () => {
                     Kandidatsøk
                 </Link>
                 <Link
-                    to="/kandidatsok?kandidatliste=123"
+                    to="/kandidatsok?kandidatliste=123&brukKriterierFraStillingen=true"
                     className="navds-link"
-                    state={{
-                        brukKriterierFraStillingen: true,
-                    }}
                 >
                     Finn kandidater
                 </Link>

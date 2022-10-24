@@ -17,20 +17,20 @@ const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
 
     const kandidatsøkØkt = useContext(ØktContext);
     const navigeringsstate = useNavigeringsstate();
+
     const forrigeØkt =
         navigeringsstate.brukKriterierFraStillingen || navigeringsstate.fraMeny
             ? null
             : kandidatsøkØkt.forrigeØkt;
 
     const innloggetBruker = useInnloggetBruker(navKontor);
-    const kontekstAvKandidatliste = useKontekstAvKandidatliste();
+    const kontekstAvKandidatliste = useKontekstAvKandidatliste(navigeringsstate);
 
     return (
         <Kandidatsøk
             forrigeØkt={forrigeØkt}
             setØkt={kandidatsøkØkt.setØkt}
             navKontor={navKontor}
-            navigeringsstate={navigeringsstate}
             innloggetBruker={innloggetBruker}
             kontekstAvKandidatliste={kontekstAvKandidatliste}
         />

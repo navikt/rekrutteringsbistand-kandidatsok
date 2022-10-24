@@ -12,9 +12,9 @@ type Props = {
 };
 
 const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
-    const { kandidatliste, stilling, kandidatlisteId } = kontekst;
+    const { kandidatliste, stilling, kandidatlisteId, brukKriterierFraStillingen } = kontekst;
 
-    useSøkekriterierFraStilling(stilling);
+    useSøkekriterierFraStilling(stilling, brukKriterierFraStillingen);
 
     if (kandidatliste.kind !== 'suksess') {
         return null;
