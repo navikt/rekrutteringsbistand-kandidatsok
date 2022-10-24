@@ -67,12 +67,16 @@ const useSøkekriterier = (): Returverdi => {
             searchParams.delete(FilterParam.Side);
         }
 
-        setSearchParams(searchParams);
+        setSearchParams(searchParams, {
+            replace: true,
+        });
     };
 
     const fjernSøkekriterier = () => {
         Object.values(FilterParam).forEach((key) => searchParams.delete(key));
-        setSearchParams(searchParams);
+        setSearchParams(searchParams, {
+            replace: true,
+        });
     };
 
     return {

@@ -2,15 +2,19 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { hentKandidatliste, hentStilling } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
+import { Navigeringsstate } from './useNavigeringsstate';
 
 export type KontekstAvKandidatliste = {
     kandidatlisteId: string;
     kandidatliste: Nettressurs<Kandidatliste>;
     stilling: Nettressurs<Stilling>;
+    brukKriterierFraStillingen: boolean;
     setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => void;
 };
 
-const useKontekstAvKandidatliste = (): KontekstAvKandidatliste | null => {
+const useKontekstAvKandidatliste = (
+    navigeringsstate: Navigeringsstate
+): KontekstAvKandidatliste | null => {
     const [searchParams] = useSearchParams();
     const kandidatlisteId = searchParams.get('kandidatliste');
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>({
@@ -84,6 +88,7 @@ const useKontekstAvKandidatliste = (): KontekstAvKandidatliste | null => {
                 kandidatlisteId,
                 kandidatliste,
                 stilling,
+                brukKriterierFraStillingen: navigeringsstate.brukKriterierFraStillingen || false,
                 setOppdatertKandidatliste: (kandidatliste: Kandidatliste) =>
                     setKandidatliste({
                         kind: 'suksess',
@@ -91,7 +96,7 @@ const useKontekstAvKandidatliste = (): KontekstAvKandidatliste | null => {
                     }),
             };
         }
-    }, [kandidatlisteId, kandidatliste, stilling]);
+    }, [kandidatlisteId, kandidatliste, stilling, navigeringsstate.brukKriterierFraStillingen]);
 
     return memoisertReturverdi;
 };

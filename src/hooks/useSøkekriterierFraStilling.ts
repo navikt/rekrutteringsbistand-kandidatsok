@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { suggest } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import byggSuggestion, { Forslagsfelt } from '../api/query/byggSuggestion';
@@ -9,18 +9,17 @@ import { Stilling } from './useKontekstAvKandidatliste';
 import { FilterParam, OtherParam } from './useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from './useSøkekriterier';
 
-type StateFraForrigeSide = null | {
-    brukKriterierFraStillingen?: boolean;
-};
-
-const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
+const useSøkekriterierFraStilling = (
+    stilling: Nettressurs<Stilling>,
+    brukKriterierFraStillingen: boolean
+) => {
     const { setSearchParam } = useSøkekriterier();
     const [searchParams] = useSearchParams();
-    const { state } = useLocation();
 
     useEffect(() => {
         const anvendSøkekriterier = async (stilling: Stilling) => {
             const yrkerFraStilling = hentØnsketYrkeFraStilling(stilling);
+
             setSearchParam(FilterParam.ØnsketYrke, yrkerFraStilling);
 
             const stedFraStilling = await hentØnsketStedFraStilling(stilling);
@@ -29,18 +28,15 @@ const useSøkekriterierFraStilling = (stilling: Nettressurs<Stilling>) => {
             }
         };
 
-        const skalBrukeKriterierFraStillingen = (state as StateFraForrigeSide)
-            ?.brukKriterierFraStillingen;
-
         if (
             stilling.kind === 'suksess' &&
-            skalBrukeKriterierFraStillingen &&
+            brukKriterierFraStillingen &&
             kandidatlisteErEnesteSearchParam(searchParams)
         ) {
             anvendSøkekriterier(stilling.data);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stilling]);
+    }, [stilling, brukKriterierFraStillingen]);
 };
 
 const hentØnsketYrkeFraStilling = (stilling: Stilling) => {

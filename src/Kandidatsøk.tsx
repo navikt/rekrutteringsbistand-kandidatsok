@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { InnloggetBruker } from './hooks/useBrukerensIdent';
 import { Kandidatliste, KontekstAvKandidatliste } from './hooks/useKontekstAvKandidatliste';
-import { Navigeringsstate } from './hooks/useNavigeringsstate';
 import { Økt } from './Økt';
 import Kandidater from './kandidater/Kandidater';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
@@ -18,7 +17,6 @@ export type KandidatsøkProps = {
     forrigeØkt: Økt | null;
     setØkt: (økt: Økt) => void;
     innloggetBruker: InnloggetBruker;
-    navigeringsstate: Navigeringsstate;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
     navKontor: string | null;
 };
