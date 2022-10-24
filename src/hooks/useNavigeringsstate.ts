@@ -22,7 +22,9 @@ const useNavigeringsstate = () => {
             setBrukKriterierFraStillingen(true);
 
             search.delete(OtherParam.BrukKriterierFraStillingen);
-            setSearch(search);
+            setSearch(search, {
+                replace: true,
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
