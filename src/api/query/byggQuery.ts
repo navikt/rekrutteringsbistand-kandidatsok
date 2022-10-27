@@ -21,6 +21,7 @@ export const PAGE_SIZE = 25;
 
 const interessanteKandidatfelter = [
     'fodselsnummer',
+    'aktorId',
     'fornavn',
     'etternavn',
     'arenaKandidatnr',

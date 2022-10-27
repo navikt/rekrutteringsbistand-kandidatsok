@@ -71,6 +71,7 @@ if (process.env.REACT_APP_MOCK_ES) {
                             _score: 1,
                             _type: '',
                             _source: {
+                                aktorId: '123',
                                 arenaKandidatnr: 'AB123456',
                                 fornavn: 'Joar',
                                 etternavn: 'Giil',

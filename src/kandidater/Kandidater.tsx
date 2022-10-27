@@ -11,6 +11,7 @@ import Paginering from '../filter/Paginering';
 import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
+import { Link } from 'react-router-dom';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -52,15 +53,18 @@ const Kandidater: FunctionComponent<Props> = ({
 
     const { setØkt } = useContext(ØktContext);
 
-    const foreslåRangering = () => {
-        kandidater.map((k) => k.arenaKandidatnr);
-    };
-
     useEffect(() => {
         setØkt({
             kandidater: kandidatnumre,
         });
     }, [kandidatnumre, setØkt]);
+
+    const aktørIder = kandidater.map((k) => k.aktorId);
+    const lenkeTilAutomatiskMatching = `/prototype/stilling/${
+        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
+            ? kontekstAvKandidatliste.kandidatliste.data.stillingId
+            : ''
+    }`;
 
     return (
         <div className={css.kandidater}>
@@ -68,15 +72,21 @@ const Kandidater: FunctionComponent<Props> = ({
                 <AntallKandidater respons={respons} />
                 <div>
                     {kontekstAvKandidatliste != null && (
-                        <Button
-                            size="small"
-                            variant="secondary"
-                            icon={<AutomaticSystem aria-hidden />}
-                            className={css.foreslåRangeringsKnapp}
-                            onClick={foreslåRangering}
+                        <Link
+                            to={lenkeTilAutomatiskMatching}
+                            state={{
+                                aktørIder,
+                            }}
+                            className={
+                                css.foreslåRangeringsKnapp +
+                                ' navds-button navds-button--secondary navds-button--small'
+                            }
                         >
-                            Foreslå rangering
-                        </Button>
+                            <AutomaticSystem aria-hidden />
+                            <span className="navds-label navds-label--small">
+                                Foreslå rangering
+                            </span>
+                        </Link>
                     )}
                     {markerteKandidater.size > 0 && (
                         <Button
