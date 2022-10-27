@@ -20,6 +20,10 @@
     margin-right: 1rem !important;
 }
 
+.foreslåRangeringsKnapp {
+    margin-right: 1rem !important;
+}
+
 .kandidater {
     display: flex;
     flex-direction: column;

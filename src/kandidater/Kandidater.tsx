@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react';
 import { Button, Loader } from '@navikt/ds-react';
-import { AddPerson, Error } from '@navikt/ds-icons';
+import { AddPerson, AutomaticSystem, Error } from '@navikt/ds-icons';
 
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
@@ -52,6 +52,10 @@ const Kandidater: FunctionComponent<Props> = ({
 
     const { setØkt } = useContext(ØktContext);
 
+    const foreslåRangering = () => {
+        kandidater.map((k) => k.arenaKandidatnr);
+    };
+
     useEffect(() => {
         setØkt({
             kandidater: kandidatnumre,
@@ -63,6 +67,17 @@ const Kandidater: FunctionComponent<Props> = ({
             <div className={css.handlinger}>
                 <AntallKandidater respons={respons} />
                 <div>
+                    {kontekstAvKandidatliste != null && (
+                        <Button
+                            size="small"
+                            variant="secondary"
+                            icon={<AutomaticSystem aria-hidden />}
+                            className={css.foreslåRangeringsKnapp}
+                            onClick={foreslåRangering}
+                        >
+                            Foreslå rangering
+                        </Button>
+                    )}
                     {markerteKandidater.size > 0 && (
                         <Button
                             size="small"
