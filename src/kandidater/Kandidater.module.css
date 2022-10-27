@@ -31,8 +31,7 @@
         var(--navds-global-color-green-300) 100%
     );
     box-shadow: none;
-    padding: 2px;
-    transform: translateY(-1px);
+    padding: 0.2rem;
 }
 
 .foreslåRangeringsKnappInner {
@@ -40,7 +39,7 @@
     align-items: center;
     gap: 0.5rem;
     background-color: white;
-    padding: 0.25rem var(--navds-spacing-3);
+    padding: 0.2rem var(--navds-spacing-3);
 }
 
 .foreslåRangeringsKnappInner:hover {
