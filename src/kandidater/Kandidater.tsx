@@ -70,7 +70,7 @@ const Kandidater: FunctionComponent<Props> = ({
         <div className={css.kandidater}>
             <div className={css.handlinger}>
                 <AntallKandidater respons={respons} />
-                <div>
+                <div className={css.knapper}>
                     {kontekstAvKandidatliste != null && (
                         <Link
                             to={lenkeTilAutomatiskMatching}
@@ -82,10 +82,12 @@ const Kandidater: FunctionComponent<Props> = ({
                                 ' navds-button navds-button--secondary navds-button--small'
                             }
                         >
-                            <AutomaticSystem aria-hidden />
-                            <span className="navds-label navds-label--small">
-                                Foreslå rangering
-                            </span>
+                            <div className={css.foreslåRangeringsKnappInner}>
+                                <AutomaticSystem aria-hidden />
+                                <span className="navds-label navds-label--small">
+                                    Foreslå rangering
+                                </span>
+                            </div>
                         </Link>
                     )}
                     {markerteKandidater.size > 0 && (

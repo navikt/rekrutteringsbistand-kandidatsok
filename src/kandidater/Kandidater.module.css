@@ -16,12 +16,46 @@
     margin: 5rem 1rem;
 }
 
-.fjernMarkeringKnapp {
-    margin-right: 1rem !important;
+.knapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
 }
 
 .foreslåRangeringsKnapp {
-    margin-right: 1rem !important;
+    background-image: linear-gradient(
+        45deg,
+        var(--navds-global-color-purple-300) 0%,
+        var(--navds-global-color-orange-300) 50%,
+        var(--navds-global-color-green-300) 100%
+    );
+    box-shadow: none;
+    padding: 2px;
+    transform: translateY(-1px);
+}
+
+.foreslåRangeringsKnappInner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    padding: 0.25rem var(--navds-spacing-3);
+}
+
+.foreslåRangeringsKnappInner:hover {
+    background-color: var(--navds-button-color-secondary-background-hover);
+}
+
+.foreslåRangeringsKnappInner:focus {
+    box-shadow: inset 0 0 0 2px var(--navds-button-color-secondary-border),
+        var(--navds-shadow-focus);
+}
+
+.foreslåRangeringsKnappInner:active {
+    color: var(--navds-button-color-secondary-text-active);
+    background-color: var(--navds-button-color-secondary-background-active);
+    box-shadow: none;
 }
 
 .kandidater {
