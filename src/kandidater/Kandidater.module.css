@@ -28,7 +28,6 @@
     right: 2rem;
     bottom: 2rem;
     z-index: 10;
-    cursor: pointer;
     padding: 0.25rem;
     border-radius: 0.25rem;
     background-image: linear-gradient(
@@ -41,6 +40,10 @@
 
 .matcheknapp a {
     background-color: white;
+}
+
+.matcheknapp label {
+    cursor: pointer;
 }
 
 .kandidater {
