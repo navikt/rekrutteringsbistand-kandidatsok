@@ -1,17 +1,17 @@
 import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react';
-import { Button, Loader } from '@navikt/ds-react';
+import { Button, Label, Loader } from '@navikt/ds-react';
 import { AddPerson, AutomaticSystem, Error } from '@navikt/ds-icons';
 
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Økt, ØktContext } from '../Økt';
+import { Link } from 'react-router-dom';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
 import Paginering from '../filter/Paginering';
 import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
-import { Link } from 'react-router-dom';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -71,25 +71,6 @@ const Kandidater: FunctionComponent<Props> = ({
             <div className={css.handlinger}>
                 <AntallKandidater respons={respons} />
                 <div className={css.knapper}>
-                    {kontekstAvKandidatliste != null && (
-                        <Link
-                            to={lenkeTilAutomatiskMatching}
-                            state={{
-                                aktørIder,
-                            }}
-                            className={
-                                css.foreslåRangeringsKnapp +
-                                ' navds-button navds-button--secondary navds-button--small'
-                            }
-                        >
-                            <div className={css.foreslåRangeringsKnappInner}>
-                                <AutomaticSystem aria-hidden />
-                                <span className="navds-label navds-label--small">
-                                    Foreslå rangering
-                                </span>
-                            </div>
-                        </Link>
-                    )}
                     {markerteKandidater.size > 0 && (
                         <Button
                             size="small"
@@ -113,6 +94,22 @@ const Kandidater: FunctionComponent<Props> = ({
                     </Button>
                 </div>
             </div>
+
+            {kandidater.length > 0 && kontekstAvKandidatliste != null && (
+                <div className={css.matcheknapp}>
+                    <Link
+                        className="navds-button navds-button--tertiary"
+                        to={lenkeTilAutomatiskMatching}
+                        state={{
+                            aktørIder,
+                        }}
+                    >
+                        <AutomaticSystem aria-hidden />
+                        <Label>Foreslå rangering</Label>
+                    </Link>
+                </div>
+            )}
+
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
             )}
