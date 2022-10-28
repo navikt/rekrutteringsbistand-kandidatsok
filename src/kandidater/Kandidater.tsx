@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react';
-import { Button, Loader } from '@navikt/ds-react';
-import { AddPerson, Error } from '@navikt/ds-icons';
+import { Button, Label, Loader } from '@navikt/ds-react';
+import { AddPerson, AutomaticSystem, Error } from '@navikt/ds-icons';
 
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Økt, ØktContext } from '../Økt';
+import { Link } from 'react-router-dom';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
 import Paginering from '../filter/Paginering';
@@ -20,6 +21,7 @@ type Props = {
     onMarkerKandidat: (kandidatnr: string | string[]) => void;
     fjernMarkering: () => void;
     forrigeØkt: Økt | null;
+    harTilgangTilAutomatiskMatching: boolean;
 };
 
 const Kandidater: FunctionComponent<Props> = ({
@@ -30,6 +32,7 @@ const Kandidater: FunctionComponent<Props> = ({
     onMarkerKandidat,
     fjernMarkering,
     forrigeØkt,
+    harTilgangTilAutomatiskMatching,
 }) => {
     const respons = useRespons(innloggetBruker);
 
@@ -58,11 +61,18 @@ const Kandidater: FunctionComponent<Props> = ({
         });
     }, [kandidatnumre, setØkt]);
 
+    const aktørIder = kandidater.map((k) => k.aktorId);
+    const lenkeTilAutomatiskMatching = `/prototype/stilling/${
+        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
+            ? kontekstAvKandidatliste.kandidatliste.data.stillingId
+            : ''
+    }`;
+
     return (
         <div className={css.kandidater}>
             <div className={css.handlinger}>
                 <AntallKandidater respons={respons} />
-                <div>
+                <div className={css.knapper}>
                     {markerteKandidater.size > 0 && (
                         <Button
                             size="small"
@@ -86,6 +96,24 @@ const Kandidater: FunctionComponent<Props> = ({
                     </Button>
                 </div>
             </div>
+
+            {harTilgangTilAutomatiskMatching &&
+                kandidater.length > 0 &&
+                kontekstAvKandidatliste != null && (
+                    <div className={css.matcheknapp}>
+                        <Link
+                            className="navds-button navds-button--tertiary"
+                            to={lenkeTilAutomatiskMatching}
+                            state={{
+                                aktørIder,
+                            }}
+                        >
+                            <AutomaticSystem aria-hidden />
+                            <Label>Foreslå rangering</Label>
+                        </Link>
+                    </div>
+                )}
+
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
             )}

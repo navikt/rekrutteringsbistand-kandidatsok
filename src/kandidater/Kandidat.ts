@@ -2,6 +2,7 @@ import { Innsatsgruppe } from '../filter/Jobbmuligheter';
 
 export type Kandidat = {
     fodselsnummer: string;
+    aktorId: string;
     fornavn: string;
     etternavn: string;
     arenaKandidatnr: string;

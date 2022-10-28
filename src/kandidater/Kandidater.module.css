@@ -16,8 +16,34 @@
     margin: 5rem 1rem;
 }
 
-.fjernMarkeringKnapp {
-    margin-right: 1rem !important;
+.knapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.matcheknapp {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 10;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    background-image: linear-gradient(
+        45deg,
+        var(--navds-global-color-blue-300) 0%,
+        var(--navds-global-color-orange-200) 40%,
+        var(--navds-global-color-red-100) 100%
+    );
+}
+
+.matcheknapp a {
+    background-color: white;
+}
+
+.matcheknapp label {
+    cursor: pointer;
 }
 
 .kandidater {

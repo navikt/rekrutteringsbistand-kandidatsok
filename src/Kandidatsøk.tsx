@@ -19,6 +19,7 @@ export type KandidatsøkProps = {
     innloggetBruker: InnloggetBruker;
     kontekstAvKandidatliste: KontekstAvKandidatliste | null;
     navKontor: string | null;
+    harTilgangTilAutomatiskMatching: boolean;
 };
 
 enum Modal {
@@ -32,6 +33,7 @@ const Kandidatsøk = ({
     setØkt,
     innloggetBruker,
     kontekstAvKandidatliste,
+    harTilgangTilAutomatiskMatching,
 }: KandidatsøkProps) => {
     const [aktivModal, setAktivModal] = useState<Modal>(Modal.IngenModal);
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
@@ -79,6 +81,7 @@ const Kandidatsøk = ({
                             onMarkerKandidat={onMarkerKandidat}
                             fjernMarkering={fjernMarkering}
                             forrigeØkt={forrigeØkt}
+                            harTilgangTilAutomatiskMatching={harTilgangTilAutomatiskMatching}
                         />
                     </main>
                 </PorteføljeTabs>
