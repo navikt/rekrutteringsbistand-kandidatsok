@@ -21,6 +21,7 @@ type Props = {
     onMarkerKandidat: (kandidatnr: string | string[]) => void;
     fjernMarkering: () => void;
     forrigeØkt: Økt | null;
+    harTilgangTilAutomatiskMatching: boolean;
 };
 
 const Kandidater: FunctionComponent<Props> = ({
@@ -31,6 +32,7 @@ const Kandidater: FunctionComponent<Props> = ({
     onMarkerKandidat,
     fjernMarkering,
     forrigeØkt,
+    harTilgangTilAutomatiskMatching,
 }) => {
     const respons = useRespons(innloggetBruker);
 
@@ -95,20 +97,22 @@ const Kandidater: FunctionComponent<Props> = ({
                 </div>
             </div>
 
-            {kandidater.length > 0 && kontekstAvKandidatliste != null && (
-                <div className={css.matcheknapp}>
-                    <Link
-                        className="navds-button navds-button--tertiary"
-                        to={lenkeTilAutomatiskMatching}
-                        state={{
-                            aktørIder,
-                        }}
-                    >
-                        <AutomaticSystem aria-hidden />
-                        <Label>Foreslå rangering</Label>
-                    </Link>
-                </div>
-            )}
+            {harTilgangTilAutomatiskMatching &&
+                kandidater.length > 0 &&
+                kontekstAvKandidatliste != null && (
+                    <div className={css.matcheknapp}>
+                        <Link
+                            className="navds-button navds-button--tertiary"
+                            to={lenkeTilAutomatiskMatching}
+                            state={{
+                                aktørIder,
+                            }}
+                        >
+                            <AutomaticSystem aria-hidden />
+                            <Label>Foreslå rangering</Label>
+                        </Link>
+                    </div>
+                )}
 
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />

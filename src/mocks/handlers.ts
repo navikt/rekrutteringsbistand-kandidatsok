@@ -9,6 +9,7 @@ import {
     mockKandidatliste,
 } from './mockKandidatlister';
 import { mockStilling } from './mockStilling';
+import { FEATURE_TOGGLE_API } from '../hooks/useHarTilgangTilAutomatiskMatching';
 
 export const handlers = [
     rest.get('/meg', (req, res, ctx) =>
@@ -44,6 +45,10 @@ export const handlers = [
             return res(ctx.json(mockLagringAvKandidaterIKandidatliste(lagreKandidaterDto)));
         }
     ),
+
+    rest.get(`${FEATURE_TOGGLE_API}/kandidatmatch`, async (req, res, ctx) => {
+        return res(ctx.json(true));
+    }),
 ];
 
 if (process.env.REACT_APP_MOCK_ES) {
