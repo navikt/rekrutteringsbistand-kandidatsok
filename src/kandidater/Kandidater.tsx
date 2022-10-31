@@ -68,6 +68,9 @@ const Kandidater: FunctionComponent<Props> = ({
             : ''
     }`;
 
+    const skalViseKnappForAutomatiskMatching =
+        harTilgangTilAutomatiskMatching && kandidater.length > 0 && kontekstAvKandidatliste != null;
+
     return (
         <div className={css.kandidater}>
             <div className={css.handlinger}>
@@ -97,22 +100,20 @@ const Kandidater: FunctionComponent<Props> = ({
                 </div>
             </div>
 
-            {harTilgangTilAutomatiskMatching &&
-                kandidater.length > 0 &&
-                kontekstAvKandidatliste != null && (
-                    <div className={css.matcheknapp}>
-                        <Link
-                            className="navds-button navds-button--tertiary"
-                            to={lenkeTilAutomatiskMatching}
-                            state={{
-                                aktørIder,
-                            }}
-                        >
-                            <AutomaticSystem aria-hidden />
-                            <Label>Foreslå rangering</Label>
-                        </Link>
-                    </div>
-                )}
+            {skalViseKnappForAutomatiskMatching && (
+                <div className={css.matcheknapp}>
+                    <Link
+                        className="navds-button navds-button--tertiary"
+                        to={lenkeTilAutomatiskMatching}
+                        state={{
+                            aktørIder,
+                        }}
+                    >
+                        <AutomaticSystem aria-hidden />
+                        <Label>Foreslå rangering</Label>
+                    </Link>
+                </div>
+            )}
 
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
