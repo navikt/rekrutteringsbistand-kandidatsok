@@ -97,6 +97,7 @@ const Kandidater: FunctionComponent<Props> = ({
                     <Matcheknapp
                         kandidatliste={kontekstAvKandidatliste?.kandidatliste.data}
                         kandidater={kandidater}
+                        innloggetBruker={innloggetBruker}
                     />
                 )}
 

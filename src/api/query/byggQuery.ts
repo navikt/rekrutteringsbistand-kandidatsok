@@ -21,7 +21,6 @@ export const PAGE_SIZE = 25;
 
 const interessanteKandidatfelter = [
     'fodselsnummer',
-    'aktorId',
     'fornavn',
     'etternavn',
     'arenaKandidatnr',
@@ -43,6 +42,18 @@ export const byggQuery = (
         track_total_hits: true,
         sort: søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst,
         _source: interessanteKandidatfelter,
+    };
+};
+
+export const byggQueryForAktørIder = (
+    søkekriterier: Søkekriterier,
+    innloggetBruker: InnloggetBruker,
+    maksAntallKandidater: number
+): SearchQuery => {
+    return {
+        query: byggIndreQuery(søkekriterier, innloggetBruker),
+        size: maksAntallKandidater,
+        _source: ['aktorId'],
     };
 };
 
