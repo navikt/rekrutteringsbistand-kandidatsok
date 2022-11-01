@@ -1,17 +1,16 @@
 import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react';
-import { Button, Label, Loader } from '@navikt/ds-react';
-import { AddPerson, AutomaticSystem, Error } from '@navikt/ds-icons';
-
+import { Button, Loader } from '@navikt/ds-react';
+import { AddPerson, Error } from '@navikt/ds-icons';
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import { Økt, ØktContext } from '../Økt';
-import { Link } from 'react-router-dom';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
 import Paginering from '../filter/Paginering';
 import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
+import Matcheknapp from './matcheknapp/Matcheknapp';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -61,15 +60,8 @@ const Kandidater: FunctionComponent<Props> = ({
         });
     }, [kandidatnumre, setØkt]);
 
-    const aktørIder = kandidater.map((k) => k.aktorId);
-    const lenkeTilAutomatiskMatching = `/prototype/stilling/${
-        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
-            ? kontekstAvKandidatliste.kandidatliste.data.stillingId
-            : ''
-    }`;
-
     const skalViseKnappForAutomatiskMatching =
-        harTilgangTilAutomatiskMatching && kandidater.length > 0 && kontekstAvKandidatliste != null;
+        harTilgangTilAutomatiskMatching && kandidater.length > 0;
 
     return (
         <div className={css.kandidater}>
@@ -100,20 +92,13 @@ const Kandidater: FunctionComponent<Props> = ({
                 </div>
             </div>
 
-            {skalViseKnappForAutomatiskMatching && (
-                <div className={css.matcheknapp}>
-                    <Link
-                        className="navds-button navds-button--tertiary"
-                        to={lenkeTilAutomatiskMatching}
-                        state={{
-                            aktørIder,
-                        }}
-                    >
-                        <AutomaticSystem aria-hidden />
-                        <Label>Foreslå rangering</Label>
-                    </Link>
-                </div>
-            )}
+            {skalViseKnappForAutomatiskMatching &&
+                kontekstAvKandidatliste?.kandidatliste.kind === 'suksess' && (
+                    <Matcheknapp
+                        kandidatliste={kontekstAvKandidatliste?.kandidatliste.data}
+                        kandidater={kandidater}
+                    />
+                )}
 
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
