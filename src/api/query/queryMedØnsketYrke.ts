@@ -8,7 +8,7 @@ export const queryMedØnsketYrke = (ønsketYrke: Set<string>) => {
             match: {
                 'yrkeJobbonskerObj.styrkBeskrivelse': {
                     query: yrke,
-                    fuzziness: 'AUTO',
+                    fuzziness: 0,
                     operator: 'and',
                 },
             },
