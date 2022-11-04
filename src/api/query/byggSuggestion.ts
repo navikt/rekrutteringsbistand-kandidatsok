@@ -4,7 +4,6 @@ export enum Forslagsfelt {
     ØnsketYrke = 'yrkeJobbonskerObj.styrkBeskrivelse.completion',
     ØnsketSted = 'geografiJobbonsker.geografiKodeTekst.completion',
     Kompetanse = 'samletKompetanseObj.samletKompetanseTekst.completion',
-    Førerkort = 'samletKompetanseObj.samletKompetanseTekst.completion',
     Arbeidserfaring = 'yrkeserfaring.stillingstitlerForTypeahead',
     Språk = 'sprak.sprakKodeTekst.completion',
 }

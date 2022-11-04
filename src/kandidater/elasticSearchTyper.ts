@@ -20,7 +20,8 @@ export type SearchQuery = {
             order: Sorteringsrekkefølge;
         };
     };
-    _source?: string[];
+    _source?: string[] | false;
+    aggs?: Aggregeringer;
 };
 
 export type SuggestQuery = {
@@ -35,6 +36,15 @@ export type SuggestQuery = {
         };
     };
     _source: boolean;
+};
+
+export type Aggregeringer = {
+    [aggregering: string]: {
+        terms: {
+            field: string;
+            size?: number;
+        };
+    };
 };
 
 export type FuzzySuggestQuery = {
@@ -80,6 +90,9 @@ export type Respons = {
         max_score: number | null;
         hits: Array<Hit>;
     };
+    aggregations?: {
+        [aggregering: string]: AggregeringRespons;
+    };
 };
 
 export type Hit = {
@@ -115,4 +128,15 @@ export type FuzzySuggestionRespons = {
 export type Option = {
     text: string;
     _source?: object;
+};
+
+export type AggregeringRespons = {
+    doc_count_error_upper_bound: number;
+    sum_other_doc_count: number;
+    buckets: AggregeringBucket[];
+};
+
+export type AggregeringBucket = {
+    key: string;
+    doc_count: number;
 };

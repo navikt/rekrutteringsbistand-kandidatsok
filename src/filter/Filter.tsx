@@ -8,7 +8,7 @@ import Jobbmuligheter from './Jobbmuligheter';
 import BorPåØnsketSted from './jobbønsker/BorPåØnsketSted';
 import ØnsketSted from './jobbønsker/ØnsketSted';
 import ØnsketYrke from './jobbønsker/ØnsketYrke';
-import Kompetanse from './Kompetanse';
+import Kompetanse from './kompetanse/Kompetanse';
 import PrioriterteMålgrupper from './prioriterte-målgrupper/PrioriterteMålgrupper';
 import Språk from './Språk';
 import HarTilretteleggingsbehov from './tilretteleggingsbehov/HarTilretteleggingsbehov';
