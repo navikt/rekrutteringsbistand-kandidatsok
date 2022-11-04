@@ -11,6 +11,8 @@ import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
 import Matcheknapp from './matcheknapp/Matcheknapp';
+import Sortering from './sortering/Sortering';
+import { erIkkeProd } from '../utils';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -106,18 +108,16 @@ const Kandidater: FunctionComponent<Props> = ({
             )}
 
             {kandidater.length > 0 && (
-                <div className={css.overKandidater}>
-                    <MarkerAlle
-                        kandidater={kandidater}
-                        markerteKandidater={markerteKandidater}
-                        onMarkerKandidat={onMarkerKandidat}
-                        kontekstAvKandidatliste={kontekstAvKandidatliste}
-                    />
-                </div>
-            )}
-
-            {kandidater.length > 0 && (
                 <>
+                    <div className={css.overKandidater}>
+                        <MarkerAlle
+                            kandidater={kandidater}
+                            markerteKandidater={markerteKandidater}
+                            onMarkerKandidat={onMarkerKandidat}
+                            kontekstAvKandidatliste={kontekstAvKandidatliste}
+                        />
+                        {erIkkeProd && <Sortering />}
+                    </div>
                     <ul className={css.kandidatrader}>
                         {kandidater.map((kandidat) => (
                             <Kandidatrad

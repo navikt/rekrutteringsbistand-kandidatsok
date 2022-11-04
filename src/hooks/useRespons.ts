@@ -26,6 +26,7 @@ export enum FilterParam {
     Arbeidserfaring = 'arbeidserfaring',
     Ferskhet = 'ferskhet',
     Språk = 'sprak',
+    Sortering = 'sortering',
 }
 
 export enum OtherParam {

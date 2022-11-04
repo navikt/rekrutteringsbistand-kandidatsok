@@ -16,6 +16,8 @@ import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
 import { SearchQuery, Sorteringsrekkefølge } from '../../kandidater/elasticSearchTyper';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { queryMedValgtKontor } from './queryMedValgtKontor';
+import { Sortering } from '../../kandidater/sortering/Sortering';
+import { erIkkeProd } from '../../utils';
 
 export const PAGE_SIZE = 25;
 
@@ -33,16 +35,31 @@ export const byggQuery = (
     søkekriterier: Søkekriterier,
     innloggetBruker: InnloggetBruker
 ): SearchQuery => {
-    const { side } = søkekriterier;
+    const { side, sortering } = søkekriterier;
 
     return {
         query: byggIndreQuery(søkekriterier, innloggetBruker),
         size: PAGE_SIZE,
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
-        sort: søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst,
+        sort: erIkkeProd ? bedreSortering(sortering) : gammelSortering(søkekriterier),
         _source: interessanteKandidatfelter,
     };
+};
+
+const bedreSortering = (sortering: Sortering) => {
+    switch (sortering) {
+        case Sortering.BesteMatch:
+            return undefined;
+        case Sortering.SisteFørst:
+            return sorterSisteKandidaterFørst;
+        default:
+            return undefined;
+    }
+};
+
+const gammelSortering = (søkekriterier: Søkekriterier) => {
+    return søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst;
 };
 
 export const byggQueryForAktørIder = (

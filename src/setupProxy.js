@@ -1,6 +1,6 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const express = require('express');
-const axios = require('axios').default;
+const axios = require('axios');
 
 const { OPEN_SEARCH_URI, OPEN_SEARCH_USERNAME, OPEN_SEARCH_PASSWORD, REACT_APP_MOCK_ES } =
     process.env;

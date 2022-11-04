@@ -9,6 +9,7 @@ import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskatego
 import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
 import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
 import { ØktContext } from '../Økt';
+import { Sortering } from '../kandidater/sortering/Sortering';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
 
@@ -31,6 +32,7 @@ export type Søkekriterier = {
     arbeidserfaring: Set<string>;
     ferskhet: number | null;
     språk: Set<string>;
+    sortering: Sortering;
 };
 
 type Returverdi = {
@@ -109,6 +111,7 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
         ? Number(searchParams.get(FilterParam.Ferskhet))
         : null,
     språk: searchParamTilSet(searchParams.get(FilterParam.Språk)),
+    sortering: (searchParams.get(FilterParam.Sortering) as Sortering) || Sortering.SisteFørst,
 });
 
 function searchParamTilSet<SetType = string>(
