@@ -60,7 +60,7 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
                 Kompetanseforslag
             </Heading>
             <BodyShort size="small" className={css.beskrivelse}>
-                Basert på ønsket yrke
+                Basert på ønsket yrke ({visYrker(søkekriterier.ønsketYrke)})
             </BodyShort>
             <Merkelapper>
                 {forslag.map((kompetanse) => (
@@ -86,6 +86,15 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
             )}
         </div>
     );
+};
+
+const visYrker = (ønskedeYrker: Set<string>) => {
+    const somArray = Array.from(ønskedeYrker);
+    const maksTreYrker = somArray.slice(0, 3);
+    const iSmåBokstaver = maksTreYrker.map((yrke) => yrke.toLowerCase());
+    const somEnString = iSmåBokstaver.join(', ');
+
+    return somArray.length > 3 ? `${somEnString}, ...` : somEnString;
 };
 
 export default ForslagBasertPåYrke;
