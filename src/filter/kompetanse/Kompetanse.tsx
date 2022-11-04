@@ -2,6 +2,7 @@ import React from 'react';
 import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
+import { erIkkeProd } from '../../utils';
 import FilterMedTypeahead from '../FilterMedTypeahead';
 import ForslagBasertPåYrke from './ForslagBasertPåYrke';
 
@@ -28,7 +29,9 @@ const Kompetanse = () => {
                 value={søkekriterier.kompetanse}
                 setValue={setValue}
             />
-            <ForslagBasertPåYrke søkekriterier={søkekriterier} onVelgForslag={onVelgForslag} />
+            {erIkkeProd && (
+                <ForslagBasertPåYrke søkekriterier={søkekriterier} onVelgForslag={onVelgForslag} />
+            )}
         </>
     );
 };
