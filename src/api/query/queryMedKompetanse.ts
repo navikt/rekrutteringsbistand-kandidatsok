@@ -15,7 +15,7 @@ export const queryMedKompetanse = (kompetanse: Set<string>) => {
     return [
         {
             bool: {
-                should: kravTilKompetanse,
+                must: kravTilKompetanse,
             },
         },
     ];

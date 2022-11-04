@@ -1,0 +1,18 @@
+.forslag {
+    margin-bottom: 1.5rem;
+}
+
+.beskrivelse {
+    margin-bottom: 0.5rem;
+}
+
+.merkelapper {
+    display: grid;
+    grid-template-rows: repeat(1fr, 1fr);
+    gap: 0.5rem;
+}
+
+.visningsknapp {
+    margin-top: 0.5rem;
+    align-self: center;
+}

@@ -42,6 +42,7 @@ export type Aggregeringer = {
     [aggregering: string]: {
         terms: {
             field: string;
+            size?: number;
         };
     };
 };
@@ -89,7 +90,9 @@ export type Respons = {
         max_score: number | null;
         hits: Array<Hit>;
     };
-    aggregations?: AggregeringRespons;
+    aggregations?: {
+        [aggregering: string]: AggregeringRespons;
+    };
 };
 
 export type Hit = {
@@ -128,11 +131,9 @@ export type Option = {
 };
 
 export type AggregeringRespons = {
-    [aggregering: string]: {
-        doc_count_error_upper_bound: number;
-        sum_other_doc_count: number;
-        buckets: AggregeringBucket[];
-    };
+    doc_count_error_upper_bound: number;
+    sum_other_doc_count: number;
+    buckets: AggregeringBucket[];
 };
 
 export type AggregeringBucket = {

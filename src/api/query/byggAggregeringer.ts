@@ -2,7 +2,7 @@ import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { Aggregeringer, SearchQuery } from '../../kandidater/elasticSearchTyper';
 import { queryMedØnsketYrke } from './queryMedØnsketYrke';
 
-enum Aggregering {
+export enum Aggregering {
     Kompetanse = 'kompetanse',
 }
 
@@ -30,6 +30,7 @@ export const kompetanseaggregering: Aggregeringer = {
     [Aggregering.Kompetanse]: {
         terms: {
             field: Aggregeringsfelt.Kompetanseord,
+            size: 10,
         },
     },
 };

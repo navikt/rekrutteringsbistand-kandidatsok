@@ -1,4 +1,4 @@
-import { Search } from '@navikt/ds-icons';
+import { Close, Search } from '@navikt/ds-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 import {
     Combobox,
@@ -120,7 +120,11 @@ export const Typeahead: FunctionComponent<Props> = ({
 
             <Merkelapper>
                 {selectedSuggestions.map((suggestion) => (
-                    <Merkelapp key={suggestion} onClick={onRemoveSuggestion(suggestion)}>
+                    <Merkelapp
+                        icon={<Close />}
+                        key={suggestion}
+                        onClick={onRemoveSuggestion(suggestion)}
+                    >
                         {suggestion}
                     </Merkelapp>
                 ))}
