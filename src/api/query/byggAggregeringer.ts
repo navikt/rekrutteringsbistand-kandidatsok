@@ -30,7 +30,7 @@ export const kompetanseaggregering: Aggregeringer = {
     [Aggregering.Kompetanse]: {
         terms: {
             field: Aggregeringsfelt.Kompetanseord,
-            size: 10,
+            size: 12,
         },
     },
 };

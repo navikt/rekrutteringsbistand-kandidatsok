@@ -1,6 +1,6 @@
-import { Up, Down } from '@navikt/ds-icons';
-import { Heading, BodyShort, Button } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Expand, Collapse } from '@navikt/ds-icons';
+import { Heading, BodyShort, Button } from '@navikt/ds-react';
 import { søk } from '../../api/api';
 import { byggAggregeringerQuery, Aggregering } from '../../api/query/byggAggregeringer';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
@@ -14,8 +14,10 @@ type Props = {
     onVelgForslag: (forslag: string) => () => void;
 };
 
+const uinteressanteForslag = ['Fagbrev/svennebrev', 'Mesterbrev', 'Autorisasjon'];
+
 const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelgForslag }) => {
-    const [alleForslag, setAlleForslag] = useState<AggregeringRespons | null>(null);
+    const [respons, setRespons] = useState<AggregeringRespons | null>(null);
     const [visAlleForslag, setVisAlleForslag] = useState<boolean>(false);
 
     useEffect(() => {
@@ -26,7 +28,7 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
             if (respons.aggregations) {
                 const aggregering = respons.aggregations[Aggregering.Kompetanse];
 
-                setAlleForslag(aggregering);
+                setRespons(aggregering);
             }
         };
 
@@ -35,19 +37,18 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [søkekriterier.ønsketYrke]);
 
-    console.log('APEKATT:', alleForslag);
-
-    if (alleForslag === null) {
+    if (respons === null) {
         return null;
     }
 
-    let forslag = alleForslag.buckets
-        .map((bucket) => bucket.key)
-        .filter((kompetanse) => !søkekriterier.kompetanse.has(kompetanse));
-
-    if (!visAlleForslag) {
-        forslag = forslag.slice(0, 4);
-    }
+    const alleForslag = respons.buckets.map((bucket) => bucket.key);
+    const interessanteForslag = alleForslag.filter(
+        (forslag) => !uinteressanteForslag.includes(forslag)
+    );
+    const uvalgteForslag = interessanteForslag.filter(
+        (kompetanse) => !søkekriterier.kompetanse.has(kompetanse)
+    );
+    const forslag = visAlleForslag ? uvalgteForslag : uvalgteForslag.slice(0, 4);
 
     if (søkekriterier.ønsketYrke.size === 0 || forslag.length === 0) {
         return null;
@@ -72,15 +73,17 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
                     </Merkelapp>
                 ))}
             </Merkelapper>
-            <Button
-                size="small"
-                className={css.visningsknapp}
-                onClick={() => setVisAlleForslag(!visAlleForslag)}
-                icon={visAlleForslag ? <Up /> : <Down />}
-                variant="tertiary"
-            >
-                {visAlleForslag ? 'Vis færre' : 'Vis alle'}
-            </Button>
+            {uvalgteForslag.length > 4 && (
+                <Button
+                    size="small"
+                    className={css.visningsknapp}
+                    onClick={() => setVisAlleForslag(!visAlleForslag)}
+                    icon={visAlleForslag ? <Collapse /> : <Expand />}
+                    variant="tertiary"
+                >
+                    {visAlleForslag ? 'Vis færre' : `Vis alle (${uvalgteForslag.length})`}
+                </Button>
+            )}
         </div>
     );
 };
