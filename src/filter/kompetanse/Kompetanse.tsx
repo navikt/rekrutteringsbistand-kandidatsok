@@ -1,7 +1,7 @@
 import React from 'react';
 import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
-import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../../hooks/useSøkekriterier';
+import useSøkekriterier, { kombinerStringsTilSearchParam } from '../../hooks/useSøkekriterier';
 import FilterMedTypeahead from '../FilterMedTypeahead';
 import ForslagBasertPåYrke from './ForslagBasertPåYrke';
 
@@ -13,10 +13,10 @@ const Kompetanse = () => {
     };
 
     const onVelgForslag = (forslag: string) => () => {
-        const valgteKompetanser = Array.from(søkekriterier.kompetanse);
-
+        let valgteKompetanser = Array.from(søkekriterier.kompetanse);
         valgteKompetanser.push(forslag);
-        setValue(valgteKompetanser.join(LISTEPARAMETER_SEPARATOR));
+
+        setValue(kombinerStringsTilSearchParam(valgteKompetanser));
     };
 
     return (

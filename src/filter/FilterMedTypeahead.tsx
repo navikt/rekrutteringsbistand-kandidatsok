@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Forslagsfelt } from '../api/query/byggSuggestion';
 import useSuggestions from '../hooks/useSuggestions';
-import { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
+import { kombinerStringsTilSearchParam } from '../hooks/useSøkekriterier';
 import { Typeahead } from './typeahead/Typeahead';
 
 type Props = {
@@ -41,15 +41,15 @@ const FilterMedTypeahead: FunctionComponent<Props> = ({
 
         if (!verdiErAlleredeValgt) {
             valgteVerdier.push(value);
-            setValue(valgteVerdier.join(LISTEPARAMETER_SEPARATOR));
+            setValue(kombinerStringsTilSearchParam(valgteVerdier));
         }
     };
 
     const onFjernValgtVerdi = (valgtVerdi: string) => () => {
-        const alleØnskedeYrker = new Set(value);
-        alleØnskedeYrker.delete(valgtVerdi);
+        const alleVerdier = new Set(value);
+        alleVerdier.delete(valgtVerdi);
 
-        setValue(Array.from(alleØnskedeYrker).join(LISTEPARAMETER_SEPARATOR));
+        setValue(kombinerStringsTilSearchParam(Array.from(alleVerdier)));
     };
 
     return (

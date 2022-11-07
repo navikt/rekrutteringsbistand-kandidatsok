@@ -12,6 +12,7 @@ import { ØktContext } from '../Økt';
 import { Sortering } from '../kandidater/sortering/Sortering';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
+export const LISTEPARAMETER_SEPARATOR_REPLACEMENT = '·';
 
 export type Søkekriterier = {
     fritekst: string | null;
@@ -118,7 +119,28 @@ function searchParamTilSet<SetType = string>(
     searchParam: string | null,
     separator = LISTEPARAMETER_SEPARATOR
 ) {
-    return new Set(searchParam?.split(separator)) as Set<unknown> as Set<SetType>;
+    return new Set(
+        splittSearchParamTilStrings(searchParam, separator)
+    ) as Set<unknown> as Set<SetType>;
+}
+
+function splittSearchParamTilStrings(searchParam: string | null, separator: string) {
+    if (searchParam === null) {
+        return null;
+    }
+
+    return searchParam
+        .split(separator)
+        .map((verdi) =>
+            verdi.replaceAll(LISTEPARAMETER_SEPARATOR_REPLACEMENT, LISTEPARAMETER_SEPARATOR)
+        );
+}
+
+export function kombinerStringsTilSearchParam(verdier: string[]) {
+    const medReplacementChar = verdier.map((verdi) =>
+        verdi.replaceAll(LISTEPARAMETER_SEPARATOR, LISTEPARAMETER_SEPARATOR_REPLACEMENT)
+    );
+    return medReplacementChar.join(LISTEPARAMETER_SEPARATOR);
 }
 
 function searchParamTilBoolean(searchParam: string | null) {
