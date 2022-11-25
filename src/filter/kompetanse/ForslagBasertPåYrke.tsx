@@ -57,7 +57,7 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
     return (
         <div className={css.forslag}>
             <Heading size="xsmall" level="4">
-                Kompetanseforslag
+                Forslag til kompetanse
             </Heading>
             <BodyShort size="small" className={css.beskrivelse}>
                 Basert på ønsket yrke ({visYrker(søkekriterier.ønsketYrke)})
@@ -65,6 +65,7 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
             <Merkelapper>
                 {forslag.map((kompetanse) => (
                     <Merkelapp
+                        variant="oransje"
                         ariaLabel={`Legg til ${kompetanse}`}
                         onClick={onVelgForslag(kompetanse)}
                         key={kompetanse}

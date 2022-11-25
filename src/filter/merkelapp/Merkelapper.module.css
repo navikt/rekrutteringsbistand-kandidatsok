@@ -28,3 +28,11 @@
 .merkelapp svg {
     flex-shrink: 0;
 }
+
+.merkelapp[data-variant='oransje'] {
+    background-color: var(--navds-global-color-orange-100);
+}
+
+.merkelapp[data-variant='oransje']:hover {
+    background-color: var(--navds-global-color-orange-50);
+}

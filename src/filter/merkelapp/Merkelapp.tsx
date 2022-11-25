@@ -2,13 +2,14 @@ import React, { FunctionComponent, ReactNode, useRef } from 'react';
 import css from './Merkelapper.module.css';
 
 type Props = {
+    variant?: 'oransje';
     onClick: () => void;
     children: ReactNode;
     icon?: ReactNode;
     ariaLabel?: string;
 };
 
-const Merkelapp: FunctionComponent<Props> = ({ onClick, children, ariaLabel, icon }) => {
+const Merkelapp: FunctionComponent<Props> = ({ onClick, children, ariaLabel, icon, variant }) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     return (
@@ -18,6 +19,7 @@ const Merkelapp: FunctionComponent<Props> = ({ onClick, children, ariaLabel, ico
             type="button"
             aria-label={ariaLabel}
             className={css.merkelapp}
+            data-variant={variant}
             title={typeof children === 'string' ? children : undefined}
         >
             <span>{children}</span>
