@@ -1,5 +1,5 @@
 import { Button, Heading, Modal } from '@navikt/ds-react';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
 import { lagreKandidaterIValgteKandidatlister } from '../api/api';
 import VelgKandidatlister from './VelgKandidatlister';
@@ -28,6 +28,16 @@ const LagreKandidaterIMineKandidatlisterModal: FunctionComponent<Props> = ({
     >({
         kind: 'ikke-lastet',
     });
+
+    useEffect(() => {
+        if (vis) {
+            setMarkerteLister(new Set());
+            setLagredeLister(new Set());
+            setLagreIKandidatlister({
+                kind: 'ikke-lastet',
+            });
+        }
+    }, [vis]);
 
     const onKandidatlisteMarkert = (event: ChangeEvent<HTMLInputElement>) => {
         const kandidatlisteId = event.target.value;
