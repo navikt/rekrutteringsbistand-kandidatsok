@@ -12,6 +12,7 @@ import TømFiltre from './filter/TømFiltre';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import css from './Kandidatsøk.module.css';
 import Filter from './filter/Filter';
+import { Kandidat } from './kandidater/Kandidat';
 
 export type KandidatsøkProps = {
     forrigeØkt: Økt | null;
@@ -36,6 +37,7 @@ const Kandidatsøk = ({
     harTilgangTilAutomatiskMatching,
 }: KandidatsøkProps) => {
     const [aktivModal, setAktivModal] = useState<Modal>(Modal.IngenModal);
+    const [kandidaterPåSiden, setKandidaterPåSiden] = useState<Kandidat[]>([]);
     const { markerteKandidater, onMarkerKandidat, fjernMarkering } = useMarkerteKandidater(
         forrigeØkt?.markerteKandidater
     );
@@ -82,6 +84,7 @@ const Kandidatsøk = ({
                             fjernMarkering={fjernMarkering}
                             forrigeØkt={forrigeØkt}
                             harTilgangTilAutomatiskMatching={harTilgangTilAutomatiskMatching}
+                            setKandidaterPåSiden={setKandidaterPåSiden}
                         />
                     </main>
                 </PorteføljeTabs>
@@ -91,6 +94,7 @@ const Kandidatsøk = ({
                     vis={aktivModal === Modal.LagreIMineKandidatlister}
                     onClose={() => setAktivModal(Modal.IngenModal)}
                     markerteKandidater={markerteKandidater}
+                    kandidaterPåSiden={kandidaterPåSiden}
                 />
             ) : (
                 <LagreKandidaterISpesifikkKandidatlisteModal

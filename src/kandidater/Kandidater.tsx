@@ -13,6 +13,7 @@ import css from './Kandidater.module.css';
 import Matcheknapp from './matcheknapp/Matcheknapp';
 import Sortering from './sortering/Sortering';
 import { erIkkeProd } from '../utils';
+import { Kandidat } from './Kandidat';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -23,6 +24,7 @@ type Props = {
     fjernMarkering: () => void;
     forrigeØkt: Økt | null;
     harTilgangTilAutomatiskMatching: boolean;
+    setKandidaterPåSiden: (kandidater: Kandidat[]) => void;
 };
 
 const Kandidater: FunctionComponent<Props> = ({
@@ -34,14 +36,19 @@ const Kandidater: FunctionComponent<Props> = ({
     fjernMarkering,
     forrigeØkt,
     harTilgangTilAutomatiskMatching,
+    setKandidaterPåSiden,
 }) => {
     const respons = useRespons(innloggetBruker);
 
     const { kandidater, totaltAntallKandidater } = useMemo(() => {
         if (respons.kind === 'suksess' || respons.kind === 'oppdaterer') {
             const hits = respons.data.hits;
+            const kandidater = hits.hits.map((t) => t._source);
+
+            setKandidaterPåSiden(kandidater);
+
             return {
-                kandidater: hits.hits.map((t) => t._source),
+                kandidater,
                 totaltAntallKandidater: hits.total.value,
             };
         } else {
@@ -50,7 +57,7 @@ const Kandidater: FunctionComponent<Props> = ({
                 totaltAntallKandidater: 0,
             };
         }
-    }, [respons]);
+    }, [respons, setKandidaterPåSiden]);
 
     const kandidatnumre = useMemo(() => kandidater.map((k) => k.arenaKandidatnr), [kandidater]);
 
