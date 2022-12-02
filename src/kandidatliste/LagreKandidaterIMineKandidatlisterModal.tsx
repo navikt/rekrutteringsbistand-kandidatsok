@@ -30,14 +30,12 @@ const LagreKandidaterIMineKandidatlisterModal: FunctionComponent<Props> = ({
     });
 
     useEffect(() => {
-        if (vis) {
-            setMarkerteLister(new Set());
-            setLagredeLister(new Set());
-            setLagreIKandidatlister({
-                kind: 'ikke-lastet',
-            });
-        }
-    }, [vis]);
+        setMarkerteLister(new Set());
+        setLagredeLister(new Set());
+        setLagreIKandidatlister({
+            kind: 'ikke-lastet',
+        });
+    }, [markerteKandidater]);
 
     const onKandidatlisteMarkert = (event: ChangeEvent<HTMLInputElement>) => {
         const kandidatlisteId = event.target.value;
