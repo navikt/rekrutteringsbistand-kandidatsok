@@ -15,7 +15,7 @@
 }
 
 .knapp:hover {
-    background-color: var(--navds-global-color-deepblue-100);
+    background-color: var(--a-deepblue-100);
 }
 
 .lukkeknapp {

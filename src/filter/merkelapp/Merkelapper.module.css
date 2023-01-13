@@ -12,17 +12,17 @@
     border: none;
     cursor: pointer;
     text-align: left;
-    border-radius: var(--navds-border-radius-medium);
+    border-radius: var(--a-border-radius-medium);
     padding: 0.5rem 1rem;
-    background-color: var(--navds-global-color-blue-100);
+    background-color: var(--a-blue-100);
 }
 
 .merkelapp:hover {
-    background-color: var(--navds-global-color-blue-50);
+    background-color: var(--a-blue-50);
 }
 
 .merkelapp:focus {
-    box-shadow: 0 0 0 3px var(--navds-semantic-color-focus);
+    box-shadow: 0 0 0 3px var(--a-border-focus);
 }
 
 .merkelapp svg {
@@ -30,9 +30,9 @@
 }
 
 .merkelapp[data-variant='oransje'] {
-    background-color: var(--navds-global-color-orange-100);
+    background-color: var(--a-orange-100);
 }
 
 .merkelapp[data-variant='oransje']:hover {
-    background-color: var(--navds-global-color-orange-50);
+    background-color: var(--a-orange-50);
 }

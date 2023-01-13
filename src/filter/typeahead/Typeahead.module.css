@@ -5,14 +5,14 @@
 }
 
 .input {
-    padding-right: var(--navds-spacing-2);
+    padding-right: var(--a-spacing-2);
 }
 
 .suggestionPopover[data-reach-combobox-popover] {
     transform: translateY(4px);
-    border-radius: var(--navds-border-radius-medium);
-    border-color: var(--navds-search-color-border);
-    box-shadow: var(--navds-shadow-medium);
+    border-radius: var(--a-border-radius-medium);
+    border-color: var(--a-border-default);
+    box-shadow: var(--a-shadow-medium);
 
     /* Laveste mulige verdi for å vises over Popover-komponenten */
     z-index: 1000;
@@ -20,7 +20,7 @@
 
 .suggestion[data-reach-combobox-option][data-highlighted],
 .suggestion[data-reach-combobox-option]:hover {
-    background-color: var(--navds-global-color-blue-100);
+    background-color: var(--a-blue-100);
 }
 
 .suggestion[data-reach-combobox-option] {
@@ -29,15 +29,15 @@
 }
 
 .suggestion:first-child {
-    border-radius: var(--navds-border-radius-medium) var(--navds-border-radius-medium) 0 0;
+    border-radius: var(--a-border-radius-medium) var(--a-border-radius-medium) 0 0;
 }
 
 .suggestion:last-child {
-    border-radius: 0 0 var(--navds-border-radius-medium) var(--navds-border-radius-medium);
+    border-radius: 0 0 var(--a-border-radius-medium) var(--a-border-radius-medium);
 }
 
 .suggestion:only-child {
-    border-radius: var(--navds-border-radius-medium);
+    border-radius: var(--a-border-radius-medium);
 }
 
 .suggestion [data-user-value] {
