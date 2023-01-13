@@ -1,7 +1,9 @@
 import React from 'react';
-import { ToggleGroup } from '@navikt/ds-react';
+import { ToggleGroup, Tooltip } from '@navikt/ds-react';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
 import { FilterParam } from '../../hooks/useRespons';
+import { CoApplicant, Star } from '@navikt/ds-icons';
+import css from './Sortering.module.css';
 
 export enum Sortering {
     SisteFørst = 'nyeste',
@@ -24,8 +26,25 @@ const Sorteringsvalg = () => {
             onChange={(sortering) => onChange(sortering as Sortering)}
             size="small"
         >
-            <ToggleGroup.Item value={Sortering.SisteFørst}>Siste først</ToggleGroup.Item>
-            <ToggleGroup.Item value={Sortering.BesteMatch}>Beste match</ToggleGroup.Item>
+            <Tooltip
+                offset={16}
+                className={css.tooltip}
+                content="Sist oppdaterte kandidater kommer øverst"
+            >
+                <ToggleGroup.Item value={Sortering.SisteFørst}>
+                    <CoApplicant aria-hidden />
+                    Siste først
+                </ToggleGroup.Item>
+            </Tooltip>
+            <Tooltip
+                offset={16}
+                className={css.tooltip}
+                content="Kandidatene som passer til flest kriterier, vises øverst"
+            >
+                <ToggleGroup.Item value={Sortering.BesteMatch}>
+                    <Star aria-hidden /> Flest kriterier
+                </ToggleGroup.Item>
+            </Tooltip>
         </ToggleGroup>
     );
 };
