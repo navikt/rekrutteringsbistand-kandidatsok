@@ -10,9 +10,9 @@
     padding: 0.25rem;
     background-image: linear-gradient(
         45deg,
-        var(--navds-global-color-blue-300) 0%,
-        var(--navds-global-color-orange-200) 40%,
-        var(--navds-global-color-red-100) 100%
+        var(--a-blue-300) 0%,
+        var(--a-orange-200) 40%,
+        var(--a-red-100) 100%
     );
 }
 
@@ -25,5 +25,5 @@
 }
 
 .kjedeligBord {
-    border: solid 0.25rem var(--navds-global-color-gray-200);
+    border: solid 0.25rem var(--a-gray-200);
 }
