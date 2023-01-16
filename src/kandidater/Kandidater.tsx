@@ -12,7 +12,6 @@ import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
 import Matcheknapp from './matcheknapp/Matcheknapp';
 import Sortering from './sortering/Sortering';
-import { erIkkeProd } from '../utils';
 import { Kandidat } from './Kandidat';
 
 type Props = {
@@ -123,7 +122,7 @@ const Kandidater: FunctionComponent<Props> = ({
                             onMarkerKandidat={onMarkerKandidat}
                             kontekstAvKandidatliste={kontekstAvKandidatliste}
                         />
-                        {erIkkeProd && <Sortering />}
+                        <Sortering />
                     </div>
                     <ul className={css.kandidatrader}>
                         {kandidater.map((kandidat) => (

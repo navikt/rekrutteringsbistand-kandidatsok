@@ -17,7 +17,6 @@ import { SearchQuery, Sorteringsrekkefølge } from '../../kandidater/elasticSear
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { queryMedValgtKontor } from './queryMedValgtKontor';
 import { Sortering } from '../../kandidater/sortering/Sortering';
-import { erIkkeProd } from '../../utils';
 
 export const PAGE_SIZE = 25;
 
@@ -42,7 +41,7 @@ export const byggQuery = (
         size: PAGE_SIZE,
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
-        sort: erIkkeProd ? sorter(sortering) : sorteringAlltidSisteFørst(søkekriterier),
+        sort: sorter(sortering),
         _source: interessanteKandidatfelter,
     };
 };
@@ -56,10 +55,6 @@ const sorter = (sortering: Sortering) => {
         default:
             return undefined;
     }
-};
-
-const sorteringAlltidSisteFørst = (søkekriterier: Søkekriterier) => {
-    return søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst;
 };
 
 export const byggQueryForAktørIder = (
