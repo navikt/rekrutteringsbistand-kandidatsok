@@ -4,10 +4,11 @@ import useSøkekriterier from '../../hooks/useSøkekriterier';
 import { FilterParam } from '../../hooks/useRespons';
 import { CoApplicant, Star } from '@navikt/ds-icons';
 import css from './Sortering.module.css';
+import { sendEvent } from '../../amplitude';
 
 export enum Sortering {
     SisteFørst = 'nyeste',
-    BesteMatch = 'score',
+    FlestKriterier = 'score',
 }
 
 const Sorteringsvalg = () => {
@@ -18,6 +19,10 @@ const Sorteringsvalg = () => {
             FilterParam.Sortering,
             sortering === Sortering.SisteFørst ? null : sortering
         );
+
+        sendEvent('nytt_kandidatsøk', 'endre-sortering', {
+            sortering,
+        });
     };
 
     return (
@@ -41,7 +46,7 @@ const Sorteringsvalg = () => {
                 className={css.tooltip}
                 content="Kandidatene som passer til flest kriterier, vises øverst"
             >
-                <ToggleGroup.Item value={Sortering.BesteMatch}>
+                <ToggleGroup.Item value={Sortering.FlestKriterier}>
                     <Star aria-hidden /> Flest kriterier
                 </ToggleGroup.Item>
             </Tooltip>

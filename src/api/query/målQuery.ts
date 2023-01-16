@@ -21,9 +21,12 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
         arbeidserfaring,
         ferskhet,
         språk,
+        sortering,
     } = søkekriterier;
 
     const kriterier: any = {};
+
+    kriterier.sortering = sortering;
 
     if (fritekst !== null) {
         kriterier.fritekst = true;

@@ -42,14 +42,14 @@ export const byggQuery = (
         size: PAGE_SIZE,
         from: (side - 1) * PAGE_SIZE,
         track_total_hits: true,
-        sort: erIkkeProd ? bedreSortering(sortering) : gammelSortering(søkekriterier),
+        sort: erIkkeProd ? sorter(sortering) : sorteringAlltidSisteFørst(søkekriterier),
         _source: interessanteKandidatfelter,
     };
 };
 
-const bedreSortering = (sortering: Sortering) => {
+const sorter = (sortering: Sortering) => {
     switch (sortering) {
-        case Sortering.BesteMatch:
+        case Sortering.FlestKriterier:
             return undefined;
         case Sortering.SisteFørst:
             return sorterSisteKandidaterFørst;
@@ -58,7 +58,7 @@ const bedreSortering = (sortering: Sortering) => {
     }
 };
 
-const gammelSortering = (søkekriterier: Søkekriterier) => {
+const sorteringAlltidSisteFørst = (søkekriterier: Søkekriterier) => {
     return søkekriterier.fritekst ? undefined : sorterSisteKandidaterFørst;
 };
 
