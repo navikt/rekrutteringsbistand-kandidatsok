@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react';
-import { Button, Loader } from '@navikt/ds-react';
+import { BodyShort, Button, Loader } from '@navikt/ds-react';
 import { AddPerson, Error } from '@navikt/ds-icons';
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
@@ -111,6 +111,14 @@ const Kandidater: FunctionComponent<Props> = ({
 
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
+            )}
+
+            {respons.kind === 'feil' && (
+                <BodyShort className={css.feilmelding} aria-live="assertive">
+                    {respons.statuskode === 403
+                        ? 'Du har ikke tilgang til kandidatsøket'
+                        : respons.error}
+                </BodyShort>
             )}
 
             {kandidater.length > 0 && (

@@ -103,7 +103,7 @@ const parseJsonEllerKastFeil = async (respons: Response, feil: string) => {
         videresendTilInnlogging();
         throw new Error('Er ikke logget inn');
     } else {
-        throw new Error(feil + `: ${respons.statusText}`);
+        throw respons;
     }
 };
 

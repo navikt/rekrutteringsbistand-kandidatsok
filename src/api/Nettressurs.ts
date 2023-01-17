@@ -32,6 +32,7 @@ type Oppdaterer<T> = {
 type Feil = {
     kind: 'feil';
     error: string;
+    statuskode?: number;
 };
 
 export type Nettressurs<T> =

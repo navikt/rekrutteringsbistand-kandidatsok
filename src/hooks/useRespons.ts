@@ -77,7 +77,8 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
             } catch (e) {
                 setRespons({
                     kind: 'feil',
-                    error: (e as Error).message,
+                    statuskode: (e as Response).status,
+                    error: (e as Response).statusText,
                 });
             }
         };
