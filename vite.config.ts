@@ -23,7 +23,6 @@ export default defineConfig(({ mode }) => {
     };
 
     return {
-        appType: 'custom',
         server: {
             port: 3005,
             proxy,
