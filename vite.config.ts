@@ -4,8 +4,6 @@ import svgrPlugin from 'vite-plugin-svgr';
 
 type Proxy = Record<string, string | ProxyOptions>;
 
-const bibliotekerLevertAvContainerApp = ['react', 'react-dom'];
-
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
 
@@ -35,15 +33,6 @@ export default defineConfig(({ mode }) => {
             copyPublicDir: false,
             manifest: 'asset-manifest.json',
             chunkSizeWarningLimit: 1000,
-            rollupOptions: {
-                external: bibliotekerLevertAvContainerApp,
-                output: {
-                    globals: {
-                        react: 'react',
-                        'react-dom': 'react-dom',
-                    },
-                },
-            },
         },
         plugins: [react(), svgrPlugin()],
     };
