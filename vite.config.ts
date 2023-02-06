@@ -4,16 +4,7 @@ import svgrPlugin from 'vite-plugin-svgr';
 
 type Proxy = Record<string, string | ProxyOptions>;
 
-const eksterneBiblioteker = [
-    'react',
-    'react-dom',
-    'react-router-dom',
-    'history',
-    '@navikt/ds-react',
-    '@navikt/ds-css',
-    '@navikt/ds-icons',
-    '@navikt/navspa',
-];
+const bibliotekerLevertAvContainerApp = ['react', 'react-dom'];
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
@@ -45,7 +36,7 @@ export default defineConfig(({ mode }) => {
             manifest: 'asset-manifest.json',
             chunkSizeWarningLimit: 1000,
             rollupOptions: {
-                external: [],
+                external: bibliotekerLevertAvContainerApp,
             },
         },
         plugins: [react(), svgrPlugin()],
