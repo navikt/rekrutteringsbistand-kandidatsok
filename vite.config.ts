@@ -37,6 +37,12 @@ export default defineConfig(({ mode }) => {
             chunkSizeWarningLimit: 1000,
             rollupOptions: {
                 external: bibliotekerLevertAvContainerApp,
+                output: {
+                    globals: {
+                        react: 'React',
+                        'react-dom': 'ReactDOM',
+                    },
+                },
             },
         },
         plugins: [react(), svgrPlugin()],
