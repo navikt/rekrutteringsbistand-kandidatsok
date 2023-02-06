@@ -11,9 +11,9 @@ import { setupMock } from './mocks/mockSetup';
 import App, { MicrofrontendProps } from './App';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 
-const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
+const skalEksporteres = import.meta.env.VITE_EXPORT || import.meta.env.MODE === 'production';
 
-if (process.env.REACT_APP_MOCK) {
+if (import.meta.env.VITE_MOCK) {
     setupMock();
 }
 

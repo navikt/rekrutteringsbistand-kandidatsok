@@ -51,7 +51,7 @@ export const handlers = [
     }),
 ];
 
-if (process.env.REACT_APP_MOCK_ES) {
+if (import.meta.env.VITE_MOCK_ES) {
     handlers.push(
         rest.post(`/kandidatsok-proxy`, (req, res, ctx) => {
             const respons: Respons = {
