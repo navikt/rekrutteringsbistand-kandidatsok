@@ -39,8 +39,8 @@ export default defineConfig(({ mode }) => {
                 external: bibliotekerLevertAvContainerApp,
                 output: {
                     globals: {
-                        react: 'React',
-                        'react-dom': 'ReactDOM',
+                        react: 'react',
+                        'react-dom': 'react-dom',
                     },
                 },
             },
