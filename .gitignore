@@ -1,9 +1,12 @@
 node_modules
 
 /build
+/dist
 /server/build
 .env.development.local
+.vite
 
+# Ymse
 .DS_Store
 npm-debug.log*
 .idea
