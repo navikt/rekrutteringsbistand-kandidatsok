@@ -31,8 +31,6 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
         [css.disabled]: erLagtTil,
     });
 
-    console.log('Er lagt til', kandidatlisteId, erLagtTil);
-
     return (
         <div key={kandidatlisteId} className={css.kandidatliste}>
             <Checkbox
