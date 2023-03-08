@@ -2,7 +2,7 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { CheckboxGroup, Loader, Pagination } from '@navikt/ds-react';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import useMineKandidatlister from './useMineKandidatlister';
-import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
+import css from './VelgKandidatlister.module.css';
 
 type Props = {
     markerteLister: Set<string>;
@@ -24,15 +24,17 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
         setSide(side);
     };
 
+    const avhukedeLister = [...Array.from(markerteLister), ...Array.from(lagredeLister)];
+
     if (mineKandidatlister.kind === 'laster-inn') {
         return <Loader />;
     } else if (mineKandidatlister.kind === 'suksess' || mineKandidatlister.kind === 'oppdaterer') {
         return (
-            <div className={css.velgKandidatlister}>
+            <>
                 <CheckboxGroup
                     className={css.liste}
                     legend="Velg blant dine kandidatlister"
-                    value={Array.from(markerteLister)}
+                    value={avhukedeLister}
                 >
                     {mineKandidatlister.data.liste.map((kandidatliste) => (
                         <VelgbarKandidatliste
@@ -44,12 +46,13 @@ const VelgKandidatlister: FunctionComponent<Props> = ({
                     ))}
                 </CheckboxGroup>
                 <Pagination
+                    size="small"
                     page={side}
                     className={css.paginering}
                     onPageChange={hentFlereKandidatlister}
                     count={Math.floor(mineKandidatlister.data.antall / pageSize)}
                 />
-            </div>
+            </>
         );
     } else {
         return null;

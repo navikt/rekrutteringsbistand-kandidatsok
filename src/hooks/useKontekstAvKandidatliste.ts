@@ -107,6 +107,7 @@ export type Kandidatliste = {
     tittel: string;
     organisasjonNavn: string | null;
     kandidater: Array<{ kandidatnr: string }>;
+    opprettet: string;
     opprettetAv: {
         ident: string;
         navn: string;

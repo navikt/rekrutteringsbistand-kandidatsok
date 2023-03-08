@@ -1,0 +1,47 @@
+.liste {
+    margin: 2.5rem 0 0.5rem;
+}
+
+.paginering {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 2.5rem;
+}
+
+.kandidatliste {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.kandidatliste:not(:last-child) {
+    border-bottom: 2px solid var(--a-border-subtle);
+}
+
+.arbeidsgiver,
+.opprettet {
+    display: none;
+    font-size: var(--a-font-size-medium);
+}
+
+.disabled {
+    text-decoration: line-through;
+    color: var(--a-text-subtle);
+}
+
+.label:hover:not(.disabled) {
+    cursor: pointer;
+    color: var(--a-text-action);
+}
+
+@media (min-width: 1000px) {
+    .arbeidsgiver,
+    .opprettet {
+        display: unset;
+    }
+
+    .kandidatliste {
+        display: grid;
+        grid-template-columns: 1.5rem 5fr 3fr 1fr 1.5rem;
+    }
+}

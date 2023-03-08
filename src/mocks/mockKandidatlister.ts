@@ -10,17 +10,19 @@ export const mockMineKandidatlister: MineKandidatlister = {
             tittel: 'Volleyballskuespiller på Pescara Beach',
             organisasjonNavn: null,
             antallKandidater: 1,
+            opprettet: new Date().toISOString(),
             opprettetAv: {
                 ident: 'AB123456',
                 navn: 'Joare Mangstuen Mossby',
             },
         },
         {
-            kandidatlisteId: '123',
+            kandidatlisteId: '456',
             stillingId: 'abc',
             tittel: 'Labrotte til ymse eksperimenter',
             organisasjonNavn: 'Aperture Science',
             antallKandidater: 1,
+            opprettet: new Date().toISOString(),
             opprettetAv: {
                 ident: 'AB123456',
                 navn: 'Joare Mangstuen Mossby',

@@ -1,38 +1,7 @@
-.innhold {
-    width: 40rem;
+.modal {
+    width: 100%;
+    max-width: 50rem;
     padding: 1.5rem;
-}
-
-.liste {
-    margin: 1.5rem 0 0.5rem;
-}
-
-.velgKandidatlister {
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.kandidatliste {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.leftAlign {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    max-width: 80%;
-}
-
-.paginering {
-    margin: 1.5rem 0;
-}
-
-.valgtKandidatliste {
-    background-color: var(--a-green-100);
 }
 
 .knapper {

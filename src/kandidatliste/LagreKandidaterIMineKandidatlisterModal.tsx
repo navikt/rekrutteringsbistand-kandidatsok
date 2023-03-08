@@ -83,38 +83,36 @@ const LagreKandidaterIMineKandidatlisterModal: FunctionComponent<Props> = ({
     };
 
     return (
-        <Modal closeButton open={vis} onClose={onClose}>
-            <div className={css.innhold}>
-                <Heading size="medium" level="1">
-                    Lagre {markerteKandidater.size} kandidat
-                    {markerteKandidater.size === 1 ? '' : 'er'} i kandidatlister
-                </Heading>
-                <BodyLong>
-                    {oppsummerMarkerteKandidater(kandidaterPåSiden, markerteKandidater)}
-                </BodyLong>
-                <VelgKandidatlister
-                    markerteLister={markerteLister}
-                    lagredeLister={lagredeLister}
-                    onKandidatlisteMarkert={onKandidatlisteMarkert}
-                />
-                <SøkPåKandidatliste
-                    markerteLister={markerteLister}
-                    lagredeLister={lagredeLister}
-                    onKandidatlisteMarkert={onKandidatlisteMarkert}
-                />
-                <div className={css.knapper}>
-                    <Button
-                        variant="primary"
-                        onClick={onLagreKandidater}
-                        disabled={markerteLister.size === 0}
-                        loading={lagreIKandidatlister.kind === 'laster-opp'}
-                    >
-                        Lagre
-                    </Button>
-                    <Button variant="secondary" onClick={onClose}>
-                        Avbryt
-                    </Button>
-                </div>
+        <Modal className={css.modal} open={vis} onClose={onClose}>
+            <Heading size="medium" level="1">
+                Lagre {markerteKandidater.size} kandidat
+                {markerteKandidater.size === 1 ? '' : 'er'} i kandidatlister
+            </Heading>
+            <BodyLong>
+                {oppsummerMarkerteKandidater(kandidaterPåSiden, markerteKandidater)}
+            </BodyLong>
+            <VelgKandidatlister
+                markerteLister={markerteLister}
+                lagredeLister={lagredeLister}
+                onKandidatlisteMarkert={onKandidatlisteMarkert}
+            />
+            <SøkPåKandidatliste
+                markerteLister={markerteLister}
+                lagredeLister={lagredeLister}
+                onKandidatlisteMarkert={onKandidatlisteMarkert}
+            />
+            <div className={css.knapper}>
+                <Button
+                    variant="primary"
+                    onClick={onLagreKandidater}
+                    disabled={markerteLister.size === 0}
+                    loading={lagreIKandidatlister.kind === 'laster-opp'}
+                >
+                    Lagre
+                </Button>
+                <Button variant="secondary" onClick={onClose}>
+                    Avbryt
+                </Button>
             </div>
         </Modal>
     );
