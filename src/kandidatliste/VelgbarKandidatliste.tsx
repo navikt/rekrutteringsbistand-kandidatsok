@@ -21,7 +21,7 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
     const { kandidatlisteId, tittel } = kandidatliste;
     const checkboxId = `velg-kandidatliste-${kandidatliste.kandidatlisteId}`;
     const erLagtTil = lagredeLister.has(kandidatlisteId);
-    const opprettetDato = new Date(kandidatliste.opprettet).toLocaleDateString('nb', {
+    const opprettetDato = new Date(kandidatliste.opprettetTidspunkt).toLocaleDateString('nb', {
         day: '2-digit',
         month: '2-digit',
         year: '2-digit',
