@@ -3,8 +3,8 @@ import { CheckboxGroup, Loader, Search } from '@navikt/ds-react';
 import { hentKandidatlisteMedAnnonsenummer } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
-import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import css from './SøkPåKandidatliste.module.css';
 
 type Props = {
     markerteLister: Set<string>;
@@ -49,6 +49,7 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
             <form role="search" onSubmit={søkPåAnnonsenummer}>
                 <Search
                     clearButton
+                    size="small"
                     label="Søk på annonsenummer"
                     description="Hvis du ikke finner kandidatlisten du leter etter"
                     variant="secondary"

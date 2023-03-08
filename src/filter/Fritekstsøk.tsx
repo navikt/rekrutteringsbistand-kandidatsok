@@ -40,11 +40,10 @@ const Fritekstsøk: FunctionComponent = () => {
                 label="Søk etter kandidater"
                 description="F.eks navn, fødselsnummer eller jobbønske"
                 onChange={onSearchChange}
+                onClick={onSearchApply}
                 onClear={onClear}
                 hideLabel={false}
-            >
-                <Search.Button onClick={onSearchApply} />
-            </Search>
+            />
         </form>
     );
 };
