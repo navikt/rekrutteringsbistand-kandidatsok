@@ -2,7 +2,7 @@ import { ExternalLink, SuccessColored } from '@navikt/ds-icons';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { BodyShort, Checkbox } from '@navikt/ds-react';
-import { lenkeTilKandidatliste } from '../utils';
+import { lenkeTilKandidatliste, storForbokstav } from '../utils';
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import css from './VelgKandidatlister.module.css';
 import classNames from 'classnames';
@@ -46,7 +46,7 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
                 {tittel}
             </label>
             <BodyShort className={classNames(css.arbeidsgiver, css.maksEnLinje)}>
-                {kandidatliste.organisasjonNavn}
+                {storForbokstav(kandidatliste.organisasjonNavn)}
             </BodyShort>
             <BodyShort className={css.opprettet}>{opprettetDato}</BodyShort>
             <Link

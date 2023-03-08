@@ -20,7 +20,7 @@ export const mockMineKandidatlister: MineKandidatlister = {
             kandidatlisteId: '456',
             stillingId: 'abc',
             tittel: 'Labrotte til ymse eksperimenter',
-            organisasjonNavn: 'Aperture Science',
+            organisasjonNavn: 'APERTURE SCIENCE',
             antallKandidater: 1,
             opprettetTidspunkt: new Date().toISOString(),
             opprettetAv: {

@@ -6,6 +6,8 @@ import VelgKandidatlister from './VelgKandidatlister';
 import SøkPåKandidatliste from './SøkPåKandidatliste';
 import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 import { Kandidat } from '../kandidater/Kandidat';
+import { hentKandidatensNavn } from '../kandidater/kandidatrad/Kandidatrad';
+import { storForbokstav } from '../utils';
 
 type Props = {
     vis: boolean;
@@ -124,7 +126,7 @@ const oppsummerMarkerteKandidater = (
 ) => {
     const noenMarkerteKandidatersNavn = kandidaterPåSiden
         .filter((kandidat) => markerteKandidater.has(kandidat.arenaKandidatnr))
-        .map((kandidat) => `${kandidat.fornavn} ${kandidat.etternavn}`)
+        .map((kandidat) => hentKandidatensNavn(kandidat))
         .slice(0, 8);
 
     if (noenMarkerteKandidatersNavn.length < markerteKandidater.size) {
@@ -144,5 +146,8 @@ const oppsummerMarkerteKandidater = (
         return `${kommapseparerteNavnUtenomSistemann} og ${sistemann}.`;
     }
 };
+
+export const formaterKandidatensNavn = (kandidat: Kandidat) =>
+    `${storForbokstav(kandidat.fornavn)} ${storForbokstav(kandidat.etternavn)}`;
 
 export default LagreKandidaterIMineKandidatlisterModal;

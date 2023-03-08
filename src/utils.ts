@@ -18,8 +18,8 @@ export const hentMiljø = (): Miljø => {
 
 export const erIkkeProd = hentMiljø() !== Miljø.ProdGcp;
 
-export const storForbokstav = (s: string) => {
-    if (s.length === 0) {
+export const storForbokstav = (s: string | null) => {
+    if (s === null || s.length === 0) {
         return s;
     }
 
