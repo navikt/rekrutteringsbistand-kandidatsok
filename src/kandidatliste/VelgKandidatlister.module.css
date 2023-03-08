@@ -29,6 +29,12 @@
     color: var(--a-text-subtle);
 }
 
+.maksEnLinje {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .label:hover:not(.disabled) {
     cursor: pointer;
     color: var(--a-text-action);

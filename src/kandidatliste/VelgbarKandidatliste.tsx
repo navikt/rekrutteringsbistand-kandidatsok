@@ -27,7 +27,7 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
         year: '2-digit',
     });
 
-    const labelCls = classNames(css.label, {
+    const labelCls = classNames(css.label, css.maksEnLinje, {
         [css.disabled]: erLagtTil,
     });
 
@@ -47,7 +47,9 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
             <label className={labelCls} htmlFor={checkboxId}>
                 {tittel}
             </label>
-            <BodyShort className={css.arbeidsgiver}>{kandidatliste.organisasjonNavn}</BodyShort>
+            <BodyShort className={classNames(css.arbeidsgiver, css.maksEnLinje)}>
+                {kandidatliste.organisasjonNavn}
+            </BodyShort>
             <BodyShort className={css.opprettet}>{opprettetDato}</BodyShort>
             <Link
                 target="_blank"
