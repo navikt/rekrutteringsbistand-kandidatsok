@@ -64,6 +64,8 @@ export const Typeahead: FunctionComponent<Props> = ({
             onSelect(matchedSuggestion);
         } else if (allowUnmatchedInputs) {
             onSelect(uppercaseFirstLetter(value));
+        } else if (suggestions.length > 0) {
+            onSelect(suggestions[0]);
         }
     };
 
