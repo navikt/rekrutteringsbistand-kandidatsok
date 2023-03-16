@@ -24,9 +24,8 @@ export const handlers = [
         res(ctx.json(mockMineKandidatlister))
     ),
 
-    rest.get(
-        `${kandidatApi}/veileder/stilling/byNr/:annonsenummer/kandidatliste`,
-        (req, res, ctx) => res(ctx.json(mockKandidatliste()))
+    rest.get(`${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`, (req, res, ctx) =>
+        res(ctx.json(mockKandidatliste()))
     ),
 
     rest.get(`${kandidatApi}/veileder/kandidatlister/:kandidatlisteId`, (req, res, ctx) =>
@@ -35,6 +34,11 @@ export const handlers = [
 
     rest.get(`${stillingApi}/rekrutteringsbistandstilling/:stillingsId`, (req, res, ctx) =>
         res(ctx.json(mockStilling))
+    ),
+
+    rest.get(
+        `${stillingApi}/rekrutteringsbistandstilling/annonsenr/:annonseummer`,
+        (req, res, ctx) => res(ctx.json(mockStilling))
     ),
 
     rest.post(
