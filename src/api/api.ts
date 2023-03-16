@@ -45,16 +45,14 @@ export const hentMineKandidatlister = async (
     return parseJsonEllerKastFeil(respons, 'Klarte ikke å hente mine kandidatlister');
 };
 
-export const hentKandidatlisteMedAnnonsenummer = async (
-    annonsenummer: string
+export const hentKandidatlisteMedStillingsId = async (
+    stillingsId: string
 ): Promise<Kandidatliste> => {
-    const respons = await get(
-        `${kandidatApi}/veileder/stilling/byNr/${annonsenummer}/kandidatliste`
-    );
+    const respons = await get(`${kandidatApi}/veileder/stilling/${stillingsId}/kandidatliste`);
 
     return parseJsonEllerKastFeil(
         respons,
-        `Fant ikke kandidatliste med annonsenummer ${annonsenummer}`
+        `Fant ikke kandidatliste med stillingsId ${stillingsId}`
     );
 };
 
@@ -67,7 +65,15 @@ export const hentKandidatliste = async (kandidatlisteId: string): Promise<Kandid
 export const hentStilling = async (stillingsId: string): Promise<Stilling> => {
     const respons = await get(`${stillingApi}/rekrutteringsbistandstilling/${stillingsId}`);
 
-    return parseJsonEllerKastFeil(respons, `Fant ikke kandidatliste med id ${stillingsId}`);
+    return parseJsonEllerKastFeil(respons, `Fant ikke stilling med id ${stillingsId}`);
+};
+
+export const hentStillingMedAnnonsenummer = async (annonsenummer: string): Promise<Stilling> => {
+    const respons = await get(
+        `${stillingApi}/rekrutteringsbistandstilling/annonsenr/${annonsenummer}`
+    );
+
+    return parseJsonEllerKastFeil(respons, `Fant ikke stilling med annonsenummer ${annonsenummer}`);
 };
 
 export const lagreKandidaterIValgteKandidatlister = async (
