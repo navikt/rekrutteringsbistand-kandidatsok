@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 import { CheckboxGroup, Loader, Search } from '@navikt/ds-react';
-import { hentKandidatlisteMedAnnonsenummer } from '../api/api';
+import { hentKandidatlisteMedStillingsId, hentStillingMedAnnonsenummer } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
@@ -30,7 +30,8 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
         });
 
         try {
-            const kandidatliste = await hentKandidatlisteMedAnnonsenummer(annonsenummer);
+            const stilling = await hentStillingMedAnnonsenummer(annonsenummer);
+            const kandidatliste = await hentKandidatlisteMedStillingsId(stilling.stilling.uuid);
 
             setSøkeresultat({
                 kind: 'suksess',

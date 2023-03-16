@@ -116,6 +116,7 @@ export type Kandidatliste = {
 
 export type Stilling = {
     stilling: {
+        uuid: string;
         categoryList: Array<{
             categoryType: 'STYRK08' | 'STYRK08NAV';
             name: string;
