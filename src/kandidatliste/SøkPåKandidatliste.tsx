@@ -5,6 +5,7 @@ import { Nettressurs } from '../api/Nettressurs';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import css from './SøkPåKandidatliste.module.css';
+import { sendEvent } from '../amplitude';
 
 type Props = {
     markerteLister: Set<string>;
@@ -30,6 +31,7 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
         });
 
         try {
+            sendEvent('"lagre_i_kandidatliste_modal"', 'søkte_kandidatliste_basert_på_annonsenr');
             const stilling = await hentStillingMedAnnonsenummer(annonsenummer);
             const kandidatliste = await hentKandidatlisteMedStillingsId(stilling.stilling.uuid);
 
