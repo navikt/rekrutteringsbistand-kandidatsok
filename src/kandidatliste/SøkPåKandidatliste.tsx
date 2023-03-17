@@ -31,7 +31,7 @@ const SøkPåKandidatliste: FunctionComponent<Props> = ({
         });
 
         try {
-            sendEvent('"lagre_i_kandidatliste_modal"', 'søkte_kandidatliste_basert_på_annonsenr');
+            sendEvent('lagre_i_kandidatliste_modal', 'søkte_kandidatliste_basert_på_annonsenr');
             const stilling = await hentStillingMedAnnonsenummer(annonsenummer);
             const kandidatliste = await hentKandidatlisteMedStillingsId(stilling.stilling.uuid);
 
