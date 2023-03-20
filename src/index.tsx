@@ -1,4 +1,3 @@
-import '@navikt/ds-css';
 import '@reach/combobox/styles.css';
 import './index.css';
 
