@@ -5,13 +5,13 @@ import { CoApplicant as KandidatlisteIkon, Office1 as StillingIkon } from '@navi
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
 import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
 import useSøkekriterierFraStilling from '../hooks/useSøkekriterierFraStilling';
-import css from './Stillingsbanner.module.css';
+import css from './Kandidatlistebanner.module.css';
 
 type Props = {
     kontekst: KontekstAvKandidatliste;
 };
 
-const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
+const Kandidatlistebanner: FunctionComponent<Props> = ({ kontekst }) => {
     const { kandidatliste, stilling, kandidatlisteId, brukKriterierFraStillingen } = kontekst;
 
     useSøkekriterierFraStilling(stilling, brukKriterierFraStillingen);
@@ -35,13 +35,15 @@ const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
                     </BodyShort>
                 </div>
                 <div className={css.lenker}>
-                    <Link
-                        className="navds-link"
-                        to={lenkeTilStilling(kandidatliste.data.stillingId)}
-                    >
-                        <StillingIkon />
-                        Se stilling
-                    </Link>
+                    {stilling.kind === 'suksess' && (
+                        <Link
+                            className="navds-link"
+                            to={lenkeTilStilling(kandidatliste.data.stillingId)}
+                        >
+                            <StillingIkon />
+                            Se stilling
+                        </Link>
+                    )}
                     <Link className="navds-link" to={lenkeTilKandidatliste(kandidatlisteId)}>
                         <KandidatlisteIkon />
                         Se kandidatliste
@@ -52,4 +54,4 @@ const Stillingsbanner: FunctionComponent<Props> = ({ kontekst }) => {
     );
 };
 
-export default Stillingsbanner;
+export default Kandidatlistebanner;
