@@ -35,7 +35,7 @@ const Kandidatlistebanner: FunctionComponent<Props> = ({ kontekst }) => {
                     </BodyShort>
                 </div>
                 <div className={css.lenker}>
-                    {stilling.kind === 'suksess' && (
+                    {kandidatliste.data.stillingId && (
                         <Link
                             className="navds-link"
                             to={lenkeTilStilling(kandidatliste.data.stillingId)}
