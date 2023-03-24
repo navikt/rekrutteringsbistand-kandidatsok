@@ -45,7 +45,9 @@ const useKontekstAvKandidatliste = (
             }
         };
 
-        const brukKandidatliste = async (kandidatlisteId: string): Promise<string | undefined> => {
+        const brukKandidatliste = async (
+            kandidatlisteId: string
+        ): Promise<string | undefined | null> => {
             setKandidatliste({
                 kind: 'laster-inn',
             });
@@ -103,7 +105,7 @@ const useKontekstAvKandidatliste = (
 
 export type Kandidatliste = {
     kandidatlisteId: string;
-    stillingId: string;
+    stillingId: string | null;
     tittel: string;
     organisasjonNavn: string | null;
     kandidater: Array<{ kandidatnr: string }>;

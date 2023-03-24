@@ -7,9 +7,11 @@ import {
     mockMineKandidatlister,
     mockLagringAvKandidaterIKandidatliste,
     mockKandidatliste,
+    mockKandidatlisteUtenStilling,
 } from './mockKandidatlister';
 import { mockStilling } from './mockStilling';
 import { FEATURE_TOGGLE_API } from '../hooks/useHarTilgangTilAutomatiskMatching';
+import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
 
 export const handlers = [
     rest.get('/meg', (req, res, ctx) =>
@@ -28,8 +30,12 @@ export const handlers = [
         res(ctx.json(mockKandidatliste()))
     ),
 
-    rest.get(`${kandidatApi}/veileder/kandidatlister/:kandidatlisteId`, (req, res, ctx) =>
+    rest.get(`${kandidatApi}/veileder/kandidatlister/123`, (req, res, ctx) =>
         res(ctx.json(mockKandidatliste()))
+    ),
+
+    rest.get(`${kandidatApi}/veileder/kandidatlister/789`, (req, res, ctx) =>
+        res(ctx.json(mockKandidatlisteUtenStilling()))
     ),
 
     rest.get(`${stillingApi}/rekrutteringsbistandstilling/:stillingsId`, (req, res, ctx) =>

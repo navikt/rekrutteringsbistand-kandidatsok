@@ -36,7 +36,13 @@ const Utviklingsapp = () => {
                     to="/kandidatsok?kandidatliste=123&brukKriterierFraStillingen=true"
                     className="navds-link"
                 >
-                    Finn kandidater
+                    Finn kandidater til stilling
+                </Link>
+                <Link
+                    to="/kandidatsok?kandidatliste=789&brukKriterierFraStillingen=false"
+                    className="navds-link"
+                >
+                    Finn kandidater til kandidatliste uten stilling
                 </Link>
             </header>
             <Routes>
