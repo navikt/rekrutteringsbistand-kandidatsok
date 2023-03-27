@@ -45,9 +45,7 @@ const useKontekstAvKandidatliste = (
             }
         };
 
-        const brukKandidatliste = async (
-            kandidatlisteId: string
-        ): Promise<string | undefined | null> => {
+        const brukKandidatliste = async (kandidatlisteId: string): Promise<string | null> => {
             setKandidatliste({
                 kind: 'laster-inn',
             });
@@ -67,6 +65,8 @@ const useKontekstAvKandidatliste = (
                     error: error as string,
                 });
             }
+
+            return null;
         };
 
         const brukKontekst = async (kandidatlisteId: string) => {
