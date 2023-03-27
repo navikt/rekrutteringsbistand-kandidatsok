@@ -7,7 +7,7 @@ import Kandidater from './kandidater/Kandidater';
 import LagreKandidaterIMineKandidatlisterModal from './kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import LagreKandidaterISpesifikkKandidatlisteModal from './kandidatliste/LagreKandidaterISpesifikkKandidatlisteModal';
 import PorteføljeTabs from './filter/porteføljetabs/PorteføljeTabs';
-import Stillingsbanner from './stillingsbanner/Stillingsbanner';
+import Kandidatlistebanner from './kandidatlistebanner/Kandidatlistebanner';
 import TømFiltre from './filter/TømFiltre';
 import useMarkerteKandidater from './hooks/useMarkerteKandidater';
 import css from './Kandidatsøk.module.css';
@@ -66,7 +66,7 @@ const Kandidatsøk = ({
     return (
         <>
             {kontekstAvKandidatliste !== null && (
-                <Stillingsbanner kontekst={kontekstAvKandidatliste} />
+                <Kandidatlistebanner kontekst={kontekstAvKandidatliste} />
             )}
             <div className={css.container}>
                 <TømFiltre />
