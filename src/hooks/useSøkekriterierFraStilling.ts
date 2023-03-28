@@ -5,7 +5,7 @@ import { Nettressurs } from '../api/Nettressurs';
 import byggSuggestion, { Forslagsfelt } from '../api/query/byggSuggestion';
 import { encodeGeografiforslag } from '../filter/jobbønsker/ØnsketSted';
 import { Geografiforslag } from './useGeografiSuggestions';
-import { Stilling } from './useKontekstAvKandidatliste';
+import { Stilling } from './useKontekstAvKandidatlisteEllerStilling';
 import { FilterParam, OtherParam } from './useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from './useSøkekriterier';
 

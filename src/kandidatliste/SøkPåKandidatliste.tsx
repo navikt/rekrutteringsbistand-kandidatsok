@@ -3,7 +3,7 @@ import { CheckboxGroup, Loader, Search } from '@navikt/ds-react';
 import { hentKandidatlisteMedStillingsId, hentStillingMedAnnonsenummer } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import VelgbarKandidatliste from './VelgbarKandidatliste';
-import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import css from './SøkPåKandidatliste.module.css';
 import { sendEvent } from '../amplitude';
 

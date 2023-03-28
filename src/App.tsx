@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext } from 'react';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
-import useKontekstAvKandidatliste from './hooks/useKontekstAvKandidatliste';
+import useKontekstAvKandidatlisteEllerStilling from './hooks/useKontekstAvKandidatlisteEllerStilling';
 import useNavigeringsstate from './hooks/useNavigeringsstate';
 import { ØktContext, ØktContextProvider } from './Økt';
 import Kandidatsøk from './Kandidatsøk';
@@ -25,7 +25,8 @@ const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
             : kandidatsøkØkt.forrigeØkt;
 
     const innloggetBruker = useInnloggetBruker(navKontor);
-    const kontekstAvKandidatliste = useKontekstAvKandidatliste(navigeringsstate);
+    const kontekstAvKandidatlisteEllerStilling =
+        useKontekstAvKandidatlisteEllerStilling(navigeringsstate);
     const harTilgangTilAutomatiskMatching = useHarTilgangTilAutomatiskMatching();
 
     return (
@@ -34,7 +35,7 @@ const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
             setØkt={kandidatsøkØkt.setØkt}
             navKontor={navKontor}
             innloggetBruker={innloggetBruker}
-            kontekstAvKandidatliste={kontekstAvKandidatliste}
+            kontekstAvKandidatlisteEllerStilling={kontekstAvKandidatlisteEllerStilling}
             harTilgangTilAutomatiskMatching={harTilgangTilAutomatiskMatching}
         />
     );

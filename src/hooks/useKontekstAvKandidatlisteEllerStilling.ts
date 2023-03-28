@@ -1,22 +1,25 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { hentKandidatliste, hentStilling } from '../api/api';
+import { hentKandidatliste, hentKandidatlisteMedStillingsId, hentStilling } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Navigeringsstate } from './useNavigeringsstate';
+import { response } from 'msw';
+import { Simulate } from 'react-dom/test-utils';
+import error = Simulate.error;
 
 export type KontekstAvKandidatliste = {
-    kandidatlisteId: string;
     kandidatliste: Nettressurs<Kandidatliste>;
     stilling: Nettressurs<Stilling>;
     brukKriterierFraStillingen: boolean;
     setOppdatertKandidatliste: (kandidatliste: Kandidatliste) => void;
 };
 
-const useKontekstAvKandidatliste = (
+const useKontekstAvKandidatlisteEllerStilling = (
     navigeringsstate: Navigeringsstate
 ): KontekstAvKandidatliste | null => {
     const [searchParams] = useSearchParams();
     const kandidatlisteId = searchParams.get('kandidatliste');
+    const stillingId = searchParams.get('stilling');
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>({
         kind: 'ikke-lastet',
     });
@@ -69,7 +72,27 @@ const useKontekstAvKandidatliste = (
             return null;
         };
 
-        const brukKontekst = async (kandidatlisteId: string) => {
+        const brukKandidatlisteMedStillingsId = async (stillingId: string) => {
+            setKandidatliste({
+                kind: 'laster-inn',
+            });
+
+            try {
+                const respons = await hentKandidatlisteMedStillingsId(stillingId);
+
+                setKandidatliste({
+                    kind: 'suksess',
+                    data: respons,
+                });
+            } catch (error) {
+                setKandidatliste({
+                    kind: 'feil',
+                    error: error as string,
+                });
+            }
+        };
+
+        const brukKontekstKandidatliste = async (kandidatlisteId: string) => {
             const listensStillingsId = await brukKandidatliste(kandidatlisteId);
 
             if (listensStillingsId) {
@@ -77,17 +100,25 @@ const useKontekstAvKandidatliste = (
             }
         };
 
+        const brukKontekstStilling = async (stillingId: string) => {
+            if (stillingId) {
+                brukStilling(stillingId);
+                brukKandidatlisteMedStillingsId(stillingId);
+            }
+        };
+
         if (kandidatlisteId) {
-            brukKontekst(kandidatlisteId);
+            brukKontekstKandidatliste(kandidatlisteId);
+        } else if (stillingId) {
+            brukKontekstStilling(stillingId);
         }
-    }, [kandidatlisteId]);
+    }, [kandidatlisteId, stillingId]);
 
     const memoisertReturverdi = useMemo(() => {
-        if (kandidatlisteId === null) {
+        if (kandidatlisteId === null && stillingId === null) {
             return null;
         } else {
             return {
-                kandidatlisteId,
                 kandidatliste,
                 stilling,
                 brukKriterierFraStillingen: navigeringsstate.brukKriterierFraStillingen || false,
@@ -132,4 +163,4 @@ export type Stilling = {
     };
 };
 
-export default useKontekstAvKandidatliste;
+export default useKontekstAvKandidatlisteEllerStilling;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { CoApplicant as KandidatlisteIkon, Office1 as StillingIkon } from '@navikt/ds-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import useSøkekriterierFraStilling from '../hooks/useSøkekriterierFraStilling';
 import css from './Kandidatlistebanner.module.css';
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Kandidatlistebanner: FunctionComponent<Props> = ({ kontekst }) => {
-    const { kandidatliste, stilling, kandidatlisteId, brukKriterierFraStillingen } = kontekst;
+    const { kandidatliste, stilling, brukKriterierFraStillingen } = kontekst;
 
     useSøkekriterierFraStilling(stilling, brukKriterierFraStillingen);
 
@@ -20,7 +20,7 @@ const Kandidatlistebanner: FunctionComponent<Props> = ({ kontekst }) => {
         return null;
     }
 
-    const { tittel, opprettetAv } = kandidatliste.data;
+    const { tittel, opprettetAv, kandidatlisteId } = kandidatliste.data;
 
     return (
         <div role="banner" className={css.container}>

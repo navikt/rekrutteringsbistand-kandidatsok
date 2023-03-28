@@ -3,7 +3,7 @@ import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { BodyShort, Checkbox } from '@navikt/ds-react';
 import { lenkeTilKandidatliste, storForbokstav } from '../utils';
-import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import css from './VelgKandidatlister.module.css';
 import classNames from 'classnames';
 
