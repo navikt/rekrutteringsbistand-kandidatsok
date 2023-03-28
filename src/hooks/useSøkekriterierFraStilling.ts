@@ -31,7 +31,7 @@ const useSøkekriterierFraStilling = (
         if (
             stilling.kind === 'suksess' &&
             brukKriterierFraStillingen &&
-            kandidatlisteErEnesteSearchParam(searchParams)
+            søkeKriterierIkkeLagtTil(searchParams)
         ) {
             anvendSøkekriterier(stilling.data);
         }
@@ -90,8 +90,9 @@ const hentFylkeskodeMedFylkesnavn = async (
     return forslag?._source as Geografiforslag;
 };
 
-const kandidatlisteErEnesteSearchParam = (searchParams: URLSearchParams) =>
-    Array.from(searchParams.keys()).every((param) => param === OtherParam.Kandidatliste);
+const søkeKriterierIkkeLagtTil = (searchParams: URLSearchParams) =>
+    Array.from(searchParams.keys()).every((param) => param === OtherParam.Kandidatliste) ||
+    Array.from(searchParams.keys()).every((param) => param === OtherParam.Stilling);
 
 const formaterStedsnavnSlikDetErRegistrertPåKandidat = (stedsnavn: string) =>
     stedsnavn
