@@ -6,7 +6,7 @@ import {
     FuzzySuggestQuery,
     FuzzySuggestionRespons,
 } from '../kandidater/elasticSearchTyper';
-import { Kandidatliste, Stilling } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste, Stilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
 

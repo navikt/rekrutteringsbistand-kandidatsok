@@ -30,6 +30,7 @@ export enum FilterParam {
 }
 
 export enum OtherParam {
+    Stilling = 'stilling',
     Kandidatliste = 'kandidatliste',
     BrukKriterierFraStillingen = 'brukKriterierFraStillingen',
 }

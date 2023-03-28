@@ -1,4 +1,4 @@
-import { Kandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { LagreKandidaterDto } from '../kandidatliste/LagreKandidaterIMineKandidatlisterModal';
 import { MineKandidatlister } from '../kandidatliste/useMineKandidatlister';
 

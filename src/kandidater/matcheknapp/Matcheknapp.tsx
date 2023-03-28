@@ -3,7 +3,7 @@ import { AutomaticSystem } from '@navikt/ds-icons';
 import { Button, Tooltip } from '@navikt/ds-react';
 import { useNavigate } from 'react-router-dom';
 
-import { Kandidatliste } from '../../hooks/useKontekstAvKandidatliste';
+import { Kandidatliste } from '../../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { Kandidat } from '../Kandidat';
 
 import css from './Matcheknapp.module.css';

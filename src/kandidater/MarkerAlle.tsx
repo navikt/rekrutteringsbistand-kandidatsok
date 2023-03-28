@@ -2,7 +2,7 @@ import React from 'react';
 import { Checkbox } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { Kandidat } from './Kandidat';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import css from './Kandidater.module.css';
 
 type Props = {

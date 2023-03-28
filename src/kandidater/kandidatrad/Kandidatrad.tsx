@@ -5,7 +5,10 @@ import { Heart, Place, DecisionCheck } from '@navikt/ds-icons';
 
 import { alleInnsatsgrupper } from '../../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
-import { Kandidatliste, KontekstAvKandidatliste } from '../../hooks/useKontekstAvKandidatliste';
+import {
+    Kandidatliste,
+    KontekstAvKandidatliste,
+} from '../../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { lenkeTilKandidat, storForbokstav } from '../../utils';
 import { Økt } from '../../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';

@@ -2,7 +2,10 @@ import { BodyLong, Button, Heading, Loader, Modal } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { lagreKandidaterIKandidatliste } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { Kandidatliste, KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import {
+    Kandidatliste,
+    KontekstAvKandidatliste,
+} from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { LagreKandidaterDto } from './LagreKandidaterIMineKandidatlisterModal';
 import css from './LagreKandidaterISpesifikkKandidatlisteModal.module.css';
 

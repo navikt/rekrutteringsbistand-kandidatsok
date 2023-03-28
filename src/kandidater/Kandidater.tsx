@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react'
 import { BodyShort, Button, Loader } from '@navikt/ds-react';
 import { AddPerson, Error } from '@navikt/ds-icons';
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatliste';
+import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { Økt, ØktContext } from '../Økt';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
