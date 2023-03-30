@@ -40,10 +40,10 @@ const Filter = () => {
             <Filtergruppe tittel="Prioriterte målgrupper">
                 <PrioriterteMålgrupper />
             </Filtergruppe>
-            {/* <Filtergruppe tittel="Tilretteleggingsbehov">
+            <Filtergruppe tittel="Tilretteleggingsbehov">
                 <HarTilretteleggingsbehov />
                 <VelgBehovskategorier />
-            </Filtergruppe> */}
+            </Filtergruppe>
         </>
     );
 };
