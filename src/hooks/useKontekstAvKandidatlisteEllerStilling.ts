@@ -3,9 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { hentKandidatliste, hentKandidatlisteMedStillingsId, hentStilling } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import { Navigeringsstate } from './useNavigeringsstate';
-import { response } from 'msw';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
 
 export type KontekstAvKandidatliste = {
     kandidatliste: Nettressurs<Kandidatliste>;
@@ -60,7 +57,6 @@ const useKontekstAvKandidatlisteEllerStilling = (
                     kind: 'suksess',
                     data: respons,
                 });
-
                 return respons.stillingId;
             } catch (error) {
                 setKandidatliste({
