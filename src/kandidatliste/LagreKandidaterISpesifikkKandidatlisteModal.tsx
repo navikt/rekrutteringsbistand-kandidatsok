@@ -69,7 +69,9 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
                         <div className={css.knapper}>
                             <Button
                                 variant="primary"
-                                onClick={onBekreftClick(kontekstAvKandidatliste.kandidatlisteId)}
+                                onClick={onBekreftClick(
+                                    kontekstAvKandidatliste.kandidatliste.data.kandidatlisteId
+                                )}
                             >
                                 Lagre
                             </Button>
