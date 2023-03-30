@@ -4,7 +4,7 @@ import { lagreKandidaterIKandidatliste } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
 import {
     Kandidatliste,
-    KontekstAvKandidatliste,
+    KontekstAvKandidatlisteEllerStilling,
 } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { LagreKandidaterDto } from './LagreKandidaterIMineKandidatlisterModal';
 import css from './LagreKandidaterISpesifikkKandidatlisteModal.module.css';
@@ -13,7 +13,7 @@ type Props = {
     vis: boolean;
     onClose: () => void;
     markerteKandidater: Set<string>;
-    kontekstAvKandidatliste: KontekstAvKandidatliste;
+    kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatlisteEllerStilling;
     onSuksess: (kandidatliste: Kandidatliste) => void;
 };
 
@@ -21,7 +21,7 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
     vis,
     onClose,
     markerteKandidater,
-    kontekstAvKandidatliste,
+    kontekstAvKandidatlisteEllerStilling,
     onSuksess,
 }) => {
     const [lagreKandidater, setLagreKandidater] = useState<Nettressurs<LagreKandidaterDto>>({
@@ -59,18 +59,21 @@ const LagreKandidaterISpesifikkKandidatlisteModal: FunctionComponent<Props> = ({
                     Lagre {markerteKandidater.size} kandidat
                     {markerteKandidater.size > 1 ? 'er' : ''} i kandidatlisten
                 </Heading>
-                {kontekstAvKandidatliste.kandidatliste.kind === 'laster-inn' && <Loader />}
-                {kontekstAvKandidatliste.kandidatliste.kind === 'suksess' && (
+                {kontekstAvKandidatlisteEllerStilling.kandidatliste.kind === 'laster-inn' && (
+                    <Loader />
+                )}
+                {kontekstAvKandidatlisteEllerStilling.kandidatliste.kind === 'suksess' && (
                     <>
                         <BodyLong className={css.beskrivelse}>
                             Ønsker du å lagre kandidaten i kandidatlisten til stillingen «
-                            {kontekstAvKandidatliste.kandidatliste.data.tittel}»?
+                            {kontekstAvKandidatlisteEllerStilling.kandidatliste.data.tittel}»?
                         </BodyLong>
                         <div className={css.knapper}>
                             <Button
                                 variant="primary"
                                 onClick={onBekreftClick(
-                                    kontekstAvKandidatliste.kandidatliste.data.kandidatlisteId
+                                    kontekstAvKandidatlisteEllerStilling.kandidatliste.data
+                                        .kandidatlisteId
                                 )}
                             >
                                 Lagre

@@ -7,7 +7,7 @@ import { alleInnsatsgrupper } from '../../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
 import {
     Kandidatliste,
-    KontekstAvKandidatliste,
+    KontekstAvKandidatlisteEllerStilling,
 } from '../../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { lenkeTilKandidat, storForbokstav } from '../../utils';
 import { Økt } from '../../Økt';
@@ -19,7 +19,7 @@ type Props = {
     kandidat: Kandidat;
     markerteKandidater: Set<string>;
     onMarker: () => void;
-    kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatlisteEllerStilling | null;
     forrigeØkt: Økt | null;
 };
 
@@ -27,7 +27,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
     kandidat,
     markerteKandidater,
     onMarker,
-    kontekstAvKandidatliste,
+    kontekstAvKandidatlisteEllerStilling,
     forrigeØkt,
 }) => {
     const fremhevet = kandidat.arenaKandidatnr === forrigeØkt?.sistBesøkteKandidat;
@@ -39,9 +39,17 @@ const Kandidatrad: FunctionComponent<Props> = ({
     const alleØnskedeSteder = hentKandidatensØnskedeSteder(kandidat);
 
     const kandidatAlleredeLagtTilPåKandidatlista =
-        kontekstAvKandidatliste?.kandidatliste.kind === 'suksess'
-            ? kandidatenErPåKandidatlista(kandidat, kontekstAvKandidatliste.kandidatliste.data)
+        kontekstAvKandidatlisteEllerStilling?.kandidatliste.kind === 'suksess'
+            ? kandidatenErPåKandidatlista(
+                  kandidat,
+                  kontekstAvKandidatlisteEllerStilling.kandidatliste.data
+              )
             : false;
+
+    const kandidatlisteId =
+        kontekstAvKandidatlisteEllerStilling?.kandidatliste.kind === 'suksess'
+            ? kontekstAvKandidatlisteEllerStilling.kandidatliste.data.kandidatlisteId
+            : undefined;
 
     return (
         <div
@@ -63,10 +71,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
                 <div className={css.navn}>
                     <Link
                         className="navds-link"
-                        to={lenkeTilKandidat(
-                            kandidat.arenaKandidatnr,
-                            kontekstAvKandidatliste?.kandidatlisteId
-                        )}
+                        to={lenkeTilKandidat(kandidat.arenaKandidatnr, kandidatlisteId)}
                     >
                         {hentKandidatensNavn(kandidat)}
                     </Link>

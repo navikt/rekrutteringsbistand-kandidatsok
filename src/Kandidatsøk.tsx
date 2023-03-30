@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { InnloggetBruker } from './hooks/useBrukerensIdent';
 import {
     Kandidatliste,
-    KontekstAvKandidatliste,
+    KontekstAvKandidatlisteEllerStilling,
 } from './hooks/useKontekstAvKandidatlisteEllerStilling';
 import { Økt } from './Økt';
 import Kandidater from './kandidater/Kandidater';
@@ -21,7 +21,7 @@ export type KandidatsøkProps = {
     forrigeØkt: Økt | null;
     setØkt: (økt: Økt) => void;
     innloggetBruker: InnloggetBruker;
-    kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatliste | null;
+    kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatlisteEllerStilling | null;
     navKontor: string | null;
     harTilgangTilAutomatiskMatching: boolean;
 };
@@ -80,7 +80,9 @@ const Kandidatsøk = ({
                     <main className={css.hovedinnhold}>
                         <Kandidater
                             innloggetBruker={innloggetBruker}
-                            kontekstAvKandidatliste={kontekstAvKandidatlisteEllerStilling}
+                            kontekstAvKandidatlisteEllerStilling={
+                                kontekstAvKandidatlisteEllerStilling
+                            }
                             onLagreIKandidatlisteClick={onLagreIKandidatlisteClick}
                             markerteKandidater={markerteKandidater}
                             onMarkerKandidat={onMarkerKandidat}
@@ -104,7 +106,7 @@ const Kandidatsøk = ({
                     vis={aktivModal === Modal.BekreftLagreIKandidatliste}
                     onClose={() => setAktivModal(Modal.IngenModal)}
                     markerteKandidater={markerteKandidater}
-                    kontekstAvKandidatliste={kontekstAvKandidatlisteEllerStilling}
+                    kontekstAvKandidatlisteEllerStilling={kontekstAvKandidatlisteEllerStilling}
                     onSuksess={onSuccessLagretKandidaterISpesifikkKandidatliste}
                 />
             )}

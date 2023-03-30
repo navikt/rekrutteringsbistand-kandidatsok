@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { CoApplicant as KandidatlisteIkon, Office1 as StillingIkon } from '@navikt/ds-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
+import { KontekstAvKandidatlisteEllerStilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import useSøkekriterierFraStilling from '../hooks/useSøkekriterierFraStilling';
 import css from './Kandidatlistebanner.module.css';
 
 type Props = {
-    kontekst: KontekstAvKandidatliste;
+    kontekst: KontekstAvKandidatlisteEllerStilling;
 };
 
 const Kandidatlistebanner: FunctionComponent<Props> = ({ kontekst }) => {

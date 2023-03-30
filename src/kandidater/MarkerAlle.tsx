@@ -2,25 +2,25 @@ import React from 'react';
 import { Checkbox } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { Kandidat } from './Kandidat';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
+import { KontekstAvKandidatlisteEllerStilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import css from './Kandidater.module.css';
 
 type Props = {
     kandidater: Kandidat[];
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatnumre: string[]) => void;
-    kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatlisteEllerStilling | null;
 };
 
 const MarkerAlle: FunctionComponent<Props> = ({
     kandidater,
     markerteKandidater,
     onMarkerKandidat,
-    kontekstAvKandidatliste,
+    kontekstAvKandidatlisteEllerStilling,
 }) => {
     const kandidaterSomIkkeErPåKandidatlisten = hentKandidaterSomIkkeErPåKandidatlisten(
         kandidater,
-        kontekstAvKandidatliste
+        kontekstAvKandidatlisteEllerStilling
     ).map((kandidat) => kandidat.arenaKandidatnr);
 
     const alleKandidaterErMarkert = kandidaterSomIkkeErPåKandidatlisten.every((kandidatnr) =>
@@ -53,7 +53,7 @@ const MarkerAlle: FunctionComponent<Props> = ({
 
 const hentKandidaterSomIkkeErPåKandidatlisten = (
     kandidater: Kandidat[],
-    kontekst: KontekstAvKandidatliste | null
+    kontekst: KontekstAvKandidatlisteEllerStilling | null
 ) => {
     if (kontekst === null) {
         return kandidater;

@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react'
 import { BodyShort, Button, Loader } from '@navikt/ds-react';
 import { AddPerson, Error } from '@navikt/ds-icons';
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
-import { KontekstAvKandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
+import { KontekstAvKandidatlisteEllerStilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { Økt, ØktContext } from '../Økt';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
@@ -16,7 +16,7 @@ import { Kandidat } from './Kandidat';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
-    kontekstAvKandidatliste: KontekstAvKandidatliste | null;
+    kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatlisteEllerStilling | null;
     onLagreIKandidatlisteClick: () => void;
     markerteKandidater: Set<string>;
     onMarkerKandidat: (kandidatnr: string | string[]) => void;
@@ -28,7 +28,7 @@ type Props = {
 
 const Kandidater: FunctionComponent<Props> = ({
     innloggetBruker,
-    kontekstAvKandidatliste,
+    kontekstAvKandidatlisteEllerStilling,
     onLagreIKandidatlisteClick,
     markerteKandidater,
     onMarkerKandidat,
@@ -101,9 +101,9 @@ const Kandidater: FunctionComponent<Props> = ({
             </div>
 
             {skalViseKnappForAutomatiskMatching &&
-                kontekstAvKandidatliste?.kandidatliste.kind === 'suksess' && (
+                kontekstAvKandidatlisteEllerStilling?.kandidatliste.kind === 'suksess' && (
                     <Matcheknapp
-                        kandidatliste={kontekstAvKandidatliste?.kandidatliste.data}
+                        kandidatliste={kontekstAvKandidatlisteEllerStilling?.kandidatliste.data}
                         kandidater={kandidater}
                         innloggetBruker={innloggetBruker}
                     />
@@ -128,7 +128,9 @@ const Kandidater: FunctionComponent<Props> = ({
                             kandidater={kandidater}
                             markerteKandidater={markerteKandidater}
                             onMarkerKandidat={onMarkerKandidat}
-                            kontekstAvKandidatliste={kontekstAvKandidatliste}
+                            kontekstAvKandidatlisteEllerStilling={
+                                kontekstAvKandidatlisteEllerStilling
+                            }
                         />
                         <Sortering />
                     </div>
@@ -138,7 +140,9 @@ const Kandidater: FunctionComponent<Props> = ({
                                 key={kandidat.arenaKandidatnr}
                                 kandidat={kandidat}
                                 markerteKandidater={markerteKandidater}
-                                kontekstAvKandidatliste={kontekstAvKandidatliste}
+                                kontekstAvKandidatlisteEllerStilling={
+                                    kontekstAvKandidatlisteEllerStilling
+                                }
                                 forrigeØkt={forrigeØkt}
                                 onMarker={() => {
                                     onMarkerKandidat(kandidat.arenaKandidatnr);

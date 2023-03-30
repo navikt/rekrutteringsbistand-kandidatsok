@@ -4,7 +4,7 @@ import { hentKandidatliste, hentKandidatlisteMedStillingsId, hentStilling } from
 import { Nettressurs } from '../api/Nettressurs';
 import { Navigeringsstate } from './useNavigeringsstate';
 
-export type KontekstAvKandidatliste = {
+export type KontekstAvKandidatlisteEllerStilling = {
     kandidatliste: Nettressurs<Kandidatliste>;
     stilling: Nettressurs<Stilling>;
     brukKriterierFraStillingen: boolean;
@@ -13,7 +13,7 @@ export type KontekstAvKandidatliste = {
 
 const useKontekstAvKandidatlisteEllerStilling = (
     navigeringsstate: Navigeringsstate
-): KontekstAvKandidatliste | null => {
+): KontekstAvKandidatlisteEllerStilling | null => {
     const [searchParams] = useSearchParams();
     const kandidatlisteId = searchParams.get('kandidatliste');
     const stillingId = searchParams.get('stilling');
