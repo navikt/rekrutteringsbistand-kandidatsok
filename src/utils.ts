@@ -7,7 +7,7 @@ export enum Miljø {
 export const hentMiljø = (): Miljø => {
     const { href } = window.location;
 
-    if (href.includes('dev.intern.nav.no')) {
+    if (href.includes('intern.dev.nav.no')) {
         return Miljø.DevGcp;
     } else if (href.includes('intern.nav.no')) {
         return Miljø.ProdGcp;
