@@ -40,12 +40,6 @@ export const handlers = [
     rest.get(`${stillingApi}/rekrutteringsbistandstilling/:stillingsId`, (req, res, ctx) =>
         res(ctx.json(mockStilling))
     ),
-
-    rest.get(
-        `${stillingApi}/rekrutteringsbistandstilling/annonsenr/:annonseummer`,
-        (req, res, ctx) => res(ctx.json(mockStilling))
-    ),
-
     rest.post(
         `${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`,
         async (req, res, ctx) => {
