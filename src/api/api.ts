@@ -68,14 +68,6 @@ export const hentStilling = async (stillingsId: string): Promise<Stilling> => {
     return parseJsonEllerKastFeil(respons, `Fant ikke stilling med id ${stillingsId}`);
 };
 
-export const hentStillingMedAnnonsenummer = async (annonsenummer: string): Promise<Stilling> => {
-    const respons = await get(
-        `${stillingApi}/rekrutteringsbistandstilling/annonsenr/${annonsenummer}`
-    );
-
-    return parseJsonEllerKastFeil(respons, `Fant ikke stilling med annonsenummer ${annonsenummer}`);
-};
-
 export const lagreKandidaterIValgteKandidatlister = async (
     lagreKandidaterDto: LagreKandidaterDto,
     kandidatlister: string[]

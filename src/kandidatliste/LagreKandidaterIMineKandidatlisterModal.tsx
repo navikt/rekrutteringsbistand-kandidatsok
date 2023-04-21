@@ -3,7 +3,6 @@ import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'reac
 import { Nettressurs } from '../api/Nettressurs';
 import { lagreKandidaterIValgteKandidatlister } from '../api/api';
 import VelgKandidatlister from './VelgKandidatlister';
-import SøkPåKandidatliste from './SøkPåKandidatliste';
 import css from './LagreKandidaterIMineKandidatlisterModal.module.css';
 import { Kandidat } from '../kandidater/Kandidat';
 import { storForbokstav } from '../utils';
@@ -93,11 +92,6 @@ const LagreKandidaterIMineKandidatlisterModal: FunctionComponent<Props> = ({
                 {oppsummerMarkerteKandidater(kandidaterPåSiden, markerteKandidater)}
             </BodyLong>
             <VelgKandidatlister
-                markerteLister={markerteLister}
-                lagredeLister={lagredeLister}
-                onKandidatlisteMarkert={onKandidatlisteMarkert}
-            />
-            <SøkPåKandidatliste
                 markerteLister={markerteLister}
                 lagredeLister={lagredeLister}
                 onKandidatlisteMarkert={onKandidatlisteMarkert}
