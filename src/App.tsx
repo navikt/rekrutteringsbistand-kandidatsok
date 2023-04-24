@@ -6,7 +6,6 @@ import { ØktContext, ØktContextProvider } from './Økt';
 import Kandidatsøk from './Kandidatsøk';
 import { History } from 'history';
 import { useNavKontorIAmplitude } from './amplitude';
-import { useHarTilgangTilAutomatiskMatching } from './hooks/useHarTilgangTilAutomatiskMatching';
 
 export type MicrofrontendProps = {
     navKontor: string | null;
@@ -27,7 +26,6 @@ const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
     const innloggetBruker = useInnloggetBruker(navKontor);
     const kontekstAvKandidatlisteEllerStilling =
         useKontekstAvKandidatlisteEllerStilling(navigeringsstate);
-    const harTilgangTilAutomatiskMatching = useHarTilgangTilAutomatiskMatching();
 
     return (
         <Kandidatsøk
@@ -36,7 +34,6 @@ const App: FunctionComponent<MicrofrontendProps> = ({ navKontor }) => {
             navKontor={navKontor}
             innloggetBruker={innloggetBruker}
             kontekstAvKandidatlisteEllerStilling={kontekstAvKandidatlisteEllerStilling}
-            harTilgangTilAutomatiskMatching={harTilgangTilAutomatiskMatching}
         />
     );
 };

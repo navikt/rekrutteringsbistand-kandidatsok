@@ -23,7 +23,6 @@ export type KandidatsøkProps = {
     innloggetBruker: InnloggetBruker;
     kontekstAvKandidatlisteEllerStilling: KontekstAvKandidatlisteEllerStilling | null;
     navKontor: string | null;
-    harTilgangTilAutomatiskMatching: boolean;
 };
 
 enum Modal {
@@ -37,7 +36,6 @@ const Kandidatsøk = ({
     setØkt,
     innloggetBruker,
     kontekstAvKandidatlisteEllerStilling,
-    harTilgangTilAutomatiskMatching,
 }: KandidatsøkProps) => {
     const [aktivModal, setAktivModal] = useState<Modal>(Modal.IngenModal);
     const [kandidaterPåSiden, setKandidaterPåSiden] = useState<Kandidat[]>([]);
@@ -88,7 +86,6 @@ const Kandidatsøk = ({
                             onMarkerKandidat={onMarkerKandidat}
                             fjernMarkering={fjernMarkering}
                             forrigeØkt={forrigeØkt}
-                            harTilgangTilAutomatiskMatching={harTilgangTilAutomatiskMatching}
                             setKandidaterPåSiden={setKandidaterPåSiden}
                         />
                     </main>
