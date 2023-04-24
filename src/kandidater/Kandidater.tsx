@@ -10,7 +10,6 @@ import Paginering from '../filter/Paginering';
 import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
-import Matcheknapp from './matcheknapp/Matcheknapp';
 import Sortering from './sortering/Sortering';
 import { Kandidat } from './Kandidat';
 
@@ -22,7 +21,6 @@ type Props = {
     onMarkerKandidat: (kandidatnr: string | string[]) => void;
     fjernMarkering: () => void;
     forrigeØkt: Økt | null;
-    harTilgangTilAutomatiskMatching: boolean;
     setKandidaterPåSiden: (kandidater: Kandidat[]) => void;
 };
 
@@ -34,7 +32,6 @@ const Kandidater: FunctionComponent<Props> = ({
     onMarkerKandidat,
     fjernMarkering,
     forrigeØkt,
-    harTilgangTilAutomatiskMatching,
     setKandidaterPåSiden,
 }) => {
     const respons = useRespons(innloggetBruker);
@@ -68,9 +65,6 @@ const Kandidater: FunctionComponent<Props> = ({
         });
     }, [kandidatnumre, setØkt]);
 
-    const skalViseKnappForAutomatiskMatching =
-        harTilgangTilAutomatiskMatching && kandidater.length > 0;
-
     return (
         <div className={css.kandidater}>
             <div className={css.handlinger}>
@@ -99,15 +93,6 @@ const Kandidater: FunctionComponent<Props> = ({
                     </Button>
                 </div>
             </div>
-
-            {skalViseKnappForAutomatiskMatching &&
-                kontekstAvKandidatlisteEllerStilling?.kandidatliste.kind === 'suksess' && (
-                    <Matcheknapp
-                        kandidatliste={kontekstAvKandidatlisteEllerStilling?.kandidatliste.data}
-                        kandidater={kandidater}
-                        innloggetBruker={innloggetBruker}
-                    />
-                )}
 
             {respons.kind === 'laster-inn' && (
                 <Loader variant="interaction" size="2xlarge" className={css.lasterInn} />
