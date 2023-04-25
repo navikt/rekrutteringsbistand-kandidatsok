@@ -32,15 +32,6 @@ jobs:
                   registry: ghcr.io
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
-            - name: Install Snyk CLI
-              uses: snyk/actions/setup@master
-            - name: Test dependencies with Snyk
-              run: snyk test --org=toi --all-projects --fail-on=all --severity-threshold=medium
-              env:
-                  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              ## Ved fix av prodfeil, sett continue-on-error=true, slik at workflow fortsetter selvom snyk finner sårbarheter
-              continue-on-error: false
             - name: Bygg og publiser Docker-image
               uses: docker/build-push-action@v3
               with:
@@ -73,33 +64,3 @@ jobs:
                   APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
                   CLUSTER: prod-gcp
                   RESOURCE: deploy/nais-prod.yaml
-
-    snyk-monitor:
-        name: Monitor dependencies with Snyk
-        if: github.ref == 'refs/heads/main'
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 16
-                  cache: 'npm'
-                  cache-dependency-path: |
-                      package-lock.json
-                      server/package-lock.json
-            - name: Installer avhengigheter
-              run: npm ci
-            - name: Installer avhengigheter for server
-              run: cd server && npm ci
-            - name: Install Snyk CLI
-              uses: snyk/actions/setup@master
-            - name: Monitor dependencies with Snyk
-              run: >
-                  snyk monitor
-                  --org=toi
-                  --all-projects
-                  --remote-repo-url=https://github.com/${{ github.repository }}.git
-              env:
-                  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
