@@ -49,7 +49,7 @@ jobs:
               uses: navikt/frontend/actions/cdn-upload/v1@main
               with:
                   cdn-team-name: toi
-                  source: ./dist
+                  source: ${{ env.BUNDLE }}
                   destination: '/rekrutteringsbistand-kandidatsok/dev/'
 
     last-opp-prod:
@@ -72,5 +72,5 @@ jobs:
               uses: navikt/frontend/actions/cdn-upload/v1@main
               with:
                   cdn-team-name: toi
-                  source: ./dist
+                  source: ${{ env.BUNDLE }}
                   destination: '/rekrutteringsbistand-kandidatsok/dev/'
