@@ -10,10 +10,6 @@ jobs:
         name: Bygg applikasjon
         runs-on: ubuntu-latest
 
-        permissions:
-            contents: 'read'
-            id-token: 'write'
-
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -39,6 +35,10 @@ jobs:
         needs: bygg-applikasjon
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cdn'
 
+        permissions:
+            contents: 'read'
+            id-token: 'write'
+
         steps:
             - name: Hent bundle
               uses: actions/download-artifact@v2
@@ -48,8 +48,8 @@ jobs:
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
               with:
-                  cdn-team-name: toii
-                  source: ./some/file.ext
+                  cdn-team-name: toi
+                  source: ./dist
                   destination: '/rekrutteringsbistand-kandidatsok/dev/'
 
     last-opp-prod:
@@ -58,6 +58,10 @@ jobs:
         needs: bygg-applikasjon
         if: github.ref == 'refs/heads/main'
 
+        permissions:
+            contents: 'read'
+            id-token: 'write'
+
         steps:
             - name: Hent bundle
               uses: actions/download-artifact@v2
@@ -67,6 +71,6 @@ jobs:
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
               with:
-                  cdn-team-name: toii
-                  source: ./some/file.ext
+                  cdn-team-name: toi
+                  source: ./dist
                   destination: '/rekrutteringsbistand-kandidatsok/dev/'
