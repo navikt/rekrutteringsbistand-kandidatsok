@@ -44,7 +44,6 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: ${{ env.IMAGE }}
-                  path: bundle
 
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
