@@ -50,7 +50,8 @@ jobs:
               with:
                   cdn-team-name: toi
                   source: ${{ env.BUNDLE }}
-                  destination: '/rekrutteringsbistand-kandidatsok/dev/'
+                  destination: 'rekrutteringsbistand-kandidatsok/dev/'
+                  cache-invalidate: true
 
     last-opp-prod:
         name: Last opp til cdn i prod
@@ -73,4 +74,5 @@ jobs:
               with:
                   cdn-team-name: toi
                   source: ${{ env.BUNDLE }}
-                  destination: '/rekrutteringsbistand-kandidatsok/dev/'
+                  destination: 'rekrutteringsbistand-kandidatsok/prod/'
+                  cache-invalidate: true
