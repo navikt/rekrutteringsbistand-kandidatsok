@@ -29,7 +29,7 @@ jobs:
             - name: Lagre bundle
               uses: actions/upload-artifact@v2
               with:
-                  name: $IMAGE
+                  name: '$BUNDLE'
                   path: dist
                   retention-days: 14
 
@@ -43,7 +43,7 @@ jobs:
             - name: Hent bundle
               uses: actions/download-artifact@v2
               with:
-                  name: $IMAGE
+                  name: '$BUNDLE'
 
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
@@ -62,7 +62,7 @@ jobs:
             - name: Hent bundle
               uses: actions/download-artifact@v2
               with:
-                  name: $IMAGE
+                  name: '$BUNDLE'
 
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
