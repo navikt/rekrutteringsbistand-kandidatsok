@@ -3,7 +3,7 @@ name: Bygg og deploy
 on: [push]
 
 env:
-    BUNDLE: ${{ github.sha }}
+    BUNDLE: bundle-${{ github.sha }}
 
 jobs:
     bygg-applikasjon:
@@ -25,7 +25,7 @@ jobs:
             - name: Lagre bundle
               uses: actions/upload-artifact@v2
               with:
-                  name: '$BUNDLE'
+                  name: ${{ env.BUNDLE }}
                   path: dist
                   retention-days: 14
 
@@ -43,7 +43,7 @@ jobs:
             - name: Hent bundle
               uses: actions/download-artifact@v2
               with:
-                  name: '$BUNDLE'
+                  name: ${{ env.BUNDLE }}
 
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
@@ -66,7 +66,7 @@ jobs:
             - name: Hent bundle
               uses: actions/download-artifact@v2
               with:
-                  name: '$BUNDLE'
+                  name: ${{ env.BUNDLE }}
 
             - id: upload
               uses: navikt/frontend/actions/cdn-upload/v1@main
