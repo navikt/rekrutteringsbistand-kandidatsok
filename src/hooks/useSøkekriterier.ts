@@ -5,7 +5,6 @@ import { FilterParam } from './useRespons';
 import { Mål as Hovedmål } from '../filter/Hovedmål';
 import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
-import { Behovskategori } from '../filter/tilretteleggingsbehov/VelgBehovskategorier';
 import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
 import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
 import { ØktContext } from '../Økt';
@@ -26,8 +25,6 @@ export type Søkekriterier = {
     kompetanse: Set<string>;
     førerkort: Set<Førerkortklasse>;
     prioritertMålgruppe: Set<PrioritertMålgruppe>;
-    harTilretteleggingsbehov: boolean | null;
-    behovskategori: Set<Behovskategori>;
     hovedmål: Set<Hovedmål>;
     utdanningsnivå: Set<Utdanningsnivå>;
     arbeidserfaring: Set<string>;
@@ -101,10 +98,6 @@ export const searchParamsTilSøkekriterier = (searchParams: URLSearchParams): S�
     kompetanse: searchParamTilSet(searchParams.get(FilterParam.Kompetanse)),
     førerkort: searchParamTilSet(searchParams.get(FilterParam.Førerkort)),
     prioritertMålgruppe: searchParamTilSet(searchParams.get(FilterParam.PrioritertMålgruppe)),
-    harTilretteleggingsbehov: searchParamTilBoolean(
-        searchParams.get(FilterParam.HarTilretteleggingsbehov)
-    ),
-    behovskategori: searchParamTilSet(searchParams.get(FilterParam.Behovskategori)),
     hovedmål: searchParamTilSet(searchParams.get(FilterParam.Hovedmål)),
     utdanningsnivå: searchParamTilSet(searchParams.get(FilterParam.Utdanningsnivå)),
     arbeidserfaring: searchParamTilSet(searchParams.get(FilterParam.Arbeidserfaring)),

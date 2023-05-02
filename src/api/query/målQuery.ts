@@ -14,8 +14,6 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
         kompetanse,
         førerkort,
         prioritertMålgruppe,
-        harTilretteleggingsbehov,
-        behovskategori,
         hovedmål,
         utdanningsnivå,
         arbeidserfaring,
@@ -62,14 +60,6 @@ export const målQuery = (søkekriterier: Søkekriterier) => {
 
     if (prioritertMålgruppe.size > 0) {
         kriterier.prioritertMålgruppe = Array.from(prioritertMålgruppe);
-    }
-
-    if (harTilretteleggingsbehov) {
-        kriterier.harTilretteleggingsbehov = harTilretteleggingsbehov;
-    }
-
-    if (behovskategori.size > 0) {
-        kriterier.behovskategori = Array.from(behovskategori);
     }
 
     if (hovedmål.size > 0) {

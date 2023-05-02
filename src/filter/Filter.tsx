@@ -11,8 +11,6 @@ import ØnsketYrke from './jobbønsker/ØnsketYrke';
 import Kompetanse from './kompetanse/Kompetanse';
 import PrioriterteMålgrupper from './prioriterte-målgrupper/PrioriterteMålgrupper';
 import Språk from './Språk';
-import HarTilretteleggingsbehov from './tilretteleggingsbehov/HarTilretteleggingsbehov';
-import VelgBehovskategorier from './tilretteleggingsbehov/VelgBehovskategorier';
 import Utdanningsnivå from './Utdanningsnivå';
 
 const Filter = () => {
@@ -39,10 +37,6 @@ const Filter = () => {
             </Filtergruppe>
             <Filtergruppe tittel="Prioriterte målgrupper">
                 <PrioriterteMålgrupper />
-            </Filtergruppe>
-            <Filtergruppe tittel="Tilretteleggingsbehov">
-                <HarTilretteleggingsbehov />
-                <VelgBehovskategorier />
             </Filtergruppe>
         </>
     );

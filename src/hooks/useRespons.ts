@@ -19,8 +19,6 @@ export enum FilterParam {
     Kompetanse = 'kompetanse',
     Førerkort = 'forerkort',
     PrioritertMålgruppe = 'malgruppe',
-    HarTilretteleggingsbehov = 'tilretteleggingsbehov',
-    Behovskategori = 'kategori',
     Hovedmål = 'hovedmal',
     Utdanningsnivå = 'utdanning',
     Arbeidserfaring = 'arbeidserfaring',

@@ -11,7 +11,6 @@ import { queryMedØnsketYrke } from './queryMedØnsketYrke';
 import { queryMedPortefølje } from './queryMedPortefølje';
 import { queryMedPrioritertMålgruppe } from './queryMedPrioritertMålgruppe';
 import { queryMedSpråk } from './queryMedSpråk';
-import { queryMedTilretteleggingsbehov } from './queryMedTilretteleggingsbehov';
 import { queryMedUtdanningsnivå } from './queryMedUtdanningsnivå';
 import { SearchQuery, Sorteringsrekkefølge } from '../../kandidater/elasticSearchTyper';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
@@ -84,10 +83,6 @@ export const byggIndreQuery = (søkekriterier: Søkekriterier, innloggetBruker: 
                 ...queryMedKompetanse(søkekriterier.kompetanse),
                 ...queryMedFørerkort(søkekriterier.førerkort),
                 ...queryMedPrioritertMålgruppe(søkekriterier.prioritertMålgruppe),
-                ...queryMedTilretteleggingsbehov(
-                    søkekriterier.harTilretteleggingsbehov,
-                    søkekriterier.behovskategori
-                ),
                 ...queryMedUtdanningsnivå(søkekriterier.utdanningsnivå),
                 ...queryMedArbeidserfaring(søkekriterier.arbeidserfaring, søkekriterier.ferskhet),
                 ...queryMedSpråk(søkekriterier.språk),
