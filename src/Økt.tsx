@@ -10,10 +10,11 @@ import React, {
 const SessionStorageKey = 'kandidatsøk';
 
 export type Økt = Partial<{
+    searchParams: string;
     sistBesøkteKandidat: string;
     markerteKandidater: string[];
-    kandidater: string[];
-    searchParams: string;
+    kandidaterPåSiden: string[];
+    totaltAntallKandidater: number;
 }>;
 
 export const ØktContext = createContext<{
