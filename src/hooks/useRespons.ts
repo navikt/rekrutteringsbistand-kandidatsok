@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { byggQuery } from '../api/query/byggQuery';
+import { PAGE_SIZE, byggQuery } from '../api/query/byggQuery';
 import { målQuery } from '../api/query/målQuery';
 import { Respons } from '../kandidater/elasticSearchTyper';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
+import { ØktContext } from '../Økt';
+import { useSearchParams } from 'react-router-dom';
 
 export enum FilterParam {
     Fritekst = 'q',
@@ -36,7 +38,9 @@ export enum OtherParam {
 export type Param = FilterParam | OtherParam;
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
+    const [searchParams] = useSearchParams();
     const { søkekriterier } = useSøkekriterier();
+    const { setØkt } = useContext(ØktContext);
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
     });
@@ -55,6 +59,18 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
                   }
         );
     };
+
+    useEffect(() => {
+        if (respons.kind === 'suksess') {
+            setØkt({
+                query: JSON.stringify(query),
+                searchParams: searchParams.toString(),
+                kandidaterPåSiden: respons.data.hits.hits.map((hit) => hit._source.arenaKandidatnr),
+                sidestørrelse: PAGE_SIZE,
+                totaltAntallKandidater: respons.data.hits.total.value,
+            });
+        }
+    }, [JSON.stringify(respons)]);
 
     useEffect(() => {
         målQuery(søkekriterier);

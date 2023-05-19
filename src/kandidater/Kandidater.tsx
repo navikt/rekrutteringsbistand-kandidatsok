@@ -56,18 +56,6 @@ const Kandidater: FunctionComponent<Props> = ({
         }
     }, [respons, setKandidaterPåSiden]);
 
-    const kandidatnumre = useMemo(() => kandidater.map((k) => k.arenaKandidatnr), [kandidater]);
-
-    const { setØkt } = useContext(ØktContext);
-
-    useEffect(() => {
-        setØkt({
-            kandidaterPåSiden: kandidatnumre,
-            totaltAntallKandidater,
-            sidestørrelse: PAGE_SIZE,
-        });
-    }, [kandidatnumre, setØkt]);
-
     return (
         <div className={css.kandidater}>
             <div className={css.handlinger}>

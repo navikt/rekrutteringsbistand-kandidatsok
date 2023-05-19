@@ -47,7 +47,7 @@ const Kandidatsøk = ({
         setØkt({
             markerteKandidater: Array.from(markerteKandidater),
         });
-    }, [markerteKandidater, setØkt]);
+    }, [markerteKandidater]);
 
     const onLagreIKandidatlisteClick = () => {
         setAktivModal(
