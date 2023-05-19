@@ -12,6 +12,7 @@ import MarkerAlle from './MarkerAlle';
 import css from './Kandidater.module.css';
 import Sortering from './sortering/Sortering';
 import { Kandidat } from './Kandidat';
+import { PAGE_SIZE } from '../api/query/byggQuery';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -61,7 +62,9 @@ const Kandidater: FunctionComponent<Props> = ({
 
     useEffect(() => {
         setØkt({
-            kandidater: kandidatnumre,
+            kandidaterPåSiden: kandidatnumre,
+            totaltAntallKandidater,
+            sidestørrelse: PAGE_SIZE,
         });
     }, [kandidatnumre, setØkt]);
 

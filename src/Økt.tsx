@@ -14,6 +14,7 @@ export type Økt = Partial<{
     sistBesøkteKandidat: string;
     markerteKandidater: string[];
     kandidaterPåSiden: string[];
+    sidestørrelse: number;
     totaltAntallKandidater: number;
 }>;
 

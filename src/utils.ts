@@ -30,7 +30,7 @@ export const storForbokstav = (s: string | null) => {
 };
 
 export const lenkeTilKandidat = (kandidatnr: string, kandidatlisteId?: string) => {
-    let lenke = `/kandidater/kandidat/${kandidatnr}/cv?fraNyttKandidatsok=true`;
+    let lenke = `/kandidater/kandidat/${kandidatnr}/cv?fraKandidatsok=true`;
 
     if (kandidatlisteId) {
         lenke += `&kandidatlisteId=${kandidatlisteId}`;
