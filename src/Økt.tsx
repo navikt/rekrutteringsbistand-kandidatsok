@@ -6,11 +6,12 @@ import React, {
     useRef,
     useState,
 } from 'react';
+import { SearchQuery } from './kandidater/elasticSearchTyper';
 
 const SessionStorageKey = 'kandidatsøk';
 
 export type Økt = Partial<{
-    query: string;
+    query: SearchQuery;
     searchParams: string;
     sistBesøkteKandidat: string;
     markerteKandidater: string[];

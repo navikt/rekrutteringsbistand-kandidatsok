@@ -63,7 +63,7 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
     useEffect(() => {
         if (respons.kind === 'suksess') {
             setØkt({
-                query: JSON.stringify(query),
+                query,
                 searchParams: searchParams.toString(),
                 kandidaterPåSiden: respons.data.hits.hits.map((hit) => hit._source.arenaKandidatnr),
                 sidestørrelse: PAGE_SIZE,
