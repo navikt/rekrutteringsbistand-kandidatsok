@@ -38,9 +38,7 @@ export enum OtherParam {
 export type Param = FilterParam | OtherParam;
 
 const useRespons = (innloggetBruker: InnloggetBruker) => {
-    const [searchParams] = useSearchParams();
     const { søkekriterier } = useSøkekriterier();
-    const { setØkt } = useContext(ØktContext);
     const [respons, setRespons] = useState<Nettressurs<Respons>>({
         kind: 'ikke-lastet',
     });
@@ -59,18 +57,6 @@ const useRespons = (innloggetBruker: InnloggetBruker) => {
                   }
         );
     };
-
-    useEffect(() => {
-        if (respons.kind === 'suksess') {
-            setØkt({
-                query,
-                searchParams: searchParams.toString(),
-                kandidaterPåSiden: respons.data.hits.hits.map((hit) => hit._source.arenaKandidatnr),
-                sidestørrelse: PAGE_SIZE,
-                totaltAntallKandidater: respons.data.hits.total.value,
-            });
-        }
-    }, [JSON.stringify(respons)]);
 
     useEffect(() => {
         målQuery(søkekriterier);

@@ -1,18 +1,18 @@
-import React, { FunctionComponent, useContext, useEffect, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { BodyShort, Button, Loader } from '@navikt/ds-react';
 import { AddPerson, Error } from '@navikt/ds-icons';
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatlisteEllerStilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
-import { Økt, ØktContext } from '../Økt';
+import { Økt } from '../Økt';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
 import Paginering from '../filter/Paginering';
 import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
-import css from './Kandidater.module.css';
 import Sortering from './sortering/Sortering';
 import { Kandidat } from './Kandidat';
-import { PAGE_SIZE } from '../api/query/byggQuery';
+import useLagreØkt from '../hooks/useLagreØkt';
+import css from './Kandidater.module.css';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -36,6 +36,7 @@ const Kandidater: FunctionComponent<Props> = ({
     setKandidaterPåSiden,
 }) => {
     const respons = useRespons(innloggetBruker);
+    useLagreØkt(innloggetBruker);
 
     const { kandidater, totaltAntallKandidater } = useMemo(() => {
         if (respons.kind === 'suksess' || respons.kind === 'oppdaterer') {
