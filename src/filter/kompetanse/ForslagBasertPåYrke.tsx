@@ -33,9 +33,7 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
         };
 
         hentForslag();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [søkekriterier.ønsketYrke]);
+    }, [JSON.stringify(Array.from(søkekriterier.ønsketYrke))]);
 
     if (respons === null) {
         return null;

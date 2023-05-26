@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Portefølje } from '../filter/porteføljetabs/PorteføljeTabs';
 import { FilterParam } from './useRespons';
@@ -7,7 +7,6 @@ import { FiltrerbarInnsatsgruppe } from '../filter/Jobbmuligheter';
 import { PrioritertMålgruppe } from '../filter/prioriterte-målgrupper/PrioriterteMålgrupper';
 import { Nivå as Utdanningsnivå } from '../filter/Utdanningsnivå';
 import { Klasse as Førerkortklasse } from '../api/query/queryMedFørerkort';
-import { ØktContext } from '../Økt';
 import { Sortering } from '../kandidater/sortering/Sortering';
 
 export const LISTEPARAMETER_SEPARATOR = '.';
@@ -41,16 +40,11 @@ type Returverdi = {
 
 const useSøkekriterier = (): Returverdi => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { setØkt } = useContext(ØktContext);
     const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>(
         searchParamsTilSøkekriterier(searchParams)
     );
 
     useEffect(() => {
-        setØkt({
-            searchParams: searchParams.toString(),
-        });
-
         setSøkekriterier(searchParamsTilSøkekriterier(searchParams));
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */

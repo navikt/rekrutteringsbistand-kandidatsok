@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { søk } from '../api/api';
 import { Nettressurs } from '../api/Nettressurs';
-import { byggQuery } from '../api/query/byggQuery';
+import { PAGE_SIZE, byggQuery } from '../api/query/byggQuery';
 import { målQuery } from '../api/query/målQuery';
 import { Respons } from '../kandidater/elasticSearchTyper';
 import { InnloggetBruker } from './useBrukerensIdent';
 import useSøkekriterier from './useSøkekriterier';
+import { ØktContext } from '../Økt';
+import { useSearchParams } from 'react-router-dom';
 
 export enum FilterParam {
     Fritekst = 'q',

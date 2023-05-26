@@ -10,7 +10,7 @@ const getApiKey = () => {
 
 const client: AmplitudeClient = amplitudeJs.getInstance();
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.PROD) {
     client.init(getApiKey(), '', {
         apiEndpoint: 'amplitude.nav.no/collect',
         saveEvents: false,
