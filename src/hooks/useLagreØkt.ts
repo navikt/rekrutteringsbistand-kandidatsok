@@ -21,6 +21,7 @@ const useLagreØkt = (innloggetBruker: InnloggetBruker) => {
                 searchParams: searchParams.toString(),
                 navigerbareKandidater: respons.hits.hits.map((hit) => hit._id),
                 totaltAntallKandidater: respons.hits.total.value,
+                pageSize: PAGE_SIZE,
             });
         };
 

@@ -15,6 +15,7 @@ export type Økt = Partial<{
     markerteKandidater: string[];
     navigerbareKandidater: string[];
     totaltAntallKandidater: number;
+    pageSize: number;
 }>;
 
 export const ØktContext = createContext<{
