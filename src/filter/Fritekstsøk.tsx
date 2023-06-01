@@ -5,7 +5,6 @@ import useSøkekriterier from '../hooks/useSøkekriterier';
 import css from './Fritekstsøk.module.css';
 
 const Fritekstsøk: FunctionComponent = () => {
-    console.log('Fritektsøk');
     const { søkekriterier, setSearchParam } = useSøkekriterier();
     const [query, setQuery] = useState<string>(søkekriterier.fritekst || '');
 
@@ -16,22 +15,18 @@ const Fritekstsøk: FunctionComponent = () => {
     }, [søkekriterier]);
 
     const onSearchChange = (query: string) => {
-        console.log('Fritekstsøk onSearchChange');
         setQuery(query);
     };
 
     const onSearchApply = () => {
-        console.log('Fritekstsøk onSearchApply');
         setSearchParam(FilterParam.Fritekst, query.trim());
     };
 
     const onClear = () => {
-        console.log('Fritekstsøk onClear');
         setSearchParam(FilterParam.Fritekst, null);
     };
 
     const onFormSubmit: FormEventHandler = (event) => {
-        console.log('Fritekstsøk onFormSubmit');
         event.preventDefault();
         onSearchApply();
     };
@@ -45,7 +40,6 @@ const Fritekstsøk: FunctionComponent = () => {
                 label="Søk etter kandidater"
                 description="F.eks navn, fødselsnummer eller jobbønske"
                 onChange={onSearchChange}
-                onClick={onSearchApply}
                 onClear={onClear}
                 hideLabel={false}
             />
