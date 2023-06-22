@@ -16,7 +16,7 @@ const useKontekstAvKandidatlisteEllerStilling = (
 ): KontekstAvKandidatlisteEllerStilling | null => {
     const [searchParams] = useSearchParams();
     const kandidatlisteId = searchParams.get('kandidatliste');
-    console.log('kk', kandidatlisteId);
+
     const stillingId = searchParams.get('stilling');
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>({
         kind: 'ikke-lastet',
@@ -90,7 +90,6 @@ const useKontekstAvKandidatlisteEllerStilling = (
         };
 
         const brukKontekstKandidatliste = async (kandidatlisteId: string) => {
-            console.log('k2', kandidatlisteId);
             const listensStillingsId = await brukKandidatliste(kandidatlisteId);
 
             if (listensStillingsId) {
