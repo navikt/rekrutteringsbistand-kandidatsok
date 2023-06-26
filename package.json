@@ -10,8 +10,8 @@
         "prepare": "husky install"
     },
     "dependencies": {
+        "@navikt/aksel-icons": "^4.4.0",
         "@navikt/ds-css": "^2.0.12",
-        "@navikt/ds-icons": "^2.0.12",
         "@navikt/ds-react": "^2.0.12",
         "@navikt/navspa": "^6.0.1",
         "@reach/combobox": "^0.18.0",

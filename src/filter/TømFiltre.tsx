@@ -1,6 +1,6 @@
-import { Delete } from '@navikt/ds-icons';
-import { Button } from '@navikt/ds-react';
 import React from 'react';
+import { Button } from '@navikt/ds-react';
+import { TrashIcon } from '@navikt/aksel-icons';
 import useSøkekriterier from '../hooks/useSøkekriterier';
 import filterCss from './Filter.module.css';
 
@@ -9,7 +9,11 @@ const TømFiltre = () => {
 
     return (
         <div className={filterCss.tømFilter}>
-            <Button icon={<Delete aria-hidden />} variant="tertiary" onClick={fjernSøkekriterier}>
+            <Button
+                icon={<TrashIcon aria-hidden />}
+                variant="tertiary"
+                onClick={fjernSøkekriterier}
+            >
                 Tøm filtre
             </Button>
         </div>

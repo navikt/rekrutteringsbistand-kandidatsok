@@ -1,4 +1,5 @@
-import { Close, Search } from '@navikt/ds-icons';
+import React, { FormEventHandler, FunctionComponent, ReactNode, useId } from 'react';
+import { MagnifyingGlassIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 import {
     Combobox,
@@ -8,7 +9,6 @@ import {
     ComboboxOptionText,
     ComboboxPopover,
 } from '@reach/combobox';
-import React, { FormEventHandler, FunctionComponent, ReactNode, useId } from 'react';
 import Merkelapp from '../merkelapp/Merkelapp';
 import Merkelapper from '../merkelapp/Merkelapper';
 import css from './Typeahead.module.css';
@@ -99,7 +99,7 @@ export const Typeahead: FunctionComponent<Props> = ({
                 </div>
                 <button className={buttonClassName}>
                     <span className="navds-button__icon">
-                        <Search />
+                        <MagnifyingGlassIcon />
                     </span>
                 </button>
 
@@ -123,7 +123,7 @@ export const Typeahead: FunctionComponent<Props> = ({
             <Merkelapper>
                 {selectedSuggestions.map((suggestion) => (
                     <Merkelapp
-                        icon={<Close />}
+                        icon={<XMarkIcon />}
                         key={suggestion}
                         onClick={onRemoveSuggestion(suggestion)}
                     >

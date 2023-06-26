@@ -1,10 +1,10 @@
 import React from 'react';
 import { ToggleGroup, Tooltip } from '@navikt/ds-react';
+import { CheckmarkIcon, ClockIcon } from '@navikt/aksel-icons';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
 import { FilterParam } from '../../hooks/useRespons';
-import { Clock, DecisionCheck } from '@navikt/ds-icons';
-import css from './Sortering.module.css';
 import { sendEvent } from '../../amplitude';
+import css from './Sortering.module.css';
 
 export enum Sortering {
     SisteFørst = 'nyeste',
@@ -37,7 +37,7 @@ const Sorteringsvalg = () => {
                 content="Sist oppdaterte kandidater kommer øverst"
             >
                 <ToggleGroup.Item value={Sortering.SisteFørst}>
-                    <Clock aria-hidden />
+                    <ClockIcon aria-hidden />
                     Sist oppdatert
                 </ToggleGroup.Item>
             </Tooltip>
@@ -47,7 +47,7 @@ const Sorteringsvalg = () => {
                 content="Kandidatene som oppfyller flest kriterier, vises øverst"
             >
                 <ToggleGroup.Item value={Sortering.FlestKriterier}>
-                    <DecisionCheck aria-hidden /> Flest kriterier
+                    <CheckmarkIcon aria-hidden /> Flest kriterier
                 </ToggleGroup.Item>
             </Tooltip>
         </ToggleGroup>
