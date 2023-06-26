@@ -1,4 +1,3 @@
-import React from 'react';
 import { ToggleGroup, Tooltip } from '@navikt/ds-react';
 import { CheckmarkIcon, ClockIcon } from '@navikt/aksel-icons';
 import useSøkekriterier from '../../hooks/useSøkekriterier';

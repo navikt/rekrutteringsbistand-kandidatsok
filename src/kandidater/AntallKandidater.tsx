@@ -1,5 +1,5 @@
 import { Heading } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
 import { Respons } from './elasticSearchTyper';
 

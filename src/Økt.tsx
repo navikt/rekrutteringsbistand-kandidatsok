@@ -1,11 +1,4 @@
-import React, {
-    createContext,
-    FunctionComponent,
-    ReactNode,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { createContext, FunctionComponent, ReactNode, useMemo, useRef, useState } from 'react';
 
 const SessionStorageKey = 'kandidatsøk';
 

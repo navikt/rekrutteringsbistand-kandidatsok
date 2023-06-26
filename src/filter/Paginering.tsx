@@ -1,5 +1,5 @@
 import { Pagination } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { PAGE_SIZE } from '../api/query/byggQuery';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier from '../hooks/useSøkekriterier';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@navikt/ds-react';
 import { TrashIcon } from '@navikt/aksel-icons';
 import useSøkekriterier from '../hooks/useSøkekriterier';

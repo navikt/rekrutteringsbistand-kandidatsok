@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 import { BodyShort, Button, Loader } from '@navikt/ds-react';
 import { PersonPlusIcon, XMarkIcon } from '@navikt/aksel-icons';
 

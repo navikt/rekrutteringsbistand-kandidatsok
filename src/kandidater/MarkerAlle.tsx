@@ -1,4 +1,3 @@
-import React from 'react';
 import { Checkbox } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { Kandidat } from './Kandidat';

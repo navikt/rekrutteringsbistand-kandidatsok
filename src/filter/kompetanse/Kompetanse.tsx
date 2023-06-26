@@ -1,4 +1,3 @@
-import React from 'react';
 import { Forslagsfelt } from '../../api/query/byggSuggestion';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier, { kombinerStringsTilSearchParam } from '../../hooks/useSøkekriterier';

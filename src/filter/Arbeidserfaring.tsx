@@ -1,4 +1,3 @@
-import React from 'react';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import { Forslagsfelt } from '../api/query/byggSuggestion';
 import { FilterParam } from '../hooks/useRespons';

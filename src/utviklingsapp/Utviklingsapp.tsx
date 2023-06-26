@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
 import { Link, Route, Routes } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
-import useSøkekriterier from './useSøkekriterier';
+import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import useSøkekriterier from './useSøkekriterier';
 import { ØktContext } from '../Økt';
 import { Respons, SearchQuery } from '../kandidater/elasticSearchTyper';
 import { PAGE_SIZE, byggQuery } from '../api/query/byggQuery';
