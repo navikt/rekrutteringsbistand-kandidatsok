@@ -42,7 +42,7 @@ jobs:
     deploy-til-dev:
         name: Deploy til dev-gcp
         needs: bygg-og-push-docker-image
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/fiks-duplikat-logging'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ds-4'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
