@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Checkbox, CheckboxGroup, HelpText, useId } from '@navikt/ds-react';
 import { FilterParam } from '../../hooks/useRespons';
 import { Innsatsgruppe } from '../Jobbmuligheter';

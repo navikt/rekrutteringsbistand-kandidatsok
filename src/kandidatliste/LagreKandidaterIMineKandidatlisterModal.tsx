@@ -1,5 +1,5 @@
 import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
-import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
+import { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { Nettressurs } from '../api/Nettressurs';
 import { lagreKandidaterIValgteKandidatlister } from '../api/api';
 import VelgKandidatlister from './VelgKandidatlister';

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useRef } from 'react';
+import { FunctionComponent, ReactNode, useRef } from 'react';
 import css from './Merkelapper.module.css';
 
 type Props = {

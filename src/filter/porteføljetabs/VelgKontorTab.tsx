@@ -1,12 +1,12 @@
-import { Close, Collapse, Expand } from '@navikt/ds-icons';
-import { Button, Popover, Tabs } from '@navikt/ds-react';
-import React, {
+import {
     FunctionComponent,
     KeyboardEventHandler,
     MouseEventHandler,
     useRef,
     useState,
 } from 'react';
+import { Button, Popover, Tabs } from '@navikt/ds-react';
+import { ChevronDownIcon, ChevronUpIcon, XMarkIcon } from '@navikt/aksel-icons';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
 import { Portefølje } from './PorteføljeTabs';
@@ -88,9 +88,9 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
                         role="button"
                     >
                         {visKontorvelger ? (
-                            <Collapse title="Lukk kontorvelger" />
+                            <ChevronUpIcon title="Lukk kontorvelger" />
                         ) : (
-                            <Expand title="Velg andre kontor" />
+                            <ChevronDownIcon title="Velg andre kontor" />
                         )}
                     </Button>
                 }
@@ -109,7 +109,7 @@ const VelgKontorTab: FunctionComponent<Props> = ({ søkekriterier }) => {
                         variant="tertiary"
                         aria-label="Lukk kontorvelger"
                         onClick={onLukkeknappClick}
-                        icon={<Close />}
+                        icon={<XMarkIcon />}
                     />
                     <VelgKontor forslagId={FORSLAG_ID} />
                 </Popover.Content>

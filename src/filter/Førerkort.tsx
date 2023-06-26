@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Klasse } from '../api/query/queryMedFørerkort';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';

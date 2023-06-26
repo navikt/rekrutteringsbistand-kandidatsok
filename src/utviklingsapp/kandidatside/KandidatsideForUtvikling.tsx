@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
+import { ArrowLeftIcon } from '@navikt/aksel-icons';
 import { Link, useParams } from 'react-router-dom';
-import { Back } from '@navikt/ds-icons';
 import { Økt } from '../../Økt';
 import useKandidatMedForklaringForUtvikling from './useKandidatMedForklaringForUtvikling';
 import css from './KandidatsideForUtvikling.module.css';
@@ -30,7 +30,7 @@ const KandidatsideForUtvikling = ({ navKontor }: { navKontor: string | null }) =
                     }}
                     className="navds-link"
                 >
-                    <Back />
+                    <ArrowLeftIcon />
                     Tilbake til kandidatsøk
                 </Link>
                 <Heading level="1" size="large">

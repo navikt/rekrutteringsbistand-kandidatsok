@@ -1,5 +1,4 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import React from 'react';
 import { FilterParam } from '../hooks/useRespons';
 import useSøkekriterier, { LISTEPARAMETER_SEPARATOR } from '../hooks/useSøkekriterier';
 

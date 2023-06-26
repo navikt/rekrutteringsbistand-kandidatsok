@@ -1,16 +1,17 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 import { BodyShort, Button, Loader } from '@navikt/ds-react';
-import { AddPerson, Error } from '@navikt/ds-icons';
+import { PersonPlusIcon, XMarkIcon } from '@navikt/aksel-icons';
+
 import { InnloggetBruker } from '../hooks/useBrukerensIdent';
 import { KontekstAvKandidatlisteEllerStilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import { Økt } from '../Økt';
+import { Kandidat } from './Kandidat';
 import AntallKandidater from './AntallKandidater';
 import useRespons from '../hooks/useRespons';
 import Paginering from '../filter/Paginering';
 import Kandidatrad from './kandidatrad/Kandidatrad';
 import MarkerAlle from './MarkerAlle';
 import Sortering from './sortering/Sortering';
-import { Kandidat } from './Kandidat';
 import useLagreØkt from '../hooks/useLagreØkt';
 import css from './Kandidater.module.css';
 
@@ -67,7 +68,7 @@ const Kandidater: FunctionComponent<Props> = ({
                             size="small"
                             variant="secondary"
                             aria-label="Fjern markerte kandidater"
-                            icon={<Error aria-hidden />}
+                            icon={<XMarkIcon aria-hidden />}
                             className={css.fjernMarkeringKnapp}
                             onClick={fjernMarkering}
                         >
@@ -77,7 +78,7 @@ const Kandidater: FunctionComponent<Props> = ({
                     <Button
                         size="small"
                         variant="primary"
-                        icon={<AddPerson aria-hidden />}
+                        icon={<PersonPlusIcon aria-hidden />}
                         disabled={markerteKandidater.size === 0}
                         onClick={onLagreIKandidatlisteClick}
                     >

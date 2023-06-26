@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import useInnloggetBruker from './hooks/useBrukerensIdent';
 import useKontekstAvKandidatlisteEllerStilling from './hooks/useKontekstAvKandidatlisteEllerStilling';
 import useNavigeringsstate from './hooks/useNavigeringsstate';

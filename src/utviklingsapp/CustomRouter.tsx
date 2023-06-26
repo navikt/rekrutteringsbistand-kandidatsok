@@ -1,4 +1,4 @@
-import React, { ReactNode, FunctionComponent, useState, useLayoutEffect } from 'react';
+import { ReactNode, FunctionComponent, useState, useLayoutEffect } from 'react';
 import { Router } from 'react-router-dom';
 import { History } from 'history';
 

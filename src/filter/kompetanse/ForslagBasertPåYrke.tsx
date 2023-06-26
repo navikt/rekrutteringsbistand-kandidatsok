@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Expand, Collapse } from '@navikt/ds-icons';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Heading, BodyShort, Button } from '@navikt/ds-react';
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { søk } from '../../api/api';
 import { byggAggregeringerQuery, Aggregering } from '../../api/query/byggAggregeringer';
 import { Søkekriterier } from '../../hooks/useSøkekriterier';
@@ -77,7 +77,7 @@ const ForslagBasertPåYrke: FunctionComponent<Props> = ({ søkekriterier, onVelg
                     size="small"
                     className={css.visningsknapp}
                     onClick={() => setVisAlleForslag(!visAlleForslag)}
-                    icon={visAlleForslag ? <Collapse /> : <Expand />}
+                    icon={visAlleForslag ? <ChevronUpIcon /> : <ChevronDownIcon />}
                     variant="tertiary"
                 >
                     {visAlleForslag ? 'Vis færre' : `Vis alle (${uvalgteForslag.length})`}

@@ -1,11 +1,12 @@
-import { ExternalLink, SuccessColored } from '@navikt/ds-icons';
-import React, { ChangeEvent, FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
+import { ChangeEvent, FunctionComponent } from 'react';
 import { BodyShort, Checkbox } from '@navikt/ds-react';
+import { ExternalLinkIcon } from '@navikt/aksel-icons';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+
 import { lenkeTilKandidatliste, storForbokstav } from '../utils';
 import { Kandidatliste } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import css from './VelgKandidatlister.module.css';
-import classNames from 'classnames';
 
 type Props = {
     kandidatliste: Omit<Kandidatliste, 'kandidater'>;
@@ -54,7 +55,7 @@ const VelgbarKandidatliste: FunctionComponent<Props> = ({
                 to={lenkeTilKandidatliste(kandidatlisteId)}
                 className="navds-link"
             >
-                <ExternalLink title="Åpne kandidatliste" />
+                <ExternalLinkIcon title="Åpne kandidatliste" />
             </Link>
         </div>
     );

@@ -1,5 +1,5 @@
 import { BodyLong } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import css from './TekstlinjeMedIkon.module.css';
 
 type Props = {

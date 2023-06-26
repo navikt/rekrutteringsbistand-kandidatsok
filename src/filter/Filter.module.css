@@ -8,6 +8,10 @@
     margin-bottom: 1.5rem;
 }
 
+.filter :global(.navds-accordion__content) {
+    padding: 1rem;
+}
+
 .filter :global(.navds-checkbox__label) {
     padding-bottom: 0.5rem;
 }

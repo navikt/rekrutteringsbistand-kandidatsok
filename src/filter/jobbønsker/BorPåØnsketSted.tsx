@@ -1,5 +1,5 @@
 import { Checkbox } from '@navikt/ds-react';
-import React, { ChangeEventHandler, useEffect } from 'react';
+import { ChangeEventHandler, useEffect } from 'react';
 import { FilterParam } from '../../hooks/useRespons';
 import useSøkekriterier from '../../hooks/useSøkekriterier';
 import filterCss from '../Filter.module.css';

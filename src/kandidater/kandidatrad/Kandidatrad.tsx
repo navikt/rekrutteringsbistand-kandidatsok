@@ -1,7 +1,6 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox, Detail } from '@navikt/ds-react';
-import { Heart, Place, DecisionCheck } from '@navikt/ds-icons';
 
 import { alleInnsatsgrupper } from '../../filter/Jobbmuligheter';
 import { Kandidat } from '../Kandidat';
@@ -13,6 +12,7 @@ import { lenkeTilKandidat, storForbokstav } from '../../utils';
 import { Økt } from '../../Økt';
 import TekstlinjeMedIkon from './TekstlinjeMedIkon';
 import useScrollTilKandidat from '../../hooks/useScrollTilKandidat';
+import { CheckmarkIcon, HeartIcon, PinIcon } from '@navikt/aksel-icons';
 import css from './Kandidatrad.module.css';
 
 type Props = {
@@ -84,14 +84,14 @@ const Kandidatrad: FunctionComponent<Props> = ({
                         {alleØnskedeYrker && (
                             <TekstlinjeMedIkon
                                 label="Ønsket yrke"
-                                ikon={<Heart />}
+                                ikon={<HeartIcon />}
                                 tekst={alleØnskedeYrker}
                             />
                         )}
                         {alleØnskedeSteder && (
                             <TekstlinjeMedIkon
                                 label="Ønsket sted"
-                                ikon={<Place />}
+                                ikon={<PinIcon />}
                                 tekst={alleØnskedeSteder}
                             />
                         )}
@@ -102,7 +102,7 @@ const Kandidatrad: FunctionComponent<Props> = ({
                         title="Kandidater er allerede lagt til på kandidatlisten"
                         className={css.kandidatPåListe}
                     >
-                        <DecisionCheck />
+                        <CheckmarkIcon />
                     </div>
                 )}
             </div>

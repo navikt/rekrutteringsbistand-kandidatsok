@@ -1,4 +1,3 @@
-import React from 'react';
 import Arbeidserfaring from './Arbeidserfaring';
 import Filtergruppe from './Filtergruppe';
 import Fritekstsøk from './Fritekstsøk';

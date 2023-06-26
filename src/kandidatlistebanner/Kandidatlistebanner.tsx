@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import { CoApplicant as KandidatlisteIkon, Office1 as StillingIkon } from '@navikt/ds-icons';
+import { Buldings2Icon, PersonGroupIcon } from '@navikt/aksel-icons';
 import { lenkeTilKandidatliste, lenkeTilStilling } from '../utils';
 import { KontekstAvKandidatlisteEllerStilling } from '../hooks/useKontekstAvKandidatlisteEllerStilling';
 import useSøkekriterierFraStilling from '../hooks/useSøkekriterierFraStilling';
@@ -40,12 +40,12 @@ const Kandidatlistebanner: FunctionComponent<Props> = ({ kontekst }) => {
                             className="navds-link"
                             to={lenkeTilStilling(kandidatliste.data.stillingId)}
                         >
-                            <StillingIkon />
+                            <Buldings2Icon />
                             Se stilling
                         </Link>
                     )}
                     <Link className="navds-link" to={lenkeTilKandidatliste(kandidatlisteId)}>
-                        <KandidatlisteIkon />
+                        <PersonGroupIcon />
                         Se kandidatliste
                     </Link>
                 </div>
